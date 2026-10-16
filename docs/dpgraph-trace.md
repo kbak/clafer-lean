@@ -2,7 +2,8 @@
 
 Follow [the Lean trace convention](traceability.md): these are named Markdown
 artifacts; their evidence is the linked Lean declarations, not inline Lean tags.
-The [source map](SOURCES.md) records the meaning of SoSyM B.4 Definitions 6–10.
+The [source map](SOURCES.md) records SoSyM B.4 Definitions 6–10 and the
+abstract restriction argument of B.5 Theorem 3.
 All declaration names below are relative to `DPGraph`, except the
 carrier/declaration structure itself, `DPGraph`.
 
@@ -121,3 +122,103 @@ unsafe/partial declarations, incomplete imports and an empty audit.
 
 Covers:
 - `req~lean-validation~1`
+
+## Fixed-signature category implementation
+`impl~dpgraph-category~1`
+
+[Category.lean](../DPGraph/Category.lean): `category` uses the existing `Hom`,
+`Hom.id` and `Hom.comp` directly, at fixed signature and carrier universes.
+[DPGraph.lean](../DPGraph.lean) publicly imports it through `Semantics`.
+
+Covers:
+- `req~dpgraph-category~1`
+
+## Category laws and extensionality
+`proof~dpgraph-category~1`
+
+[Category.lean](../DPGraph/Category.lean): `category` supplies its law fields
+from [Morphism.lean](../DPGraph/Morphism.lean)'s `Hom.id_comp`, `Hom.comp_id`,
+`Hom.comp_assoc`; `Hom.ext` and `Hom.ext_of_obj_map` apply unchanged to category
+arrows. [SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean)'s
+`SemanticsExamples.category_units`, `category_assoc` and `category_ext` exercise
+Mathlib notation and laws with the existing nonidentity maps.
+
+Covers:
+- `req~dpgraph-category~1`
+
+## Interpretation implementation
+`impl~dpgraph-interpretation~1`
+
+[Semantics.lean](../DPGraph/Semantics.lean): `Interpretation.meaning` assigns a
+set of arity diagrams in the chosen semantic graph. `Interpretation.Satisfies`
+uses binding composition and membership; `Interpretation.IsModel` requires all
+declarations. Semantic universes are independent of syntax universes.
+
+Covers:
+- `req~dpgraph-interpretation~1`
+
+## Satisfaction composition proof
+`proof~dpgraph-interpretation~1`
+
+[Semantics.lean](../DPGraph/Semantics.lean): `Interpretation.satisfies_translate`
+proves satisfaction of a translated formula equivalent to satisfaction after
+precomposition, using `Prefunctor.comp_assoc`. It quantifies over arbitrary
+interpretations and graph maps, with no closure/invariance assumptions.
+
+Covers:
+- `req~dpgraph-interpretation~1`
+
+## Model restriction implementation
+`impl~dpgraph-model-reduct~1`
+
+[Semantics.lean](../DPGraph/Semantics.lean): `Interpretation.Model` retains the
+map and its model proof. `Interpretation.reduct` precomposes that map with the
+DP morphism, using `isModel_reduct` for satisfaction. Source, target and semantic
+graph universes may differ.
+
+Covers:
+- `req~dpgraph-model-reduct~1`
+
+## Model restriction proofs
+`proof~dpgraph-model-reduct~1`
+
+[Semantics.lean](../DPGraph/Semantics.lean): `Interpretation.isModel_reduct`
+uses `Hom.preserves`, target-model satisfaction and `satisfies_translate` to prove
+the B.5 reduct direction. `reduct_val`, `reduct_id` and `reduct_comp` identify the
+underlying map and prove the identity and contravariant composition laws, using
+subtype extensionality and the prefunctor laws. No additional semantic axiom is
+assumed, and whole-model reflection is not asserted.
+
+Covers:
+- `req~dpgraph-model-reduct~1`
+
+## Interpreted example constructions
+`impl~dpgraph-semantics-examples~1`
+
+[SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean), all under
+`SemanticsExamples`: `equalArrows` interprets the nonempty `Examples.signature`
+by equality of the two parallel-arrow images. `targetModel`, `restrictedModel`
+and `finalModel` retain maps satisfying nonempty declaration sets. `inclusion`
+adds a declaration on the same carrier. `LargeVertex`, `largeQuiver`, `largeGraph`
+and `liftDiagram` lift the example's vertices and arrows to `Type 1`;
+`largeEqualArrows` and `largeTargetModel` interpret the original small syntax there.
+
+Covers:
+- `req~dpgraph-semantics-examples~1`
+
+## Interpreted example proofs
+`proof~dpgraph-semantics-examples~1`
+
+[SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean), all under
+`SemanticsExamples`: `collapse_satisfies` and `identity_fails` prove that the
+meaning has satisfying and failing diagrams. `restricted_map` and
+`restricted_is_model` identify the nonidentity model reduct. `category_reduct_id`
+and `category_reduct_comp` exercise its laws. `identity_not_source_model`,
+together with `targetModel`, shows why bare graph maps do not suffice;
+`model_not_reflected` disproves whole-model reflection even along a DP morphism.
+`large_reduct_map` exercises restriction into larger semantic universes and
+`large_identity_fails` checks that the larger interpretation is also nontrivial.
+The existing `Examples.source_nonempty` establishes nonempty declarations.
+
+Covers:
+- `req~dpgraph-semantics-examples~1`

@@ -17,11 +17,23 @@ public meta import Lean.Elab.Command
 #check DPGraph.Hom.id_comp
 #check DPGraph.Hom.comp_id
 #check DPGraph.Hom.comp_assoc
+#check DPGraph.category
+#check DPGraph.Interpretation
+#check DPGraph.Interpretation.Satisfies
+#check DPGraph.Interpretation.satisfies_translate
+#check DPGraph.Interpretation.IsModel
+#check DPGraph.Interpretation.isModel_reduct
+#check DPGraph.Interpretation.Model
+#check DPGraph.Interpretation.reduct
+#check DPGraph.Interpretation.reduct_id
+#check DPGraph.Interpretation.reduct_comp
+
+example (σ : DPGraph.Signature) : CategoryTheory.Category (DPGraph σ) := inferInstance
 
 open Lean in
 run_cmd do
   let env ← getEnv
   for name in env.header.moduleNames do
     if (`FormalCD).isPrefixOf name || (`Clafer).isPrefixOf name ||
-        (`DPGraph.Examples).isPrefixOf name then
+        (`DPGraph.Examples).isPrefixOf name || (`DPGraph.SemanticsExamples).isPrefixOf name then
       throwError "independent DPGraph entrypoint imported {name}"

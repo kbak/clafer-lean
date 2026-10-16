@@ -7,14 +7,18 @@ Develop a Lean 4 formalization grounded in the 2014 SoSyM paper. The repository
 `kbak/clafer-lean` contains one Lake package, `clafer`, with sibling public roots
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
 `Clafer -> FormalCD -> DPGraph -> Mathlib`: independently reusable foundations
-support structural 2014 Clafer as their application. DPGraph supplies graphs, typed diagram
-predicates and declaration-preserving maps; FormalCD will supply formal class
-diagrams independently of Clafer. Abstract mathematical semantics remain in scope
-for later, separately reviewed increments.
+support structural 2014 Clafer as their application. DPGraph supplies graphs,
+typed diagram predicates, a fixed-signature category and abstract model
+restriction; FormalCD will supply formal class diagrams independently of Clafer.
+Concrete predicate and span semantics remain in scope for later, separately
+reviewed increments.
 
-The delivered mathematical slice is SoSyM Appendix B.4, Definitions 6–10.
-FormalCD and Clafer have public entrypoint scaffolding only; predicate semantics,
-SetMap and Theorem 3 remain undelivered. The [architecture](ARCHITECTURE.md)
+The delivered mathematical slice is SoSyM Appendix B.4, Definitions 6–10,
+with a fixed-signature category and the abstract model reduct of B.5 Theorem 3.
+Interpretations select satisfying arity diagrams in a chosen semantic graph;
+models restrict contravariantly along declaration-preserving maps. FormalCD and
+Clafer have public entrypoint scaffolding only. Concrete span predicates and
+SetMap remain undelivered. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
 [source citations and open questions](SOURCES.md), and
 [Lean definitions and proofs](dpgraph-trace.md) describe the current promises.
