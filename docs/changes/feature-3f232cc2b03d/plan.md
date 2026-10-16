@@ -111,3 +111,28 @@ FormalCD and Clafer remain future independent upper layers. FormalCD will add vo
   then obtain a new independent review using the retained guidance. Keep all
   supplemental results outside invocation directories and leave publication
   and ticket updates to the coordinator.
+
+## Current-base repair validation
+
+- Repair starting HEAD: `51534de7c608ab749b929d549a46728f11fffaba`.
+  It already incorporates the supplied current review base
+  `4c6d03c5022b5f5f762cae4a6459bbe73c76a477`, including the checkout action
+  update, with no unresolved conflicts. Use this exact base for fresh feedback
+  and verification; the original planning base remains recorded above and in
+  the unchanged accepted package.
+- Rechecked the retained definitions, laws, positive/negative examples, named
+  trace artifacts and validation script against the approved requirements.
+  No CI diagnostics were supplied with this repair request, so identify any
+  remaining failure through the full configured check before changing code.
+- Preserve the existing branch, exact scope bytes, accepted documents, Lean and
+  Mathlib pins, and all validation stages. The pinned guidance is available
+  locally and its 168 files match the recorded provenance. Finish this record
+  before invoking the required feedback wrapper; keep the fresh bundle intact
+  and supplemental results outside its invocation directory. Independent
+  review and publication remain coordinator gates.
+- The first fresh check passed trace coverage but stopped before compilation
+  because the release metadata endpoint returned HTTP 403. Provisioned the
+  official Lean v4.35.0 archive outside the repository, verified its published
+  SHA-256, and registered it with elan under the existing exact toolchain name.
+  The profile's normal install command now recognizes that toolchain. Retain
+  the failed bundle and rerun the complete check; no check or policy is bypassed.

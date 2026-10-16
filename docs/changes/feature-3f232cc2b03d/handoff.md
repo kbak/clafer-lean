@@ -55,7 +55,10 @@ and existing Python tests. The audit permits only `propext`, `Classical.choice`
 and `Quot.sound`, printing actual dependencies and rejecting new assumptions and
 unsafe/partial project declarations. These standard axioms are not new domain
 assumptions. Full feedback bundles and source verification are retained outside
-the repository with the original exact base. Command-level evidence does not
+the repository with the exact base selected for each handoff. The current repair
+uses `4c6d03c5022b5f5f762cae4a6459bbe73c76a477`; the original planning base remains
+in the accepted package. The current base's checkout-action update is incorporated
+without conflicts. Command-level evidence does not
 associate each theorem with an independently executed test artifact.
 
 The retention repair changes evidence handling only: fresh invocation directories
