@@ -75,3 +75,22 @@ FormalCD and Clafer remain future independent upper layers. FormalCD will add vo
   Current validation uses the supplied factory wrapper and its official Mathlib
   cache provisioning; the earlier local cache experiment is not reused.
   Retain fresh check and worktree-verification evidence outside the repository.
+
+## Evidence-retention repair
+
+- Repair starting HEAD: `eb5ab471e896fd7b62ab2b4f6a64d80257aec2e0`; retain
+  review base `43d7f3fc326201c68a5da24bdd8aa613794d1d0d`, the accepted package,
+  frozen scope and mathematical implementation. The recorded failure rejected
+  an extra `impact.json` in an invocation directory; it does not authorize a
+  semantic change.
+- Revise step 6's evidence handling: create fresh checks only through the supplied
+  wrapper. Leave each invocation with its generated `invocation.json`,
+  `checker.log` and untouched `evidence/` bundle. Store impact, verification and
+  independent-review reports separately, outside invocation directories. Preserve
+  historical inputs. Exercise the retention routine on the fresh bundle using a
+  separate scratch destination to check the failure directly.
+- Finish these documents before validation, rerun the full configured check and
+  source verification, and obtain a fresh independent review of the retained
+  change. Earlier validation and implementation summaries remain reported work;
+  current external evidence supplies the new results. Coordinator publication
+  and ticket gates remain as described in step 7.

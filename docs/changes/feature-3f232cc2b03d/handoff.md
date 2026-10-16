@@ -58,6 +58,14 @@ assumptions. Full feedback bundles and source verification are retained outside
 the repository with the original exact base. Command-level evidence does not
 associate each theorem with an independently executed test artifact.
 
+The retention repair changes evidence handling only: fresh invocation directories
+contain the wrapper's receipt, log and portable evidence bundle. Supplemental
+impact, verification and review reports stay outside those directories. The
+recorded unexpected-artifact failure is checked by replaying retention into a
+separate scratch destination. Current validation, source verification and an
+independent review must accompany the handoff; prior summaries do not supply
+those results. The approved requirements and Lean implementation are preserved.
+
 Automation, including an IntentBond exit 4, is not semantic approval. Independent
 review must assess Definitions 6–10, all positive/negative witness statements,
 trace links and the complete change before a draft PR. Publication, acceptance
