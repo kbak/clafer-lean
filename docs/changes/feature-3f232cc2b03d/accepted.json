@@ -1,0 +1,14 @@
+{
+  "acceptance": "Explicit submission of this work package for implementation",
+  "bases": {
+    "clafer-lean": "43d7f3fc326201c68a5da24bdd8aa613794d1d0d"
+  },
+  "schema_version": 1,
+  "sha256": {
+    "intent.md": "268dc70fdbdda842beeb691ae90f9a5da05361cca876d406e6597f168527707d",
+    "plan.md": "1088e176a5363363627734e969034bdce611e66a80934c0685dd0dbf7d267077",
+    "spec.md": "db5d21fc5dcb4c3f0b17ac28451b5975d4a5078a24b33c7a55c7bd9de7b2bdda"
+  },
+  "task": "feature-3f232cc2b03d",
+  "work_package_sha256": "5fc8970485ffcc55f199eff743cafb2353d3b73362190d485e802780062e35d9"
+}

@@ -1,8 +1,9 @@
 # Clafer Lean
 
 Formalizing [Clafer](https://www.clafer.org/)'s semantics in Lean 4.
-This repository currently provides the project and contribution infrastructure;
-the formalization has not started.
+The first proven slice provides reusable DP-graphs from SoSyM Appendix B.4.
+Formal class diagrams and structural 2014 Clafer are subsequent layers; start with
+the [product overview](docs/intent.md).
 
 Install [Lean via elan](https://lean-lang.org/install/), then run:
 
@@ -11,7 +12,11 @@ lake build
 bash scripts/check.sh
 ```
 
-The toolchain is pinned in `lean-toolchain`. The library lives in `ClaferLean/`.
+The repository is `kbak/clafer-lean`; its single Lake package is `clafer`.
+Use `import DPGraph` for the reusable B.4 Definitions 6–10 foundation.
+The sibling public roots follow `Clafer -> FormalCD -> DPGraph -> Mathlib`;
+FormalCD and Clafer currently provide entrypoint scaffolding only.
+The toolchain is pinned in `lean-toolchain`.
 Contributions, including agent work, use [IntentBond](https://github.com/kbak/intentbond);
 see [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
 Planning and tickets live in the [GitHub Project](https://github.com/users/kbak/projects/2).
