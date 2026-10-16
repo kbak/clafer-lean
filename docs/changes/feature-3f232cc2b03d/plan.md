@@ -94,3 +94,20 @@ FormalCD and Clafer remain future independent upper layers. FormalCD will add vo
   change. Earlier validation and implementation summaries remain reported work;
   current external evidence supplies the new results. Coordinator publication
   and ticket gates remain as described in step 7.
+
+## Pinned review-guidance repair
+
+- Repair starting HEAD: `0712c088b9726f5b80f4af492f584ea0c3d57868`; retain
+  the original review base and accepted contract. The recorded blocker concerns
+  unavailable pinned guidance during offline review, not the mathematical code.
+- Revise steps 1 and 6 to use the test profile's retained
+  `review-context/intentbond-a430efa8d82e2a88ed2607bfe838066bb9d73f3c/`
+  source copy. Its skill, relevant references and upstream license are available
+  locally. All 168 source files match the supplied provenance's byte counts,
+  SHA-256 digests and Git blob identities. Supply that location and verification
+  to the independent reviewer; the installed checker remains a separate runtime.
+- Preserve the Lean implementation, requirements, scope and accepted package.
+  Finish this record before fresh wrapper validation and source verification,
+  then obtain a new independent review using the retained guidance. Keep all
+  supplemental results outside invocation directories and leave publication
+  and ticket updates to the coordinator.

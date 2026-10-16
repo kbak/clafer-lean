@@ -66,6 +66,14 @@ separate scratch destination. Current validation, source verification and an
 independent review must accompany the handoff; prior summaries do not supply
 those results. The approved requirements and Lean implementation are preserved.
 
+The offline review prerequisite is now available in the test profile: the exact
+pinned development skill, its reference source and upstream license. The 168
+retained files match their supplied provenance's byte counts, SHA-256 digests and
+Git blob identities. The fresh reviewer must read that copy, with its location
+provided in the external review context. This resolves the missing-guidance
+prerequisite without changing the implementation or substituting the installed
+checker's guidance. Fresh validation and review results remain separate evidence.
+
 Automation, including an IntentBond exit 4, is not semantic approval. Independent
 review must assess Definitions 6–10, all positive/negative witness statements,
 trace links and the complete change before a draft PR. Publication, acceptance
