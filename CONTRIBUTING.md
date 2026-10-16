@@ -28,6 +28,11 @@ ib install-oft
 bash scripts/check.sh
 ```
 
+For quick feedback while editing, run `bash scripts/check.sh --preflight`.
+This checks module discovery and its Python regressions without requiring Lean;
+it does not replace the full check. The full command runs this preflight before
+toolchain/dependency setup and prints elapsed seconds for each validation step.
+
 The shared check discovers every project module, rejects reverse dependencies
 (including through root/helper modules), builds and runs `leanchecker` on each,
 including examples, and generates an `import all` audit from

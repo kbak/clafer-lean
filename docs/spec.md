@@ -18,6 +18,10 @@ the upper layers. Reject uncovered project modules and reverse dependencies,
 testing rejection as well as the permitted graph.
 The shared check command must fail if any
 validation stage fails. This includes the DP-graph definitions, proofs and examples.
+Run module discovery and its Python regressions before toolchain/dependency setup;
+make that preflight available separately for development feedback. Report elapsed
+time for each build, kernel check and test step. Preflight success does not satisfy
+the full validation requirement.
 Audit declarations by their originating project modules, including private and
 generated declarations regardless of namespace, with complete `import all`
 coverage. Reject unsafe/partial definitions, new axioms and transitive axiom
