@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Lean and IntentBond
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+      - name: Install pinned IntentBond and verified OFT
+        run: |
+          python -m pip install -r requirements/intentbond.txt
+          ib install-oft --destination "$RUNNER_TEMP/oft"
+          echo "INTENTBOND_OFT_JAR=$RUNNER_TEMP/oft/openfasttrace-4.9.0.jar" >> "$GITHUB_ENV"
+      # [impl->req~intentbond-workflow~1]
+      - name: Check source, traceability, and Lean
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PUSH_BASE: ${{ github.event.before }}
+        run: |
+          candidate=$(git rev-parse HEAD)
+          baseline=${PR_BASE:-${PUSH_BASE:-$candidate}}
+          if git cat-file -e "$baseline:scope.json" 2>/dev/null; then
+            git show "$baseline:scope.json" > "$RUNNER_TEMP/trusted-scope.json"
+          else
+            echo 'Initial scope adoption: checking candidate baseline; adoption requires PR review.' >> "$GITHUB_STEP_SUMMARY"
+            baseline=$candidate
+            git show "$candidate:scope.json" > "$RUNNER_TEMP/trusted-scope.json"
+          fi
+          set +e
+          ib check --repo "$GITHUB_WORKSPACE" --scope "$RUNNER_TEMP/trusted-scope.json" \
+            --base "$baseline" --candidate "$candidate" --out "$RUNNER_TEMP/intentbond-evidence"
+          result=$?
+          set -e
+          if [ "$result" = 4 ]; then
+            echo 'IntentBond automation passed; semantic review remains required before acceptance.' >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$result" != 0 ]; then
+            exit "$result"
+          fi
+      - name: Retain check evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: intentbond-evidence
+          path: ${{ runner.temp }}/intentbond-evidence/
+          if-no-files-found: warn
+          retention-days: 30

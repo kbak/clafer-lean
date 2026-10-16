@@ -1,0 +1,10 @@
+name = "claferLean"
+version = "0.1.0"
+defaultTargets = ["ClaferLean"]
+
+[leanOptions]
+warningAsError = true
+
+[[lean_lib]]
+name = "ClaferLean"
+globs = ["ClaferLean", "ClaferLean.**"]

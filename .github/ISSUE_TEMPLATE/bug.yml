@@ -1,0 +1,17 @@
+name: Bug or formalization error
+description: Report a reproducible problem or mismatch with the intended semantics.
+labels: [bug]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and expected result
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and source references
+      description: Include the commit, Lean version, minimal example, and relevant paper sections or requirements.
+    validations:
+      required: true
