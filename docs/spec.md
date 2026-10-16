@@ -72,8 +72,14 @@ to the SoSyM publication, free preprint, and maintained Haskell implementation.
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.4 Definitions 6–10
-foundation from future FormalCD/Clafer implementations and keeps private deployment configuration and credentials outside the
-source repository.
+foundation from future FormalCD/Clafer implementations and keeps private deployment
+configuration and credentials outside the source repository. Keep
+[intent](intent.md) as the canonical overview, linking current architecture,
+mathematical explanations, source citations, requirements and trace artifacts.
+Follow the [documentation policy](../AGENTS.md#documentation): change comparisons
+belong in PR descriptions and acceptance/execution evidence in external factory
+artifacts. Retain controller-required historical snapshots and a concise current
+plan until the retention policy permits removal.
 
 Covers:
 - `intent~formalization-foundation~1`

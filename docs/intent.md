@@ -13,16 +13,12 @@ diagrams independently of Clafer. Abstract mathematical semantics remain in scop
 for later, separately reviewed increments.
 
 The delivered mathematical slice is SoSyM Appendix B.4, Definitions 6–10.
-FormalCD and Clafer have public entrypoint scaffolding only. Future FormalCD
-work covers reusable class-diagram vocabulary, reviewed naming/structural
-invariants and Figure 21c self-description
-([#17](https://github.com/kbak/clafer-lean/issues/17),
-[#18](https://github.com/kbak/clafer-lean/issues/18),
-[#19](https://github.com/kbak/clafer-lean/issues/19)). Future Clafer work covers
-resolved syntax, Shapes/MCS and eventual Compile/gluing. Predicate semantics,
-SetMap and Theorem 3 remain undelivered. See the [architecture](ARCHITECTURE.md)
-and [requirements](spec.md); keep subsequent
-work in the [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) and
+FormalCD and Clafer have public entrypoint scaffolding only; predicate semantics,
+SetMap and Theorem 3 remain undelivered. The [architecture](ARCHITECTURE.md)
+explains the mathematics and future layer boundaries; [requirements](spec.md),
+[source citations and open questions](SOURCES.md), and
+[Lean definitions and proofs](dpgraph-trace.md) describe the current promises.
+Track subsequent work in the [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) and
 [design (#13)](https://github.com/kbak/clafer-lean/issues/13).
 
 Exclude instance/object generation, Alloy/SMT/SAT integration, runtime
@@ -39,5 +35,7 @@ Use IntentBond to maintain the relationship between intended outcomes,
 requirements, implementation, and verification evidence as the project evolves.
 Use GitHub issues and a Project for planning and tracking, including IntentMade
 work, so work and outstanding semantic decisions remain visible.
+Follow the [contribution instructions](../CONTRIBUTING.md) and
+[documentation policy](../AGENTS.md#documentation).
 
 Needs: req

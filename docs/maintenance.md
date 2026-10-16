@@ -16,10 +16,9 @@ Before making the repository public:
   imported publication material or upstream code.
 - Decide when to make the Project public, separately from repository visibility.
 
-GitHub rejected branch protection and private vulnerability reporting during
-initial setup under the current private-repository plan. CI and contributor
-instructions are configured, but they cannot enforce protected-branch rules
-until GitHub makes those features available.
+Branch protection and private vulnerability reporting are unavailable under the
+current private-repository plan. CI and contributor instructions alone cannot
+enforce protected-branch rules.
 
 IntentBond updates must update both `requirements/intentbond.txt` and the pinned
 skill link in `AGENTS.md`. Lean updates must update `lean-toolchain` and pass the

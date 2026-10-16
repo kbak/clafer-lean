@@ -66,18 +66,12 @@ commit against that evidence with `ib verify --base BASE_COMMIT --candidate HEAD
 --evidence /path/to/evidence.json`. Use `--allow-pending-review` only when review
 will be enforced before acceptance.
 
-CI runs Lean validation and IntentBond on pull requests and main. For the first
-infrastructure PR, whose base has no scope, CI checks the candidate baseline
-against itself and explicitly leaves adoption to PR review. Later PRs always use
-the base branch's scope; candidate scope edits do not select their own policy.
-The approved public-root migration is the sole explicit exception: CI derives
-`inputs: ["."]` and `review_paths: ["."]` from the exact recognized baseline,
-requires the exact approved migrated bytes, and preserves all other fields and
-the real baseline commit. It retains scope identities alongside check evidence.
-See the [migration record](docs/changes/feature-3f232cc2b03d/approved-follow-up.md).
-When checking that migration locally against the historical baseline, supply
-the independently approved scope using `--scope`; changing candidate policy is
-not authorization. Other proposed scope changes require separate review.
+CI runs Lean validation and IntentBond on pull requests and main. Follow the
+[scope-selection rules](docs/traceability.md#scope-selection) for baseline policy,
+first adoption and the exact public-root expansion. Local checks against the
+historical baseline require the independently approved scope via `--scope`.
+Candidate policy changes cannot authorize themselves; other scope changes
+require separate review.
 
 ## Tickets and pull requests
 
@@ -99,6 +93,8 @@ the Project should agree; link implementation PRs with `Closes #N`.
 
 Use a topic branch, keep changes focused, and explain what changed and how it was
 checked. Include paper references and affected requirement IDs for semantic work.
+Follow the [documentation policy](AGENTS.md#documentation): keep living docs
+current, change comparisons in the PR, and factory evidence outside the repository.
 Use the [Lean trace-link convention](docs/traceability.md) for implementation and
 proof artifacts; the pinned OFT does not import inline `.lean` tags.
 Review must assess whether definitions match the intended semantics and whether

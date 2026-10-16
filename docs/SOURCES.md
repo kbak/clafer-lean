@@ -9,8 +9,8 @@ bounded source; this is not a complete audit of the literature.
 
 *Clafer: unifying class and feature modeling*, 2014 SoSyM author preprint,
 [PDF](https://gsd.uwaterloo.ca/sites/default/files/2014-Bak-Clafer-Unifying-Class-Feature-Modeling%28SOSYM%29.pdf),
-[DOI](https://doi.org/10.1007/s10270-014-0441-1). The accepted source audit inspected
-34 pages with SHA-256
+[DOI](https://doi.org/10.1007/s10270-014-0441-1). The inspected source is the
+34-page preprint with SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
 Appendix B.4 Definitions 6–10 suffice for this slice:
 
@@ -39,7 +39,7 @@ Mathlib's Apache-2.0 license was checked; it is consumed as a pinned dependency,
 without vendoring its source. Paper definitions are independently formalized with
 citations; publication text and figures are not reproduced.
 
-The accepted audit also inspected author-uploaded Diskin & Wolter (2008),
+The supporting comparison uses the inspected author-uploaded Diskin & Wolter (2008),
 [DOI 10.1016/j.entcs.2008.10.041](https://doi.org/10.1016/j.entcs.2008.10.041),
 §4.1 Definitions 4.1–4.5. Its signatures add dependency arrows and closure.
 Those additions are deliberately absent from this SoSyM slice. Full 2003/2000

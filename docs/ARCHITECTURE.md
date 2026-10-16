@@ -13,12 +13,14 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 | FormalCD | Independently reusable class-diagram vocabulary and reviewed naming/structural invariants; builds on DPGraph | [Entrypoint scaffold](../FormalCD.lean) only; future self-description aims at Figure 21c ([#17](https://github.com/kbak/clafer-lean/issues/17), [#18](https://github.com/kbak/clafer-lean/issues/18), [#19](https://github.com/kbak/clafer-lean/issues/19)) |
 | Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Entrypoint scaffold](../Clafer.lean) only; name resolution and constraint meaning require review |
 
-`Signature.lean` uses `CategoryTheory.Quiv.{arrowUniverse, vertexUniverse}` for
-arity graphs; `Formula.lean` binds each symbol by a `Prefunctor` from that arity.
-`Basic.lean` pairs a carrier with a `Set` of formulas. `Morphism.lean` supplies
+[Signature.lean](../DPGraph/Signature.lean) uses
+`CategoryTheory.Quiv.{arrowUniverse, vertexUniverse}` for arity graphs;
+[Formula.lean](../DPGraph/Formula.lean) binds each symbol by a `Prefunctor` from
+that arity. [Basic.lean](../DPGraph/Basic.lean) pairs a carrier with a `Set` of
+formulas. [Morphism.lean](../DPGraph/Morphism.lean) supplies
 preservation proofs, identity, composition, extensionality and laws. The signature
 is fixed throughout these operations; arities and each carrier can occupy distinct
-vertex/arrow universes. The separate `Examples.lean` uses finite types locally.
+vertex/arrow universes. [Examples.lean](../DPGraph/Examples.lean) uses finite types locally.
 `import DPGraph` exposes the generic foundation without importing examples or
 upper layers. `DPGraph.Examples` is built and checked separately. Library globs
 and the shared check's discovered module inventory cover all project modules,
@@ -39,6 +41,13 @@ isolated arity vertices and two distinct arity arrows with equal images survive
 the representation; an arrow list alone would lose that information. Declarations
 have no global finiteness, decidable equality or inference-closure requirement.
 No second graph API is introduced.
+
+Translation postcomposes a formula's binding with a graph map, retaining its
+symbol. A DP morphism carries a proof that every translated source declaration
+belongs to the target's declaration set. Identity and composition preserve that
+condition; their laws and the finite positive/negative witnesses are linked in
+the [trace artifacts](dpgraph-trace.md). These are statements about typed syntax
+and declared-formula preservation; predicate interpretations require later work.
 
 A fixed-signature Category instance, predicate interpretations, SetMap, Theorem 3,
 span operations, and computable finite presentations are later increments. The

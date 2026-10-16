@@ -5,15 +5,8 @@ and artifacts, but OpenFastTrace 4.9.0 does not import `.lean` source tags.
 Do not put OFT coverage annotations directly in Lean files and assume they are
 checked. Lean files remain in `scope.json`: their contents are captured, their
 modules are built and kernel checked, and their changes require review.
-The layout-independent `inputs: ["."]` and `review_paths: ["."]` cover both
-historical and sibling-root layouts. The approved expansion and exact original/
-migrated identities are retained in the
-[follow-up record](changes/feature-3f232cc2b03d/approved-follow-up.md).
-CI's [scope selection](../scripts/ci_scope.py) derives only that expansion from
-the baseline; [regressions](../tests/test_ci_scope.py) reject other changes.
-Specification/test paths, coverage floors, revision/skipped-test policy, command
-and timeout remain baseline obligations. A migration never selects the candidate
-as its own baseline. Frozen task records retain their historical paths.
+
+## Lean artifacts
 
 Until native Lean tag support is adopted, declare named implementation and proof
 artifacts in Markdown under `docs/`, beside explicit links to the corresponding
@@ -42,3 +35,30 @@ link nor an artifact named `proof` establishes the theorem; Lean checks the
 declaration, and review assesses whether its statement matches the requirement
 and the cited paper. Command-level evidence records the configured check's
 result; it does not associate individual theorem executions with artifacts.
+
+## Scope selection
+
+[CI](../.github/workflows/ci.yml) selects the PR base (or the previous commit for
+pushes) and uses its scope. If that base has no scope, the initial-adoption check
+uses the candidate as baseline and explicitly leaves adoption to PR review.
+
+With an existing scope, [ci_scope.py](../scripts/ci_scope.py) accepts identical
+baseline/candidate bytes, or the exact recognized public-root expansion. For
+that expansion it derives `inputs: ["."]` and `review_paths: ["."]` from the
+recognized historical baseline, requires the pinned resulting bytes, and retains
+the actual Git baseline. These layout-independent paths capture both historical
+and sibling-root sources. Specification/test paths, coverage floors,
+revision/skipped-test policy, command and timeout remain baseline obligations.
+For scope changes, unknown baselines, partial migrations, reversions and unrelated
+policy edits are rejected by the selector and exercised in
+[regression tests](../tests/test_ci_scope.py).
+Candidate policy changes cannot authorize themselves; other changes need separate
+review. Local checks against the historical baseline use the independently
+approved expanded scope via `--scope`.
+
+CI retains baseline, candidate and selected scope byte identities, canonical
+policy identities and the transformation alongside check evidence. Byte hashes
+identify exact files; canonical policy hashes identify parsed policy values.
+Authorization history belongs in PR context and external factory evidence.
+Frozen task snapshots retain historical paths and are not current architecture
+or scope-selection guidance.

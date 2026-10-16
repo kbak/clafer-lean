@@ -1,204 +1,43 @@
-# Implementation plan for #14
+# Documentation maintenance plan
 
-## Current order and files
+The delivered foundation and future layer boundaries are described in the
+[canonical intent](../../intent.md), [architecture](../../ARCHITECTURE.md),
+[requirements](../../spec.md), [source map](../../SOURCES.md) and
+[Lean trace artifacts](../../dpgraph-trace.md).
 
-The [approved follow-up](approved-follow-up.md) supersedes the historical
-packaging/namespacing steps. Definitions, universes, hypotheses, proofs and
-examples remain the delivered B.4 Definitions 6–10 slice.
+## Steps
 
-1. Capture starting PR head `23b1647af679a06130bfb83ca5fb613c81e5de12` and retain
-   the task branch, original base `43d7f3fc326201c68a5da24bdd8aa613794d1d0d`,
-   current review base `4c6d03c5022b5f5f762cae4a6459bbe73c76a477`, accepted
-   records and reviewed checkout-action maintenance. Read the pinned IntentBond
-   guidance from the provisioned, provenance-checked offline source copy.
-2. Rename the Lake package to `clafer`; move the five mathematical modules to
-   `DPGraph/` and expose `DPGraph.lean`. Remove the old namespace prefix, preserving
-   mathematical text after that normalization. Remove the empty old scaffold.
-   Add public `FormalCD.lean` and `Clafer.lean` scaffolds with dependency imports
-   only. Retain Lean v4.35.0 and the exact Mathlib manifest dependencies.
-3. Discover every project module in `scripts/project_modules.py`. Enforce
-   `Clafer -> FormalCD -> DPGraph -> Mathlib`, including root/helper edges;
-   reject unowned modules, cycles and incomplete library globs. Feed that same
-   inventory to builds, leanchecker and the generated import-all audit, selecting
-   declarations by originating module rather than namespace. Exercise independent
-   public names, future unimported modules, rejection paths and private/generated
-   audit declarations in the tests. Run every Lean test and Python test.
-4. Migrate only `inputs` and `review_paths` to `["."]`, matching the externally
-   approved scope. CI derives exactly that migration from the recognized baseline,
-   validates pinned original/migrated byte identities, and retains the real Git
-   baseline and scope selection record. Tests reject other policy changes.
-   Keep all baseline obligations, timeouts and failure behavior.
-5. Update living guidance, intent, architecture, requirements, trace artifacts,
-   README and contribution instructions together. Preserve OFT IDs/revisions.
-   Explain future FormalCD #17–#19 and Clafer boundaries without adding semantics.
-6. Finish candidate documents, compare all five moved mathematical modules to the
-   starting PR head, and run the supplied feedback wrapper with the trusted scope
-   and current review base. Retain complete bundles outside the repository and
-   keep supplemental impact/verification/review results outside invocation folders.
-   Read `ib impact` and review changes; repair failures and rerun on changed source.
-7. Update handoff.md/json with identities, mapping, obligations, validation limits
-   and coordinator ticket updates. Leave changes uncommitted as required by the
-   implementation workflow. The parent repeats configured tests, independent
-   code/security, intent and traceability review, verifies the exported commit,
-   and updates existing PR #25 only after its gates pass. No merge, ready-state
-   change, second PR or deployment. Keep affected tickets open pending acceptance.
+1. Consolidate living documentation around those sources and the
+   [contribution instructions](../../../CONTRIBUTING.md). Apply the durable
+   [documentation policy](../../../AGENTS.md#documentation) to future work.
+2. Remove redundant approval and handoff reports, keeping unique current
+   explanations in living docs and change comparisons in the PR description.
+   Preserve controller-required historical intent/spec/acceptance snapshots
+   unchanged and retain this concise plan; their removal awaits a retention-policy
+   change.
+3. Audit maintained file and anchor links, including this plan; report historical
+   snapshot exceptions separately. Explain current
+   [scope-selection rules](../../traceability.md#scope-selection) without duplicating
+   authorization history.
+4. Compare the complete cleanup against its starting PR head, proving all Lean,
+   validation, dependency, policy and frozen snapshot bytes unchanged. Run the
+   configured captured check with the supplied trusted scope and review base;
+   inspect impact and pending review requirements. Keep full check evidence and
+   supplemental results outside the repository and separate from invocation bundles.
+5. Obtain independent code/security, intent and traceability review of the full PR
+   diff. Verify the exported commit against fresh evidence before the coordinator
+   updates the existing PR. Keep the implementation issue open and In Progress
+   pending acceptance and merge.
 
-These revised steps replace the fixed umbrella import/audit list and explicit
-path scope because sibling libraries need complete, layout-independent coverage.
-The approved expansion is a review obligation, not candidate authorization of policy.
+These steps replace the implementation diary with documentation maintenance and
+verification; the mathematical scope and validation obligations are unchanged.
 
-## Source/design facts to retain
+## Risks and verification
 
-The authority for this increment is SoSyM B.4 Definitions 6–10. The paper defines signature symbols with graph arities, formulas as a predicate plus an arity-to-carrier graph map, declarations as a set, and DP morphisms by declared-formula preservation. This does not require signature dependencies or closure. Diskin & Wolter (2008), DOI 10.1016/j.entcs.2008.10.041, §4.1 Definitions 4.1–4.5 adds dependency arrows and closure: document that difference instead of importing it accidentally. The author-uploaded full text was inspected for this comparison.
-
-Mathlib pinned sources:
-- https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/Combinatorics/Quiver/Basic.lean
-- https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/Combinatorics/Quiver/Prefunctor.lean
-- https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/CategoryTheory/Category/Quiv.lean
-
-Prefunctor supplies id, comp, id_comp, comp_id, comp_assoc and extensionality. Quiv bundles graph values. Reuse them. Quiver arrows are Type-valued, not propositions, so parallel arrows remain distinct. Explain total edges via Sigma endpoints without developing a second competing graph API. Using finite Set/Finset presentations and computable transformations is later work; avoid forcing decidable equality onto the arbitrary core.
-
-FormalCD and Clafer remain future independent upper layers. FormalCD will add vocabulary and reviewed naming/structural invariants; the self-description target is a well-formed value representing Figure 21c. Clafer will use resolved syntax, Shapes/MCS and eventually Compile/gluing, with name resolution and constraint meaning made explicit. These are roadmap direction, not definitions or theorems to implement now.
-
-## Risks and checks
-
-- Dependent morphism/formula extensionality and universe inference: use explicit universe bounds and existing extensionality lemmas; do not collapse all types to Type 0 to make examples compile.
-- Mathlib build footprint: verify the compatible pin and normal cache support. Preserve leanchecker and factory timeouts; report infrastructure limitations instead of silently reducing verification.
-- Noninjectivity: graph maps may merge arrows; no injectivity assumption belongs in the generic morphism.
-- Syntax vs meaning: proofs of declaration preservation must not be described as interpretation or semantic-equivalence proofs.
-- Source ambiguities: preserve the listed open questions; they do not affect B.4. A newly found ambiguity affecting this slice requires a concrete maintainer decision, not an invented semantics.
-- Traceability: named Markdown proof artifacts link checked Lean declarations. Coverage is not evidence that the theorem formalizes the right claim; independent review checks correspondence.
-
-
-## Historical implementation and maintenance record
-
-The records below describe earlier runs and their historical layouts. Current
-work follows the steps above; earlier results do not attest to the new candidate.
-
-### Original implementation
-
-- Review base: `43d7f3fc326201c68a5da24bdd8aa613794d1d0d`; starting worktree HEAD:
-  `eff3fc5f7fb19879a1a06943e74c7357b2c1d40e`. The existing factory task branch
-  and accepted intent/spec/accepted.json are retained. Scope bytes match the
-  supplied SHA-256 `4a706e10262528a94a097a84dd8813c0dd9265eaa1f87c55cb77d01ab928ce7f`.
-- Read the pinned IntentBond skill and relevant references from its exact source
-  revision; use the factory-provided check wrapper for retained feedback bundles.
-- Mathlib's release tag resolves to the accepted commit and matches Lean v4.35.0.
-  The manifest pins all transitive dependencies. Normal elan provisioning hit a
-  release metadata network restriction; the same official Lean release archive
-  was installed after checking its GitHub-published SHA-256. Mathlib cache access
-  is blocked by network policy, so dependencies were built from source and packed
-  using Mathlib's normal local cache command. Cold source compilation approached
-  the configured check budget; the shared check now attempts the targeted cache
-  before building, with source compilation as fallback. Kernel checking still
-  runs in full and no timeout or coverage policy is changed.
-- The modules use Lean 4.35 public/exposed declarations, matching Mathlib's module system without disabling warnings. Core and finite witnesses follow B.4 Definitions 6–10. No Category instance or
-  predicate semantics is added. The implementation uses five focused modules;
-  this grouping avoids an unnecessary wrapper around Mathlib graphs.
-- Add a declaration/axiom audit to the shared check, retaining the existing
-  build, warnings-as-errors, leanchecker and Python tests. It checks all project
-  declarations, including generated ones, and reports standard logical axioms
-  separately from new assumptions.
-- GitHub issue listing failed with HTTP 401. The worker has no coordinator
-  credential access; proposed status/comments are retained in handoff.md.
-  Existing #14 is the implementation ticket; no duplicate issue is proposed.
-- Local compilation and leanchecker pass for the independent core and examples. The axiom audit
-  checks 161 project declarations, including private/generated declarations, and
-  reports only propext, Classical.choice and Quot.sound; no new assumptions.
-- Full captured validation and source verification must follow the completed
-  candidate. Independent review and publication remain parent workflow gates.
-  These workflow adjustments do not change the approved mathematical scope.
-- Resumed from retained implementation HEAD
-  `e48ed8bfb84d1db848c1e533d1bac2b712522a5f`, preserving the original review base,
-  task branch and frozen scope. Rechecked the accepted intent/spec hashes and
-  reviewed the complete change, including actual Lean statements and trace links.
-  The factory package's skill differs from the repository pin, so the exact
-  pinned skill and relevant reference differences were read from upstream.
-  Current validation uses the supplied factory wrapper and its official Mathlib
-  cache provisioning; the earlier local cache experiment is not reused.
-  Retain fresh check and worktree-verification evidence outside the repository.
-
-## Evidence-retention repair
-
-- Repair starting HEAD: `eb5ab471e896fd7b62ab2b4f6a64d80257aec2e0`; retain
-  review base `43d7f3fc326201c68a5da24bdd8aa613794d1d0d`, the accepted package,
-  frozen scope and mathematical implementation. The recorded failure rejected
-  an extra `impact.json` in an invocation directory; it does not authorize a
-  semantic change.
-- Revise step 6's evidence handling: create fresh checks only through the supplied
-  wrapper. Leave each invocation with its generated `invocation.json`,
-  `checker.log` and untouched `evidence/` bundle. Store impact, verification and
-  independent-review reports separately, outside invocation directories. Preserve
-  historical inputs. Exercise the retention routine on the fresh bundle using a
-  separate scratch destination to check the failure directly.
-- Finish these documents before validation, rerun the full configured check and
-  source verification, and obtain a fresh independent review of the retained
-  change. Earlier validation and implementation summaries remain reported work;
-  current external evidence supplies the new results. Coordinator publication
-  and ticket gates remain as described in step 7.
-
-## Pinned review-guidance repair
-
-- Repair starting HEAD: `0712c088b9726f5b80f4af492f584ea0c3d57868`; retain
-  the original review base and accepted contract. The recorded blocker concerns
-  unavailable pinned guidance during offline review, not the mathematical code.
-- Revise steps 1 and 6 to use the test profile's retained
-  `review-context/intentbond-a430efa8d82e2a88ed2607bfe838066bb9d73f3c/`
-  source copy. Its skill, relevant references and upstream license are available
-  locally. All 168 source files match the supplied provenance's byte counts,
-  SHA-256 digests and Git blob identities. Supply that location and verification
-  to the independent reviewer; the installed checker remains a separate runtime.
-- Preserve the Lean implementation, requirements, scope and accepted package.
-  Finish this record before fresh wrapper validation and source verification,
-  then obtain a new independent review using the retained guidance. Keep all
-  supplemental results outside invocation directories and leave publication
-  and ticket updates to the coordinator.
-
-## Current-base repair validation
-
-- Repair starting HEAD: `51534de7c608ab749b929d549a46728f11fffaba`.
-  It already incorporates the supplied current review base
-  `4c6d03c5022b5f5f762cae4a6459bbe73c76a477`, including the checkout action
-  update, with no unresolved conflicts. Use this exact base for fresh feedback
-  and verification; the original planning base remains recorded above and in
-  the unchanged accepted package.
-- Rechecked the retained definitions, laws, positive/negative examples, named
-  trace artifacts and validation script against the approved requirements.
-  No CI diagnostics were supplied with this repair request, so identify any
-  remaining failure through the full configured check before changing code.
-- Preserve the existing branch, exact scope bytes, accepted documents, Lean and
-  Mathlib pins, and all validation stages. The pinned guidance is available
-  locally and its 168 files match the recorded provenance. Finish this record
-  before invoking the required feedback wrapper; keep the fresh bundle intact
-  and supplemental results outside its invocation directory. Independent
-  review and publication remain coordinator gates.
-- The first fresh check passed trace coverage but stopped before compilation
-  because the release metadata endpoint returned HTTP 403. Provisioned the
-  official Lean v4.35.0 archive outside the repository, verified its published
-  SHA-256, and registered it with elan under the existing exact toolchain name.
-  The profile's normal install command now recognizes that toolchain. Retain
-  the failed bundle and rerun the complete check; no check or policy is bypassed.
-
-## Public-root validation record
-
-- All five moved mathematical files equal the starting PR source after removing
-  only the old namespace/import prefix (and its enclosing namespace in Basic).
-  Frozen intent/spec/accepted.json, Lean pin and manifest dependency entries match
-  the starting PR head. Live Markdown source links resolve. Local dependency and
-  scope regression tests pass (14 cases).
-- The first captured check passed baseline/candidate trace coverage but failed
-  before compilation: elan could not parse the release metadata response.
-  Retain the failure and provision the official Lean v4.35.0 archive outside the
-  repository with its published SHA-256 checked, as in the prior maintenance.
-  Register it under the unchanged exact toolchain name, then rerun the full
-  wrapper check. Do not bypass any validation stage or change a timeout.
-- The repository ticket helper again returned HTTP 401 on issue listing.
-  Coordinator updates remain in handoff.md/json; no credentials enter the worker.
-- The second captured run obtained the official targeted Mathlib cache and
-  compiled all six DPGraph modules, then failed because Lake's recursive glob
-  requires the empty FormalCD/Clafer directories. Added tracked directory markers
-  and an early missing-directory regression; no mathematical declarations were
-  added. The audit's isolated fixtures exposed its reliance on transitively
-  available elaborator imports; the harness now imports its meta dependencies
-  explicitly. All 27 Python tests, including actual Lean audit rejection cases,
-  pass locally. Rerun the complete captured check for the finished candidate.
+- Preserve graph-map, universe, declaration-preservation and syntax/meaning
+  explanations, source identities, open semantic questions and every OFT ID,
+  revision and Needs/Covers obligation.
+- Follow the [Lean trace convention](../../traceability.md): coverage links and
+  passing builds do not establish correspondence with the cited mathematics.
+- IntentBond exit 4 means automation passed with semantic review pending.
+  Source verification and independent review remain required before publication.
