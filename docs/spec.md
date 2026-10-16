@@ -1,8 +1,9 @@
 # Foundation and DP-graph requirements
 
 These requirements cover the repository infrastructure and the delivered
-DP-graph slice. FormalCD, structural Clafer and predicate semantics remain later
-work; future definitions and theorems need scoped requirements and source links.
+DP-graph category and abstract model reduct. FormalCD, structural Clafer and
+concrete predicate semantics remain later work; future definitions and theorems
+need scoped requirements and source links.
 
 ## Reproducible Lean validation
 `req~lean-validation~1`
@@ -72,7 +73,8 @@ to the SoSyM publication, free preprint, and maintained Haskell implementation.
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.4 Definitions 6–10
-foundation from future FormalCD/Clafer implementations and keeps private deployment
+foundation and abstract B.5 model reduct from future concrete semantics and
+FormalCD/Clafer implementations and keeps private deployment
 configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
@@ -145,6 +147,78 @@ that it cannot be equipped with a DP preservation proof. All these examples must
 compile independently of FormalCD/Clafer. Their syntax-only predicate names carry
 no unproved meaning; they do not implement SetMap or Theorem 3. Finiteness is
 local to these examples, not a restriction on the core.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Fixed-signature category
+`req~dpgraph-category~1`
+
+For each signature and fixed carrier vertex/arrow universes, provide a Mathlib
+`Category` instance on DP-graphs using exactly the existing `Hom`, identity and
+composition from B.4 Definitions 9–10. Reuse their associativity, unit laws and
+extensionality. Keep carrier arrows as arbitrary quiver arrows; the category
+structure concerns maps between DP-graphs. Expose it through `import DPGraph`.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Abstract interpretation and satisfaction
+`req~dpgraph-interpretation~1`
+
+An interpretation for a fixed signature and semantic graph assigns each symbol
+a set of graph maps from its arity to that semantic graph. Derive satisfaction
+of a formula under a carrier-to-semantic-graph map by composing the formula's
+binding with that map and testing membership in the symbol's meaning. Derive
+the model predicate by requiring every declaration to be satisfied.
+Prove the satisfaction condition under translation: for any graph map `F : G → H`,
+formula `φ` on `G` and map `m : H → Ω`, satisfaction of `translate φ F` by `m`
+is equivalent to satisfaction of `φ` by `F ; m`.
+
+Keep semantic vertex and arrow universes independent of signature and carrier
+universes. No concrete span operations, all-universes SetMap object, resizing
+axioms, solver or executable instance generation are included.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Contravariant model reduct
+`req~dpgraph-model-reduct~1`
+
+For a fixed interpretation, a declaration-preserving DP morphism `F : S → T`
+and a `T`-model `m`, prove that precomposition `F ; m` is an `S`-model, the
+abstract form of SoSyM B.5 Theorem 3. Provide restriction on models retaining
+their underlying maps, and prove identity and composition laws:
+`reduct (id S) m = m` and `reduct (F ; J) m = reduct F (reduct J m)`.
+
+State the exact assumptions: a semantic graph, meanings on arity diagrams,
+declaration preservation by `F`, and satisfaction of the target declarations.
+No additional closure/invariance properties of meanings are assumed. Do not
+claim reflection of whole-model satisfaction or preservation by arbitrary graph
+maps, nor concrete SetMap semantics before those interpretations are supplied.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Interpreted witnesses
+`req~dpgraph-semantics-examples~1`
+
+Exercise a nonempty signature and declaration set with an explicit predicate
+meaning that has both satisfying and failing diagrams. Construct a target model
+and its reduct along a nonidentity DP morphism; exercise reduct identity and
+composition through category notation. Exhibit the failure of restriction by a
+bare graph map and the failure of whole-model reflection. Include an example
+with semantic vertex and arrow universes larger than the syntax universes.
+Example meanings are illustrative and do not claim the paper's concrete span
+predicates. Keep all assertions kernel checked.
 
 Covers:
 - `intent~formalization-foundation~1`

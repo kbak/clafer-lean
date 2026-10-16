@@ -2,8 +2,9 @@
 
 The [roadmap/source audit (#2)](https://github.com/kbak/clafer-lean/issues/2) and
 [architecture design (#13)](https://github.com/kbak/clafer-lean/issues/13) remain
-open. [Slice #14](https://github.com/kbak/clafer-lean/issues/14) selects the following
-bounded source; this is not a complete audit of the literature.
+open. [Slice #14](https://github.com/kbak/clafer-lean/issues/14) and the
+[abstract reduct #15](https://github.com/kbak/clafer-lean/issues/15) select the
+following bounded source; this is not a complete audit of the literature.
 
 ## Primary source
 
@@ -12,7 +13,8 @@ bounded source; this is not a complete audit of the literature.
 [DOI](https://doi.org/10.1007/s10270-014-0441-1). The inspected source is the
 34-page preprint with SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
-Appendix B.4 Definitions 6–10 suffice for this slice:
+Appendix B.4 Definitions 6–10 and the abstract restriction argument of B.5
+Theorem 3 ground this slice:
 
 | Source | Lean correspondence |
 | --- | --- |
@@ -20,13 +22,21 @@ Appendix B.4 Definitions 6–10 suffice for this slice:
 | Definition 7, signature | `DPGraph.Signature` |
 | Definition 8, formula | `DPGraph.Formula` |
 | Definition 9, DP-graph | `DPGraph` |
-| Definition 10, DP morphism | `Formula.translate`, `Hom`, `Hom.id`, `Hom.comp` and their laws |
+| Definition 10, DP morphism | `Formula.translate`, `Hom`, `Hom.id`, `Hom.comp`, their laws and `DPGraph.category` |
+| B.5, satisfaction and Theorem 3 | `Interpretation.Satisfies`, `IsModel`, `isModel_reduct`, `Model`, `reduct` and its laws |
 
 The finite arrow-list notation is shorthand, not a generic finiteness restriction.
-Formula arguments are graph maps. Predicate names in examples denote syntax only.
-Theorems here concern translation and declared-formula preservation, not predicate
-interpretations, SetMap or Theorem 3. [Trace artifacts](dpgraph-trace.md) name the
-actual declarations and proofs.
+Formula arguments are graph maps. The structural examples introduce syntax-only
+names; `SemanticsExamples` separately supplies an illustrative interpretation.
+The abstract interface for B.5 takes each symbol's meaning to be a set of its
+arity diagrams in a fixed semantic graph. A formula holds when its binding
+composed with a candidate model belongs to that set. A target model restricts along `F : S → T` because `F` sends every
+source declaration to a target declaration; graph-map associativity identifies
+the two evaluations. This proves the abstract reduct direction of Theorem 3,
+without extra closure or invariance assumptions on predicate meanings. Concrete
+span meanings and SetMap are not implemented. In particular the formula-level
+satisfaction equivalence does not assert whole-model reflection.
+[Trace artifacts](dpgraph-trace.md) name the actual declarations and proofs.
 
 ## Supporting sources and licenses
 
@@ -34,6 +44,7 @@ Mathlib is pinned to [56a005855ea17e0b0958f73ec801ae140b0a1679](https://github.c
 (v4.35.0), with the same Lean v4.35.0 pin. Inspected APIs:
 [Quiver.Basic](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/Combinatorics/Quiver/Basic.lean),
 [Quiver.Prefunctor](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/Combinatorics/Quiver/Prefunctor.lean),
+[Category.Basic](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/CategoryTheory/Category/Basic.lean),
 and [Category.Quiv](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/CategoryTheory/Category/Quiv.lean).
 Mathlib's Apache-2.0 license was checked; it is consumed as a pinned dependency,
 without vendoring its source. Paper definitions are independently formalized with
@@ -52,7 +63,8 @@ commit and check licensing.
 [#4](https://github.com/kbak/clafer-lean/issues/4) covers SoSyM B.1 Definitions
 1–5, Theorems 1–2 and B.2.1–2. The following is a proposed source correction and
 mathematical specification for review, not delivered Lean semantics or acceptance
-of the increment. Existing requirements still cover B.4 Definitions 6–10 only.
+of the increment. The delivered abstract interpretation interface does not select
+span composition or any of these proposed concrete meanings.
 
 ### Source comparison
 
