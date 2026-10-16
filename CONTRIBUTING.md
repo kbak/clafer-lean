@@ -22,6 +22,15 @@ ib install-oft
 bash scripts/check.sh
 ```
 
+The shared check builds every library module, runs `leanchecker`, audits project
+declarations with `tests/axiom_audit.lean`, and runs the Python ticket-helper tests.
+The audit permits only Lean's standard logical axioms (`propext`, `Quot.sound`,
+`Classical.choice`) and reports which are used; it rejects new axioms, unsafe or
+partial project declarations. Mathlib is pinned in the Lake files. The check
+first tries Mathlib's normal cache for the targeted imports, falling back to
+source compilation if the cache is unavailable. Ordinary `lake build` also builds
+from source. Cache availability never waives the build or kernel check.
+
 The installed IntentBond skill is at `intentbond/skills/intentbond/SKILL.md`
 inside the Python package. It can be located with:
 
@@ -74,7 +83,8 @@ Use the [Lean trace-link convention](docs/traceability.md) for implementation an
 proof artifacts; the pinned OFT does not import inline `.lean` tags.
 Review must assess whether definitions match the intended semantics and whether
 proofs establish the stated results; trace coverage and a successful build alone
-do not establish that correspondence. The current scaffold adds no semantics.
+do not establish that correspondence. The current slice adds DP-graph syntax and morphism laws; predicate semantics
+remain future work.
 
 Contributions use the existing [MIT license](LICENSE). Preserve attribution and
 check licenses before incorporating upstream code or publication material.

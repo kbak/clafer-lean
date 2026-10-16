@@ -1,9 +1,13 @@
+module
+
 /-!
 # Clafer Lean
 
-The library namespace for the forthcoming formalization of Clafer's semantics.
-Definitions and proofs will be introduced through separately scoped issues.
+Reusable diagram-predicate graphs are available in `ClaferLean.DPGraph`.
+Formal class diagrams and structural Clafer are subsequent layers.
 -/
+
+@[expose] public section
 
 namespace ClaferLean
 

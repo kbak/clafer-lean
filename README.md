@@ -1,8 +1,9 @@
 # Clafer Lean
 
 Formalizing [Clafer](https://www.clafer.org/)'s semantics in Lean 4.
-This repository currently provides the project and contribution infrastructure;
-the formalization has not started.
+The first proven slice provides reusable DP-graphs from SoSyM Appendix B.4.
+Formal class diagrams and structural 2014 Clafer are subsequent layers; see the
+[architecture](docs/ARCHITECTURE.md) and [source map](docs/SOURCES.md).
 
 Install [Lean via elan](https://lean-lang.org/install/), then run:
 
