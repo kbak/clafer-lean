@@ -1,0 +1,2 @@
+# Canonical entrypoint for dependency-update discovery; pins stay in one file.
+-r intentbond.txt
