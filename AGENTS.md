@@ -13,6 +13,9 @@ Read [intent](docs/intent.md), the affected [requirements](docs/spec.md), and
 affected requirements, source references, implementation, proofs/tests, and trace
 links together. Run `ib check` before handoff and retain its evidence. Exit 4
 means automated checks passed with semantic review pending; it is not approval.
+For Lean definitions and proofs, follow [the Lean trace-link convention](docs/traceability.md).
+The pinned OFT does not import `.lean` tags: declare linked implementation/proof
+artifacts in Markdown and review the actual Lean declarations they reference.
 Do not weaken scope or coverage to make a change pass. Scope changes need explicit
 review in the PR.
 

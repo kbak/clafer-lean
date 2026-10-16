@@ -70,6 +70,8 @@ the Project should agree; link implementation PRs with `Closes #N`.
 
 Use a topic branch, keep changes focused, and explain what changed and how it was
 checked. Include paper references and affected requirement IDs for semantic work.
+Use the [Lean trace-link convention](docs/traceability.md) for implementation and
+proof artifacts; the pinned OFT does not import inline `.lean` tags.
 Review must assess whether definitions match the intended semantics and whether
 proofs establish the stated results; trace coverage and a successful build alone
 do not establish that correspondence. The current scaffold adds no semantics.
