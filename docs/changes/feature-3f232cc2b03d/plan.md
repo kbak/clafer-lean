@@ -1,14 +1,51 @@
 # Implementation plan for #14
 
-## Order and files
+## Current order and files
 
-1. Recheck the captured baseline and selected requirements. Read the repository's required pinned guidance. Confirm the Mathlib commit and Lean compatibility before dependency resolution.
-2. Add Mathlib in lakefile.toml and retain the resolved lake-manifest.json. Preserve default target behavior and warnings-as-errors. Use the normal cache/provisioning mechanism; do not bypass tests on a timeout or download failure.
-3. Implement targeted modules under ClaferLean/DPGraph/: Signature.lean, Formula.lean, Basic.lean, Morphism.lean, and Examples.lean. The representation bridge is documented beside Signature and in ARCHITECTURE.md; no separate Graph API/file is needed. Add ClaferLean/DPGraph.lean as an independent entrypoint and import it from ClaferLean.lean so the existing leanchecker invocation sees the new library. Adapt filenames if a smaller natural grouping is clearer.
-4. Prove laws incrementally and construct the noninjective example, composition example, isolated-node arity and failed-preservation example. Avoid vacuous formula sets as the sole demonstration. The fixed-signature Mathlib Category instance and abstract satisfaction remain the next issue (#15), unless a minimal instance naturally falls out without scope growth.
-5. Update docs/intent.md, docs/spec.md and the brief README status as needed. Add concise docs/SOURCES.md and docs/ARCHITECTURE.md, using the source/decision facts below; add named Lean implementation/proof artifacts in a focused docs file or alongside the source map, following docs/traceability.md. Keep later work linked to issues rather than duplicating the entire backlog.
-6. Inspect the complete change and the axioms of the public theorems. Run ib check against the supplied original baseline; this runs scripts/check.sh including Lake, leanchecker and the existing Python tests. Preserve evidence and run ib verify against the completed worktree; the parent repeats verification against the exported commit. Exit 4 retains review pending. Run the configured independent review and repair bounded findings. A validation failure remains a failure.
-7. Produce handoff.md with source links, requirement changes, validation limits, Closes #14 and coordinator ticket updates. Per factory-implementation, leave changes uncommitted; the parent runs independent review and handles the draft PR after the gates pass. No GitHub credential access in the worker.
+The [approved follow-up](approved-follow-up.md) supersedes the historical
+packaging/namespacing steps. Definitions, universes, hypotheses, proofs and
+examples remain the delivered B.4 Definitions 6–10 slice.
+
+1. Capture starting PR head `23b1647af679a06130bfb83ca5fb613c81e5de12` and retain
+   the task branch, original base `43d7f3fc326201c68a5da24bdd8aa613794d1d0d`,
+   current review base `4c6d03c5022b5f5f762cae4a6459bbe73c76a477`, accepted
+   records and reviewed checkout-action maintenance. Read the pinned IntentBond
+   guidance from the provisioned, provenance-checked offline source copy.
+2. Rename the Lake package to `clafer`; move the five mathematical modules to
+   `DPGraph/` and expose `DPGraph.lean`. Remove the old namespace prefix, preserving
+   mathematical text after that normalization. Remove the empty old scaffold.
+   Add public `FormalCD.lean` and `Clafer.lean` scaffolds with dependency imports
+   only. Retain Lean v4.35.0 and the exact Mathlib manifest dependencies.
+3. Discover every project module in `scripts/project_modules.py`. Enforce
+   `Clafer -> FormalCD -> DPGraph -> Mathlib`, including root/helper edges;
+   reject unowned modules, cycles and incomplete library globs. Feed that same
+   inventory to builds, leanchecker and the generated import-all audit, selecting
+   declarations by originating module rather than namespace. Exercise independent
+   public names, future unimported modules, rejection paths and private/generated
+   audit declarations in the tests. Run every Lean test and Python test.
+4. Migrate only `inputs` and `review_paths` to `["."]`, matching the externally
+   approved scope. CI derives exactly that migration from the recognized baseline,
+   validates pinned original/migrated byte identities, and retains the real Git
+   baseline and scope selection record. Tests reject other policy changes.
+   Keep all baseline obligations, timeouts and failure behavior.
+5. Update living guidance, intent, architecture, requirements, trace artifacts,
+   README and contribution instructions together. Preserve OFT IDs/revisions.
+   Explain future FormalCD #17–#19 and Clafer boundaries without adding semantics.
+6. Finish candidate documents, compare all five moved mathematical modules to the
+   starting PR head, and run the supplied feedback wrapper with the trusted scope
+   and current review base. Retain complete bundles outside the repository and
+   keep supplemental impact/verification/review results outside invocation folders.
+   Read `ib impact` and review changes; repair failures and rerun on changed source.
+7. Update handoff.md/json with identities, mapping, obligations, validation limits
+   and coordinator ticket updates. Leave changes uncommitted as required by the
+   implementation workflow. The parent repeats configured tests, independent
+   code/security, intent and traceability review, verifies the exported commit,
+   and updates existing PR #25 only after its gates pass. No merge, ready-state
+   change, second PR or deployment. Keep affected tickets open pending acceptance.
+
+These revised steps replace the fixed umbrella import/audit list and explicit
+path scope because sibling libraries need complete, layout-independent coverage.
+The approved expansion is a review obligation, not candidate authorization of policy.
 
 ## Source/design facts to retain
 
@@ -33,7 +70,12 @@ FormalCD and Clafer remain future independent upper layers. FormalCD will add vo
 - Traceability: named Markdown proof artifacts link checked Lean declarations. Coverage is not evidence that the theorem formalizes the right claim; independent review checks correspondence.
 
 
-## Implementation record
+## Historical implementation and maintenance record
+
+The records below describe earlier runs and their historical layouts. Current
+work follows the steps above; earlier results do not attest to the new candidate.
+
+### Original implementation
 
 - Review base: `43d7f3fc326201c68a5da24bdd8aa613794d1d0d`; starting worktree HEAD:
   `eff3fc5f7fb19879a1a06943e74c7357b2c1d40e`. The existing factory task branch
@@ -136,3 +178,27 @@ FormalCD and Clafer remain future independent upper layers. FormalCD will add vo
   SHA-256, and registered it with elan under the existing exact toolchain name.
   The profile's normal install command now recognizes that toolchain. Retain
   the failed bundle and rerun the complete check; no check or policy is bypassed.
+
+## Public-root validation record
+
+- All five moved mathematical files equal the starting PR source after removing
+  only the old namespace/import prefix (and its enclosing namespace in Basic).
+  Frozen intent/spec/accepted.json, Lean pin and manifest dependency entries match
+  the starting PR head. Live Markdown source links resolve. Local dependency and
+  scope regression tests pass (14 cases).
+- The first captured check passed baseline/candidate trace coverage but failed
+  before compilation: elan could not parse the release metadata response.
+  Retain the failure and provision the official Lean v4.35.0 archive outside the
+  repository with its published SHA-256 checked, as in the prior maintenance.
+  Register it under the unchanged exact toolchain name, then rerun the full
+  wrapper check. Do not bypass any validation stage or change a timeout.
+- The repository ticket helper again returned HTTP 401 on issue listing.
+  Coordinator updates remain in handoff.md/json; no credentials enter the worker.
+- The second captured run obtained the official targeted Mathlib cache and
+  compiled all six DPGraph modules, then failed because Lake's recursive glob
+  requires the empty FormalCD/Clafer directories. Added tracked directory markers
+  and an early missing-directory regression; no mathematical declarations were
+  added. The audit's isolated fixtures exposed its reliance on transitively
+  available elaborator imports; the harness now imports its meta dependencies
+  explicitly. All 27 Python tests, including actual Lean audit rejection cases,
+  pass locally. Rerun the complete captured check for the finished candidate.

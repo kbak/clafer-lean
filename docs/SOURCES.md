@@ -19,7 +19,7 @@ Appendix B.4 Definitions 6–10 suffice for this slice:
 | Definition 6, graphs and graph morphisms | Mathlib `Quiver`, `Quiv`, `Prefunctor`; [representation](ARCHITECTURE.md) |
 | Definition 7, signature | `DPGraph.Signature` |
 | Definition 8, formula | `DPGraph.Formula` |
-| Definition 9, DP-graph | `ClaferLean.DPGraph` |
+| Definition 9, DP-graph | `DPGraph` |
 | Definition 10, DP morphism | `Formula.translate`, `Hom`, `Hom.id`, `Hom.comp` and their laws |
 
 The finite arrow-list notation is shorthand, not a generic finiteness restriction.

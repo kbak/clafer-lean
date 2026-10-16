@@ -1,6 +1,6 @@
 module
 
-public import ClaferLean.DPGraph.Signature
+public import DPGraph.Signature
 
 /-! # Formulas and translation (SoSyM B.4, Definitions 8 and 10) -/
 
@@ -8,7 +8,7 @@ public import ClaferLean.DPGraph.Signature
 
 universe s va ua v₁ u₁ v₂ u₂ v₃ u₃
 
-namespace ClaferLean.DPGraph
+namespace DPGraph
 
 open CategoryTheory
 
@@ -37,4 +37,4 @@ theorem translate_comp (f : Formula σ G) (F : G ⥤q H) (J : H ⥤q K) :
   exact congrArg (Formula.mk f.symbol) (Prefunctor.comp_assoc f.binding F J)
 
 end Formula
-end ClaferLean.DPGraph
+end DPGraph

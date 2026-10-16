@@ -1,0 +1,67 @@
+{
+  "task": "feature-3f232cc2b03d",
+  "pr": 25,
+  "title": "feat(foundation): prove DP-graphs in sibling public libraries",
+  "starting_pr_head": "23b1647af679a06130bfb83ca5fb613c81e5de12",
+  "review_base": "4c6d03c5022b5f5f762cae4a6459bbe73c76a477",
+  "original_retained_base": "43d7f3fc326201c68a5da24bdd8aa613794d1d0d",
+  "candidate": "worktree",
+  "exported_commit": null,
+  "original_work_package_sha256": "5fc8970485ffcc55f199eff743cafb2353d3b73362190d485e802780062e35d9",
+  "approved_addendum": "approved-follow-up.md",
+  "frozen_records_preserved": [
+    "intent.md",
+    "spec.md",
+    "accepted.json"
+  ],
+  "scope": {
+    "original_sha256": "4a706e10262528a94a097a84dd8813c0dd9265eaa1f87c55cb77d01ab928ce7f",
+    "migrated_sha256": "76540699cdf6a6a3e57f7077b82d445cad0d325890b5f99bfa54de7a300ad6f5",
+    "migrated_canonical_policy_sha256": "4547b647f0892bd3c354c0c55ab4bd65f0ce54827fe810534206dd8a49448895",
+    "changed_fields": [
+      "inputs",
+      "review_paths"
+    ],
+    "original_canonical_policy_sha256": "328042579c7c63aa21ae6d1b47dbdc5f2f5c3051300fb237c07a98e2a0deb006"
+  },
+  "modules": {
+    "ClaferLean.DPGraph.Signature": "DPGraph.Signature",
+    "ClaferLean.DPGraph.Formula": "DPGraph.Formula",
+    "ClaferLean.DPGraph.Basic": "DPGraph.Basic",
+    "ClaferLean.DPGraph.Morphism": "DPGraph.Morphism",
+    "ClaferLean.DPGraph.Examples": "DPGraph.Examples",
+    "ClaferLean.DPGraph": "DPGraph",
+    "ClaferLean": null,
+    "ClaferLean.Basic": null
+  },
+  "scaffolds": [
+    "FormalCD",
+    "Clafer"
+  ],
+  "validation": {
+    "mathematical_normalization": "all five files equal after namespace/import normalization",
+    "configured_check": "fresh external evidence required",
+    "independent_review": "parent workflow gate",
+    "exported_source_verification": "parent workflow gate",
+    "local_python_tests": {
+      "passed": 27,
+      "includes": "six actual Lean audit regression tests plus dependency, scope and ticket tests"
+    },
+    "retained_failures": [
+      "elan release metadata parse failure before compilation",
+      "missing directories for empty library recursive globs"
+    ]
+  },
+  "ticket_updates": {
+    "14": "In Progress; keep open pending acceptance and merge",
+    "2": "keep open",
+    "13": "keep open",
+    "17-19": "future FormalCD work; no semantic delivery"
+  },
+  "limits": [
+    "Command-level evidence does not establish individual theorem execution associations.",
+    "No predicate semantics, SetMap or Theorem 3 delivery.",
+    "No independent acceptance claimed by implementation handoff.",
+    "Parent handles commit, independent review, evidence verification and existing PR publication."
+  ]
+}

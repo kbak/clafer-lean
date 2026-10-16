@@ -9,12 +9,23 @@ fi
 
 # [impl->req~lean-validation~1]
 # [itest->req~lean-validation~1]
+export PYTHONDONTWRITEBYTECODE=1
+validation_dir=.lake/validation
+python3 scripts/project_modules.py --output-dir "$validation_dir"
 # Dependency provisioning is optional; the build and kernel checks always run.
 if ! lake exe cache get Mathlib.CategoryTheory.Category.Quiv Mathlib.Data.Fintype.Basic; then
   echo 'Mathlib cache unavailable; building the pinned dependencies from source.' >&2
 fi
 lake build
-lake env leanchecker ClaferLean
-lake env lean -DwarningAsError=true tests/axiom_audit.lean
+# Use the discovered inventory at every stage, including modules not reachable
+# from an entrypoint (notably examples and future internal helpers).
+while IFS= read -r module; do
+  lake build "+$module"
+  lake env leanchecker "$module"
+done < "$validation_dir/modules.txt"
+lake env lean -DwarningAsError=true "$validation_dir/axiom_audit.lean"
+while IFS= read -r source; do
+  lake env lean -DwarningAsError=true "$source"
+done < "$validation_dir/tests.txt"
 
-PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+lake env python3 -m unittest discover -s tests -v

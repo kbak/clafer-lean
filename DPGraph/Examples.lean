@@ -1,6 +1,6 @@
 module
 
-public import ClaferLean.DPGraph
+public import DPGraph
 public import Mathlib.Data.Fintype.Basic
 
 /-!
@@ -12,7 +12,7 @@ an isolated vertex. `mark` has no asserted predicate semantics.
 
 @[expose] public section
 
-namespace ClaferLean.DPGraph.Examples
+namespace DPGraph.Examples
 
 open CategoryTheory
 
@@ -169,4 +169,4 @@ theorem no_dp_lift : ¬ ∃ F : Hom sourceGraph undeclaredGraph,
   rw [← hF]
   exact F.preserves source_declared
 
-end ClaferLean.DPGraph.Examples
+end DPGraph.Examples

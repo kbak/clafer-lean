@@ -1,6 +1,6 @@
-# First proven DP-graph slice
+# Proven DP-graphs and sibling public libraries
 
-Proposed PR title: `feat(dpgraph): prove typed formulas and declaration-preserving morphisms`
+Proposed PR #25 title: `feat(foundation): prove DP-graphs in sibling public libraries`
 
 This change introduces the first reusable mathematical layer: SoSyM Appendix B.4
 Definitions 6–10 over Mathlib quivers. Formulas bind a whole arity graph, preserving
@@ -13,8 +13,8 @@ absent. Predicate semantics, SetMap and Theorem 3 remain future work.
 
 The change includes the accepted task package retained since the review base,
 the pinned Mathlib dependency and resolved manifest, the independent entrypoint,
-proofs/examples, living documentation and Markdown trace artifacts. The scope
-and Lean pin are unchanged. The accepted task intent/spec/accepted.json are
+proofs/examples, living documentation and Markdown trace artifacts. The Lean pin is unchanged. The approved scope expansion and public-root refactor
+are recorded below. The accepted task intent/spec/accepted.json are
 unchanged; plan.md explains the smaller file grouping and parent review/PR work.
 
 Closes #14 (on eventual merge). Related: [roadmap #2](https://github.com/kbak/clafer-lean/issues/2)
@@ -79,7 +79,7 @@ checker's guidance. Fresh validation and review results remain separate evidence
 
 Automation, including an IntentBond exit 4, is not semantic approval. Independent
 review must assess Definitions 6–10, all positive/negative witness statements,
-trace links and the complete change before a draft PR. Publication, acceptance
+trace links and the complete change before updating PR #25. Publication, acceptance
 and merge remain separate gates; no merge, ready status or deployment is requested.
 
 ## Coordinator ticket update
@@ -98,5 +98,57 @@ duplicate issue:
   were needed for this slice. Later ambiguities remain open in
   [SOURCES.md](../../SOURCES.md), including the unavailable full secondary papers.
 - Attach the retained feedback/verification result and independent review before
-  opening the draft PR; include `Closes #14`, relate #2/#13, and leave broader
+  updating existing PR #25; include `Closes #14`, relate #2/#13, and leave broader
   research/design work open. Do not mark Done or close tickets during implementation.
+
+## Approved public-root follow-up
+
+The [addendum](approved-follow-up.md) records maintainer authorization and exact
+source/package/scope identities. Starting head:
+`23b1647af679a06130bfb83ca5fb613c81e5de12`; review base:
+`4c6d03c5022b5f5f762cae4a6459bbe73c76a477`; original retained base:
+`43d7f3fc326201c68a5da24bdd8aa613794d1d0d`. The candidate is the uncommitted
+worktree; the parent supplies the exported commit and verifies it before publication.
+The accepted intent/spec/accepted.json remain byte-identical, retaining original
+package `5fc8970485ffcc55f199eff743cafb2353d3b73362190d485e802780062e35d9`.
+
+| Historical module/path | Current module/path |
+| --- | --- |
+| `ClaferLean/DPGraph/{Signature,Formula,Basic,Morphism,Examples}.lean` | `DPGraph/{Signature,Formula,Basic,Morphism,Examples}.lean` |
+| `ClaferLean/DPGraph.lean` | `DPGraph.lean` |
+| `ClaferLean.lean`, empty `ClaferLean/Basic.lean` | Removed umbrella/scaffold; sibling roots `DPGraph.lean`, `FormalCD.lean`, `Clafer.lean` |
+| Namespace prefix `ClaferLean.DPGraph` | `DPGraph` (including the carrier/declaration structure itself) |
+| Lake package `claferLean` | `clafer`; repository remains `kbak/clafer-lean` |
+
+All five mathematical files match the starting PR source byte-for-byte after
+removing only the `ClaferLean.` prefix and the enclosing namespace in Basic.
+Manifest dependencies and Lean toolchain bytes are unchanged. FormalCD/Clafer
+are empty public entrypoint scaffolds importing their lower layer. Tracked
+directory markers allow Lake's recursive globs before future modules are added. The
+layout-independent scope covers moved and historical sources; the exact
+transformation and unchanged obligations are detailed in the addendum.
+
+Continuing OFT IDs and revisions are retained. Compared with the starting PR,
+formalization-foundation/public-foundation clarify package/repository names,
+sibling reuse and future boundaries; dpgraph-core changes its independent import
+to DPGraph; lean-validation adds explicit layer checks and complete discovery for
+build/kernel/audit coverage. Formula-translation, dpgraph-morphisms and
+dpgraph-examples retain all mathematics. Contribution/tracking obligations remain.
+
+Validation implementation: one discovered inventory covers all eight current
+modules, including examples, in explicit builds, leanchecker and import-all
+axiom inspection. The audit selects module origins and retains private/generated
+coverage and the nonempty guard. Regression cases exercise allowed and forbidden
+layer/helper/root imports, future unimported modules, uncovered sources, the
+actual audit on private/generated and invalid fixtures, independent public names,
+and exact scope migration/rejection. All 27 Python tests pass locally, including actual Lean audit rejection
+cases; fresh complete captured validation and independent review remain separate
+required evidence, with actual results retained outside the source tree.
+
+The parent must review the full intended diff, including all new/moved files,
+scope transformation and tests, using the retained pinned IntentBond guidance.
+Exit 4 leaves semantic review pending. Source verification must match the fresh
+evidence before updating existing PR #25. Keep #14 In Progress and all affected
+tickets open pending acceptance/merge; relate #2/#13 and future #17–#19 without
+closing them. The worker leaves source uncommitted and returns updates to the
+coordinator. No direct publication, merge, ready-state change or deployment.

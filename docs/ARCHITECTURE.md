@@ -3,12 +3,15 @@
 The [canonical intent](intent.md) selects three layers. Only the first DPGraph
 slice is delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
 and [design (#13)](https://github.com/kbak/clafer-lean/issues/13) track later work.
+The repository `kbak/clafer-lean` contains one Lake package named `clafer`.
+Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
+`Clafer`. Imports flow `Clafer -> FormalCD -> DPGraph -> Mathlib`.
 
 | Layer | Responsibility and dependencies | Status |
 | --- | --- | --- |
-| DPGraph | Reusable graphs, signatures, typed formulas and declaration-preserving morphisms; Mathlib only | B.4 Definitions 6–10 implemented in [ClaferLean.DPGraph](../ClaferLean/DPGraph.lean) |
-| FormalCD | Independently reusable class-diagram vocabulary and reviewed naming/structural invariants; builds on DPGraph | Future work; self-description aims at Figure 21c |
-| Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | Future work; name resolution and constraint meaning require review |
+| DPGraph | Reusable graphs, signatures, typed formulas and declaration-preserving morphisms; Mathlib only | B.4 Definitions 6–10 implemented in [DPGraph](../DPGraph.lean) |
+| FormalCD | Independently reusable class-diagram vocabulary and reviewed naming/structural invariants; builds on DPGraph | [Entrypoint scaffold](../FormalCD.lean) only; future self-description aims at Figure 21c ([#17](https://github.com/kbak/clafer-lean/issues/17), [#18](https://github.com/kbak/clafer-lean/issues/18), [#19](https://github.com/kbak/clafer-lean/issues/19)) |
+| Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Entrypoint scaffold](../Clafer.lean) only; name resolution and constraint meaning require review |
 
 `Signature.lean` uses `CategoryTheory.Quiv.{arrowUniverse, vertexUniverse}` for
 arity graphs; `Formula.lean` binds each symbol by a `Prefunctor` from that arity.
@@ -16,8 +19,13 @@ arity graphs; `Formula.lean` binds each symbol by a `Prefunctor` from that arity
 preservation proofs, identity, composition, extensionality and laws. The signature
 is fixed throughout these operations; arities and each carrier can occupy distinct
 vertex/arrow universes. The separate `Examples.lean` uses finite types locally.
-The root `ClaferLean.lean` imports both the independent entrypoint and examples
-so the shared build and `leanchecker` check the delivered slice.
+`import DPGraph` exposes the generic foundation without importing examples or
+upper layers. `DPGraph.Examples` is built and checked separately. Library globs
+and the shared check's discovered module inventory cover all project modules,
+including future helpers that no entrypoint imports. That same inventory drives
+explicit builds, `leanchecker` and the generated `import all` axiom audit.
+Dependency checks reject reverse imports through root/helper modules and reject
+Lean sources outside the owned roots (apart from validation harnesses in `tests/`).
 
 A carrier is a directed multigraph: `x ⟶ y` is a type of arrows and need not
 have an identity or composition. In the paper's presentation, total edges are

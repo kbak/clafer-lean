@@ -15,7 +15,7 @@ is represented by `Σ x y : G, (x ⟶ y)`; the two projections give its endpoint
 
 universe s va ua
 
-namespace ClaferLean.DPGraph
+namespace DPGraph
 
 /-- A symbol type with a graph-valued arity (SoSyM B.4, Definition 7).
 No dependencies or inference-closure axioms are part of this signature. -/
@@ -23,4 +23,4 @@ structure Signature where
   Symbol : Type s
   arity : Symbol → CategoryTheory.Quiv.{va, ua}
 
-end ClaferLean.DPGraph
+end DPGraph

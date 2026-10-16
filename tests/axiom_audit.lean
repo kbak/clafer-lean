@@ -1,35 +1,39 @@
 module
 
-import all ClaferLean
-import all ClaferLean.Basic
-import all ClaferLean.DPGraph
-import all ClaferLean.DPGraph.Signature
-import all ClaferLean.DPGraph.Formula
-import all ClaferLean.DPGraph.Basic
-import all ClaferLean.DPGraph.Morphism
-import all ClaferLean.DPGraph.Examples
-import Lean.Util.CollectAxioms
+-- PROJECT_IMPORTS
+public meta import Lean.Elab.Command
+public meta import Lean.Util.CollectAxioms
 
 /-!
 Audit every declaration originating in the project, including generated/private
 ones. Reject new axioms, unsafe/partial declarations and transitive dependencies
 outside Lean's standard logical axioms. The shared check retains this output.
+`scripts/project_modules.py` expands PROJECT_IMPORTS with the complete discovered
+module inventory before execution. Running this template alone fails the empty
+audit guard. Module origins, not declaration namespaces, select declarations.
 -/
 
 open Lean in
 run_cmd do
   let env ← getEnv
   let moduleNames := env.header.moduleNames
+  let roots := #[`DPGraph, `FormalCD, `Clafer]
+  let isProject := fun name => roots.any (·.isPrefixOf name)
   for mod in env.header.modules do
-    if (`ClaferLean).isPrefixOf mod.module && !mod.importAll then
+    if isProject mod.module && !mod.importAll then
       throwError "audit must import all of project module {mod.module}"
   let standard := #[``propext, ``Classical.choice, ``Quot.sound]
   let mut count := 0
+  let mut counts := #[0, 0, 0]
   let mut used : Array Name := #[]
   for (name, info) in env.constants.toList do
     let some idx := env.getModuleIdxFor? name | continue
-    unless (`ClaferLean).isPrefixOf moduleNames[idx.toNat]! do continue
+    let origin := moduleNames[idx.toNat]!
+    unless isProject origin do continue
     count := count + 1
+    for i in [:roots.size] do
+      if roots[i]!.isPrefixOf origin then
+        counts := counts.modify i (· + 1)
     if info.isUnsafe || info.isPartial then
       throwError "unsafe or partial project declaration: {name}"
     if let .axiomInfo _ := info then
@@ -42,4 +46,7 @@ run_cmd do
     if info matches .thmInfo _ then
       logInfo m!"{name}: {axioms}"
   if count == 0 then throwError "audit found no project declarations"
+  if counts[0]! == 0 then throwError "audit found no DPGraph declarations"
+  for i in [:roots.size] do
+    logInfo m!"{roots[i]!}: {counts[i]!} declarations (zero means scaffolding only)."
   logInfo m!"Audited {count} project declarations. Standard axioms used: {used}. New assumptions: none."

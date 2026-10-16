@@ -11,6 +11,12 @@ acceptance criteria before implementation. See [AGENTS.md](AGENTS.md).
 
 <!-- [impl->req~intentbond-workflow~1] -->
 
+Repository `kbak/clafer-lean` contains the single Lake package `clafer`, with
+sibling public libraries `DPGraph`, `FormalCD` and `Clafer`. Place modules beneath
+their owning root and preserve `Clafer -> FormalCD -> DPGraph -> Mathlib`.
+`import DPGraph` exposes the reusable foundation independently. FormalCD/Clafer
+entrypoints currently reserve future work; see [architecture](docs/ARCHITECTURE.md).
+
 Install Lean with [elan](https://lean-lang.org/install/), Python 3.11+, Git,
 Java 17+, and the [GitHub CLI](https://cli.github.com/). Then:
 
@@ -22,11 +28,17 @@ ib install-oft
 bash scripts/check.sh
 ```
 
-The shared check builds every library module, runs `leanchecker`, audits project
-declarations with `tests/axiom_audit.lean`, and runs the Python ticket-helper tests.
+The shared check discovers every project module, rejects reverse dependencies
+(including through root/helper modules), builds and runs `leanchecker` on each,
+including examples, and generates an `import all` audit from
+`tests/axiom_audit.lean`. It runs the independent public-import test, all Lean
+validation tests and Python tests, including dependency/scope/audit rejection cases.
+Unowned Lean sources are errors; keep validation harnesses under `tests/`.
 The audit permits only Lean's standard logical axioms (`propext`, `Quot.sound`,
 `Classical.choice`) and reports which are used; it rejects new axioms, unsafe or
-partial project declarations. Mathlib is pinned in the Lake files. The check
+partial project declarations, including private/generated declarations selected
+by module origin. The audit rejects empty/missing DPGraph coverage; zero
+FormalCD/Clafer declarations mean scaffolding only. Mathlib is pinned in the Lake files. The check
 first tries Mathlib's normal cache for the targeted imports, falling back to
 source compilation if the cache is unavailable. Ordinary `lake build` also builds
 from source. Cache availability never waives the build or kernel check.
@@ -58,6 +70,14 @@ CI runs Lean validation and IntentBond on pull requests and main. For the first
 infrastructure PR, whose base has no scope, CI checks the candidate baseline
 against itself and explicitly leaves adoption to PR review. Later PRs always use
 the base branch's scope; candidate scope edits do not select their own policy.
+The approved public-root migration is the sole explicit exception: CI derives
+`inputs: ["."]` and `review_paths: ["."]` from the exact recognized baseline,
+requires the exact approved migrated bytes, and preserves all other fields and
+the real baseline commit. It retains scope identities alongside check evidence.
+See the [migration record](docs/changes/feature-3f232cc2b03d/approved-follow-up.md).
+When checking that migration locally against the historical baseline, supply
+the independently approved scope using `--scope`; changing candidate policy is
+not authorization. Other proposed scope changes require separate review.
 
 ## Tickets and pull requests
 

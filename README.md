@@ -12,7 +12,11 @@ lake build
 bash scripts/check.sh
 ```
 
-The toolchain is pinned in `lean-toolchain`. The library lives in `ClaferLean/`.
+The repository is `kbak/clafer-lean`; its single Lake package is `clafer`.
+Use `import DPGraph` for the reusable B.4 Definitions 6–10 foundation.
+The sibling public roots follow `Clafer -> FormalCD -> DPGraph -> Mathlib`;
+FormalCD and Clafer currently provide entrypoint scaffolding only.
+The toolchain is pinned in `lean-toolchain`.
 Contributions, including agent work, use [IntentBond](https://github.com/kbak/intentbond);
 see [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
 Planning and tickets live in the [GitHub Project](https://github.com/users/kbak/projects/2).

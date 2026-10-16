@@ -1,6 +1,6 @@
 module
 
-public import ClaferLean.DPGraph.Basic
+public import DPGraph.Basic
 
 /-! # Declaration-preserving morphisms (SoSyM B.4, Definition 10) -/
 
@@ -8,7 +8,7 @@ public import ClaferLean.DPGraph.Basic
 
 universe s va ua v₁ u₁ v₂ u₂ v₃ u₃ v₄ u₄
 
-namespace ClaferLean.DPGraph
+namespace DPGraph
 
 variable {σ : Signature.{s, va, ua}}
 
@@ -66,4 +66,4 @@ theorem comp_assoc (F : Hom G H) (J : Hom H K) (M : Hom K L) :
   ext (Prefunctor.comp_assoc F.toPrefunctor J.toPrefunctor M.toPrefunctor)
 
 end Hom
-end ClaferLean.DPGraph
+end DPGraph
