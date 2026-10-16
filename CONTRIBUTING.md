@@ -83,8 +83,8 @@ Use the [Lean trace-link convention](docs/traceability.md) for implementation an
 proof artifacts; the pinned OFT does not import inline `.lean` tags.
 Review must assess whether definitions match the intended semantics and whether
 proofs establish the stated results; trace coverage and a successful build alone
-do not establish that correspondence. The current slice adds DP-graph syntax and morphism laws; predicate semantics
-remain future work.
+do not establish that correspondence. The current slice adds DP-graph syntax
+and morphism laws; predicate semantics remain future work.
 
 Contributions use the existing [MIT license](LICENSE). Preserve attribution and
 check licenses before incorporating upstream code or publication material.

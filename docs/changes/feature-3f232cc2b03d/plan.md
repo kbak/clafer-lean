@@ -66,3 +66,12 @@ FormalCD and Clafer remain future independent upper layers. FormalCD will add vo
 - Full captured validation and source verification must follow the completed
   candidate. Independent review and publication remain parent workflow gates.
   These workflow adjustments do not change the approved mathematical scope.
+- Resumed from retained implementation HEAD
+  `e48ed8bfb84d1db848c1e533d1bac2b712522a5f`, preserving the original review base,
+  task branch and frozen scope. Rechecked the accepted intent/spec hashes and
+  reviewed the complete change, including actual Lean statements and trace links.
+  The factory package's skill differs from the repository pin, so the exact
+  pinned skill and relevant reference differences were read from upstream.
+  Current validation uses the supplied factory wrapper and its official Mathlib
+  cache provisioning; the earlier local cache experiment is not reused.
+  Retain fresh check and worktree-verification evidence outside the repository.

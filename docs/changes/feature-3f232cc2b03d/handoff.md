@@ -44,8 +44,11 @@ symbols; review must assess their semantic correspondence, not just coverage.
 
 ## Validation and review contract
 
-Local compilation, leanchecker and the declaration audit pass: 161 project declarations use
-only `propext`, `Classical.choice` and `Quot.sound`, with no new assumptions.
+The retained implementation record reports successful local compilation,
+leanchecker and declaration audit: 161 project declarations use only `propext`,
+`Classical.choice` and `Quot.sound`, with no new assumptions. Fresh captured
+validation and source verification are required for the completed candidate;
+their authoritative results are the externally retained invocation bundles.
 The shared command provisions targeted Mathlib caches (with source-build fallback)
 and runs Lake, Lean's kernel checker, the declaration/axiom audit,
 and existing Python tests. The audit permits only `propext`, `Classical.choice`
