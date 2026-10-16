@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
-      INTENTBOND_OFT_JAR: ${{ runner.temp }}/oft/openfasttrace-4.9.0.jar
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
@@ -44,6 +43,7 @@ jobs:
         run: |
           python -m pip install -r requirements/intentbond.txt
           ib install-oft --destination "$RUNNER_TEMP/oft"
+          echo "INTENTBOND_OFT_JAR=$RUNNER_TEMP/oft/openfasttrace-4.9.0.jar" >> "$GITHUB_ENV"
       # [impl->req~intentbond-workflow~1]
       - name: Check source, traceability, and Lean
         env:
