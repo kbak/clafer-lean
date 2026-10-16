@@ -1,6 +1,7 @@
 module
 
 public import DPGraph.Semantics
+public import DPGraph.ModelTransport
 
 /-!
 # Reusable diagram-predicate graphs

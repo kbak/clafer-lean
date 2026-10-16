@@ -16,8 +16,10 @@ reviewed increments.
 The delivered mathematical slice is SoSyM Appendix B.4, Definitions 6–10,
 with a fixed-signature category and the abstract model reduct of B.5 Theorem 3.
 Interpretations select satisfying arity diagrams in a chosen semantic graph;
-models restrict contravariantly along declaration-preserving maps. FormalCD and
-Clafer have public entrypoint scaffolding only. Concrete span predicates and
+models restrict contravariantly along declaration-preserving maps. Derived
+[model transport results](spec.md#model-reduct-injectivity) establish injectivity
+or surjectivity of restriction under the respective composite identity equations.
+FormalCD and Clafer have public entrypoint scaffolding only. Concrete span predicates and
 SetMap remain undelivered. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
 [source citations and open questions](SOURCES.md), and

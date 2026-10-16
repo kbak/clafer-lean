@@ -192,6 +192,55 @@ assumed, and whole-model reflection is not asserted.
 Covers:
 - `req~dpgraph-model-reduct~1`
 
+## Model reduct injectivity implementation
+`impl~model-reduct-injective~1`
+
+[ModelTransport.lean](../DPGraph/ModelTransport.lean):
+`Interpretation.reduct_injective_of_comp_eq_id` states injectivity of `I.reduct F`
+under `J.comp F = Hom.id T`, with independent signature, source/target carrier
+and semantic universes. [DPGraph.lean](../DPGraph.lean) publicly imports it.
+This is a derived consequence of the existing abstract reduct laws from SoSyM
+B.4 Definitions 9–10 and B.5 Theorem 3, not a verbatim paper theorem.
+
+Covers:
+- `req~model-reduct-injective~1`
+
+## Model reduct injectivity proof
+`proof~model-reduct-injective~1`
+
+[ModelTransport.lean](../DPGraph/ModelTransport.lean):
+`Interpretation.reduct_injective_of_comp_eq_id` applies `I.reduct J` to equality
+of reducts and recovers equality of the original models using `reduct_comp`,
+`J.comp F = Hom.id T` and `reduct_id`.
+
+Covers:
+- `req~model-reduct-injective~1`
+
+## Model reduct surjectivity implementation
+`impl~model-reduct-surjective~1`
+
+[ModelTransport.lean](../DPGraph/ModelTransport.lean):
+`Interpretation.reduct_surjective_of_comp_eq_id` states surjectivity of `I.reduct F`
+under `F.comp J = Hom.id S`, with independent signature, source/target carrier
+and semantic universes. [DPGraph.lean](../DPGraph.lean) publicly imports it.
+This is a derived consequence of the existing abstract reduct laws from SoSyM
+B.4 Definitions 9–10 and B.5 Theorem 3, not a verbatim paper theorem.
+
+Covers:
+- `req~model-reduct-surjective~1`
+
+## Model reduct surjectivity proof
+`proof~model-reduct-surjective~1`
+
+[ModelTransport.lean](../DPGraph/ModelTransport.lean):
+`Interpretation.reduct_surjective_of_comp_eq_id` gives `I.reduct J m` as the
+preimage of any source model `m`, using `reduct_comp`, `F.comp J = Hom.id S`
+and `reduct_id`. Neither result adds assumptions on predicate meanings or claims
+whole-model reflection for arbitrary DP morphisms.
+
+Covers:
+- `req~model-reduct-surjective~1`
+
 ## Interpreted example constructions
 `impl~dpgraph-semantics-examples~1`
 
