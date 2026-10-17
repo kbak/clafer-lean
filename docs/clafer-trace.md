@@ -65,8 +65,8 @@ Covers:
 [Context.lean](../Clafer/Context.lean): `BinderId`, `Binder`,
 `ConstraintBoundary`, `ConstraintBoundary.Resolved`, `Occurrence`, `referenced`.
 The context and each occurrence are already resolved. Finite lists retain
-repetitions; a future #21 implementation attaches expression bodies without a
-reverse dependency from the boundary module.
+repetitions; the constraint extension attaches typed bodies without a reverse
+dependency from the boundary module.
 
 Covers:
 - `req~clafer-constraint-boundary~1`
@@ -146,3 +146,100 @@ correctness theorem follows from these finite presentation results.
 
 Covers:
 - `req~clafer-finite-traversal~1`
+
+## Resolved core expression constructors
+`impl~clafer-core-typing~1`
+
+[Typing.lean](../Clafer/Constraints/Typing.lean): `Constraints.Collection`, `Ty`,
+`SetOp`, `Arithmetic`, `Expr`, and `Expr.some/no/one/lone` implement the selected
+D.1–D.3 forms. `Expr.widenObjects` and `widenRelation` carry explicit
+`Constraints.Widen` paths from [Support.lean](../Clafer/Constraints/Support.lean).
+No evaluator or semantic preservation theorem is implemented. Integer-only
+arithmetic is an implementation boundary, not a claim that D.3 forbids other
+primitive domains. The Q3 disposition is in [SOURCES](SOURCES.md#appendix-d-rule-dispositions-q3).
+
+Covers:
+- `req~clafer-core-typing~1`
+
+## Core typing witnesses and rejection assertions
+`proof~clafer-core-typing~1`
+
+[Constraints/Examples.lean](../Clafer/Constraints/Examples.lean), namespace
+`Clafer.Constraints.Examples`: `navigation`, `inheritedNavigation`, `composed`,
+`inheritedJoin`, `compatibleUnion`, `numericConstraint`, `collectionConstraint`,
+`relationConstraint`
+and `duplicateIdentity` are actual indexed expression values. The named
+`wrong_image_rejected`, `wrong_join_rejected`, `mixed_collection_rejected`,
+`bare_set_is_not_boolean`, `boolean_arithmetic_rejected`,
+`integer_cardinality_rejected` and `mixed_equality_rejected` assertions use
+`fail_if_success` on construction of the invalid terms. They check elaboration
+failure; their `True` conclusions are not semantic impossibility theorems.
+`non_inclusion_cannot_widen` checks a non-inheritance map's kind;
+`unrelated_widening_rejected` proves that a path to an unrelated class cannot exist.
+
+Covers:
+- `req~clafer-core-typing~1`
+
+## Lexical binding and compiler assumptions
+`impl~clafer-core-binding~1`
+
+[Typing.lean](../Clafer/Constraints/Typing.lean): `Local`, `Var`, `Expr.all`,
+`Domains`, `Constraint`, `Constraint.Input`, `ResolvedConstraint` retain lexical
+scope, typed external
+domains, AST validity and the resolved boundary assumptions. `Support.Boundary`
+in [Support.lean](../Clafer/Constraints/Support.lean) maps each recorded scope
+and domain occurrence separately. `Constraint.Input` does not claim that the
+boundary bags were computed by traversing the expression.
+
+Covers:
+- `req~clafer-core-binding~1`
+
+## Binder scope and resolved-input evidence
+`proof~clafer-core-binding~1`
+
+[Typing.lean](../Clafer/Constraints/Typing.lean): `Var.index_lt`, `Var.lookup`,
+`Var.closed` establish valid lexical positions and the absence of a closed free
+variable. `Var.index` and `Path.navigate` use kernel-reducible primitive recursors
+with native code generation omitted, as for the existing tree folds. [Constraints/Examples.lean](../Clafer/Constraints/Examples.lean):
+`quantified`, `nested`, `shadowed_name_keeps_ids`, `outer_variable_position`,
+`externalDomains`, `constraint_input`, `resolvedConstraint`, `external_input`,
+`repeated_scope_retained`
+and `repeated_domain_retained` give positive
+witnesses. `nonboolean_body_rejected`, `relation_domain_rejected`,
+`out_of_scope_rejected` and `domain_cannot_use_own_binder` are failed-construction
+assertions; `duplicate_binder_id_rejected` proves the freshness condition false.
+The singleton meaning of a variable is documented, not proved by these statements.
+
+Covers:
+- `req~clafer-core-binding~1`
+
+## Graph support and predicate seam
+`impl~clafer-core-support~1`
+
+[Support.lean](../Clafer/Constraints/Support.lean): `MapKind`, `MapRef`, `Support`,
+`Support.Arrow`, `graph`, `arrow`, `MapResolved`, `Resolved`, `DirectSuper`,
+`Extends`, `Widen`, `Support.Boundary`.
+[Typing.lean](../Clafer/Constraints/Typing.lean): `Path`, `Path.navigate`,
+`signature`, `Constraint.formula`. The signature records graph arity only;
+semantic interpretation and actual compilation remain separate work.
+
+Covers:
+- `req~clafer-core-support~1`
+
+## Navigation, inheritance and full binding evidence
+`proof~clafer-core-support~1`
+
+[Support.lean](../Clafer/Constraints/Support.lean): `Support.incidence` and
+`Widen.resolved` prove incidence and actual inheritance ancestry;
+`Extends.preserves` transports invariants along inheritance.
+[Typing.lean](../Clafer/Constraints/Typing.lean): `Path.navigate` is an
+endpoint-indexed construction of well-typed navigation; `Path.navigate_nil`
+and `Constraint.formula_binding` preserve the supplied start/binding exactly.
+[Constraints/Examples.lean](../Clafer/Constraints/Examples.lean):
+`support_resolved`, `widening_follows_super`, `pathNavigation`,
+`repeated_scope_retained`, `repeated_maps_retained`, `full_graph_binding`,
+`wrong_map_incidence_rejected`.
+None of these declarations asserts satisfaction of a constraint predicate.
+
+Covers:
+- `req~clafer-core-support~1`

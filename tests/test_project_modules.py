@@ -60,6 +60,8 @@ class PublicLibrariesTest(unittest.TestCase):
             "FormalCD.Telematics.VC", "FormalCD.Telematics.Examples",
             "Clafer.Context", "Clafer.Syntax", "Clafer.Shape",
             "Clafer.Shape.Diagram", "Clafer.Examples",
+            "Clafer.Constraints.Support", "Clafer.Constraints.Typing",
+            "Clafer.Constraints.Examples",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
         self.assertIn(Path("tests/formalcd_imports.lean"), tests)
