@@ -27,6 +27,8 @@ the full validation requirement.
 Keep artifact caching disabled for the project package so each isolated check
 rebuilds candidate modules. Deployment-managed dependency caches may reuse pinned
 dependency artifacts without replacing any build, kernel or audit gate.
+Include the pushout-cocone dependency in the optional Mathlib cache prefetch;
+cache failure must retain the complete pinned source-build fallback.
 Audit declarations by their originating project modules, including private and
 generated declarations regardless of namespace, with complete `import all`
 coverage. Reject unsafe/partial definitions, new axioms and transitive axiom
@@ -385,3 +387,80 @@ Covers:
 - `intent~formalization-foundation~1`
 
 Needs: impl, proof
+
+## Declaration unions on carrier cocones
+`req~dpgraph-pushout-data~1`
+
+For fixed-signature DP morphisms `F : Hom S T` and `J : Hom S U` at fixed
+carrier vertex/arrow universes, a supplied carrier `PushoutCocone` determines a
+DP-graph on its point. Declare exactly the union of the images of the left and
+right declaration sets under formula translation by its two legs. Provide the
+canonical declaration-preserving injections and their commuting DP-graph cocone.
+Define compatible component models by equality of their reducts to `S`, keeping
+semantic universes independent in that data type.
+
+Expose `Pushout.CarrierCocone`, `obj`, `inl`, `inr`, `cocone` and `CompatibleModels` through
+`import DPGraph`. These are derived constructions over SoSyM B.4 Definitions
+9–10 and the abstract B.5 reduct, not concrete span, FormalCD or Clafer gluing.
+Do not add finiteness, injectivity, inference closure or interpretation invariance.
+The cocone data alone does not assert a universal property or model amalgamation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof, itest
+
+## Pushout universal property
+`req~dpgraph-pushout-universal~1`
+
+For `σ : Signature.{s, va, ua}`, `S T U : DPGraph.{s, va, ua, v, u} σ`,
+`F : Hom S T`, `J : Hom S U`, `c : Pushout.CarrierCocone F J` and a supplied
+`hc : CategoryTheory.Limits.IsColimit c`, provide
+`noncomputable def Pushout.isColimit F J c hc : IsColimit (Pushout.cocone F J c)`.
+Construct the DP mediator from the carrier universal property, prove preservation
+of the union of translated declarations, both factorization equations and
+uniqueness. Keep the explicit argument order `F J c hc` and expose the result
+through `import DPGraph`. Its module `DPGraph.Pushout.Universal` independently
+imports `DPGraph.Pushout.Basic`.
+
+This is a derived result over the representation from SoSyM B.4 Definitions 9–10
+and the abstract B.5 Theorem 3, not a verbatim paper claim. Keep signature
+universes independent and carrier universes fixed; add no finiteness,
+injectivity, semantic invariance, global pushout existence or model amalgamation
+assumption. This requirement does not deliver a model equivalence.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof, itest
+
+## Model amalgamation on a carrier pushout
+`req~dpgraph-model-amalgamation~1`
+
+For a signature in universes `s va ua`, fixed carrier universes `v u`,
+`F : Hom S T`, `J : Hom S U`, `c : Pushout.CarrierCocone F J`,
+`Ω : Quiv.{v,u}`, `I : Interpretation σ Ω` and `hc : IsColimit c`, provide
+`Pushout.modelEquiv F J c I hc :
+I.Model (Pushout.obj F J c) ≃ Pushout.CompatibleModels I F J`.
+Its forward map must be exactly the pair of reducts along `Pushout.inl F J c`
+and `Pushout.inr F J c`. Construct the inverse using the supplied carrier
+colimit, prove that it satisfies the union of translated declarations, and
+prove both inverse laws. Prove `Pushout.modelEquiv_fst F J c I hc m` and
+`Pushout.modelEquiv_snd F J c I hc m`, with exactly that explicit argument order,
+stating respectively
+`(modelEquiv F J c I hc m).val.1 = I.reduct (Pushout.inl F J c) m` and
+`(modelEquiv F J c I hc m).val.2 = I.reduct (Pushout.inr F J c) m`.
+
+Implement this in `DPGraph/Pushout/Models.lean` importing `Pushout.Basic`
+independently of any DP-graph universal-property proof, and expose it through
+`import DPGraph`. The semantic universe restriction is local to this result;
+preserve all existing interpretation and reduct declarations. This is a derived
+result over SoSyM B.4 Definitions 9–10 and abstract B.5 Theorem 3, not a verbatim
+paper claim. Require no finiteness, injectivity, semantic invariance or separate
+model amalgamation assumption, and assert no global pushout existence or concrete
+FormalCD/Clafer gluing.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof, itest
