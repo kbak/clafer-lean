@@ -161,6 +161,68 @@ Covers:
 
 Needs: impl
 
+## Resolved-IR comparison contract and compatibility audit
+`req~resolved-ir-comparison-contract~1`
+
+Maintain the documentation/source-analysis deliverable for
+[#49](https://github.com/kbak/clafer-lean/issues/49), under
+[#48](https://github.com/kbak/clafer-lean/issues/48), in
+[the comparison contract](resolved-ir-comparison.md). Use SoSyM as the primary
+semantic reference and pin the supplementary compiler to
+`15adb2216909421bcb5022174d2d84ef2b42307c`. Distinguish current Lean declarations,
+proposed interfaces and unresolved source/version differences. This requirement
+authorizes a specification and audit, not an executable comparison implementation
+or a change to the current intent exclusions.
+
+Acceptance requires:
+
+- A cross-checked compatibility matrix with exact paper/compiler/Lean locators,
+  proposed-supported, excluded and decision-pending forms/flags, including
+  top-level abstract roles, inheritance, set/bag keys and multiplicity counts.
+- A smallest useful structural fragment covering nesting, effective clafer/group
+  bounds, abstractness, single inheritance and direct class-target set/bag
+  references, with combination guards and a complete rejected-form/modifier
+  inventory. Exclude user expressions, primitive values, temporal features,
+  goals, backend escapes and reference-target expressions.
+- A hashed same-IR/options JSON/Alloy boundary covering IDs, implicit registry,
+  supers/bindings, unbounded limits, reference mode, keyword and global-card
+  metadata, duplicate/dangling-ID rejection and backend state missing from JSON.
+  Specify constrained options and any minimal additional export needed.
+- An explicit disposition of lost authored/default provenance: an effective-core
+  boundary with a justified, proposed semantics-preserving bridge, or a faithful
+  minimal export. Invent neither provenance nor defaults/name-resolution proofs.
+- Finite candidate object/link identity, exact same-candidate pinning/decoding,
+  inheritance/root/unused-atom/renaming/auxiliary conventions, manual scopes,
+  cardinality bitwidth/overflow conditions, pinned solver/options and an artifact
+  schema. Keep scope-inference and optimization correctness outside the claim.
+- Visible malformed, unsupported, unknown, timeout and error outcomes; proposed
+  bounded soundness/reverse-comparison properties distinguishing random search,
+  finite exhaustive checking and universal proof; positive and negative examples.
+- A precise proposed companion-harness or separately bounded in-project location,
+  with requirements/architecture amendments reviewed before implementation.
+  Preserve policy and dependency layers during this planning increment.
+- Missing whole-model interpretation and finite-checker bridge obligations
+  allocated to [#50](https://github.com/kbak/clafer-lean/issues/50). Record a
+  reviewed structural dependency disposition before any constraint-free shortcut;
+  #21 typing and #22/#23 structural results alone do not suffice. Preserve existing
+  roadmap dependencies until that review, without requiring unrelated deferred
+  language features to be completed first.
+- Explicit source-decision records and review of the contract/matrix and
+  documentation PR. Keep #49 open until review and acceptance/merge; automated
+  validation or a proposed interface does not establish semantic implementation.
+
+Keep the existing requirements `req~clafer-resolved-syntax~1`,
+plus `req~clafer-input-wellformedness~1` and `req~clafer-individual-shapes~1`,
+unchanged by this audit. Future executable
+promises need separately reviewed implementing requirements. Existing source
+audit, public documentation, tracking and IntentBond obligations remain in force.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl
+
 ## Supporting-source and coherence research
 `req~supporting-source-research~1`
 

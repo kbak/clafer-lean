@@ -520,3 +520,24 @@ The [accepted source correction](SOURCES.md#resolved-2014-clafer-and-individual-
 keeps the head of every top-level abstract and removes its parent-dependent roles.
 The [Clafer trace artifacts](clafer-trace.md) link these boundaries to checked
 positive and rejected examples.
+
+## Proposed bounded structural comparison boundary
+
+The [#49 contract and compiler matrix](resolved-ir-comparison.md) are a
+documentation proposal under #48. They recommend a separate `clafer-compare`
+companion with a pinned dependency on `clafer`, an effective-core adapter and
+finite candidates retaining shared object identity and bag link occurrences.
+JSON/Alloy pairing requires a same-generation state receipt; JSON alone loses
+authored/default provenance and backend state. Current `AST.WellFormed` and
+local `Shape.diagram` proofs do not supply the proposed satisfaction bridge.
+
+The contract assigns missing whole-model structural interpretation, finite
+representation/checker correctness and the effective-core bridge to #50, with
+explicit interfaces from #20/#22/#23. It preserves #21 and the existing roadmap
+dependencies until a structural-only disposition is reviewed. Unrelated deferred
+language features need not block an accepted structural slice. The detailed
+[location and decision proposal](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
+identifies the companion paths, possible reusable `Clafer/Semantics/` additions
+and the alternative in-project verification extension. Each requires its
+implementing requirements and architecture review first. This proposal leaves
+the current intent exclusions, public layers and validation policy in force.

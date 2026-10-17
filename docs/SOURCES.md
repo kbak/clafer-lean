@@ -85,7 +85,7 @@ The audit limits for the other requested sources are specific:
 The [bounded library assessment](#lean-library-assessment) identifies reusable
 foundations, without establishing a ready-made generalized-sketch dependency or
 proving that none exists. The maintained Haskell
-compiler has not been used as semantic evidence; later use must pin a commit,
+compiler does not select the formalization's semantics; supplementary use must pin a commit,
 check licensing and distinguish post-2014 constructs. Acquired publications
 remain outside the repository.
 
@@ -647,7 +647,8 @@ constructs from the same 34-page preprint (SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`).
 Figures 16, 22 and 23 were visually cross-checked against their accompanying
 text. The formalization is independent; no publication figures/text or compiler
-implementation are vendored, and the Haskell compiler is not semantic evidence.
+implementation are vendored. The Haskell compiler does not select this slice's
+semantics; its separately pinned compatibility audit is linked below.
 
 | Source locator | Selected contract and Lean correspondence |
 | --- | --- |
@@ -688,3 +689,24 @@ accepted snapshots remain unchanged.
 Full MCS invariants/analogous equations (#20), expressions and Appendix D's Q3
 (#21), compilation (#22), label congruence/gluing (#23) and integration (#24)
 remain separate. No new interpretation of those unresolved equations is adopted.
+
+## Pinned compiler compatibility audit
+
+The [resolved-IR comparison contract](resolved-ir-comparison.md) records the
+documentation/source audit for [#49](https://github.com/kbak/clafer-lean/issues/49),
+under #48, against compiler commit
+[`15adb2216909421bcb5022174d2d84ef2b42307c`](https://github.com/gsdlab/clafer/tree/15adb2216909421bcb5022174d2d84ef2b42307c)
+(package 0.5.3), with its MIT license inspected. Its matrix maps exact compiler
+passes/fields to SoSyM §§5.3–5.5, 6.1–6.2/Figures 16/22/23, Appendices A.1/B/C/E
+and current Lean declarations. Compiler behavior is supplementary evidence,
+not a replacement semantic authority. No compiler code or fixtures are vendored.
+
+The audit retains the accepted Q1/Q8 and top-level abstract corrections. New
+decision items D1–D8 distinguish effective/default provenance, nested
+abstractness, parentless abstract-reference keys/global cards, inheritance
+refinement, hidden backend state, group interpretation, harness location and
+structural prerequisites. They are proposals or unresolved compatibility limits,
+not additional accepted source corrections. Follow the contract's decision table
+and example inventory before extending the supported fragment. In particular,
+local Shapes and the B.5 reduct do not establish whole-model comparison;
+#50 owns the missing interpretation and bridge obligations.
