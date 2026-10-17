@@ -46,6 +46,9 @@ class PublicLibrariesTest(unittest.TestCase):
             "DPGraph.ModelTransport", "DPGraph.Span", "DPGraph.Span.Basic",
             "DPGraph.Span.IndexedFamily", "DPGraph.Span.Composition",
             "DPGraph.Span.Relation", "DPGraph.Span.Examples",
+            "DPGraph.Predicates", "DPGraph.Predicates.Signature",
+            "DPGraph.Predicates.SemanticGraph", "DPGraph.Predicates.Meaning",
+            "DPGraph.Predicates.Interpretation", "DPGraph.Predicates.Examples",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
 

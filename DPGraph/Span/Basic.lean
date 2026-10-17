@@ -86,5 +86,12 @@ theorem red_inverse (q : Span.{u, v, w} A B) (b : B) (a : A) :
     q.inverse.red b a ↔ q.red a b := by
   constructor <;> rintro ⟨l, h₁, h₂⟩ <;> exact ⟨l, h₂, h₁⟩
 
+/-- Relabeling commutes with leg-swapping inversion (B.2.2). -/
+def Iso.inverse {q : Span.{u, v, w} A B} {r : Span.{u, v, w'} A B}
+    (e : Iso q r) : Iso q.inverse r.inverse where
+  equiv := e.equiv
+  source_eq := e.target_eq
+  target_eq := e.source_eq
+
 end Span
 end DPGraph

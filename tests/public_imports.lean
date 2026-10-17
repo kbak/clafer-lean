@@ -36,7 +36,8 @@ run_cmd do
   for name in env.header.moduleNames do
     if (`FormalCD).isPrefixOf name || (`Clafer).isPrefixOf name ||
         (`DPGraph.Examples).isPrefixOf name || (`DPGraph.SemanticsExamples).isPrefixOf name ||
-        (`DPGraph.Span.Examples).isPrefixOf name then
+        (`DPGraph.Span.Examples).isPrefixOf name ||
+        (`DPGraph.Predicates.Examples).isPrefixOf name then
       throwError "independent DPGraph entrypoint imported {name}"
 
 -- Independent public use with three distinct endpoint/link universe levels.
@@ -70,3 +71,23 @@ example {A : Type u} {B : Type v} (q : DPGraph.Span.{u, v, w} A B) :
 #check DPGraph.Span.relations_comp_jointlyInjective_iff
 #check DPGraph.Span.relations_comp_injective_of_first_singleValued
 #check DPGraph.Span.relations_comp_injective_of_converse_second_singleValued
+
+#check DPGraph.Predicates.signature
+#check DPGraph.Predicates.interpretation
+#check DPGraph.Predicates.Inverse
+#check DPGraph.Predicates.Commutation
+#check DPGraph.Predicates.Key
+#check DPGraph.Predicates.Cover
+#check DPGraph.Predicates.Disjoint
+#check DPGraph.Predicates.Inclusion
+#check DPGraph.Predicates.TargetMultiplicity
+#check DPGraph.Predicates.SourceMultiplicity
+#check DPGraph.Predicates.targetMultiplicity_distinct
+#check DPGraph.Predicates.sourceMultiplicity_distinct
+
+example (U : Type u) : CategoryTheory.Quiv.{max u w + 1, u} :=
+  DPGraph.Predicates.semanticGraph.{u,w} U
+
+example {A : Type u} {B : Type v} (q : DPGraph.Span.{u,v,w} A B) :
+    DPGraph.Predicates.SingleValued q ↔ ∀ a, Subsingleton (q.toFamily.Index a) :=
+  DPGraph.Predicates.singleValued_fibers q

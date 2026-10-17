@@ -115,7 +115,9 @@ proofs establish the stated results; trace coverage and a successful build alone
 do not establish that correspondence. The current slice includes spans, indexed
 mappings and their B.1–B.2 laws, DP-graph syntax, a fixed-signature category and abstract satisfaction/restriction
 laws. B.2.1 uses the adopted Q1 correction in [the source map](docs/SOURCES.md);
-concrete predicate interpretations and SetMap remain future work.
+selected Table 3/A.1 predicate interpretations use a bounded graph of subsets
+and spans, with the accepted Q8 correction. Unsupported predicates and an
+all-universes SetMap remain future work.
 
 Contributions use the existing [MIT license](LICENSE). Preserve attribution and
 check licenses before incorporating upstream code or publication material.

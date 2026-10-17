@@ -8,10 +8,11 @@ Develop a Lean 4 formalization grounded in the 2014 SoSyM paper. The repository
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
 `Clafer -> FormalCD -> DPGraph -> Mathlib`: independently reusable foundations
 support structural 2014 Clafer as their application. DPGraph supplies link-preserving spans and indexed mappings, graphs,
-typed diagram predicates, a fixed-signature category and abstract model
-restriction; FormalCD will supply formal class diagrams independently of Clafer.
-Concrete predicate interpretations remain in scope for later, separately
-reviewed increments.
+typed diagram predicates, a fixed-signature category, abstract model
+restriction and concrete predicate meanings over subsets and spans. FormalCD
+will supply formal class diagrams independently of Clafer.
+The selected Table 3/A.1 vocabulary includes the accepted common-target
+disjointness correction; later predicates require separately reviewed increments.
 
 The delivered mathematical slice includes SoSyM B.1 Definitions 1–5 and
 Theorems 1–2, B.2.1–2 span composition/inversion, and B.4 Definitions 6–10
@@ -23,8 +24,13 @@ Interpretations select satisfying arity diagrams in a chosen semantic graph;
 models restrict contravariantly along declaration-preserving maps. Derived
 [model transport results](spec.md#model-reduct-injectivity) establish injectivity
 or surjectivity of restriction under the respective composite identity equations.
-FormalCD and Clafer have public entrypoint scaffolding only. Concrete span predicate interpretations and
-SetMap remain undelivered. The [architecture](ARCHITECTURE.md)
+Concrete inverse, triangle commutation, bag-sensitive keys, cover, disjointness,
+map properties and cardinal multiplicities are delivered. Their bounded semantic
+graph retains shared ambient objects and link multiplicity; it imposes no
+automatic set-valued default. FormalCD and Clafer have public entrypoint
+scaffolding only. An all-universes SetMap and the unsupported predicates listed
+in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
+remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
 [source citations and open questions](SOURCES.md), and
 [Lean definitions and proofs](dpgraph-trace.md) describe the current promises.
