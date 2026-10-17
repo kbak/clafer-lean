@@ -1,6 +1,6 @@
 module
 
-public import DPGraph
+public import FormalCD.Signature
 
 /-!
 # Formal class diagrams
@@ -13,7 +13,7 @@ model satisfaction still requires an explicit DPGraph interpretation.
 
 @[expose] public section
 
-universe p v u v' u'
+universe s va ua p v u v' u'
 
 namespace FormalCD
 
@@ -67,7 +67,8 @@ theorem arrowBinding_comp {G : Quiv.{v,u}} {H : Quiv.{v',u'}}
 
 /-- Inspectable raw data, including invalid diagrams. `declarations` is the
 single effective set: authored formulas and required defaults live together. -/
-structure Raw (R : Registry.{p}) extends DPGraph.{0,0,0,v,u} signature where
+structure RawOver (V : Vocabulary.{s,va,ua}) (R : Registry.{p})
+    extends DPGraph.{s,va,ua,v,u} V.signature where
   className : carrier → String
   mapName : ∀ {a b : carrier}, (a ⟶ b) → String
   predefined : carrier → Option R.Id
@@ -75,19 +76,48 @@ structure Raw (R : Registry.{p}) extends DPGraph.{0,0,0,v,u} signature where
 
 /-- §6.1 naming/default disciplines. Typed Formula bindings already enforce
 arity and incidence. No global name injectivity or inheritance acyclicity. -/
-structure Raw.WellFormed {R : Registry.{p}} (D : Raw.{p,v,u} R) : Prop where
+structure RawOver.WellFormed {V : Vocabulary.{s,va,ua}} {R : Registry.{p}}
+    (D : RawOver.{s,va,ua,p,v,u} V R) : Prop where
   predefined_name : ∀ c i, D.predefined c = some i → D.className c = R.name i
   user_name : ∀ c, D.predefined c = none → ¬ R.Reserved (D.className c)
   unique_predefined : ∀ c d i,
     D.predefined c = some i → D.predefined d = some i → c = d
   inclusion_name : ∀ {a b} (e : a ⟶ b), D.mode e = .inclusion → D.mapName e = "isA"
   inclusion_decl : ∀ {a b} (e : a ⟶ b), D.mode e = .inclusion →
-    inclusionFormula e ∈ D.declarations
+    V.embed (inclusionFormula e) ∈ D.declarations
   ordinary_decl : ∀ {a b} (e : a ⟶ b), D.mode e = .ordinary →
-    setValuedFormula e ∈ D.declarations
+    V.embed (setValuedFormula e) ∈ D.declarations
 
 /-- A syntactically valid CD. This proof asserts no existence of a model. -/
+structure CDOver (V : Vocabulary.{s,va,ua}) (R : Registry.{p})
+    extends RawOver.{s,va,ua,p,v,u} V R where
+  wellFormed : toRawOver.WellFormed
+
+/-- The original small-signature API wraps the general data without copying it. -/
+structure Raw (R : Registry.{p}) extends RawOver.{0,0,0,p,v,u} Vocabulary.builtins R
+
+abbrev Raw.WellFormed {R : Registry.{p}} (D : Raw.{p,v,u} R) := D.toRawOver.WellFormed
+
+namespace Raw.WellFormed
+variable {R : Registry.{p}} {D : Raw.{p,v,u} R}
+abbrev predefined_name (h : D.WellFormed) :
+    ∀ c i, D.predefined c = some i → D.className c = R.name i := RawOver.WellFormed.predefined_name h
+abbrev user_name (h : D.WellFormed) :
+    ∀ c, D.predefined c = none → ¬ R.Reserved (D.className c) := RawOver.WellFormed.user_name h
+abbrev unique_predefined (h : D.WellFormed) : ∀ c d i,
+    D.predefined c = some i → D.predefined d = some i → c = d := RawOver.WellFormed.unique_predefined h
+abbrev inclusion_name (h : D.WellFormed) :
+    ∀ {a b} (e : a ⟶ b), D.mode e = .inclusion → D.mapName e = "isA" := RawOver.WellFormed.inclusion_name h
+abbrev inclusion_decl (h : D.WellFormed) :
+    ∀ {a b} (e : a ⟶ b), D.mode e = .inclusion → inclusionFormula e ∈ D.declarations := RawOver.WellFormed.inclusion_decl h
+abbrev ordinary_decl (h : D.WellFormed) :
+    ∀ {a b} (e : a ⟶ b), D.mode e = .ordinary → setValuedFormula e ∈ D.declarations := RawOver.WellFormed.ordinary_decl h
+end Raw.WellFormed
+
 structure CD (R : Registry.{p}) extends Raw.{p,v,u} R where
   wellFormed : toRaw.WellFormed
+
+abbrev CD.generalize {R : Registry.{p}} (D : CD.{p,v,u} R) :
+    CDOver Vocabulary.builtins R := ⟨D.toRaw.toRawOver, D.wellFormed⟩
 
 end FormalCD

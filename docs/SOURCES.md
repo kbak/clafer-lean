@@ -234,8 +234,7 @@ ambient type, with an explicit link universe, not an all-universes SetMap.
 No automatic set-valued default is imposed.
 
 Unsupported predicates remain VC (including its inequality-direction question),
-metamodel-specific name/arity predicates (`nd`/`ad`), arbitrary path equations
-beyond the triangle, and later FormalCD/Clafer-specific predicates.
+arbitrary path equations beyond the triangle, and later FormalCD/Clafer-specific predicates.
 
 
 | Source locator | Concrete declarations (namespace `DPGraph.Predicates`) |
@@ -261,10 +260,10 @@ FormalCD increment from the same hashed SoSyM preprint, §6.1.1–3 and Figure
 
 | Source / selected contract | FormalCD declarations |
 | --- | --- |
-| §6.1.1 classes, maps, inclusion identities/names | `Raw.className`, `Raw.mapName`, `MapMode`, `Raw.WellFormed.inclusion_name` |
+| §6.1.1 classes, maps, inclusion identities/names | `Raw.className`, `Raw.mapName`, `MapMode`, `RawOver.WellFormed.inclusion_name` |
 | §6.1.2 typed predicates; B.4 Definitions 6–9 | Existing `DPGraph`, `Formula`, `Predicates.signature`; `arrowBinding`, `inclusionFormula`, `setValuedFormula` |
-| §6.1.3 predefined naming discipline | `Registry`, `PredefinedKind`, `Raw.predefined`, `Raw.WellFormed.predefined_name`, `.user_name`, `.unique_predefined` |
-| §6.1.1–3 defaults; Figure 21c explicit bag-valued args | `Raw.mode`, `Raw.WellFormed.inclusion_decl`, `.ordinary_decl`; `Examples.no_bag_default`, `.explicit_bag_wellFormed` |
+| §6.1.3 predefined naming discipline | `Registry`, `PredefinedKind`, `Raw.predefined`, `RawOver.WellFormed.predefined_name`, `.user_name`, `.unique_predefined` |
+| §6.1.1–3 defaults; Figure 21c explicit bag-valued args | `Raw.mode`, `RawOver.WellFormed.inclusion_decl`, `.ordinary_decl`; `Examples.no_bag_default`, `.explicit_bag_wellFormed` |
 | Adopted name/annotation/mode-preserving specialization of B.4 Definition 10 | `Hom`, `.id`, `.comp`, `.ext`, `.comp_assoc`, `.id_comp`, `.comp_id`, `.toDPHom` |
 | Existing abstract B.5 reduct after forgetting | `Hom.reduct`, `.reduct_id`, `.reduct_comp`; `Examples.restrictedModel` |
 
@@ -282,8 +281,120 @@ literal span meaning. User declarations are retained, including explicit bag
 setValued constraints. Structural validity alone implies neither satisfaction nor
 model existence; an explicit interpretation and a model proof remain necessary.
 This increment reuses the supported predicate vocabulary, preserving Q1 and Q8.
-It supplies no user-defined predicate syntax, VC interpretation, metamodel nd/ad
-predicates, full Figure 21c encoding or complete primitive/object-diagram semantics.
+The metamodel extension below adds nd/ad and Figure 21c construction; a general
+constraint language, VC and complete primitive/object-diagram semantics remain open.
 
 The [FormalCD trace artifacts](formalcd-trace.md) link these independently
 formalized contracts and acceptance witnesses to their Lean declarations.
+
+
+## Figure 21c metamodel
+
+Issue [#18](https://github.com/kbak/clafer-lean/issues/18) independently formalizes
+§6.1.1–3, Figure 21c on printed p.17, the explanation on p.19 and B.4 Definition 8
+on p.30 of the 34-page preprint with SHA-256
+`56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
+The figure and prose jointly determine the following inventory; no publication
+images or text are vendored. Lean names below are in `FormalCD.Metamodel`.
+
+The eleven distinct `Node` identities are Classifier, Class, Map, Incl, Predef,
+SING, Dom, String, PredefStr, Formula and Signature. `SingletonClass.sing` describes
+the modeled predefined class Sing, and `SingletonObject.star` its object; neither
+is the metaclass `Node.sing`. The underlined SING node is the singleton annotation
+in the metamodel's own small metadata registry. Concrete assignments to String,
+PredefStr and Signature belong to interpretation context. Merely naming a node
+Class or Signature supplies no universal collection of Lean types or signatures.
+
+| Edge identity | Source → target | Displayed name and effective declarations |
+| --- | --- | --- |
+| predefStrIn | PredefStr → String | isA; inclusion |
+| classIn | Class → Classifier | isA; inclusion |
+| mapIn | Map → Classifier | isA; inclusion |
+| predefIn | Predef → Class | isA; inclusion |
+| singIn | SING → Predef | isA; inclusion |
+| domIn | Dom → Predef | isA; inclusion |
+| inclIn | Incl → Map | isA; inclusion |
+| name | Classifier → String | name; ordinary setValued, total, singleValued |
+| predefName | Predef → PredefStr | name; ordinary setValued, total, singleValued |
+| so | Map → Class | so; ordinary setValued, total, singleValued |
+| ta | Map → Class | ta; ordinary setValued, total, singleValued |
+| args | Formula → Map | args; explicit bag, total; no setValued default |
+| pred | Formula → Signature | pred; ordinary setValued, total, singleValued |
+
+`classifiers` binds cover/disjoint to (classIn,mapIn), and `predefinedKinds` binds
+them to (singIn,domIn), with the accepted common-target Q8 meaning. `keyBinding`
+binds the literal key to (args,pred). The 30 `Declaration` cases enumerate seven
+inclusions, five set defaults, six total and five single-valued annotations,
+four cover/disjoint annotations, and key/nd/ad. Inclusion's existing meaning
+already implies a total identity-valued function, without extra synthetic tokens.
+
+The drawing omits dashed attachments for nd/ad. The following are **inferred
+bindings**, justified by the selected constraint, not claims of hidden incidence:
+
+- `nameShape` uses the nine left-hand nodes and exactly the seven inclusions and
+  two name arrows. Canonical/user naming, optional predefined identity/kinds,
+  inclusion naming and restriction along Predef→Class→Classifier and
+  PredefStr→String need these nodes/maps. It omits so/ta, args and pred.
+- `arityShape` has Formula, Signature, Map and Class and exactly args, pred, so, ta.
+  Selecting a symbol, indexing its arguments and checking both endpoints requires
+  this incidence. Extra arity vertices and occurrence labels are explicitly
+  supplied data; they are not invented arrows in Figure 21c.
+
+`NameContext` decodes names/identifiers and embeds strings into a bounded U.
+`NameDiscipline` checks actual name links, reserved strings, realized optional
+identifiers and kinds, unique identifier realization, isA names and the commuting
+name-restriction square as a span isomorphism. It permits repeated classifier
+names. The generic built-in inclusion declarations separately require identity
+on the underlying ambient objects.
+
+`ArityContext` supplies an independently bounded signature σ, graph G and explicit
+embeddings of symbols, vertices and total arrows into U. `ArityDescriptor` provides
+optional candidates for actual formula objects and optional occurrence indices.
+`ArityDiscipline` checks domain sets, so/ta endpoints, a valid complete candidate,
+a bijection from each actual args fiber to all arity arrows, the argument values,
+and the selected pred value. Missing/invalid descriptions are rejected. Candidate
+validity itself is equivalent to the existing typed Formula representation, by
+`Candidate.formulaEquiv`; it is not supplied as a validity assumption by Context.
+Every arity vertex remains in the candidate, including isolated ones. The graph
+alone cannot recover this descriptor; interpretation is explicitly parameterized
+by it. The bounded span links use `Type (max z w)` for `U : Type z`, with semantic
+arrows in `Type (max z w + 1)`; signature/carrier universes remain independent.
+
+### Literal key, total args and the #19 obligation
+
+B.4 Definition 8 defines a formula as a symbol and a **full graph morphism**.
+Its arrow-list shorthand explicitly assumes finitely many arrows and no isolated
+nodes. The generic library does not impose those hypotheses. The p.19 prose uses
+indexed families for arguments, while the accepted Table 3 key compares bags by
+fiber equivalence. These are different observations of a formula. The accepted
+#18 contract preserves both; it does not reinterpret the generic key as indexed
+identity or quotient existing formulas. Symbol plus all vertex/arrow actions
+characterizes formula equality; bag-key satisfaction is an additional condition.
+
+| Checked witness | Literal key | Total args | Exact conclusion |
+| --- | --- | --- | --- |
+| `ordered` pair | fails | holds | Same symbol and equivalent arrow bags, different positions/full bindings |
+| `isolated` pair | fails | fails | Same symbol and empty arrow projection, different isolated vertex images |
+| `repeated` singleton formula | holds | holds | Two distinct occurrences have the same arrow value; not set-valued |
+| `fragmentModel` | holds | holds | Actual extended-interpretation model of ad/key/total with repeated args |
+| `nameDiagram false/true` | not a formula/key fragment | not an args fragment | nd holds for user/canonical predefined naming respectively |
+
+The ordered/isolated span witnesses are projections of the displayed full
+bindings. They are not asserted to be full Figure 21c models. `fragmentModel`
+checks an explicit declaration fragment; the separate name witnesses check nd.
+The metamodel `diagram` is syntactically well-formed, which does not assert its
+own semantic satisfaction. No whole-metamodel or universal every-CD-is-an-instance
+theorem is claimed.
+
+The total bullet on args excludes an empty outgoing fiber for a realized formula.
+Zero-arrow arities (with isolated vertices) remain valid generic formulas but
+cannot satisfy that totality with their complete indexed argument representation.
+This restriction is retained rather than erasing the figure annotation.
+
+Issue [#19](https://github.com/kbak/clafer-lean/issues/19) must supply an explicitly
+typed representation/well-formedness statement with its signature, registry and
+universe bounds, and whatever key/totality hypotheses it needs. The printed
+metamodel plus full-binding identity API does not prove universal realizability,
+semantic self-instantiation, or a self-containing Lean universe. A stronger
+statement needs additional justified hypotheses, not Type : Type, resizing or
+self-instantiation axioms. Figure 21b/VC semantics and Q7 remain open.

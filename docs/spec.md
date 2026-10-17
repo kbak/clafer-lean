@@ -2,8 +2,8 @@
 
 These requirements cover the repository infrastructure and the delivered
 span operations, DP-graph category, abstract model reduct and concrete predicate
-semantics over a bounded graph of subsets and spans, plus the first FormalCD
-structure and name-preserving morphisms. Self-description and structural Clafer
+semantics over a bounded graph of subsets and spans, plus FormalCD
+structure, name-preserving morphisms and the Figure 21c metamodel. Self-description and structural Clafer
 remain later work; future definitions and theorems need scoped requirements and
 source links.
 
@@ -652,7 +652,8 @@ Needs: impl, proof, itest
 
 Expose reusable FormalCD modules through `import FormalCD`, depending on DPGraph
 and never Clafer. Reuse Quiv/Prefunctor, DPGraph.Formula and a declaration Set
-at DPGraph.Predicates.signature. Annotate existing vertices/arrows with class/map
+at a supported signature containing the built-in predicates, retaining
+DPGraph.Predicates.signature as the original specialization. Annotate existing vertices/arrows with class/map
 names, optional predefined identifiers and ordinary/bag/inclusion map modes.
 Keep raw data independently inspectable from a WellFormed proposition and bundle
 valid CDs with its proof. A shared registry provides stable identifiers, canonical
@@ -665,8 +666,8 @@ global finite/decidable assumptions.
 WellFormed expresses syntactic/structural validity, not model existence or
 satisfaction. Registry entries record identity/naming, not concrete primitive
 or singleton domains. Generic models concern declared predicates under an explicit
-interpretation. User-defined predicate syntax, VC, nd/ad and full object-diagram
-semantics remain outside this increment.
+interpretation. The metamodel-specific nd/ad meanings are specified below;
+a general constraint language, VC and full object-diagram semantics remain future work.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -711,7 +712,8 @@ Needs: impl, proof
 ## FormalCD name-preserving morphisms
 `req~formalcd-morphisms~1`
 
-At a shared registry and the supported signature, a morphism between independently
+At a shared registry and supported signature (including the original built-in
+specialization), a morphism between independently
 well-formed CDs is an existing declaration-preserving DPGraph.Hom together with
 equality of class names, map names, optional predefined annotations and map modes
 at mapped vertices/arrows. Preserve none versus some and ordinary versus bag versus
@@ -748,9 +750,109 @@ Keep examples separate from the public entrypoint and kernel check:
   illustrating the separate semantic condition.
 
 Preserve independent DPGraph import, module discovery, import-layer checks, warnings,
-kernel replay, axiom audits and trace coverage. No full Figure 21 or VC interpretation
-is required. No sorry/admit, unchecked axioms, unsafe/partial mathematical declarations,
+kernel replay, axiom audits and trace coverage. The Figure 21c acceptance
+requirements below extend these witnesses; Figure 21b/VC semantics remain future work. No sorry/admit, unchecked axioms, unsafe/partial mathematical declarations,
 disabled warnings, skipped checks or weakened scope/coverage.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+
+## Compatible signature extension
+`req~formalcd-signature-extension~1`
+
+Provide an injective inclusion of the built-in symbols with inverse arity graph
+maps. Reuse DPGraph signatures, formulas and interpretations. Formula inclusion
+must be injective and commute with translation; extension of interpretations must
+restrict to the original meanings. Support independently bounded symbol, arity,
+carrier, registry and semantic universes without narrowing DPGraph. Preserve the
+original Raw/CD/Hom API and acceptance examples, ordinary/inclusion defaults,
+bag behavior, optional registry metadata, forgetting, identity/composition and
+model reduct laws at every supported common signature.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Figure 21c metamodel shape
+`req~formalcd-metamodel-shape~1`
+
+Construct the eleven-node, thirteen-arrow inventory in the source map as a typed
+CD over an extended vocabulary. Retain distinct arrow identities despite equal
+names. Include seven inclusions, five ordinary setValued defaults, total and
+singleValued name/so/ta/pred annotations, total bag-valued args, two cover/disjoint
+pairs and nd/ad/literal key declarations. Prove inventory, incidence and effective
+declaration facts and local syntactic well-formedness. Distinguish the SING
+metaclass, modeled class Sing and its object. Document inferred nd/ad bindings;
+these must use existing figure incidence justified by the stated constraints.
+No construction proof asserts semantic satisfaction or self-description.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Metamodel discipline meanings
+`req~formalcd-metamodel-disciplines~1`
+
+Give nd/ad mathematical meanings connected to the extended interpretation and
+typed declarations. Name discipline checks canonical names of realized predefined
+identifiers, user names outside the reserved set, optional-entry identity and kind
+rules, inclusion names and compatible name restriction through the displayed
+predefined inclusions. Impose no global classifier-name injectivity.
+
+Arity discipline validates arbitrary candidate data against the selected symbol's
+arity graph: every vertex image, both endpoints of every arrow, and a bijective
+indexing of the actual args fiber by all arity arrows. Repeated argument values
+are allowed. Explicit context supplies the signature, represented graph, registry,
+name/identity interpretation, vertex images and occurrence indexing that the bare
+graph does not recover. Missing, malformed and duplicated-index data can fail.
+Derive the correspondence with existing typed Formula values in both directions.
+The total args annotation separately excludes empty fibers; generic zero-arrow
+arities remain legal. State the interpretation's bounded domain and universe joins.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Full graph-formula identity and projection limits
+`req~formalcd-formula-identity~1`
+
+Formula identity is the existing symbol and full binding. Prove extensionality
+and a correspondence with valid raw binding data, including all vertex images
+and indexed arrow actions. Distinct symbols, argument positions or isolated
+vertex images can distinguish formulas. Retain repeated arguments.
+
+Figure 21c's literal key(args,pred) uses the unchanged generic Key/BagEquiv meaning.
+Its satisfaction is an additional instance condition. Check that bag projection
+can forget positions and arrow-only projection can forget isolated vertices;
+never quotient formulas by these projections or assert their injectivity without
+hypotheses. Full-binding identity and the printed metamodel do not imply universal
+realizability. Leave #19's explicitly typed, signature/registry/universe-bounded
+self-description statement, examples and VC semantics open. Add no self-containing
+universe, resizing, unchecked casts or escape axioms.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Metamodel acceptance witnesses
+`req~formalcd-metamodel-examples~1`
+
+Kernel check the complete inventory/defaults, valid and invalid predefined/user
+names and name restriction, invalid incidence and argument indexing, repeated
+arguments, nontrivial symbol/binding identity, both projection failures, and the
+zero-arrow/total-args boundary. Include a concrete nonempty extended interpretation
+model. State which finite witnesses satisfy literal key and totality and which
+fail, distinguishing fragments from whole metamodel instances. Preserve existing
+examples, supported-signature morphism/reduct laws and independent public imports.
+Run the unchanged shared validation and trusted trace checks without weakening
+coverage, warnings, proofs or scope.
 
 Covers:
 - `intent~formalization-foundation~1`

@@ -51,7 +51,11 @@ class PublicLibrariesTest(unittest.TestCase):
             "DPGraph.Predicates.SemanticGraph", "DPGraph.Predicates.Meaning",
             "DPGraph.Predicates.Interpretation", "DPGraph.Predicates.Examples",
             "FormalCD.Basic", "FormalCD.Morphism", "FormalCD.Semantics",
-            "FormalCD.Examples", "FormalCD.SemanticsExamples",
+            "FormalCD.Examples", "FormalCD.SemanticsExamples", "FormalCD.Signature",
+            "FormalCD.Metamodel.Shape", "FormalCD.Metamodel.Basic",
+            "FormalCD.Metamodel.Binding", "FormalCD.Metamodel.Discipline",
+            "FormalCD.Metamodel.Interpretation", "FormalCD.Metamodel.Examples",
+            "FormalCD.Metamodel.InterpretationExamples", "FormalCD.Metamodel.NameExamples",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
         self.assertIn(Path("tests/formalcd_imports.lean"), tests)
