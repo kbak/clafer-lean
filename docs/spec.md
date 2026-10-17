@@ -28,6 +28,9 @@ time for build, kernel-check and test stages, identifying every kernel-checked
 module in the output. Batch module builds and deduplicate overlapping kernel-check
 targets while retaining the complete discovered inventory. Preflight success does not satisfy
 the full validation requirement for Lean, build, validation or other executable changes.
+After building, run the declaration/axiom audit and Lean/Python regression tests
+before the more expensive kernel replay. Any failed gate stops later stages;
+successful validation still requires the complete kernel check.
 An explicitly configured factory documentation check may instead run source-inventory
 preflight, its Python regressions and changed-document checks when a complete
 file-content and mode comparison with the frozen baseline proves that only
