@@ -8,7 +8,7 @@ Formal class diagrams add naming/default obligations, name-preserving morphisms
 and the Figure 21c metamodel with explicit name/arity disciplines and bounded
 syntactic self-description. Figure 21b includes the corrected guarded version
 constraint and checked concrete models.
-Structural 2014 Clafer remains a subsequent layer; start with
+Structural 2014 Clafer adds resolved syntax and individual Shapes; start with
 the [product overview](docs/intent.md).
 
 Install [Lean via elan](https://lean-lang.org/install/), then run:
@@ -22,7 +22,7 @@ The repository is `kbak/clafer-lean`; its single Lake package is `clafer`.
 Use `import DPGraph` for this foundation and its bounded semantic graph of
 subsets and spans. See the overview for supported predicates and future scope.
 The sibling public roots follow `Clafer -> FormalCD -> DPGraph -> Mathlib`.
-Use `import FormalCD` for class diagrams; Clafer currently provides scaffolding only.
+Use `import FormalCD` for class diagrams and `import Clafer` for resolved syntax and Shapes.
 The toolchain is pinned in `lean-toolchain`.
 Contributions, including agent work, use [IntentBond](https://github.com/kbak/intentbond);
 see [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).

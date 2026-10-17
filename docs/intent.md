@@ -48,14 +48,20 @@ instances; no universal realizability follows. A bounded syntactic self-descript
 statement reuses that metamodel in CDOver. The complete Figure 21b diagram has
 twelve effective declarations and an explicit integer/span interpretation of the
 corrected guarded VC, with nonempty whole-model and boundary witnesses. These
-results do not assert semantic self-instantiation. The Clafer implementation
-remains future work. An all-universes SetMap and the
+results do not assert semantic self-instantiation. Clafer supplies finite resolved
+deep syntax, a binder/constraint context boundary and individual Shapes. Source
+names remain metadata separate from resolved IDs. Top-level abstract clafers keep
+their head class and omit parent-dependent roles under the accepted source
+correction in [SOURCES](SOURCES.md#resolved-2014-clafer-and-individual-shapes).
+Full MCS invariants, expressions, compilation, gluing and integration remain on
+issues #20–24. An all-universes SetMap and the
 unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
 [source citations and open questions](SOURCES.md), and
-[DPGraph definitions and proofs](dpgraph-trace.md) and
-[FormalCD definitions and proofs](formalcd-trace.md) describe the current promises.
+[DPGraph definitions and proofs](dpgraph-trace.md),
+[FormalCD definitions and proofs](formalcd-trace.md), and
+[Clafer definitions and proofs](clafer-trace.md) describe the current promises.
 The [roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2), delivered in
 [merged #40](https://github.com/kbak/clafer-lean/pull/40), links the subsequent
 increments; [design #13](https://github.com/kbak/clafer-lean/issues/13) records

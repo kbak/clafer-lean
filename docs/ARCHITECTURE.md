@@ -5,6 +5,7 @@ operations, DPGraph syntax, its fixed-signature category and abstract model
 restriction, the selected concrete predicate meanings, and FormalCD
 structure/morphisms, signature support, the Figure 21c metamodel, bounded syntactic
 self-description and Figure 21b with its corrected VC interpretation are delivered.
+Clafer adds resolved deep syntax, a constraint boundary and individual Shapes.
 The [roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) is delivered in
 [merged #40](https://github.com/kbak/clafer-lean/pull/40); its later increments
 retain their own tickets. [Research #41](https://github.com/kbak/clafer-lean/issues/41)
@@ -20,7 +21,7 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 | --- | --- | --- |
 | DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract/concrete interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct and selected Table 3/A.1 meanings in [DPGraph](../DPGraph.lean) |
 | FormalCD | Class diagrams, naming/default obligations and name-preserving morphisms; builds on DPGraph | [Core API](../FormalCD.lean) delivered; Figure 21c and disciplines, bounded syntactic self-description, and Figure 21b/VC delivered |
-| Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Entrypoint scaffold](../Clafer.lean) only; name resolution and constraint meaning require review |
+| Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Resolved syntax and individual Shapes](../Clafer.lean) delivered; name resolution, full MCS and constraint meaning remain separate |
 
 [Signature.lean](../DPGraph/Signature.lean) uses
 `CategoryTheory.Quiv.{arrowUniverse, vertexUniverse}` for arity graphs;
@@ -422,7 +423,7 @@ Covers:
 | --- | --- | --- |
 | 1 — reusable DP-graphs | [#13](https://github.com/kbak/clafer-lean/issues/13) representation; [#14](https://github.com/kbak/clafer-lean/issues/14) → [#15](https://github.com/kbak/clafer-lean/issues/15), with derived [#28](https://github.com/kbak/clafer-lean/issues/28)/[#30](https://github.com/kbak/clafer-lean/issues/30); [#4](https://github.com/kbak/clafer-lean/issues/4) → [#16](https://github.com/kbak/clafer-lean/issues/16) | #14/#25, #15/#27, #28/#29, #4/#32, #30/#33 and #16/#34 delivered. #13's final representation/dependency assessment is in #39. Generic DPGraph remains independently importable. |
 | 2 — reusable formal CDs | #16 → [#17](https://github.com/kbak/clafer-lean/issues/17) → [#18](https://github.com/kbak/clafer-lean/issues/18) → [#19](https://github.com/kbak/clafer-lean/issues/19) | #17/#35, #18/#36 and #19/#38 delivered: structure, morphisms, compatible vocabulary, Figure 21c, bounded syntactic self-description and Figure 21b/VC. Semantic self-instantiation remains outside scope. |
-| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Entrypoint scaffold only. Source audit, accepted invariants, resolved typing and label identity precede Compile/gluing; integration requires both. Planning tickets do not enqueue or authorize these implementations. |
+| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. Full MCS invariants, expression typing and label identity precede Compile/gluing; integration requires both. Planning tickets alone authorize no further implementations. |
 
 ### Nine architectural decision areas
 
@@ -439,7 +440,7 @@ questions Q1–Q8 in [SOURCES](SOURCES.md#question-dispositions-and-validation-t
 | A4 — spans, identities and universes | Retain explicit links/fiber indices and pullback composition. Relations discard multiplicity; a graph of all Lean types needs an unjustified size principle. Use independent universes and explicit bounded ambient objects. | #4/#32 proves roundtrips, units/associativity up to isomorphism and corrected Q1; #16/#34 checks shared-object inclusion and bag counts. #20/#23 must preserve these identities across role encodings without resizing or collapsing links. |
 | A5 — predicate syntax and meaning | Separate symbols/arities from interpretations and model maps. Generic syntax imposes no default set-valuedness; FormalCD supplies effective defaults. Primitive domains and VC require explicit interpretations. | #15/#27 proves reduct by precomposition; #16/#34 interprets the selected vocabulary and Q8; #19/#38 handles VC separately. #21 must distinguish typing from satisfaction, resolve Q3 before semantic equations and state each domain/interpretation assumption. |
 | A6 — formal-CD metamodel and self-description | Reuse `CDOver` with explicit vocabulary/registry, nd/ad meanings and full-binding correspondence. Reject a Lean universe fixpoint and an inference from syntactic well-formedness to semantic self-instantiation. | #18/#36 and #19/#38 deliver the bounded result and Figure 21 example. Ordered/isolated bindings expose bag-key and total-args restrictions. Stronger realizability/self-instantiation is deferred and would require new accepted hypotheses and examples. |
-| A7 — Clafer syntax, MCS and finiteness | Proposed deep resolved AST and typed role graph, with raw data plus invariant propositions where useful. A shallow Lean encoding would obscure source syntax/compilation; globally finite DPGraphs would restrict reusable semantics. Use finite data only at the executable boundary. | #3 must account for Figure 16/22 and Appendix C constructs and define resolved-input assumptions; #20 must enumerate Appendix E's implicit/optional-role clauses (Q2). Validate finite presentations against the generic graph API, with positive and malformed role examples, before promising a compiler. |
+| A7 — Clafer syntax, MCS and finiteness | Deep resolved AST and typed individual role graphs, with raw data plus explicit well-formedness propositions. A shallow Lean encoding would obscure source syntax/compilation; globally finite DPGraphs would restrict reusable semantics. Use finite data only at the executable boundary. | #3 accounts for Figure 16/22, Appendix C and the accepted top-level abstract correction in the [Clafer source map](SOURCES.md#resolved-2014-clafer-and-individual-shapes); #20 must enumerate Appendix E's implicit/optional-role clauses (Q2). Validate finite presentations against the generic graph API, with positive and malformed role examples, before promising a compiler. |
 | A8 — names, generated identity, Compile and gluing | Proposed separation of names and generated IDs, followed by an explicit endpoint-compatible label congruence and declaration image. Textual names alone can collapse unrelated parent/isA arrows; replacing labels by arbitrary injective IDs would omit intended gluing. The congruence remains unresolved. | #20/#22/#23 own Q4: repeated-name and intended-identification cases, freshness and termination, incidence/cojoining and kind/name preservation. Review label equality before defining the quotient/map. A DP-morphism proof and a CD-well-formedness proof are separate targets. |
 | A9 — constraints and end-to-end claims | Proposed resolved typed expressions, with syntax/typing first and semantic translation only after source dispositions. Neither a production parser nor the current Haskell compiler defines the 2014 meaning. Structural Compile/glue correctness is distinct from full constraint-semantic preservation. | #21 resolves Appendix D discrepancies (Q3) and checks binders/navigation/types; #22/#23 state explicit well-formed-input assumptions; #24 enumerates supported Appendix F examples and unsupported constructs. Full constraint preservation remains deferred until both source and target meanings are specified. |
 
@@ -468,3 +469,54 @@ kernel/axiom/layer checks and IntentBond validate the candidate and existing
 proofs; they do not certify the source interpretation or complete a deferred
 task. Exit 4 leaves semantic review pending. Each continuing issue requires its
 own accepted deliverables and any required documentation merge before closure.
+
+## Resolved syntax and individual Shapes
+
+[Clafer.Syntax](../Clafer/Syntax.lean) uses mutually inductive `Tree`/`Forest` containment with a list of roots and
+`Declaration` records, with `DeclId` edges for inheritance and references.
+`Origin` distinguishes synthetic root, primitive domains and users. A distinguished
+root ID is checked against the forest; parent links and depths come from traversal.
+Top-level abstracts occupy other forest roots. `Tree.branch` accepts ordinary
+finite lists of children; `Forest.ofList` constructs the mutual forest. Both folds
+and traversal use primitive structural recursors. They are kernel-reducible;
+`noncomputable` suppresses native code generation for these recursors, avoiding
+compiler-generated partial helpers. This supplies a mathematical termination
+basis, with native compilation remaining on #22. No choice or termination axiom
+is added. Strings are metadata and may repeat.
+A rank witness in `AST.WellFormed` excludes inheritance cycles, while containment
+has structural recursion and a depth measure. No finite-carrier restriction is
+added to DPGraph or FormalCD.
+
+Input retains authored and effective multiplicities/abstractness. `Defaults`
+checks the Appendix C boundary: ordinary 1..1 bounds, keyword-induced optional
+children, explicit overrides, and inherited/default group bounds. An inherited
+group retains its keyword provenance. This validates supplied resolved data;
+it is not an elaborator. Primitive domains select identities/names, not sets of
+runtime values. `Tree.fold`, `Tree.child_smaller`, `AST.every_entry_indexed` and
+`AST.WellFormed.parent_wellFounded` provide a finite traversal/termination basis.
+References and super IDs are never followed by the containment fold.
+
+[Clafer.Context](../Clafer/Context.lean) is the dependency boundary for #21.
+`ConstraintBoundary` stores a context ID, occurrence-indexed referenced-scope
+list, and binder IDs/names/domain occurrences. Distinct positions can reference
+the same declaration; no deduplication occurs. A later expression module can
+associate a body with a boundary ID and validate its occurrences. Neither expression
+syntax nor Appendix D's disputed equations are selected here.
+
+[Clafer.Shape](../Clafer/Shape.lean) uses subtypes of finite class/map role enums
+and the existing `Quiver`/`Quiv` API. Hom types contain both endpoint equations;
+incorrect incidence cannot inhabit an arrow type. Kind and parent presence
+control role availability. `Located.shape` decodes only that local inventory;
+it does not recursively compile a model. `Shape.Realization` binds a role graph
+to an existing FormalCD; `Shape.Inclusions` supplies inclusion-mode arrows for
+all shared class roles when a super is selected. Full MCS equations remain #20.
+
+[Local diagrams](../Clafer/Shape/Diagram.lean) instantiate the delivered predicate
+vocabulary: inverse head/parent, triangle commutation, multiplicities, ordinary
+set-valued defaults and the set-reference key. Source/target names in this local
+CD are role labels; global naming/cojoining/gluing is deliberately left to
+#20/#22/#23. These are syntactically well-formed CDs, with no assertion of a model.
+The [accepted source correction](SOURCES.md#resolved-2014-clafer-and-individual-shapes)
+keeps the head of every top-level abstract and removes its parent-dependent roles.
+The [Clafer trace artifacts](clafer-trace.md) link these boundaries to checked
+positive and rejected examples.
