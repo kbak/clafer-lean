@@ -102,10 +102,10 @@ evidence tracked by [#41](https://github.com/kbak/clafer-lean/issues/41).
 
 | Inspected locator | Finding and applicability boundary |
 | --- | --- |
-| §2.1, p. 348 | The separating-family example uses an injective tuple map of ordinary functions. This supports key constraints as diagram properties; it does not establish a correspondence with the delivered bag-sensitive `Key`. Table 1 is not among the recovered pages. |
+| §2.1, p. 348 | The separating-family example uses an injective tuple map of ordinary functions. It motivates the derived `key_ofFunction_iff` and `key_total_singleValued_iff` in [FunctionalKey.lean](../DPGraph/Predicates/FunctionalKey.lean), whose span formulation explicitly assumes totality and single-valuedness. It does not identify the 2000 set-valued notation with unrestricted SoSyM bags. Table 1 is not among the recovered pages. |
 | Predicate-declaration discussion, p. 350 | Bindings are incidence-preserving graph maps. Arity shapes may themselves carry predicate markers, and bindings must preserve them. This supports A2's hierarchical-arity alternative; it is not an identification with the 2008 predicate/dependency category or the delivered ordinary graph arities. |
 | §3.1–3.2, pp. 352–353 | Class structure is expressed by outgoing arrows and constraints. Optional/multivalued references use pm-functions with separate single-valuedness and totality markers. The set-valued notation does not provide the multiplicity-bearing links of SoSyM B.1; these examples do not replace the span interpretation. |
-| §3.3, pp. 353–354, Figure 1; §3.5, p. 356 | Repeated marriages motivate a key on `(wife, husb, mdate)` rather than the spouses alone. Page 354 distinguishes unconstraining names from semantic markers for predefined domains. These support explicit keys and separation of names from meaning, without choosing Clafer's same-label congruence (Q4). |
+| §3.3, pp. 353–354, Figure 1; §3.5, p. 356 | Repeated marriages motivate a key on `(wife, husb, mdate)` rather than the spouses alone. [Examples/FunctionalKey.lean](../DPGraph/Predicates/Examples/FunctionalKey.lean) checks two marriages with equal spouse values and distinct dates: `Remarriage.spouses_not_key` and `Remarriage.spouseDate_key`. This is a finite witness, not an unrestricted marriage identity theorem. Page 354 distinguishes unconstraining names from semantic markers for predefined domains, without choosing Clafer's same-label congruence (Q4). |
 | §3.4, pp. 354–355, Figure 2; §3.5, pp. 356–357 | Association-class and qualification visualizations abbreviate explicit sketch structures. This supports preserving underlying bindings rather than inferring identity from a drawing; no general endpoint-based link identification follows. |
 
 The missing pages interrupt Table 1 and the category-theory discussion in §2.3,
@@ -173,8 +173,9 @@ There is a concrete compatibility boundary: the 2008 author's Example 4.8
 requires total single-valued legs for its binary key. Our `Key` permits bags;
 `bagKey_key` and `bagKey_not_setValued`, together with
 `singleValued_setValued`, rule out importing that prerequisite for every key
-argument. Keep the existing predicate meaning; [#44](https://github.com/kbak/clafer-lean/issues/44)
-owns its ordinary-function special case. Precomposition reduct laws remain as
+argument. The [ordinary-function special case](spec.md#ordinary-key-correspondence-and-repeated-marriages)
+preserves that meaning and states the additional hypotheses explicitly (#44).
+Precomposition reduct laws remain as
 proved; any future inferred declarations need their own soundness argument.
 
 ### Project-critical source disposition
@@ -186,7 +187,7 @@ supported otherwise. These texts are not treated as read or as replaced in full.
 
 | Needed claim or decision | Evidence and remaining owner |
 | --- | --- |
-| Ordinary-key correspondence | SoSyM B.1 and the delivered `Key` define the proof problem; the recovered p. 348 example and the restricted 2008 key explain the comparison. #44 can proceed without further acquisition. |
+| Ordinary-key correspondence | SoSyM B.1 and the delivered `Key` supply the semantics of the derived [#44 result](spec.md#ordinary-key-correspondence-and-repeated-marriages); the recovered p. 348 example and the restricted 2008 key explain the comparison. Its proof and finite marriage witness need no further acquisition. |
 | Resolved identities versus repeated names | SoSyM §6.2.4 explicitly adds indices for uniqueness; recovered p. 354 and CSRG-566 Definition 5.1 support separating names and roles. #3/#22 can use the reviewed resolved-input contract. No general theory of object persistence is needed for that contract. |
 | Which MCS roles denote one class or map | SoSyM §6.2.5 requires a graph/DP morphism. CSRG-566 supplies useful role/context distinctions, not the missing Clafer congruence. #20/#23 still need an explicit label policy, incidence proof and positive/negative identification witnesses before gluing. This is a design decision, not a requirement to obtain one particular paper. |
 | Closure or typed-instance coherence | The 2007 report and inspected 2008 definitions establish the relevant alternative frameworks. The present ordinary API needs neither extension. Reopen this design only for a concrete increment requiring marked arities or a typed-instance bridge, with size and interpretation hypotheses stated. |
@@ -432,6 +433,8 @@ separate corrected VC extension described below.
 | --- | --- |
 | Table 3 inv/= (p.12); B.1 Definition 2, B.2.1–2 (pp.28–30) | `Inverse`, `Commutation`, `inverse_symmetry`, `inverse_iff`, `commutation_iff`; `Span.Iso.inverse`, `.comp` |
 | Table 3 key (p.12); Figure 21c (p.17) | `BagEquiv`, `Key`, `BagEquiv.transport`, `key_iff`, `key_zero` |
+| Derived from B.1 Definitions 1–5 / Theorems 1–2 (pp.28–29), Table 3 key and Figure 21c; comparison with Diskin et al. (2000) §2.1 p.348 | `Span.ofFunction`, `bagEquiv_ofFunction_iff`, `key_ofFunction_iff`, `targetValue`, `targetValue_eq_of_source`, `red_iff_targetValue_eq`, `functionalSpanIso`, `key_total_singleValued_iff`, `tuple_injective_zero_iff` |
+| Finite witness motivated by Diskin et al. (2000) §3.3 pp.353–354 / Figure 1 and §3.5 p.356 | `Examples.Remarriage.same_spouses_different_dates`, `spouses_not_key`, `spouseDate_key` |
 | Table 3 cover (p.12); §6.1.2 (p.18) | `Cover`, `cover_iff`, `cover_zero` |
 | §6.1.2/Figure 21 (pp.17–18), accepted Q8 correction | `Disjoint`, `disjoint_iff`, `disjoint_zero` |
 | A.1 (p.28), Table 2 (p.11), §6.1.1 (pp.17–18), B.1.4/Theorem 2 (p.29) | `SetValued`, `Total`, `SingleValued`, `Inclusion`; fiber characterizations and `inclusion_subset`, `inclusion_identity` |

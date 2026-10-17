@@ -77,6 +77,9 @@ example {A : Type u} {B : Type v} (q : DPGraph.Span.{u, v, w} A B) :
 #check DPGraph.Predicates.Inverse
 #check DPGraph.Predicates.Commutation
 #check DPGraph.Predicates.Key
+#check DPGraph.Predicates.bagEquiv_ofFunction_iff
+#check DPGraph.Predicates.key_ofFunction_iff
+#check DPGraph.Predicates.tuple_injective_zero_iff
 #check DPGraph.Predicates.Cover
 #check DPGraph.Predicates.Disjoint
 #check DPGraph.Predicates.Inclusion
@@ -91,6 +94,14 @@ example (U : Type u) : CategoryTheory.Quiv.{max u w + 1, u} :=
 example {A : Type u} {B : Type v} (q : DPGraph.Span.{u,v,w} A B) :
     DPGraph.Predicates.SingleValued q ↔ ∀ a, Subsingleton (q.toFamily.Index a) :=
   DPGraph.Predicates.singleValued_fibers q
+
+example {A : Type u} {n : Nat} {B : Fin n → Type v}
+    (q : ∀ i, DPGraph.Span.{u,v,w} A (B i))
+    (ht : ∀ i, DPGraph.Predicates.Total (q i))
+    (hs : ∀ i, DPGraph.Predicates.SingleValued (q i)) :
+    DPGraph.Predicates.Key q ↔ Function.Injective
+      (fun a i => DPGraph.Predicates.targetValue (q i) (ht i) (hs i) a) :=
+  DPGraph.Predicates.key_total_singleValued_iff q ht hs
 
 /-! Public pushout interfaces retain the fixed carrier universes and independent
 signature universes. These examples also fix the explicit argument order. -/

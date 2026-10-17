@@ -542,6 +542,54 @@ Covers:
 Covers:
 - `req~predicate-key~1`
 
+## Ordinary-key correspondence: implementation
+`impl~predicate-key-functional~1`
+
+[Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span.ofFunction` has one link per
+source. [FunctionalKey.lean](../DPGraph/Predicates/FunctionalKey.lean):
+`Predicates.targetValue` selects the unique target under explicit `Total` and
+`SingleValued` hypotheses; `functionalSpanIso` identifies the original links with
+those of its function span across independent head/source universes. The public
+[Predicates root](../DPGraph/Predicates.lean) exports this API through `DPGraph`.
+[Examples/FunctionalKey.lean](../DPGraph/Predicates/Examples/FunctionalKey.lean):
+`Examples.Remarriage.Marriage`, `Person`, `Date`, `wife`, `husband`, `date`,
+`spouseValue`, `spouses`, `TripleTarget`, `tripleValue` and `spouseDate` define the
+finite two-marriage witness and its dependent target family.
+
+Covers:
+- `req~predicate-key-functional~1`
+
+## Ordinary-key correspondence: proofs
+`proof~predicate-key-functional~1`
+
+[FunctionalKey.lean](../DPGraph/Predicates/FunctionalKey.lean):
+`ofFunction_total`, `ofFunction_singleValued` and `bagEquiv_ofFunction_iff`
+justify singleton bag equality; `key_ofFunction_iff` proves both directions of
+the ordinary tuple criterion for arbitrary finite arity. `targetValue_eq_of_source`
+and `red_iff_targetValue_eq` establish the unique value's relationship to every
+link and to endpoint membership. `key_total_singleValued_iff` transports through
+`functionalSpanIso` using the existing `key_iff`. `tuple_injective_zero_iff`
+recovers the subsingleton criterion through the unchanged `key_zero`.
+
+[Examples/FunctionalKey.lean](../DPGraph/Predicates/Examples/FunctionalKey.lean):
+`function_empty_source`, `function_subsingleton_source`, `empty_tuple_unit`,
+`empty_tuple_bool_fails` and `liftedFunction_key_iff` check boundaries and a
+separately lifted link universe. In namespace `Examples.Remarriage`,
+`same_spouses_different_dates`, `spouses_total`, `spouses_singleValued`,
+`spouseDate_total`, `spouseDate_singleValued`, `spouses_not_key`, `date_injective`
+and `spouseDate_key` check the concrete spouse-pair failure and spouse/date
+success. The original [bag witnesses](../DPGraph/Predicates/Examples.lean)
+remain unchanged. [public_imports.lean](../tests/public_imports.lean) checks the
+ordinary theorem exports and uses the arbitrary-span theorem with independent
+universes through `import DPGraph`; module discovery also checks the examples.
+The exact inventory assertion in
+[test_project_modules.py](../tests/test_project_modules.py),
+`test_repository_includes_every_delivered_module_and_examples`, includes both
+new modules.
+
+Covers:
+- `req~predicate-key-functional~1`
+
 ## Cover: implementation
 `impl~predicate-cover~1`
 
