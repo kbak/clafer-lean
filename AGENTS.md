@@ -58,7 +58,11 @@ in issues before choosing a meaning. The Haskell compiler is supplementary conte
 pin a commit when using it as evidence. Do not copy third-party material without
 checking its license. Keep the README brief.
 
-Use the pinned Lean toolchain and `bash scripts/check.sh`. Keep proofs kernel
+Use the pinned Lean toolchain and `bash scripts/check.sh` for full validation.
+A factory may use the explicitly configured documentation-only check described
+in `req~lean-validation~1` after proving all other source contents and modes unchanged
+from its frozen baseline. Do not select this exception by agent judgment or edit
+scope to obtain it. Keep proofs kernel
 checked. Do not introduce `sorry`, `admit`, disabled warning checks, or unchecked
 axioms as completed proofs; discuss intentional additional axioms explicitly.
 Keep private deployment paths, credentials, and runtime state outside this repo.

@@ -39,6 +39,14 @@ The project package disables Lake artifact caching so isolated checks compile th
 current candidate. A factory profile may enable native caching for pinned dependencies;
 keep that cache outside captured source and preserve the complete validation gates.
 
+An operator-configured factory may select documentation validation for changes
+confined to `README.md` and Markdown under `docs/`, using a complete file-and-mode
+comparison against its frozen baseline. It runs inventory preflight, module
+regressions and document checks without installing Lean. Any other source change
+selects full validation. IntentBond and independent read-only review remain
+required; the result records which validation ran and does not claim a fresh Lean
+build. Ordinary local checks and CI continue to run the full command.
+
 The shared check discovers every project module, rejects reverse dependencies
 (including through root/helper modules), builds and runs `leanchecker` on each,
 including examples. It batches library/module builds in one Lake invocation and

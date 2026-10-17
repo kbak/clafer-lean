@@ -26,7 +26,16 @@ make that preflight available separately for development feedback. Report elapse
 time for build, kernel-check and test stages, identifying every kernel-checked
 module in the output. Batch module builds and deduplicate overlapping kernel-check
 targets while retaining the complete discovered inventory. Preflight success does not satisfy
-the full validation requirement.
+the full validation requirement for Lean, build, validation or other executable changes.
+An explicitly configured factory documentation check may instead run source-inventory
+preflight, its Python regressions and changed-document checks when a complete
+file-content and mode comparison with the frozen baseline proves that only
+`README.md` or Markdown beneath `docs/` changed. Deletions and additions participate
+in that comparison. Other paths, executable modes, symlinks, an unavailable baseline
+or uncertain classification require full validation. Preserve the baseline identity
+and selected check in evidence. This exception does not claim new Lean validation:
+IntentBond tracing, source matching and independent read-only semantic review
+remain required, including review of changed mathematical claims and requirements.
 Keep artifact caching disabled for the project package so each isolated check
 rebuilds candidate modules. Deployment-managed dependency caches may reuse pinned
 dependency artifacts without replacing any build, kernel or audit gate.
