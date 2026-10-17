@@ -20,9 +20,11 @@ models restrict contravariantly along declaration-preserving maps. Derived
 [model transport results](spec.md#model-reduct-injectivity) establish injectivity
 or surjectivity of restriction under the respective composite identity equations.
 [Carrier-cocone data](spec.md#declaration-unions-on-carrier-cocones) combines
-translated declarations and records compatible component models. Its universal
-property and model amalgamation are separate obligations tracked in
-[#30](https://github.com/kbak/clafer-lean/issues/30).
+translated declarations and records compatible component models. Given a carrier
+colimit, [model amalgamation](spec.md#model-amalgamation-on-a-carrier-pushout)
+identifies models of that union with compatible component models, for a semantic
+graph in the carrier universes. The DP-graph universal property remains a separate
+obligation tracked in [#30](https://github.com/kbak/clafer-lean/issues/30).
 FormalCD and Clafer have public entrypoint scaffolding only. Concrete span predicates and
 SetMap remain undelivered. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),

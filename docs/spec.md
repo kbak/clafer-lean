@@ -290,3 +290,34 @@ Covers:
 - `intent~formalization-foundation~1`
 
 Needs: impl, proof
+
+## Model amalgamation on a carrier pushout
+`req~dpgraph-model-amalgamation~1`
+
+For a signature in universes `s va ua`, fixed carrier universes `v u`,
+`F : Hom S T`, `J : Hom S U`, `c : Pushout.CarrierCocone F J`,
+`Ω : Quiv.{v,u}`, `I : Interpretation σ Ω` and `hc : IsColimit c`, provide
+`Pushout.modelEquiv F J c I hc :
+I.Model (Pushout.obj F J c) ≃ Pushout.CompatibleModels I F J`.
+Its forward map must be exactly the pair of reducts along `Pushout.inl F J c`
+and `Pushout.inr F J c`. Construct the inverse using the supplied carrier
+colimit, prove that it satisfies the union of translated declarations, and
+prove both inverse laws. Prove `Pushout.modelEquiv_fst F J c I hc m` and
+`Pushout.modelEquiv_snd F J c I hc m`, with exactly that explicit argument order,
+stating respectively
+`(modelEquiv F J c I hc m).val.1 = I.reduct (Pushout.inl F J c) m` and
+`(modelEquiv F J c I hc m).val.2 = I.reduct (Pushout.inr F J c) m`.
+
+Implement this in `DPGraph/Pushout/Models.lean` importing `Pushout.Basic`
+independently of any DP-graph universal-property proof, and expose it through
+`import DPGraph`. The semantic universe restriction is local to this result;
+preserve all existing interpretation and reduct declarations. This is a derived
+result over SoSyM B.4 Definitions 9–10 and abstract B.5 Theorem 3, not a verbatim
+paper claim. Require no finiteness, injectivity, semantic invariance or separate
+model amalgamation assumption, and assert no global pushout existence or concrete
+FormalCD/Clafer gluing.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof

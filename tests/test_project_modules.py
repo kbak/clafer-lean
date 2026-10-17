@@ -44,6 +44,7 @@ class PublicLibrariesTest(unittest.TestCase):
             "DPGraph.Morphism", "DPGraph.Examples", "FormalCD", "Clafer",
             "DPGraph.Category", "DPGraph.Semantics", "DPGraph.SemanticsExamples",
             "DPGraph.ModelTransport", "DPGraph.Pushout.Basic",
+            "DPGraph.Pushout.Models",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
 

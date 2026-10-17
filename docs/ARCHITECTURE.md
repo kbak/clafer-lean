@@ -76,9 +76,24 @@ small signature in both a small graph and a graph with vertices/arrows in
 component declarations on a supplied carrier cocone point. Its two injections
 preserve declarations by construction, and the supplied graph equation gives
 the DP-graph cocone. `CompatibleModels` records equality of component reducts.
-These generic data do not assert a universal property or model amalgamation;
-those are separate requirements of [#30](https://github.com/kbak/clafer-lean/issues/30).
-No concrete CD or Clafer gluing is supplied by this construction.
+These generic data alone do not assert a universal property or model amalgamation.
+
+[Pushout/Models.lean](../DPGraph/Pushout/Models.lean) independently imports this
+data module and derives `Pushout.modelEquiv` from a supplied carrier colimit.
+Its forward map is exactly the two model reducts. Compatibility supplies a cocone
+into the semantic graph, whose colimit mediator satisfies every declaration in
+the union: each translated declaration reduces to satisfaction in its component
+model. The carrier factorization equations recover both component models, and
+carrier uniqueness recovers the original model, proving the inverse laws.
+The projection theorems `modelEquiv_fst` and `modelEquiv_snd` expose the forward map.
+Here `Ω : Quiv.{v,u}` shares the fixed carrier universes so the supplied universal
+property applies. This restriction is local to the equivalence; the existing
+interpretation, reduct and compatible-model definitions keep their independent
+semantic universes. This is a derived result over SoSyM B.4 Definitions 9–10 and
+abstract B.5 Theorem 3, with no additional predicate-meaning or amalgamation axiom.
+The DP-graph universal property remains a separate obligation of
+[#30](https://github.com/kbak/clafer-lean/issues/30). Global pushout existence and
+concrete CD or Clafer gluing remain outside this construction.
 
 Concrete span interpretations, SetMap, span operations, and computable finite
 presentations are later increments. The
