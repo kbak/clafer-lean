@@ -69,11 +69,16 @@ if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
             self.assertIn(f"lake env lean -DwarningAsError=true {source}", calls)
         self.assertIn("lake env python3 -m unittest discover -s tests -v", calls)
         self.assertIn("[check] Kernel checks (all discovered modules): exit 0,", result.stdout)
+        kernel = next(i for i, call in enumerate(calls) if "leanchecker" in call)
+        for gate in ("axiom_audit.lean", "tests/public_imports.lean", "unittest discover -s tests -v"):
+            self.assertLess(next(i for i, call in enumerate(calls) if gate in call), kernel)
+        self.assertEqual(kernel, len(calls) - 1)
 
-    def test_failed_kernel_check_stops_before_audit_and_reports_its_exit(self):
+    def test_failed_kernel_check_preserves_prior_gates_and_reports_its_exit(self):
         result, calls = self.run_check(fail="env leanchecker --verbose DPGraph FormalCD Clafer")
         self.assertEqual(result.returncode, 23)
-        self.assertFalse(any("axiom_audit.lean" in call for call in calls))
+        self.assertTrue(any("axiom_audit.lean" in call for call in calls))
+        self.assertIn("lake env python3 -m unittest discover -s tests -v", calls)
         self.assertIn("[check] Kernel checks (all discovered modules): exit 23,", result.stdout)
 
     def test_build_audit_and_test_failures_stop_later_stages(self):
@@ -88,6 +93,7 @@ if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
                 self.assertEqual(result.returncode, 23, result.stdout + result.stderr)
                 if forbidden:
                     self.assertFalse(any(forbidden in call for call in calls))
+                self.assertFalse(any("leanchecker" in call for call in calls))
                 self.assertIn("exit 23,", result.stdout)
 
 
