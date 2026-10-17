@@ -26,6 +26,12 @@ namespace Span
 
 variable {A : Type u} {B : Type v}
 
+/-- An ordinary function as a B.1 span, with exactly one link at each source. -/
+def ofFunction (f : A → B) : Span.{u, v, u} A B where
+  Link := A
+  source := id
+  target := f
+
 /-- A head equivalence commuting with both legs, even across head universes. -/
 structure Iso (q : Span.{u, v, w} A B) (r : Span.{u, v, w'} A B) where
   equiv : q.Link ≃ r.Link
