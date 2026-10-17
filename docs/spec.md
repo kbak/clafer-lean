@@ -1,10 +1,11 @@
-# Foundation and DP-graph requirements
+# Foundation, DP-graph and FormalCD requirements
 
 These requirements cover the repository infrastructure and the delivered
 span operations, DP-graph category, abstract model reduct and concrete predicate
-semantics over a bounded graph of subsets and spans. FormalCD and structural
-Clafer remain later work; future definitions and theorems need scoped requirements
-and source links.
+semantics over a bounded graph of subsets and spans, plus the first FormalCD
+structure and name-preserving morphisms. Self-description and structural Clafer
+remain later work; future definitions and theorems need scoped requirements and
+source links.
 
 ## Reproducible Lean validation
 `req~lean-validation~1`
@@ -88,8 +89,9 @@ dependency direction above. It distinguishes the delivered B.1 Definitions 1–5
 Theorems 1–2 and B.2.1–2 span operations (with the adopted Q1 reduction law),
 B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
-graph from future predicates, all-universes SetMap and FormalCD/Clafer implementations and keeps private deployment
-configuration and credentials outside the source repository. Keep
+graph, and the first FormalCD structure/name-preserving morphisms, from future
+predicates, all-universes SetMap, FormalCD self-description and Clafer implementations.
+It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
 Follow the [documentation policy](../AGENTS.md#documentation): change comparisons
@@ -644,3 +646,113 @@ Covers:
 - `intent~formalization-foundation~1`
 
 Needs: impl, proof, itest
+
+## FormalCD structure and semantic boundary
+`req~formalcd-structure~1`
+
+Expose reusable FormalCD modules through `import FormalCD`, depending on DPGraph
+and never Clafer. Reuse Quiv/Prefunctor, DPGraph.Formula and a declaration Set
+at DPGraph.Predicates.signature. Annotate existing vertices/arrows with class/map
+names, optional predefined identifiers and ordinary/bag/inclusion map modes.
+Keep raw data independently inspectable from a WellFormed proposition and bundle
+valid CDs with its proof. A shared registry provides stable identifiers, canonical
+names and singleton/primitive kinds; entries are optional in each diagram.
+Graph identities remain vertices/arrows, independent of their names. Preserve
+typed bindings, repeated arguments and isolated arity vertices. Add no second
+graph API, untyped arguments, formula identity tokens, dependency closure or
+global finite/decidable assumptions.
+
+WellFormed expresses syntactic/structural validity, not model existence or
+satisfaction. Registry entries record identity/naming, not concrete primitive
+or singleton domains. Generic models concern declared predicates under an explicit
+interpretation. User-defined predicate syntax, VC, nd/ad and full object-diagram
+semantics remain outside this increment.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## FormalCD naming and predefined identity
+`req~formalcd-naming~1`
+
+Require predefined classes to use their registry's canonical name and user-defined
+class names to lie outside all registry-reserved names. Each selected predefined
+identifier has at most one vertex realization. Inclusion arrows are named isA;
+distinct inclusion arrows may share that name. Impose no global classifier-name
+injectivity, inheritance acyclicity, compulsory predefined entries or map identity
+based on names. Ground these obligations in SoSyM §6.1.1–3/Figure 21, distinguishing
+the selected library representation from verbatim paper statements.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## FormalCD effective declarations
+`req~formalcd-declarations~1`
+
+Every inclusion-marked arrow must have its corresponding built-in inclusion
+formula in the underlying DPGraph's effective declaration set. Every ordinary
+map must have its corresponding setValued formula. Explicit bag mode adds no
+implicit setValued obligation, but authors may explicitly declare it. Inclusion
+is separate from bag mode and receives its semantic consequences from the existing
+inclusion interpretation. Use the typed unary binding with the actual arrow and
+its endpoints; do not replace typed formulas with a weaker arity predicate.
+Preserve all authored declarations in one authoritative effective set. Membership
+obligations in WellFormed suffice; generic DPGraph defaults/meanings are unchanged.
+These are the accepted §6.1.1–3 defaults, with Figure 21c's bag exception.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## FormalCD name-preserving morphisms
+`req~formalcd-morphisms~1`
+
+At a shared registry and the supported signature, a morphism between independently
+well-formed CDs is an existing declaration-preserving DPGraph.Hom together with
+equality of class names, map names, optional predefined annotations and map modes
+at mapped vertices/arrows. Preserve none versus some and ordinary versus bag versus
+inclusion exactly. Require neither global carrier injectivity nor reflection of
+extra target declarations. This is an adopted library specialization of B.4
+Definition 10, not an extra theorem attributed verbatim to the paper.
+
+Provide identity, composition, extensionality from the underlying DP map and graph
+map, associativity and both units. Prove all metadata obligations close under
+identity/composition and that forgetting to DPGraph.Hom respects both operations,
+reusing DPGraph laws. Reuse the existing satisfaction/model reduct after forgetting,
+with explicit interpretation, contravariant direction and its identity/composition
+laws. Do not re-prove the general reduct or claim arbitrary DP maps preserve metadata.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## FormalCD acceptance witnesses
+`req~formalcd-examples~1`
+
+Keep examples separate from the public entrypoint and kernel check:
+
+- A finite valid CD with two distinct isA inclusion arrows, their endpoints and
+  required declarations; an ordinary map's set-valued default and an explicit bag
+  without that default (also allowing an authored bag setValued declaration).
+- Invalid reserved user naming, incorrect predefined naming, duplicate realization
+  of a predefined identifier, missing inclusion/ordinary defaults and an invalid
+  inclusion name.
+- A nonidentity morphism, explicit composable maps and their laws; a declaration-
+  preserving DP map between valid CDs that cannot lift because a name or mode changes.
+- An actual concrete interpretation/model and restriction, plus failing satisfaction
+  illustrating the separate semantic condition.
+
+Preserve independent DPGraph import, module discovery, import-layer checks, warnings,
+kernel replay, axiom audits and trace coverage. No full Figure 21 or VC interpretation
+is required. No sorry/admit, unchecked axioms, unsafe/partial mathematical declarations,
+disabled warnings, skipped checks or weakened scope/coverage.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof

@@ -10,7 +10,8 @@ Develop a Lean 4 formalization grounded in the 2014 SoSyM paper. The repository
 support structural 2014 Clafer as their application. DPGraph supplies link-preserving spans and indexed mappings, graphs,
 typed diagram predicates, a fixed-signature category, abstract model
 restriction and concrete predicate meanings over subsets and spans. FormalCD
-will supply formal class diagrams independently of Clafer.
+supplies formal class diagrams and name-preserving morphisms independently of
+Clafer, reusing the same graph identities and typed declarations.
 The selected Table 3/A.1 vocabulary includes the accepted common-target
 disjointness correction; later predicates require separately reviewed increments.
 
@@ -33,13 +34,20 @@ semantic graph shares the fixed carrier universes.
 Concrete inverse, triangle commutation, bag-sensitive keys, cover, disjointness,
 map properties and cardinal multiplicities are delivered. Their bounded semantic
 graph retains shared ambient objects and link multiplicity; it imposes no
-automatic set-valued default. FormalCD and Clafer have public entrypoint
-scaffolding only. An all-universes SetMap and the unsupported predicates listed
-in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
+automatic set-valued default. FormalCD adds inspectable class/map metadata, a
+shared predefined registry, syntactic well-formedness and composable morphisms
+preserving names, annotations and modes. Its ordinary maps require explicit
+set-valued declarations; its inclusions require inclusion declarations. Bag mode
+has no implicit set-valued declaration. Registry annotations identify optional
+predefined classes without implementing their concrete domains, and syntactic
+validity does not assert model existence or satisfaction. FormalCD self-description
+and the Clafer implementation remain future work. An all-universes SetMap and the
+unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
 [source citations and open questions](SOURCES.md), and
-[Lean definitions and proofs](dpgraph-trace.md) describe the current promises.
+[DPGraph definitions and proofs](dpgraph-trace.md) and
+[FormalCD definitions and proofs](formalcd-trace.md) describe the current promises.
 Track subsequent work in the [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) and
 [design (#13)](https://github.com/kbak/clafer-lean/issues/13).
 

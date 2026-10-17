@@ -8,7 +8,9 @@ B.2.1–2 link-preserving span operations with the adopted Q1 correction, B.4
 Definitions 6–10, a fixed-signature category, the abstract B.5 model reduct and
 selected Table 3/A.1 predicates in a bounded graph of subsets and spans, with the
 accepted common-target Q8 disjointness correction.
-FormalCD and Clafer currently have entrypoint scaffolding only. Read the future layer boundaries in
+FormalCD delivers raw/bundled class diagrams, naming/default obligations and
+name-preserving morphisms; self-description remains future work. Clafer currently
+has entrypoint scaffolding only. Read the future layer boundaries in
 [architecture](docs/ARCHITECTURE.md), the [requirements](docs/spec.md) and
 [roadmap #2](https://github.com/kbak/clafer-lean/issues/2)/
 [design #13](https://github.com/kbak/clafer-lean/issues/13) before those increments.
