@@ -35,5 +35,38 @@ run_cmd do
   let env ← getEnv
   for name in env.header.moduleNames do
     if (`FormalCD).isPrefixOf name || (`Clafer).isPrefixOf name ||
-        (`DPGraph.Examples).isPrefixOf name || (`DPGraph.SemanticsExamples).isPrefixOf name then
+        (`DPGraph.Examples).isPrefixOf name || (`DPGraph.SemanticsExamples).isPrefixOf name ||
+        (`DPGraph.Span.Examples).isPrefixOf name then
       throwError "independent DPGraph entrypoint imported {name}"
+
+-- Independent public use with three distinct endpoint/link universe levels.
+universe u v z w w'
+
+example {A : Type u} {B : Type v} (q : DPGraph.Span.{u, v, w} A B) :
+    DPGraph.Span.Iso q.toFamily.toSpan q := q.familySpanIso
+
+example {A : Type u} {B : Type v} (f : DPGraph.IndexedFamily.{u, v, w} A B) :
+    DPGraph.IndexedFamily.Equivalence f.toSpan.toFamily f := f.spanFamilyEquivalence
+
+example {A : Type u} {B : Type v} {C : Type z}
+    (q : DPGraph.Span.{u, v, w} A B) (r : DPGraph.Span.{v, z, w'} B C) :
+    (q.comp r).red = DPGraph.relationComp q.red r.red := q.red_comp r
+
+example {A : Type u} {B : Type v} (q : DPGraph.Span.{u, v, w} A B) :
+    q.JointlyInjective ↔ Nonempty (DPGraph.Span.Iso q (DPGraph.Span.ofRelation q.red)) :=
+  q.jointlyInjective_iff_iso_relation
+
+example {A : Type u} {B : Type v} (q : DPGraph.Span.{u, v, w} A B) :
+    DPGraph.Span.Iso (q.comp (DPGraph.Span.identity B)) q := q.rightUnit
+
+example {A : Type u} {B : Type v} (q : DPGraph.Span.{u, v, w} A B) :
+    q.inverse.inverse = q := q.inverse_inverse
+
+#check DPGraph.Span.associator
+#check DPGraph.IndexedFamily.compSpanIso
+#check DPGraph.Span.compFamilyEquivalence
+#check DPGraph.Span.compToRelation_surjective
+#check DPGraph.Span.comp_iso_relation_iff
+#check DPGraph.Span.relations_comp_jointlyInjective_iff
+#check DPGraph.Span.relations_comp_injective_of_first_singleValued
+#check DPGraph.Span.relations_comp_injective_of_converse_second_singleValued

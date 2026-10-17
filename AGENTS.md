@@ -3,9 +3,10 @@
 The repository remains `kbak/clafer-lean`; its single Lake package is `clafer`.
 The sibling public roots are `DPGraph`, `FormalCD` and `Clafer`, with permitted
 dependencies `Clafer -> FormalCD -> DPGraph -> Mathlib`. Keep DPGraph independently
-importable. Its delivered slice is SoSyM B.4 Definitions 6–10, a fixed-signature
-category and the abstract model reduct of B.5 Theorem 3. FormalCD and Clafer
-currently have entrypoint scaffolding only. Read the future layer boundaries in
+importable. Its delivered slice includes SoSyM B.1 Definitions 1–5, Theorems 1–2 and
+B.2.1–2 link-preserving span operations with the adopted Q1 correction, B.4
+Definitions 6–10, a fixed-signature category and the abstract B.5 model reduct.
+FormalCD and Clafer currently have entrypoint scaffolding only. Read the future layer boundaries in
 [architecture](docs/ARCHITECTURE.md), the [requirements](docs/spec.md) and
 [roadmap #2](https://github.com/kbak/clafer-lean/issues/2)/
 [design #13](https://github.com/kbak/clafer-lean/issues/13) before those increments.
