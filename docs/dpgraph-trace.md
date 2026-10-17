@@ -635,3 +635,104 @@ Covers:
 
 Covers:
 - `req~predicate-examples~1`
+
+## Carrier-cocone data implementation
+`impl~dpgraph-pushout-data~1`
+
+[Pushout/Basic.lean](../DPGraph/Pushout/Basic.lean): `Pushout.CarrierCocone` fixes
+the bundled-quiver category explicitly. `Pushout.obj` uses exactly
+the union of the two translated declaration images. `Pushout.inl`, `inr` and
+`cocone` retain the supplied carrier maps and equation; `CompatibleModels` is
+the subtype of component models with equal reducts. [DPGraph.lean](../DPGraph.lean)
+exports these definitions without upper-layer imports.
+
+Covers:
+- `req~dpgraph-pushout-data~1`
+
+## Carrier-cocone preservation proofs
+`proof~dpgraph-pushout-data~1`
+
+[Pushout/Basic.lean](../DPGraph/Pushout/Basic.lean): the `preserves` fields in
+`Pushout.inl` and `inr` use the respective declaration-image membership witness.
+`Pushout.cocone` proves commutation by `Hom.ext` and the supplied carrier
+cocone equation. No universal-property or amalgamation proof is assumed here.
+
+Covers:
+- `req~dpgraph-pushout-data~1`
+
+## Pushout universal property implementation
+`impl~dpgraph-pushout-universal~1`
+
+[Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean): `Pushout.isColimit`
+takes `F J c hc` in that order and constructs `IsColimit (Pushout.cocone F J c)`.
+It imports only `Pushout.Basic`, retains the independent signature universes and
+fixed carrier universes, and uses the supplied carrier colimit's mediator for
+each target DP cocone. [DPGraph.lean](../DPGraph.lean) publicly exports the result.
+The source basis is SoSyM B.4 Definitions 9–10 and the abstract B.5 representation;
+the universal property is a derived result, not a verbatim theorem of the paper.
+
+Covers:
+- `req~dpgraph-pushout-universal~1`
+
+## Pushout universal property proof
+`proof~dpgraph-pushout-universal~1`
+
+[Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean): `Pushout.isColimit`
+constructs a declaration-preserving mediator. Its preservation proof splits
+membership in the declaration union, uses `Formula.translate_comp` and the
+carrier factorization equations, then applies the corresponding target leg's
+`Hom.preserves`. Its two DP factorization equations follow from `hc.fac` by
+`Hom.ext`; uniqueness follows from `PushoutCocone.IsColimit.hom_ext hc` and
+`Hom.ext`. These kernel-checked fields establish the full `IsColimit`, with no
+additional axioms or model amalgamation assumption.
+
+Covers:
+- `req~dpgraph-pushout-universal~1`
+
+## Model amalgamation implementation
+`impl~dpgraph-model-amalgamation~1`
+
+[Pushout/Models.lean](../DPGraph/Pushout/Models.lean): `Pushout.modelEquiv`
+maps a model to exactly its two reducts and uses the private `Pushout.amalgamate`
+for its inverse. That helper applies `PushoutCocone.IsColimit.desc` to the two
+underlying component maps and their compatibility equation. The module imports
+`Pushout.Basic` independently; [DPGraph.lean](../DPGraph.lean) publicly imports it.
+Only this equivalence restricts `Ω` to the carrier universes. This is a derived
+result over SoSyM B.4 Definitions 9–10 and abstract B.5 Theorem 3.
+
+Covers:
+- `req~dpgraph-model-amalgamation~1`
+
+## Model amalgamation proofs
+`proof~dpgraph-model-amalgamation~1`
+
+[Pushout/Models.lean](../DPGraph/Pushout/Models.lean): the private
+`Pushout.amalgamate` proves satisfaction by splitting membership in the union of
+declaration images, applying `Interpretation.satisfies_translate`, and using the
+appropriate carrier factorization equation and component model proof.
+Private `Pushout.amalgamate_inl` and `Pushout.amalgamate_inr` prove the inverse's
+reducts recover the component models. In `Pushout.modelEquiv`, the forward
+compatibility proof uses the reduct composition law and cocone equation;
+`left_inv` uses carrier-colimit uniqueness, while `right_inv` uses the two helper
+equations and subtype/product extensionality. `Pushout.modelEquiv_fst` and
+`Pushout.modelEquiv_snd` prove the required forward projection equations with
+explicit argument order `F J c I hc m`. All proof obligations use the supplied
+carrier colimit and existing satisfaction semantics, without additional axioms.
+
+Covers:
+- `req~dpgraph-model-amalgamation~1`
+
+## Public pushout interfaces
+`itest~dpgraph-pushout-public-api~1`
+
+[public_imports.lean](../tests/public_imports.lean) imports only `DPGraph` and
+checks the common cocone-data names. Its universe-polymorphic typed examples
+exercise `Pushout.isColimit`, `modelEquiv`, `modelEquiv_fst` and `modelEquiv_snd`
+with the required explicit argument order and exact projection equations. The
+existing import-environment audit still rejects upper layers and examples. The
+shared check compiles this test with warnings as errors.
+
+Covers:
+- `req~dpgraph-pushout-data~1`
+- `req~dpgraph-pushout-universal~1`
+- `req~dpgraph-model-amalgamation~1`

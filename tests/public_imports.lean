@@ -91,3 +91,38 @@ example (U : Type u) : CategoryTheory.Quiv.{max u w + 1, u} :=
 example {A : Type u} {B : Type v} (q : DPGraph.Span.{u,v,w} A B) :
     DPGraph.Predicates.SingleValued q ↔ ∀ a, Subsingleton (q.toFamily.Index a) :=
   DPGraph.Predicates.singleValued_fibers q
+
+/-! Public pushout interfaces retain the fixed carrier universes and independent
+signature universes. These examples also fix the explicit argument order. -/
+#check DPGraph.Pushout.CarrierCocone
+#check DPGraph.Pushout.obj
+#check DPGraph.Pushout.inl
+#check DPGraph.Pushout.inr
+#check DPGraph.Pushout.cocone
+#check DPGraph.Pushout.CompatibleModels
+
+noncomputable section
+open CategoryTheory CategoryTheory.Limits
+universe ps pva pua pv pu
+variable {σ : DPGraph.Signature.{ps, pva, pua}}
+variable {S T U : DPGraph.{ps, pva, pua, pv, pu} σ}
+variable (F : DPGraph.Hom S T) (J : DPGraph.Hom S U)
+variable (c : DPGraph.Pushout.CarrierCocone F J) (hc : IsColimit c)
+variable {Ω : Quiv.{pv, pu}} (I : DPGraph.Interpretation σ Ω)
+
+example : IsColimit (DPGraph.Pushout.cocone F J c) :=
+  DPGraph.Pushout.isColimit F J c hc
+
+example : I.Model (DPGraph.Pushout.obj F J c) ≃ DPGraph.Pushout.CompatibleModels I F J :=
+  DPGraph.Pushout.modelEquiv F J c I hc
+
+example (m : I.Model (DPGraph.Pushout.obj F J c)) :
+    (DPGraph.Pushout.modelEquiv F J c I hc m).val.1 =
+      I.reduct (DPGraph.Pushout.inl F J c) m :=
+  DPGraph.Pushout.modelEquiv_fst F J c I hc m
+
+example (m : I.Model (DPGraph.Pushout.obj F J c)) :
+    (DPGraph.Pushout.modelEquiv F J c I hc m).val.2 =
+      I.reduct (DPGraph.Pushout.inr F J c) m :=
+  DPGraph.Pushout.modelEquiv_snd F J c I hc m
+end
