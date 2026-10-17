@@ -271,3 +271,27 @@ The existing `Examples.source_nonempty` establishes nonempty declarations.
 
 Covers:
 - `req~dpgraph-semantics-examples~1`
+
+## Carrier-cocone data implementation
+`impl~dpgraph-pushout-data~1`
+
+[Pushout/Basic.lean](../DPGraph/Pushout/Basic.lean): `Pushout.CarrierCocone` fixes
+the bundled-quiver category explicitly. `Pushout.obj` uses exactly
+the union of the two translated declaration images. `Pushout.inl`, `inr` and
+`cocone` retain the supplied carrier maps and equation; `CompatibleModels` is
+the subtype of component models with equal reducts. [DPGraph.lean](../DPGraph.lean)
+exports these definitions without upper-layer imports.
+
+Covers:
+- `req~dpgraph-pushout-data~1`
+
+## Carrier-cocone preservation proofs
+`proof~dpgraph-pushout-data~1`
+
+[Pushout/Basic.lean](../DPGraph/Pushout/Basic.lean): the `preserves` fields in
+`Pushout.inl` and `inr` use the respective declaration-image membership witness.
+`Pushout.cocone` proves commutation by `Hom.ext` and the supplied carrier
+cocone equation. No universal-property or amalgamation proof is assumed here.
+
+Covers:
+- `req~dpgraph-pushout-data~1`

@@ -72,6 +72,14 @@ SetMap. [SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean) interprets a
 small signature in both a small graph and a graph with vertices/arrows in
 `Type 1`, and proves positive and negative satisfaction cases.
 
+[Pushout/Basic.lean](../DPGraph/Pushout/Basic.lean) puts the union of translated
+component declarations on a supplied carrier cocone point. Its two injections
+preserve declarations by construction, and the supplied graph equation gives
+the DP-graph cocone. `CompatibleModels` records equality of component reducts.
+These generic data do not assert a universal property or model amalgamation;
+those are separate requirements of [#30](https://github.com/kbak/clafer-lean/issues/30).
+No concrete CD or Clafer gluing is supplied by this construction.
+
 Concrete span interpretations, SetMap, span operations, and computable finite
 presentations are later increments. The
 [source map](SOURCES.md) retains unresolved questions without choosing answers.

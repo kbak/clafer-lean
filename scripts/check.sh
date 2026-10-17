@@ -19,6 +19,9 @@ run_step() {
 # [impl->req~lean-validation~1]
 # [itest->req~lean-validation~1]
 export PYTHONDONTWRITEBYTECODE=1
+# Each kernel-replay task loads its full Mathlib import environment.
+# Bound default concurrency while preserving an explicit operator override.
+export LEAN_NUM_THREADS="${LEAN_NUM_THREADS:-1}"
 validation_dir=.lake/validation
 # Catch source/inventory mistakes before installing Lean or preparing dependencies.
 run_step 'Module inventory' python3 scripts/project_modules.py --output-dir "$validation_dir"

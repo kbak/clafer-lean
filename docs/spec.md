@@ -22,6 +22,10 @@ Run module discovery and its Python regressions before toolchain/dependency setu
 make that preflight available separately for development feedback. Report elapsed
 time for each build, kernel check and test step. Preflight success does not satisfy
 the full validation requirement.
+Default Lean task concurrency to one, preserving an explicit `LEAN_NUM_THREADS`
+override, so Mathlib import environments do not accumulate through unbounded
+parallel kernel replay. This scheduling bound must not omit any validation stage
+or module.
 Audit declarations by their originating project modules, including private and
 generated declarations regardless of namespace, with complete `import all`
 coverage. Reject unsafe/partial definitions, new axioms and transitive axiom
@@ -259,6 +263,28 @@ bare graph map and the failure of whole-model reflection. Include an example
 with semantic vertex and arrow universes larger than the syntax universes.
 Example meanings are illustrative and do not claim the paper's concrete span
 predicates. Keep all assertions kernel checked.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Declaration unions on carrier cocones
+`req~dpgraph-pushout-data~1`
+
+For fixed-signature DP morphisms `F : Hom S T` and `J : Hom S U` at fixed
+carrier vertex/arrow universes, a supplied carrier `PushoutCocone` determines a
+DP-graph on its point. Declare exactly the union of the images of the left and
+right declaration sets under formula translation by its two legs. Provide the
+canonical declaration-preserving injections and their commuting DP-graph cocone.
+Define compatible component models by equality of their reducts to `S`, keeping
+semantic universes independent in that data type.
+
+Expose `Pushout.CarrierCocone`, `obj`, `inl`, `inr`, `cocone` and `CompatibleModels` through
+`import DPGraph`. These are derived constructions over SoSyM B.4 Definitions
+9–10 and the abstract B.5 reduct, not concrete span, FormalCD or Clafer gluing.
+Do not add finiteness, injectivity, inference closure or interpretation invariance.
+The cocone data alone does not assert a universal property or model amalgamation.
 
 Covers:
 - `intent~formalization-foundation~1`
