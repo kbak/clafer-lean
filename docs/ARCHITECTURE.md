@@ -177,10 +177,11 @@ map preserving declarations, its restricted model and a rejected overlapping
 binding. Zero-member key means a subsingleton source, cover an empty target,
 and disjointness is vacuous, while each central arity vertex survives.
 
-VC, arbitrary path equations
-beyond the triangle, FormalCD/Clafer-specific predicates, all-universes SetMap and computable finite
-presentations remain future work. The source map distinguishes the accepted Q1
-and Q8 corrections from the remaining open questions.
+The generic built-in vocabulary excludes VC and FormalCD/Clafer-specific
+predicates; the telematics example below supplies VC as a FormalCD extension.
+Arbitrary path equations beyond the triangle, all-universes SetMap and computable
+finite presentations remain future work. The source map records the accepted
+Q1, Q7 and Q8 corrections and the remaining open questions.
 
 ## Formal class diagrams
 
@@ -290,9 +291,10 @@ CDOver family used by the built-in specialization and Figure 21b, with different
 explicit vocabulary/registry parameters. No metamodel-instance result is inferred,
 so no literal-key/totality hypotheses are silently discharged by this theorem.
 
-[Figure21/Basic.lean](../FormalCD/Figure21/Basic.lean) constructs the four-node,
-five-arrow diagram, Int registry metadata and twelve distinct effective formulas.
-[VC.lean](../FormalCD/Figure21/VC.lean) adds one symbol through `Vocabulary.extend`.
+[Telematics/Basic.lean](../FormalCD/Telematics/Basic.lean) formalizes the telematics
+example (§2) as the four-node, five-arrow diagram in Figure 21b, with Int registry
+metadata and twelve distinct effective formulas.
+[VC.lean](../FormalCD/Telematics/VC.lean) adds one symbol through `Vocabulary.extend`.
 Its four-arrow arity retains both inheritance paths to Comp and version to Int.
 `IntegerRealization` embeds every integer in an ambient U and supplies a decoder
 with a roundtrip law. VC requires the Int vertex to equal this image and compares
@@ -307,7 +309,7 @@ integer comparison. 0..1(server) gives single-valuedness without totality;
 0..5(display) bounds the inverse's outgoing links. Equality passes and an empty
 server fiber contributes no comparison.
 
-[Examples.lean](../FormalCD/Figure21/Examples.lean), checked separately from public
+[Examples.lean](../FormalCD/Telematics/Examples.lean), checked separately from public
 imports, uses `Bool ⊕ Int`: two component objects, disjoint ECU/Display singleton
 subsets, all integers, and an optional single server link with its actual inverse.
 The parameterized `model_iff` proves whole Figure 21b satisfaction exactly when

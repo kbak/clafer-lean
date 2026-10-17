@@ -5,7 +5,7 @@ public import FormalCD.Morphism
 public import FormalCD.Semantics
 public import FormalCD.Metamodel.Interpretation
 public import FormalCD.SelfDescription
-public import FormalCD.Figure21.VC
+public import FormalCD.Telematics.VC
 
 /-!
 # Formal class diagrams

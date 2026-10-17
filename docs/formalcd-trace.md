@@ -294,11 +294,11 @@ Covers:
 ## Figure 21b data and effective formulas
 `impl~formalcd-figure21-construction~1`
 
-[Figure21/Basic.lean](../FormalCD/Figure21/Basic.lean): `Node`, `Edge`, `graph`,
+[Telematics/Basic.lean](../FormalCD/Telematics/Basic.lean): `Node`, `Edge`, `graph`,
 `VCEdge`, `vcShape`, `vcBinding`, `extraSignature`, `vocabulary`, `vc`, `registry`,
 `nodeName`, `edgeName`, `edgeMode`, `inclusions`, `opposite`, `Declaration`,
 `declaration`, `raw`, `diagram`, `edges`, `effectiveFormulasEquiv`.
-Names are in `FormalCD.Figure21`. These reuse full typed Formula bindings and
+Names are in `FormalCD.Telematics`. These reuse full typed Formula bindings and
 the existing optional metadata/default framework. Sources: §6.1.1–3, Figure 21b,
 p.19's twelve effective declarations, and B.4 Definitions 7–9.
 
@@ -308,7 +308,7 @@ Covers:
 ## Figure 21b syntax and inventory proofs
 `proof~formalcd-figure21-construction-laws~1`
 
-[Figure21/Basic.lean](../FormalCD/Figure21/Basic.lean): `wellFormed`, `declared`,
+[Telematics/Basic.lean](../FormalCD/Telematics/Basic.lean): `wellFormed`, `declared`,
 `four_classes`, `five_arrows`, `edges_complete`, `edges_nodup`,
 `inclusion_identities_distinct`, `inclusion_names`, `int_metadata`,
 `no_singleton_required`, `twelve_declarations`, `declaration_injective`,
@@ -316,7 +316,7 @@ Covers:
 `effectiveFormulasEquiv` proves exact correspondence between the twelve labels
 and the effective formula set. Edge constructors and the complete list expose
 all five incidences, with the four VC arrows bound by `vcBinding`.
-[VC.lean](../FormalCD/Figure21/VC.lean): `one_one_total_single` and
+[VC.lean](../FormalCD/Telematics/VC.lean): `one_one_total_single` and
 `zero_one_single` explain the arrow notation through link multiplicities.
 
 Covers:
@@ -325,10 +325,10 @@ Covers:
 ## Guarded VC interpretation data
 `impl~formalcd-vc-meaning~1`
 
-[Figure21/VC.lean](../FormalCD/Figure21/VC.lean): `IntegerRealization`, `.domain`,
+[Telematics/VC.lean](../FormalCD/Telematics/VC.lean): `IntegerRealization`, `.domain`,
 `InheritedVersion`, `VCMeaning`, `vcInterpretation`, `interpretation`,
 `asComponent`, `versionValue`, `GuardedComparison`. All names are in
-`FormalCD.Figure21`. VC checks the realized integer domain and compares decoded
+`FormalCD.Telematics`. VC checks the realized integer domain and compares decoded
 version targets along actual inclusion/version links for each server link.
 There is no comparison for an empty server fiber. Semantic universes retain
 `U : Type u`, subset vertices and link bound `max u w`. The source correction
@@ -341,7 +341,7 @@ Covers:
 ## Guarded VC correspondence proofs
 `proof~formalcd-vc-meaning-laws~1`
 
-[Figure21/VC.lean](../FormalCD/Figure21/VC.lean): `builtins_unchanged`,
+[Telematics/VC.lean](../FormalCD/Telematics/VC.lean): `builtins_unchanged`,
 `satisfies_vc`, `one_one_total_single`, `zero_one_single`, `versionValue_link`,
 `inherited_iff_value`, `satisfies_vc_iff_guarded`, `declared_vc_iff_guarded`. The
 last two theorems assume the
@@ -355,10 +355,10 @@ Covers:
 ## Figure 21b model and boundary data
 `impl~formalcd-vc-witness-data~1`
 
-[Figure21/Examples.lean](../FormalCD/Figure21/Examples.lean): `Universe`, `integers`,
+[Telematics/Examples.lean](../FormalCD/Telematics/Examples.lean): `Universe`, `integers`,
 `components`, `singletonObjects`, `component`, `singletonObject`, `inclusionSpan`,
 `serverSpan`, `versionNumber`, `versionSpan`, `objects`, `modelMap`, `model`.
-Names are in `FormalCD.Figure21.Examples`. The ambient type is `Bool ⊕ Int`;
+Names are in `FormalCD.Telematics.Examples`. The ambient type is `Bool ⊕ Int`;
 component sets are finite but the integer domain realizes every integer.
 The models are parameterized by server presence and arbitrary ECU/display versions.
 
@@ -368,7 +368,7 @@ Covers:
 ## Figure 21b satisfaction and counterexamples
 `proof~formalcd-vc-witness-laws~1`
 
-[Figure21/Examples.lean](../FormalCD/Figure21/Examples.lean): `inclusion_holds`,
+[Telematics/Examples.lean](../FormalCD/Telematics/Examples.lean): `inclusion_holds`,
 `server_multiplicity`, `display_multiplicity`, `version_multiplicity`,
 `server_set`, `display_set`, `version_set`, `inverse_holds`, `cover_holds`,
 `disjoint_holds`, `other_declarations`, `inherited_version`, `vc_iff`, `model_iff`,

@@ -5,16 +5,17 @@ public import Mathlib.Data.Fintype.EquivFin
 public import Mathlib.Tactic.FinCases
 
 /-!
-# Figure 21b as a formal class diagram
+# Telematics formal class diagram
 
-SoSyM §6.1.1–3, Figure 21a–b (p.17), twelve effective formulas (p.19),
+SoSyM §2 (telematics example), §6.1.1–3, Figure 21a–b (p.17),
+twelve effective formulas (p.19),
 and B.4 Definitions 7–9. Arrow identities and full typed bindings are retained.
 The two isA names do not identify their arrows. This module asserts syntax only.
 -/
 
 @[expose] public section
 
-namespace FormalCD.Figure21
+namespace FormalCD.Telematics
 open CategoryTheory DPGraph.Predicates
 
 inductive Node where | comp | ecu | display | int
@@ -209,4 +210,4 @@ theorem vc_edges_nodup : vcEdges.Nodup :=
   List.Nodup.of_map (f := fun e => edgeCode
     ⟨vcBinding.obj e.1, vcBinding.obj e.2.1, vcBinding.map e.2.2⟩) (by decide)
 
-end FormalCD.Figure21
+end FormalCD.Telematics

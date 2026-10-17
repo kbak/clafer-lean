@@ -1,6 +1,6 @@
 module
 
-public import FormalCD.Figure21.VC
+public import FormalCD.Telematics.VC
 
 /-!
 # Nonempty models and the four VC boundary witnesses
@@ -13,7 +13,7 @@ All assertions use the actual extended interpretation and typed declarations.
 
 @[expose] public section
 
-namespace FormalCD.Figure21.Examples
+namespace FormalCD.Telematics.Examples
 open CategoryTheory DPGraph.Predicates
 
 abbrev Universe := Sum Bool Int
@@ -235,4 +235,4 @@ theorem unserved_not_total : ¬ Total (serverSpan false) := by
   obtain ⟨l,_⟩ := h (singletonObject true)
   cases l.property
 
-end FormalCD.Figure21.Examples
+end FormalCD.Telematics.Examples

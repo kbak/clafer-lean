@@ -27,7 +27,7 @@ run_cmd do
         (`FormalCD.Metamodel.Examples).isPrefixOf name ||
         (`FormalCD.Metamodel.InterpretationExamples).isPrefixOf name ||
         (`FormalCD.Metamodel.NameExamples).isPrefixOf name ||
-        (`FormalCD.Figure21.Examples).isPrefixOf name then
+        (`FormalCD.Telematics.Examples).isPrefixOf name then
       throwError "independent FormalCD entrypoint imported {name}"
 
 universe p v₁ u₁ v₂ u₂ v₃ u₃ vm um
@@ -63,9 +63,9 @@ end Extended
 
 #check FormalCD.bounded_self_description
 #check FormalCD.metamodelFormulaRepresentation
-#check FormalCD.Figure21.diagram
-#check FormalCD.Figure21.declaration_injective
-#check FormalCD.Figure21.satisfies_vc_iff_guarded
-#check FormalCD.Figure21.builtins_unchanged
-#check FormalCD.Figure21.twelve_effective_formulas
-#check FormalCD.Figure21.declared_vc_iff_guarded
+#check FormalCD.Telematics.diagram
+#check FormalCD.Telematics.declaration_injective
+#check FormalCD.Telematics.satisfies_vc_iff_guarded
+#check FormalCD.Telematics.builtins_unchanged
+#check FormalCD.Telematics.twelve_effective_formulas
+#check FormalCD.Telematics.declared_vc_iff_guarded

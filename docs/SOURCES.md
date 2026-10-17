@@ -434,7 +434,7 @@ constraint: cover/disjointness impose the partition. The bullet/open arrowheads
 on version are accounted for by 1..1; server's open head is accounted for by
 0..1 and does not imply totality. Display remains a general map bounded by 0..5.
 
-`FormalCD.Figure21.vocabulary` adds VC through the compatible extension API,
+`FormalCD.Telematics.vocabulary` adds VC through the compatible extension API,
 leaving `DPGraph.Predicates` and its Q8 common-target/inverse/multiplicity meanings
 unchanged. VC has a real four-arrow arity with all four vertex images. Its
 interpretation checks an explicit integer-domain realization and follows the
@@ -442,7 +442,7 @@ inclusion/version links for every server link. The theorem
 `satisfies_vc_iff_guarded` connects actual formula satisfaction to the selected
 integer comparison under inclusion and 1..1 version hypotheses.
 
-The example models in `FormalCD.Figure21.Examples` realize all integers in
+The example models in `FormalCD.Telematics.Examples` realize all integers in
 `Bool ⊕ Int`. `model_iff` characterizes all twelve declarations for arbitrary
 ECU/display integers and a present/absent server link. Greater and equal cases
 pass, lower fails only VC, and an absent server passes with a faithful 0..1

@@ -1,6 +1,6 @@
 module
 
-public import FormalCD.Figure21.Basic
+public import FormalCD.Telematics.Basic
 
 /-!
 # Corrected, guarded VC interpretation
@@ -20,7 +20,7 @@ it is not a global primitive-domain framework or an all-universes SetMap.
 @[expose] public section
 
 universe u w
-namespace FormalCD.Figure21
+namespace FormalCD.Telematics
 open CategoryTheory DPGraph.Predicates
 
 structure IntegerRealization (U : Type u) where
@@ -161,4 +161,4 @@ theorem declared_vc_iff_guarded {U : Type u} (R : IntegerRealization U)
         (versionValue R (m.map Edge.version) (one_one_total_single _ hv).1) :=
   satisfies_vc_iff_guarded R m domain h1 h2 hv
 
-end FormalCD.Figure21
+end FormalCD.Telematics
