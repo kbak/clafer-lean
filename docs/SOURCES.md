@@ -89,13 +89,16 @@ compiler has not been used as semantic evidence; later use must pin a commit,
 check licensing and distinguish post-2014 constructs. Acquired publications
 remain outside the repository.
 
-### Recovered 2000 pages: bounded applicability
+### Universal Arrow Foundations: partial-source assessment
 
-The recovered-page manifest records filenames, printed page numbers and individual
-SHA-256 hashes; its SHA-256 is
-`18a96974f04e89fe79b8241dc934d18149b20424d0c2c96976cb2893a2411242`.
-This identifies the partial collection, not a complete-paper PDF. The source
-files and manifest are retained externally; acquisition limits remain on #41.
+Google Books previews provided a partial copy of *Universal Arrow Foundations
+for Visual Modeling* after author links and other full-text searches did not
+yield a complete copy. The available material covers pp. 345–348, 350, 352–357
+and 359; pp. 349, 351, 358 and 360 remain unavailable.
+
+The inspected passages inform the comparisons of keys, names and marked arities
+below. Detailed provenance and file identities are retained with the research
+evidence tracked by [#41](https://github.com/kbak/clafer-lean/issues/41).
 
 | Inspected locator | Finding and applicability boundary |
 | --- | --- |
@@ -125,7 +128,7 @@ unread 2003 definitions or missing 2000 passages, or settle Clafer's label congr
 ## Generalized sketches and model-reduct coherence
 `impl~supporting-source-assessment~1`
 
-The [recovered-page assessment](#recovered-2000-pages-bounded-applicability) and
+The [partial-source assessment](#universal-arrow-foundations-partial-source-assessment) and
 comparison below support the [research requirement](spec.md#supporting-source-and-coherence-research).
 The missing 2003 full text and 2000 page gaps remain unaudited; the bounded
 disposition below states when further acquisition is needed.

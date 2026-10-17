@@ -78,7 +78,7 @@ ordinary signature and fixed semantic graph. Dependency-enriched sketches and a
 typed-instance correspondence would need separately specified closure,
 consistency, size and coherence obligations; the bounded library assessment
 does not justify adding another dependency. The
-[recovered 2000 pages](SOURCES.md#recovered-2000-pages-bounded-applicability)
+[inspected 2000 passages](SOURCES.md#universal-arrow-foundations-partial-source-assessment)
 support a bounded comparison of keys, names and hierarchical arities. The
 [criticality assessment](SOURCES.md#project-critical-source-disposition) uses
 accessible primary alternatives and makes further acquisition conditional on
