@@ -295,3 +295,32 @@ cocone equation. No universal-property or amalgamation proof is assumed here.
 
 Covers:
 - `req~dpgraph-pushout-data~1`
+
+## Pushout universal property implementation
+`impl~dpgraph-pushout-universal~1`
+
+[Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean): `Pushout.isColimit`
+takes `F J c hc` in that order and constructs `IsColimit (Pushout.cocone F J c)`.
+It imports only `Pushout.Basic`, retains the independent signature universes and
+fixed carrier universes, and uses the supplied carrier colimit's mediator for
+each target DP cocone. [DPGraph.lean](../DPGraph.lean) publicly exports the result.
+The source basis is SoSyM B.4 Definitions 9–10 and the abstract B.5 representation;
+the universal property is a derived result, not a verbatim theorem of the paper.
+
+Covers:
+- `req~dpgraph-pushout-universal~1`
+
+## Pushout universal property proof
+`proof~dpgraph-pushout-universal~1`
+
+[Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean): `Pushout.isColimit`
+constructs a declaration-preserving mediator. Its preservation proof splits
+membership in the declaration union, uses `Formula.translate_comp` and the
+carrier factorization equations, then applies the corresponding target leg's
+`Hom.preserves`. Its two DP factorization equations follow from `hc.fac` by
+`Hom.ext`; uniqueness follows from `PushoutCocone.IsColimit.hom_ext hc` and
+`Hom.ext`. These kernel-checked fields establish the full `IsColimit`, with no
+additional axioms or model amalgamation assumption.
+
+Covers:
+- `req~dpgraph-pushout-universal~1`

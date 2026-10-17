@@ -76,9 +76,16 @@ small signature in both a small graph and a graph with vertices/arrows in
 component declarations on a supplied carrier cocone point. Its two injections
 preserve declarations by construction, and the supplied graph equation gives
 the DP-graph cocone. `CompatibleModels` records equality of component reducts.
-These generic data do not assert a universal property or model amalgamation;
-those are separate requirements of [#30](https://github.com/kbak/clafer-lean/issues/30).
-No concrete CD or Clafer gluing is supplied by this construction.
+[Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean), importing only this
+basic module, lifts a supplied carrier `IsColimit` to the DP-graph cocone at
+fixed carrier universes. For any target DP cocone, its carrier mediator preserves
+declarations: each declaration comes from one component, and translation
+composition plus the corresponding factorization equation reduces preservation
+to that component's DP map. Carrier factorization and uniqueness then lift by
+`Hom.ext`. This is a derived result over B.4 Definitions 9–10, not a verbatim
+paper theorem or an assertion of global pushout existence. Model amalgamation
+remains a separate obligation of [#30](https://github.com/kbak/clafer-lean/issues/30).
+No concrete CD or Clafer gluing is supplied by these constructions.
 
 Concrete span interpretations, SetMap, span operations, and computable finite
 presentations are later increments. The

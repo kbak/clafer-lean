@@ -3,6 +3,7 @@ module
 public import DPGraph.Semantics
 public import DPGraph.ModelTransport
 public import DPGraph.Pushout.Basic
+public import DPGraph.Pushout.Universal
 
 /-!
 # Reusable diagram-predicate graphs

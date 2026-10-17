@@ -290,3 +290,27 @@ Covers:
 - `intent~formalization-foundation~1`
 
 Needs: impl, proof
+
+## Pushout universal property
+`req~dpgraph-pushout-universal~1`
+
+For `σ : Signature.{s, va, ua}`, `S T U : DPGraph.{s, va, ua, v, u} σ`,
+`F : Hom S T`, `J : Hom S U`, `c : Pushout.CarrierCocone F J` and a supplied
+`hc : CategoryTheory.Limits.IsColimit c`, provide
+`noncomputable def Pushout.isColimit F J c hc : IsColimit (Pushout.cocone F J c)`.
+Construct the DP mediator from the carrier universal property, prove preservation
+of the union of translated declarations, both factorization equations and
+uniqueness. Keep the explicit argument order `F J c hc` and expose the result
+through `import DPGraph`. Its module `DPGraph.Pushout.Universal` independently
+imports `DPGraph.Pushout.Basic`.
+
+This is a derived result over the representation from SoSyM B.4 Definitions 9–10
+and the abstract B.5 Theorem 3, not a verbatim paper claim. Keep signature
+universes independent and carrier universes fixed; add no finiteness,
+injectivity, semantic invariance, global pushout existence or model amalgamation
+assumption. This requirement does not deliver a model equivalence.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
