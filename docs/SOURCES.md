@@ -374,7 +374,7 @@ source gaps. Keep the original issue discussions as the decision history.
 | --- | --- | --- |
 | Q1 — B.2.1 composition | Accepted: retain pullback links and prove equality after reduction. The unqualified relational-span isomorphism is false. | #4 / #32 delivered `Span.red_comp`, the exact endpoint-injectivity criterion and two-path/parallel-link counterexamples; [source comparison](#span-composition-q1-research-for-4). No remaining #4 implementation task. |
 | Q2 — Appendix E analogous clauses | Unresolved: implementing only printed representatives would omit the prose obligations. No expansion is selected here. | #20 must enumerate source/target, reference, parent and super-role variants from Tables 5–8, record which endpoints may be undefined and each guard, visually cross-check Figure 23, and attach positive/negative incidence and optional-role witnesses to the accepted checklist. |
-| Q3 — Appendix D notation | Unresolved: D.4.2 prints set difference in the intersection equation; some type-rule notation is inconsistent. Following the named intersection and D.1–D.3 is a proposal, not an accepted semantic equation. | #21 must locate each discrepant rule, record alternatives and obtain a reviewed disposition before semantics. Validate common-element versus difference examples, empty operands, and accepted/rejected typing/navigation/binder cases; no theorem of constraint meaning is claimed here. |
+| Q3 — Appendix D notation | Unresolved: D.4.2 prints set difference in the intersection equation; D.3 also leaves operator and operand typing inconsistent or underspecified. The [rule inventory below](#appendix-d-rule-dispositions-q3) records the alternatives; none is an accepted correction. | #21 requires a reviewed disposition before semantic equations and before implementing typing choices that resolve these discrepancies. Validate common-element versus difference examples, empty operands, and accepted/rejected typing/navigation/binder cases; no theorem of constraint meaning is claimed here. |
 | Q4 — labels and identity | Unresolved for Clafer: §6.2.4 indices and §6.2.5 label identification require a precise congruence. Existing FormalCD names are metadata, not identity. | #20/#22/#23 must distinguish source names, generated IDs, class identities and endpoint-qualified map labels; show repeated parent/isA names do not merge incompatible endpoints, define the intended same-label identifications, and prove label incidence before declaration preservation. Use the inspected primary evidence above; relying on a particular unread 2003 definition would require obtaining it or an adequate primary alternative. |
 | Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
 | Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) owns the bounded assessment and reviewed source disposition; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
@@ -385,6 +385,35 @@ The roadmap can be accepted with deferred work explicitly assigned; it cannot
 claim that those tasks or missing-source research are completed. #40 delivers
 #2's source/design cross-check; #41 retains the unfinished research. The architecture records
 the existing #13 assessment and the separate proof-status boundaries.
+
+### Appendix D rule dispositions (Q3)
+
+The primary preprint identified above places D.1/Figure 28 and D.2 on p.31,
+and D.3–D.4 on p.32. Issue [#21](https://github.com/kbak/clafer-lean/issues/21)
+owns the following unresolved choices. This inventory records source problems
+and proposed dispositions, not additional mathematical requirements or accepted
+typing rules. The existing resolved [context boundary](../Clafer/Context.lean)
+does not settle them.
+
+| Locator | Printed rule or discrepancy | Proposed disposition requiring review |
+| --- | --- | --- |
+| D.4.2, Intersection | The right-hand operation is difference, although D.1 and the rule's heading call it intersection. | Use common elements for intersection and retain difference as a separate operator. An operand pair with a common and a left-only element distinguishes the alternatives; also check empty operands and equal operands. |
+| D.4.2, Union / Difference / Intersection | Left operands use the set interpretation, while right operands use the expression interpretation. D.4 gives these functions different codomains. | Use the set interpretation for both operands. Any alternative must specify the conversion and its domain; changing the operation symbol alone does not resolve this mismatch. |
+| D.3.1, Universal quantification | The extended environment annotates the variable with the domain expression, without a premise assigning that expression a type. | Require an object-set domain and type the bound variable at its element class, represented as a singleton when used as a set expression. Quantification over binary relations would require a separate tuple-binding choice. |
+| D.3.1, Arithmetic operator; D.3.2, Set operators | Each rule lists several operators but its conclusion displays only addition or union, respectively. | Apply each rule uniformly to its listed operators, keeping arithmetic subtraction separate from set difference. Operand sorts still require the separate decision below. |
+| D.3.1, Comparison / Arithmetic operator / Set cardinality | Comparison and arithmetic require a common type without an ordering or numeric restriction; cardinality has no collection restriction. | Choose explicit Boolean, integer, object-set and binary-relation sorts: integer-only ordering/arithmetic, same-sort equality, and cardinality of finite collections. Alternatively, specify supported ordered/numeric domains and their assumptions. These choices change which expressions are accepted. |
+| D.1/Figure 28; D.3.2, Subsetting; D.4.1, Set expression | The grammar places subsetting among set operators, its typing rule returns Boolean, and the set-expression clause discusses quantification while returning a set interpretation. | Give subsetting a Boolean result over compatible collections. Keep a bare set distinct from a Boolean constraint and make any implicit `some` elaboration explicit or unsupported. |
+| D.4.2, Relational join | D.3.2 types both binary–binary composition and unary–binary image; D.4.2 displays a pair-based equation for composition only, although the prose describes navigation from unary `this`. | Retain both typed joins. A future interpretation needs a separate unary-image clause and must state how relation results relate to multiplicity-bearing spans. Do not infer preservation of span links from a relational equation. |
+
+D.2 starts name resolution from the constraint's enclosing class and gives
+reserved names, local binders and model lookup different precedence. The
+resolved-input interface can retain declaration and binder IDs independently
+of display names without implementing that search. D.3.2's join premises
+require exact agreement at the shared endpoint; accepting implicit subtype
+coercions would require an additional rule. Positive and negative examples for
+#21 must cover both joins, binder scope, Boolean quantifier bodies and the
+eventually selected operand sorts. No evaluator, semantic preservation theorem
+or accepted correction follows from this inventory.
 
 ## Predicate contracts and the accepted Q8 correction
 
