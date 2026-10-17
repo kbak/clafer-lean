@@ -7,14 +7,18 @@ Develop a Lean 4 formalization grounded in the 2014 SoSyM paper. The repository
 `kbak/clafer-lean` contains one Lake package, `clafer`, with sibling public roots
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
 `Clafer -> FormalCD -> DPGraph -> Mathlib`: independently reusable foundations
-support structural 2014 Clafer as their application. DPGraph supplies graphs,
+support structural 2014 Clafer as their application. DPGraph supplies link-preserving spans and indexed mappings, graphs,
 typed diagram predicates, a fixed-signature category and abstract model
 restriction; FormalCD will supply formal class diagrams independently of Clafer.
-Concrete predicate and span semantics remain in scope for later, separately
+Concrete predicate interpretations remain in scope for later, separately
 reviewed increments.
 
-The delivered mathematical slice is SoSyM Appendix B.4, Definitions 6–10,
+The delivered mathematical slice includes SoSyM B.1 Definitions 1–5 and
+Theorems 1–2, B.2.1–2 span composition/inversion, and B.4 Definitions 6–10
 with a fixed-signature category and the abstract model reduct of B.5 Theorem 3.
+Span composition retains all composable link pairs; the adopted B.2.1 correction
+proves agreement with relational composition after reduction, with isomorphism
+exactly when the composite endpoint pairing is injective.
 Interpretations select satisfying arity diagrams in a chosen semantic graph;
 models restrict contravariantly along declaration-preserving maps. Derived
 [model transport results](spec.md#model-reduct-injectivity) establish injectivity
@@ -25,7 +29,7 @@ carrier colimit [lifts to a DP-graph colimit](spec.md#pushout-universal-property
 and [model amalgamation](spec.md#model-amalgamation-on-a-carrier-pushout) identifies
 models of the declaration union with compatible component models when the
 semantic graph shares the fixed carrier universes.
-FormalCD and Clafer have public entrypoint scaffolding only. Concrete span predicates and
+FormalCD and Clafer have public entrypoint scaffolding only. Concrete span predicate interpretations and
 SetMap remain undelivered. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
 [source citations and open questions](SOURCES.md), and

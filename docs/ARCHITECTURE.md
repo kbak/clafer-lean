@@ -1,8 +1,8 @@
 # Architecture
 
-The [canonical intent](intent.md) selects three layers. DPGraph syntax, its
-fixed-signature category and abstract model restriction are delivered. The
-[live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
+The [canonical intent](intent.md) selects three layers. Spans and their mapping
+operations, DPGraph syntax, its fixed-signature category and abstract model
+restriction are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
 and [design (#13)](https://github.com/kbak/clafer-lean/issues/13) track later work.
 The repository `kbak/clafer-lean` contains one Lake package named `clafer`.
 Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
@@ -10,7 +10,7 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 
 | Layer | Responsibility and dependencies | Status |
 | --- | --- | --- |
-| DPGraph | Reusable graphs, typed predicates, a fixed-signature category and abstract interpretation; Mathlib only | B.4 Definitions 6–10 and the abstract B.5 reduct implemented in [DPGraph](../DPGraph.lean) |
+| DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct in [DPGraph](../DPGraph.lean) |
 | FormalCD | Independently reusable class-diagram vocabulary and reviewed naming/structural invariants; builds on DPGraph | [Entrypoint scaffold](../FormalCD.lean) only; future self-description aims at Figure 21c ([#17](https://github.com/kbak/clafer-lean/issues/17), [#18](https://github.com/kbak/clafer-lean/issues/18), [#19](https://github.com/kbak/clafer-lean/issues/19)) |
 | Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Entrypoint scaffold](../Clafer.lean) only; name resolution and constraint meaning require review |
 
@@ -23,8 +23,8 @@ preservation proofs, identity, composition, extensionality and laws. The signatu
 is fixed throughout these operations; arities and each carrier can occupy distinct
 vertex/arrow universes. [Examples.lean](../DPGraph/Examples.lean) uses finite types locally.
 `import DPGraph` exposes the generic foundation without importing examples or
-upper layers. `DPGraph.Examples` and `DPGraph.SemanticsExamples` are built and
-checked separately. Library globs and the shared check's discovered module
+upper layers. `DPGraph.Examples`, `DPGraph.SemanticsExamples` and
+`DPGraph.Span.Examples` are built and checked separately. Library globs and the shared check's discovered module
 inventory cover all project modules,
 including future helpers that no entrypoint imports. That same inventory drives
 explicit builds, `leanchecker` and the generated `import all` axiom audit.
@@ -98,6 +98,43 @@ semantic universes. Both results are derived over SoSyM B.4 Definitions 9–10
 and abstract B.5 Theorem 3. They add no predicate-meaning or amalgamation axiom,
 assert no global pushout existence, and supply no concrete CD or Clafer gluing.
 
-Concrete span interpretations, SetMap, span operations, and computable finite
-presentations are later increments. The
-[source map](SOURCES.md) retains unresolved questions without choosing answers.
+
+## Spans and indexed mappings
+
+[Span.Basic](../DPGraph/Span/Basic.lean) defines `Span A B` with a head `Link`
+and total `source`/`target` legs. Their universes `u`, `v`, `w` are independent.
+`Span.Iso` is an equivalence of heads preserving both endpoints; parallel links
+remain distinct. Inversion swaps the legs and is involutive. It supplies no
+categorical inverse for arbitrary spans.
+
+[IndexedFamily](../DPGraph/Span/IndexedFamily.lean) uses `Index : A → Type w`
+and `eval : ∀ a, Index a → B`. A span gives source fibers in `Type w`; a family
+gives a sigma head in `Type (max u w)`. The roundtrips use head or fiberwise
+equivalences, including across universes. Family reduction and span reduction
+agree by endpoint membership (B.1 Theorem 1). No resizing or finite multiset
+representation is needed.
+
+[Composition](../DPGraph/Span/Composition.lean) uses all pairs `(l,m)` with
+`target l = source m`, in `Type (max w w')`, with the outer legs. Family
+composition uses all indices `Σ i, J (eval a i)` and corresponds by equivalence.
+The identity has head `A`; units and reassociation of three links are canonical
+span isomorphisms, not strict equality of differently represented heads.
+
+[Relation](../DPGraph/Span/Relation.lean) reduces a span to existence of a link
+with given endpoints. A relation span's head is the subtype of satisfying pairs,
+in `Type (max u v)`. Joint endpoint injectivity, fiberwise evaluation injectivity
+and isomorphism to the reduced relation span are equivalent (B.1 Theorem 2).
+
+The adopted Q1 law is `red(q.comp r) = relationComp q.red r.red`. Its canonical
+endpoint map is always surjective and yields an isomorphism exactly when it is
+injective. For relational inputs this is equivalent to at most one intermediate
+object per outer pair. The first relation being single-valued, or the converse
+of the second being single-valued, suffices without totality. The
+[examples](../DPGraph/Span/Examples.lean) retain two paths through distinct
+intermediates even when the second relation is single-valued, and retain parallel
+input links even when the intermediate is unique. They also exercise empty heads
+and the universe joins.
+
+Concrete predicate interpretations, SetMap and computable finite presentations
+remain later increments. The [source map](SOURCES.md) distinguishes the adopted
+Q1 correction from the remaining unresolved questions.

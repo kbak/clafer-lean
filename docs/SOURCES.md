@@ -3,7 +3,8 @@
 The [roadmap/source audit (#2)](https://github.com/kbak/clafer-lean/issues/2) and
 [architecture design (#13)](https://github.com/kbak/clafer-lean/issues/13) remain
 open. [Slice #14](https://github.com/kbak/clafer-lean/issues/14) and the
-[abstract reduct #15](https://github.com/kbak/clafer-lean/issues/15) select the
+[abstract reduct #15](https://github.com/kbak/clafer-lean/issues/15), together with
+[spans #4](https://github.com/kbak/clafer-lean/issues/4), select the
 following bounded source; this is not a complete audit of the literature.
 
 ## Primary source
@@ -13,11 +14,16 @@ following bounded source; this is not a complete audit of the literature.
 [DOI](https://doi.org/10.1007/s10270-014-0441-1). The inspected source is the
 34-page preprint with SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
-Appendix B.4 Definitions 6–10 and the abstract restriction argument of B.5
-Theorem 3 ground this slice:
+Appendix B.1 Definitions 1–5 and Theorems 1–2, B.2.1–2 (with the adopted
+correction below), B.4 Definitions 6–10 and the abstract restriction argument of
+B.5 Theorem 3 ground this slice:
 
 | Source | Lean correspondence |
 | --- | --- |
+| B.1 Definitions 1–5, mappings and equivalences | `Span`, `Span.Iso`, `IndexedFamily`, `IndexedFamily.Equivalence`, `Span.toFamily`, `IndexedFamily.toSpan`, `Span.red`, `Span.ofRelation` |
+| B.1 Theorem 1, relation correspondence | `Span.red_toFamily`, `IndexedFamily.red_toSpan`, `Span.red_ofRelation` |
+| B.1 Theorem 2, set-valuedness | `Span.jointlyInjective_iff_fiberwise`, `Span.jointlyInjective_iff_iso_relation` |
+| B.2.1–2, mapping operations | `Span.comp`, `IndexedFamily.comp`, `Span.leftUnit`, `Span.rightUnit`, `Span.associator`, `Span.inverse`; corrected comparison is detailed below |
 | Definition 6, graphs and graph morphisms | Mathlib `Quiver`, `Quiv`, `Prefunctor`; [representation](ARCHITECTURE.md) |
 | Definition 7, signature | `DPGraph.Signature` |
 | Definition 8, formula | `DPGraph.Formula` |
@@ -34,7 +40,7 @@ composed with a candidate model belongs to that set. A target model restricts al
 source declaration to a target declaration; graph-map associativity identifies
 the two evaluations. This proves the abstract reduct direction of Theorem 3,
 without extra closure or invariance assumptions on predicate meanings. Concrete
-span meanings and SetMap are not implemented. In particular the formula-level
+span predicate interpretations and SetMap are not implemented. The formula-level
 satisfaction equivalence does not assert whole-model reflection.
 [Trace artifacts](dpgraph-trace.md) name the actual declarations and proofs.
 
@@ -45,7 +51,8 @@ Mathlib is pinned to [56a005855ea17e0b0958f73ec801ae140b0a1679](https://github.c
 [Quiver.Basic](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/Combinatorics/Quiver/Basic.lean),
 [Quiver.Prefunctor](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/Combinatorics/Quiver/Prefunctor.lean),
 [Category.Basic](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/CategoryTheory/Category/Basic.lean),
-and [Category.Quiv](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/CategoryTheory/Category/Quiv.lean).
+[Category.Quiv](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/CategoryTheory/Category/Quiv.lean),
+and [Equiv.Basic](https://github.com/leanprover-community/mathlib4/blob/56a005855ea17e0b0958f73ec801ae140b0a1679/Mathlib/Logic/Equiv/Basic.lean).
 Mathlib's Apache-2.0 license was checked; it is consumed as a pinned dependency,
 without vendoring its source. Paper definitions are independently formalized with
 citations; publication text and figures are not reproduced.
@@ -61,10 +68,11 @@ commit and check licensing.
 ## Span composition: Q1 research for #4
 
 [#4](https://github.com/kbak/clafer-lean/issues/4) covers SoSyM B.1 Definitions
-1–5, Theorems 1–2 and B.2.1–2. The following is a proposed source correction and
-mathematical specification for review, not delivered Lean semantics or acceptance
-of the increment. The delivered abstract interpretation interface does not select
-span composition or any of these proposed concrete meanings.
+1–5, Theorems 1–2 and B.2.1–2. Its accepted implementation scope adopts the
+correction below. The [span library](../DPGraph/Span.lean) implements that law and
+its exact stronger-isomorphism criterion. This is a selected correction, not a
+verbatim paper theorem. The abstract B.4/B.5 interpretation interface remains
+independent of concrete predicate meanings.
 
 ### Source comparison
 
@@ -104,7 +112,7 @@ These texts are cited and independently analyzed; no publication text, figures
 or third-party implementation are incorporated. SoSyM remains the primary
 authority. The older thesis and the synchronization tutorial do not override it.
 
-### Derived correction and exact assumptions
+### Adopted correction and exact assumptions
 
 Write `q ⋆ r` for **span composition** in source-to-target order, and `R ; S` for
 **relational composition**. For spans `q : A ↛ B` and `r : B ↛ C`, let
@@ -115,7 +123,7 @@ e(l, m) = (sq(l), tr(m))
 red(q)(a, b) ↔ ∃ l : Lq, sq(l) = a ∧ tq(l) = b.
 ```
 
-The proposed compatibility theorem, valid for arbitrary spans, is
+The adopted compatibility theorem, proved as `Span.red_comp` for arbitrary spans, is
 
 ```text
 red(q ⋆ r) = red(q) ; red(r).
@@ -144,35 +152,34 @@ For the counterexample, take `A={a}`, `B={b₁,b₂}` with `b₁≠b₂`, `C={c}
 while the relational composite has one. There is no bijection and hence no span
 isomorphism. Both inputs are relations; `r` is even a total single-valued function.
 Relational inputs therefore do not suffice, nor does single-valuedness of the
-second input. The proposed correction preserves this example and replaces the
+second input. The adopted correction preserves this example and replaces the
 unqualified coincidence assertion with equality after reduction.
 
-### Proposed implementation boundary and proof targets
+### Delivered implementation boundary and proof references
 
-Retain separate operations and equivalences in the future DPGraph increment:
+The operations and equivalences are independently available through `import DPGraph`.
+Names below are relative to `DPGraph`; the [trace artifacts](dpgraph-trace.md)
+link their requirement and proof obligations.
 
-| Construct | Proposed representation or obligation |
+| Construct | Implementation and proof references |
 | --- | --- |
-| Span | A link type `L` with total endpoint functions `L → A`, `L → B`; allow equal endpoints for distinct links |
-| Span isomorphism | A head equivalence commuting with both endpoint functions; permit different head universes |
-| Indexed family | `I : A → Type` and evaluation `∀ a, I a → B`; arbitrary indices, not finite `Multiset` |
-| Conversions | Span to source fibers; family to head `Σ a, I a`; both roundtrips by equivalences preserving endpoints/evaluation |
-| Relation reduction | The existential endpoint relation `red`; its span uses the subtype of endpoint pairs |
-| Set-valuedness | Jointly injective endpoints iff every source fiber's target evaluation is injective; equivalently isomorphic to the reduced relation span |
-| Composition | The explicit type-level pullback `P`, preserving every composable pair; compatibility with family composition indexed by `Σ i : I a, J (f a i)` |
-| Laws | Identity head `A` with two identity legs; left/right unit equivalences and associator `((l,m),n) ↔ (l,(m,n))` |
-| Inversion | Preserve the head and swap legs; involution, not a claim that an arbitrary span has a categorical inverse |
-| Compatibility | Prove reduction/composition equality and the exact injectivity criterion above; keep the two-path counterexample |
+| Spans and isomorphisms | [Basic.lean](../DPGraph/Span/Basic.lean): `Span`, `Span.Iso`, `Span.Iso.refl`, `.symm`, `.trans`, `.red_eq` |
+| Indexed families and conversions | [IndexedFamily.lean](../DPGraph/Span/IndexedFamily.lean): `IndexedFamily`, `.Equivalence`, `.toSpan`, `Span.toFamily`, `Span.familySpanIso`, `IndexedFamily.spanFamilyEquivalence` |
+| Relation membership (Theorem 1) | [IndexedFamily.lean](../DPGraph/Span/IndexedFamily.lean): `Span.red_toFamily`, `IndexedFamily.red_toSpan`; [Relation.lean](../DPGraph/Span/Relation.lean): `Span.red_ofRelation` |
+| Set-valuedness (Theorem 2) | [Relation.lean](../DPGraph/Span/Relation.lean): `Span.jointlyInjective_iff_fiberwise`, `.jointlyInjective_iff_iso_relation`, `.relationIso` |
+| Composition and laws | [Composition.lean](../DPGraph/Span/Composition.lean): `Span.comp`, `.identity`, `.leftUnit`, `.rightUnit`, `.associator`, `IndexedFamily.compSpanIso`, `Span.compFamilyEquivalence` |
+| Inversion | [Basic.lean](../DPGraph/Span/Basic.lean): `Span.inverse`, `.inverse_inverse`, `.red_inverse` |
+| Adopted reduction law and exact criterion | [Relation.lean](../DPGraph/Span/Relation.lean): `Span.red_comp`, `.compToRelation_surjective`, `.comp_iso_relation_iff`, `.comp_jointlyInjective_iff_uniqueIntermediate`, `.relations_comp_jointlyInjective_iff` |
+| Sufficient conditions, without totality | [Relation.lean](../DPGraph/Span/Relation.lean): `Span.relations_comp_injective_of_first_singleValued`, `.relations_comp_injective_of_converse_second_singleValued` |
+| Counterexamples | [Examples.lean](../DPGraph/Span/Examples.lean): `Span.Examples.twoPaths`, `.oneReducedPair`, `.second_singleValued_not_sufficient`, `.parallel_uniqueIntermediate`, `.parallel_composite_not_iso` |
 
-Coordinate universe bounds with [#15](https://github.com/kbak/clafer-lean/issues/15):
+Universe bounds remain compatible with [#15](https://github.com/kbak/clafer-lean/issues/15):
 the family-to-span head lies in the maximum of source and index universes, and
 the relation head in the maximum of the endpoint universes. A roundtrip need not
-return a head in the original syntactic universe. Track these bounds or explicit
-lifts rather than imposing one global universe or a resizing axiom.
+return a head in the original syntactic universe. Explicit joins and the mixed-universe
+examples track these bounds without imposing one global universe or a resizing axiom.
 
-Split work into representation/conversions, composition/laws, and reviewed
-relation compatibility if useful. A bicategory, a quotient of all spans,
-global finiteness and executable object generation are unnecessary for #4.
+A bicategory, a quotient of all spans, global finiteness and executable object generation are unnecessary for #4.
 The meaning of commutativity and inverse predicates in Table 3 remains a
 separate review for [#16](https://github.com/kbak/clafer-lean/issues/16); equality
 of reduced relations alone does not establish equality or isomorphism of spans.
@@ -181,11 +188,10 @@ of reduced relations alone does not establish equality or isomorphism of spans.
 
 Keep these questions open in #2/#13 before implementing the affected semantics:
 
-- B.2.1 relation/span composition: the [Q1 research above](#span-composition-q1-research-for-4)
-  proposes the precise correction; semantic adoption remains subject to review in #4.
 - Table 3 versus Figure 21 disjointness arity.
 - Figure 21 VC inequality direction.
 - Appendix D intersection typo and Appendix E analogous clauses.
 - Label/identity choices for gluing.
 
-None is resolved by the definitions or examples in this slice.
+These remaining questions are not resolved by the span definitions or examples.
+Q1 alone has the adopted correction and proof references above.

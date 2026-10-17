@@ -2,8 +2,9 @@
 
 Follow [the Lean trace convention](traceability.md): these are named Markdown
 artifacts; their evidence is the linked Lean declarations, not inline Lean tags.
-The [source map](SOURCES.md) records SoSyM B.4 Definitions 6–10 and the
-abstract restriction argument of B.5 Theorem 3.
+The [source map](SOURCES.md) records SoSyM B.1–B.2 spans, the adopted Q1
+correction, B.4 Definitions 6–10 and the abstract restriction argument of
+B.5 Theorem 3.
 All declaration names below are relative to `DPGraph`, except the
 carrier/declaration structure itself, `DPGraph`.
 
@@ -108,8 +109,11 @@ axioms. It selects by module origin even for private/generated declarations
 outside a root namespace, rejects an empty audit and prints dependencies and
 totals per root. [project_modules.py](../scripts/project_modules.py) discovers
 the complete module inventory and generates every `import all` in the audit.
-[scripts/check.sh](../scripts/check.sh) executes it after the build and kernel
-check, with warnings treated as errors. This is a validation test, not a theorem
+[scripts/check.sh](../scripts/check.sh) builds the complete inventory in one Lake
+invocation and passes the three public roots to one verbose `leanchecker`, which
+enumerates their compiled descendants without repeated overlapping targets.
+It executes the audit after kernel checking,
+with warnings treated as errors. This is a validation test, not a theorem
 about the intended semantics.
 
 [public_imports.lean](../tests/public_imports.lean) exercises the public names
@@ -271,6 +275,185 @@ The existing `Examples.source_nonempty` establishes nonempty declarations.
 
 Covers:
 - `req~dpgraph-semantics-examples~1`
+
+## Span representation
+`impl~span-representation~1`
+
+[Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span` has independent endpoint/head
+universes and total legs, and `Span.Iso` requires a head equivalence preserving
+both endpoints. It imposes no endpoint injectivity. SoSyM B.1 Definitions 1–5.
+
+Covers:
+- `req~span-representation~1`
+
+## Span isomorphism operations
+`proof~span-representation~1`
+
+[Span/Basic.lean](../DPGraph/Span/Basic.lean): the equivalence and commuting proof
+fields of `Span.Iso.refl`, `.symm` and `.trans` implement identity, symmetry and
+transitivity across head universes. `Span.Iso.red_eq` proves preservation of
+endpoint membership. [Span/Examples.lean](../DPGraph/Span/Examples.lean)'s
+`Span.Examples.parallel_links` witnesses retained parallel links.
+
+Covers:
+- `req~span-representation~1`
+
+## Indexed mapping implementation
+`impl~span-family-correspondence~1`
+
+[Span/IndexedFamily.lean](../DPGraph/Span/IndexedFamily.lean): `IndexedFamily`,
+`.Equivalence`, `.toSpan`, `.red` and `Span.toFamily` implement indexed mappings,
+fiber equivalences, sigma heads and source fibers. The source/index universe join
+is explicit in `toSpan`. [Span/Basic.lean](../DPGraph/Span/Basic.lean)'s `Span.red`
+is existential endpoint membership.
+
+Covers:
+- `req~span-family-correspondence~1`
+
+## Indexed mapping roundtrips and membership proofs
+`proof~span-family-correspondence~1`
+
+[Span/IndexedFamily.lean](../DPGraph/Span/IndexedFamily.lean): the equivalence,
+inverse and commuting proof fields in `Span.familySpanIso` and
+`IndexedFamily.spanFamilyEquivalence` prove both roundtrips without resizing.
+`Span.red_toFamily` and `IndexedFamily.red_toSpan` prove the endpoint-membership
+correspondence of B.1 Theorem 1. [Span/Relation.lean](../DPGraph/Span/Relation.lean)'s
+`Span.red_ofRelation` supplies the relation roundtrip.
+
+Covers:
+- `req~span-family-correspondence~1`
+
+## Set-valuedness implementation
+`impl~span-set-valuedness~1`
+
+[Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span.JointlyInjective` concerns the
+pair of endpoints. [Span/Relation.lean](../DPGraph/Span/Relation.lean):
+`Span.ofRelation` has the subtype of satisfying endpoint pairs as its head,
+in the join of endpoint universes; `Span.toRelation` is the canonical endpoint map.
+
+Covers:
+- `req~span-set-valuedness~1`
+
+## Set-valuedness proofs
+`proof~span-set-valuedness~1`
+
+[Span/Relation.lean](../DPGraph/Span/Relation.lean):
+`Span.jointlyInjective_iff_fiberwise`, `.jointlyInjective_iff_iso_relation` and
+`.relationIso` prove both equivalences in B.1 Theorem 2.
+`Span.ofRelation_jointlyInjective`, `.red_ofRelation` and `.toRelation_surjective`
+establish the relation representation and quotient properties. `relationIso` uses
+standard classical choice to invert a bijection, with no additional axiom.
+
+Covers:
+- `req~span-set-valuedness~1`
+
+## Span composition implementation
+`impl~span-composition~1`
+
+[Span/Composition.lean](../DPGraph/Span/Composition.lean): `Span.comp` uses a
+subtype of link pairs, preserving all compatible pairs in source-to-target order.
+`Span.identity` uses the endpoint type as its head. `IndexedFamily.comp` uses the
+dependent sum of indices. Their result universe joins are explicit.
+
+Covers:
+- `req~span-composition~1`
+
+## Span composition proofs
+`proof~span-composition~1`
+
+[Span/Composition.lean](../DPGraph/Span/Composition.lean): `Span.leftUnit`,
+`.rightUnit` and `.associator` contain inverse and endpoint-commutation proofs for
+the canonical head equivalences. `IndexedFamily.compSpanIso` and
+`Span.compFamilyEquivalence` establish compatibility of composition under both
+conversions. These are head/fiber equivalences, with no strict head equality or
+extra finiteness or decidability assumption.
+
+Covers:
+- `req~span-composition~1`
+
+## Inversion implementation
+`impl~span-inversion~1`
+
+[Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span.inverse` retains the head and
+swaps the legs, as in SoSyM B.2.2.
+
+Covers:
+- `req~span-inversion~1`
+
+## Inversion proofs
+`proof~span-inversion~1`
+
+[Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span.inverse_inverse` proves
+involution and `Span.red_inverse` proves relational converse by endpoint
+membership. Neither states categorical invertibility.
+
+Covers:
+- `req~span-inversion~1`
+
+## Relation composition implementation
+`impl~span-relation-composition~1`
+
+[Span/Relation.lean](../DPGraph/Span/Relation.lean): `relationComp` is existential
+composition, `Span.compToRelation` maps every link pair to its outer endpoints,
+`SingleValued` imposes no totality, and `UniqueIntermediate` asserts at most one
+intermediate object per outer endpoint pair. `Span.compRelationIso` constructs
+an endpoint-preserving head equivalence under composite joint injectivity.
+
+Covers:
+- `req~span-relation-composition~1`
+
+## Adopted Q1 correction proofs
+`proof~span-relation-composition~1`
+
+[Span/Relation.lean](../DPGraph/Span/Relation.lean): `Span.red_comp` and
+`.compToRelation_surjective` have no injectivity, finiteness or decidability
+hypothesis. `Span.comp_iso_relation_iff` states the exact stronger-isomorphism
+criterion. `Span.comp_jointlyInjective_iff_uniqueIntermediate` assumes joint
+injectivity of each input; `.relations_comp_jointlyInjective_iff` specializes to
+canonical relation spans. `.relations_comp_injective_of_first_singleValued` and
+`.relations_comp_injective_of_converse_second_singleValued` prove the sufficient
+cases without totality, through `uniqueIntermediate_of_singleValued` and
+`uniqueIntermediate_of_converse_singleValued`. The [source comparison](SOURCES.md#span-composition-q1-research-for-4)
+identifies this as an adopted correction to B.2.1, not its verbatim claim.
+
+Covers:
+- `req~span-relation-composition~1`
+
+## Span example constructions
+`impl~span-examples~1`
+
+[Span/Examples.lean](../DPGraph/Span/Examples.lean), under `Span.Examples`:
+`parallel`, `empty`, `empty_family`, `empty_endpoints`, `first`, `second`, `path`,
+`partialFirst`, `large`, `raisedSource` and `raisedFamily` construct the boundary
+cases. `large` separates endpoint universes 1/2 and link universe 3;
+`raisedSource` and `raisedFamily` exercise a small head/index lifted by a source
+in universe 2. [public_imports.lean](../tests/public_imports.lean) exercises the
+API through independent `import DPGraph` and rejects imports of the examples.
+
+Covers:
+- `req~span-examples~1`
+
+## Span example proofs
+`proof~span-examples~1`
+
+[Span/Examples.lean](../DPGraph/Span/Examples.lean), under `Span.Examples`:
+`parallel_links`, `parallel_not_jointlyInjective`, `parallel_reduction`,
+`empty_fibers`, `empty_reduction`, the empty roundtrips and
+`empty_endpoints_no_links` establish the basic boundary cases.
+`twoPaths` is a head equivalence with `Bool`; `oneReducedPair` is an equivalence
+with `Unit`. `paths_distinct`, `two_path_reduction`, `two_path_not_iso` and
+`second_singleValued_not_sufficient` preserve the source counterexample.
+`parallel_uniqueIntermediate` and `parallel_composite_not_iso` establish why the
+intermediate-object criterion requires relational inputs. `partialFirst_not_total`
+and the two `partial_*_composite_injective` proofs exercise partial relations.
+`large_roundtrip`, `large_family_roundtrip`, `large_left_unit`, `large_right_unit`,
+`large_associator`, `large_family_composition`, `large_relation_composition`,
+`large_relation_iso`, `raisedSource_roundtrip` and `raisedFamily_roundtrip`
+exercise conversions and laws across universes. These are all kernel-checked
+declarations; examples do not replace the general theorems.
+
+Covers:
+- `req~span-examples~1`
 
 ## Carrier-cocone data implementation
 `impl~dpgraph-pushout-data~1`

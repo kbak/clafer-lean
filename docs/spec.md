@@ -1,7 +1,7 @@
 # Foundation and DP-graph requirements
 
 These requirements cover the repository infrastructure and the delivered
-DP-graph category and abstract model reduct. FormalCD, structural Clafer and
+span operations, DP-graph category and abstract model reduct. FormalCD, structural Clafer and
 concrete predicate semantics remain later work; future definitions and theorems
 need scoped requirements and source links.
 
@@ -20,12 +20,13 @@ The shared check command must fail if any
 validation stage fails. This includes the DP-graph definitions, proofs and examples.
 Run module discovery and its Python regressions before toolchain/dependency setup;
 make that preflight available separately for development feedback. Report elapsed
-time for each build, kernel check and test step. Preflight success does not satisfy
+time for build, kernel-check and test stages, identifying every kernel-checked
+module in the output. Batch module builds and deduplicate overlapping kernel-check
+targets while retaining the complete discovered inventory. Preflight success does not satisfy
 the full validation requirement.
-Default Lean task concurrency to one, preserving an explicit `LEAN_NUM_THREADS`
-override, so Mathlib import environments do not accumulate through unbounded
-parallel kernel replay. This scheduling bound must not omit any validation stage
-or module.
+Keep artifact caching disabled for the project package so each isolated check
+rebuilds candidate modules. Deployment-managed dependency caches may reuse pinned
+dependency artifacts without replacing any build, kernel or audit gate.
 Include the pushout-cocone dependency in the optional Mathlib cache prefetch;
 cache failure must retain the complete pinned source-build fallback.
 Audit declarations by their originating project modules, including private and
@@ -82,8 +83,10 @@ private security-reporting guidance, issue/PR templates, a brief README, and lin
 to the SoSyM publication, free preprint, and maintained Haskell implementation.
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
-dependency direction above. It distinguishes the delivered B.4 Definitions 6–10
-foundation and abstract B.5 model reduct from future concrete semantics and
+dependency direction above. It distinguishes the delivered B.1 Definitions 1–5,
+Theorems 1–2 and B.2.1–2 span operations (with the adopted Q1 reduction law),
+B.4 Definitions 6–10 foundation and abstract B.5 model reduct from future
+concrete predicate interpretations, SetMap and
 FormalCD/Clafer implementations and keeps private deployment
 configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
@@ -190,8 +193,9 @@ formula `φ` on `G` and map `m : H → Ω`, satisfaction of `translate φ F` by 
 is equivalent to satisfaction of `φ` by `F ; m`.
 
 Keep semantic vertex and arrow universes independent of signature and carrier
-universes. No concrete span operations, all-universes SetMap object, resizing
-axioms, solver or executable instance generation are included.
+universes. This abstract interface does not select concrete span predicate
+interpretations. No all-universes SetMap object, resizing axioms, solver or
+executable instance generation are included.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -265,6 +269,119 @@ bare graph map and the failure of whole-model reflection. Include an example
 with semantic vertex and arrow universes larger than the syntax universes.
 Example meanings are illustrative and do not claim the paper's concrete span
 predicates. Keep all assertions kernel checked.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Link-preserving spans and isomorphisms
+`req~span-representation~1`
+
+Implement SoSyM B.1 Definitions 1–5 within DPGraph: a span from `A : Type u`
+to `B : Type v` has a head `L : Type w` and total source/target functions.
+The three universes are independent; distinct links may have equal endpoints.
+An isomorphism is a head equivalence commuting with both legs, including across
+head universes. Supply identity, symmetry and transitivity operations.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Span and indexed-family correspondence
+`req~span-family-correspondence~1`
+
+Represent indexed mappings by `I : A → Type w` and evaluation `∀ a, I a → B`.
+Equivalence is fiberwise index equivalence preserving evaluation. Convert spans
+to source fibers and families to heads `Σ a, I a`, in `Type (max u w)`.
+Prove both roundtrips up to their respective equivalences, permitting the raised
+head/index universes. Establish B.1 Theorem 1 through endpoint-membership equality:
+span reduction is existence of a link with the given endpoints, and family
+reduction is existence of an index evaluating to the target. Neither representation
+requires finite indices or decidable equality.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Set-valued spans and relation reduction
+`req~span-set-valuedness~1`
+
+For SoSyM B.1 Theorem 2, a relation span has head
+`{p : A × B // R p.1 p.2}` in `Type (max u v)`. Prove joint endpoint injectivity
+iff every source fiber's target evaluation is injective, and iff a span is
+isomorphic to the relation span of its existential reduction. Supply the
+relation roundtrip by endpoint membership, preserving empty relations/fibers.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Pullback span composition and laws
+`req~span-composition~1`
+
+Implement SoSyM B.2.1 source-to-target composition with head
+`{p : Lq × Lr // tq p.1 = sr p.2}`, in the join of the link universes.
+Preserve every composable link pair. Prove compatibility with indexed-family
+composition, whose indices at `a` are `Σ i : I a, J (f a i)`.
+The identity has head `A` and identity legs. Supply endpoint-preserving left/right
+unit isomorphisms and the canonical associator `((l,m),n) ↔ (l,(m,n))`, with
+explicit universe joins; no strict equality of differently represented heads
+is required. No finiteness or decidable equality is assumed.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Span inversion
+`req~span-inversion~1`
+
+Implement SoSyM B.2.2 inversion by retaining the head and swapping the legs.
+Prove involution and that reduction is relational converse. This operation
+asserts no categorical invertibility of arbitrary spans.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Relation composition: adopted Q1 correction
+`req~span-relation-composition~1`
+
+Adopt the [Q1 correction](SOURCES.md#span-composition-q1-research-for-4) to
+SoSyM B.2.1: for arbitrary spans `red(q ⋆ r) = red(q) ; red(r)`, where `;`
+is existential relational composition in source-to-target order. Require no
+finiteness, decidable equality or injectivity. Prove the canonical map from
+composite links to the right-hand relation span is surjective, and existence
+of a span isomorphism to it iff the outer endpoint map is injective.
+For relational inputs, characterize this injectivity by at most one intermediate
+object per outer endpoint pair. Prove sufficient cases: the first relation is
+single-valued, or the converse of the second is single-valued; neither requires
+totality. Uniqueness of intermediate objects alone does not suffice for arbitrary
+spans, nor does single-valuedness of the second relation for relational inputs.
+This correction is selected semantics, not a verbatim paper theorem.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Span witnesses and universe boundaries
+`req~span-examples~1`
+
+Provide kernel-checked examples of parallel links with identical endpoints;
+empty spans and fibers; and relational inputs with two intermediate objects,
+two composite links and only one reduced endpoint pair. Prove that the latter
+composite is not isomorphic to the reduced relation span, even though its second
+relation is single-valued. Include a parallel-input-link example where uniqueness
+of the intermediate object fails to imply the stronger isomorphism. Exercise
+conversions, unit/associativity laws and relation criteria at differing universe
+levels. Expose the generic API via independent `import DPGraph`; examples remain
+separate modules covered by the full build, kernel and axiom audits.
 
 Covers:
 - `intent~formalization-foundation~1`

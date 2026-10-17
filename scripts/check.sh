@@ -19,9 +19,6 @@ run_step() {
 # [impl->req~lean-validation~1]
 # [itest->req~lean-validation~1]
 export PYTHONDONTWRITEBYTECODE=1
-# Each kernel-replay task loads its full Mathlib import environment.
-# Bound default concurrency while preserving an explicit operator override.
-export LEAN_NUM_THREADS="${LEAN_NUM_THREADS:-1}"
 validation_dir=.lake/validation
 # Catch source/inventory mistakes before installing Lean or preparing dependencies.
 run_step 'Module inventory' python3 scripts/project_modules.py --output-dir "$validation_dir"
@@ -44,13 +41,15 @@ if ! run_step 'Mathlib cache' lake exe cache get Mathlib.CategoryTheory.Category
     Mathlib.Data.Fintype.Basic Mathlib.CategoryTheory.Limits.Shapes.Pullback.PullbackCone; then
   echo 'Mathlib cache unavailable; building the pinned dependencies from source.' >&2
 fi
-run_step 'Library build' lake build
 # Use the discovered inventory at every stage, including modules not reachable
 # from an entrypoint (notably examples and future internal helpers).
-while IFS= read -r module; do
-  run_step "Build $module" lake build "+$module"
-  run_step "Kernel check $module" lake env leanchecker "$module"
-done < "$validation_dir/modules.txt"
+mapfile -t modules < "$validation_dir/modules.txt"
+run_step 'Library and module build' lake build DPGraph FormalCD Clafer "${modules[@]/#/+}"
+# leanchecker recursively enumerates each public root, including unimported
+# helpers/examples. Avoid rescanning every dependency directory for each leaf.
+run_step 'Kernel checks (all discovered modules)' \
+  env LEAN_NUM_THREADS="${LEAN_NUM_THREADS:-4}" \
+  lake env leanchecker --verbose DPGraph FormalCD Clafer
 run_step 'Axiom audit' lake env lean -DwarningAsError=true "$validation_dir/axiom_audit.lean"
 while IFS= read -r source; do
   run_step "Lean test $source" lake env lean -DwarningAsError=true "$source"

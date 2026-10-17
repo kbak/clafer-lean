@@ -32,10 +32,18 @@ For quick feedback while editing, run `bash scripts/check.sh --preflight`.
 This checks module discovery and its Python regressions without requiring Lean;
 it does not replace the full check. The full command runs this preflight before
 toolchain/dependency setup and prints elapsed seconds for each validation step.
+The project package disables Lake artifact caching so isolated checks compile the
+current candidate. A factory profile may enable native caching for pinned dependencies;
+keep that cache outside captured source and preserve the complete validation gates.
 
 The shared check discovers every project module, rejects reverse dependencies
 (including through root/helper modules), builds and runs `leanchecker` on each,
-including examples, and generates an `import all` audit from
+including examples. It batches library/module builds in one Lake invocation and
+passes the three public roots to one verbose `leanchecker` invocation, which
+enumerates their compiled descendants, including unimported helpers/examples.
+This avoids repeated directory scans and overlapping module replay. The checker
+thread pool defaults to four threads; set `LEAN_NUM_THREADS` to choose its size.
+It generates an `import all` audit from
 `tests/axiom_audit.lean`. It runs the independent public-import test, all Lean
 validation tests and Python tests, including dependency/scope/audit rejection cases.
 Unowned Lean sources are errors; keep validation harnesses under `tests/`.
@@ -104,9 +112,10 @@ Use the [Lean trace-link convention](docs/traceability.md) for implementation an
 proof artifacts; the pinned OFT does not import inline `.lean` tags.
 Review must assess whether definitions match the intended semantics and whether
 proofs establish the stated results; trace coverage and a successful build alone
-do not establish that correspondence. The current slice includes DP-graph syntax,
-a fixed-signature category and abstract satisfaction/restriction laws; concrete span interpretations remain
-future work.
+do not establish that correspondence. The current slice includes spans, indexed
+mappings and their B.1–B.2 laws, DP-graph syntax, a fixed-signature category and abstract satisfaction/restriction
+laws. B.2.1 uses the adopted Q1 correction in [the source map](docs/SOURCES.md);
+concrete predicate interpretations and SetMap remain future work.
 
 Contributions use the existing [MIT license](LICENSE). Preserve attribution and
 check licenses before incorporating upstream code or publication material.
