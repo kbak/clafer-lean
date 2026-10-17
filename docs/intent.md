@@ -59,18 +59,28 @@ unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
 [source citations and open questions](SOURCES.md), and
-[DPGraph definitions and proofs](dpgraph-trace.md) and
+[DPGraph definitions and proofs](dpgraph-trace.md),
 [FormalCD definitions and proofs](formalcd-trace.md), and
 [Clafer definitions and proofs](clafer-trace.md) describe the current promises.
-Track subsequent work in the [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) and
-[design (#13)](https://github.com/kbak/clafer-lean/issues/13).
+The [roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2), delivered in
+[merged #40](https://github.com/kbak/clafer-lean/pull/40), links the subsequent
+increments; [design #13](https://github.com/kbak/clafer-lean/issues/13) records
+the representation assessment.
 
 The [three-phase roadmap](ARCHITECTURE.md#roadmap-and-validation-accounting)
 separates delivered results from proposed theorem statements and deferred source
 decisions. Its source/design close-out is a documentation deliverable: it requires
 review of the architectural alternatives, remaining validation tasks and audit
-limits, rather than completion of all three layers. Keep #2 Open / In Progress
-until those deliverables are accepted and the corresponding PR is merged.
+limits, rather than completion of all three layers. Project-critical source research
+and the [bounded sketch/coherence assessment](SOURCES.md#generalized-sketches-and-model-reduct-coherence)
+belong to [#41](https://github.com/kbak/clafer-lean/issues/41). Recovered pages
+support only the inspected source claims; missing portions remain unaudited.
+Accessible primary alternatives can establish the necessary claims. Further
+acquisition is conditional on a named active claim lacking adequate evidence,
+as recorded in the [source disposition](SOURCES.md#project-critical-source-disposition).
+The current ordinary signature and precomposition
+reduct laws remain the delivered contract; stronger semantic representations
+and dependency-enriched extensions require separate authorization.
 Planning the later increments does not authorize their semantic implementation.
 
 Exclude instance/object generation, Alloy/SMT/SAT integration, runtime

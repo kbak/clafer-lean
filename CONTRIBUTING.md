@@ -56,8 +56,10 @@ enumerates their compiled descendants, including unimported helpers/examples.
 This avoids repeated directory scans and overlapping module replay. The checker
 thread pool defaults to four threads; set `LEAN_NUM_THREADS` to choose its size.
 It generates an `import all` audit from
-`tests/axiom_audit.lean`. It runs the independent public-import test, all Lean
+`tests/axiom_audit.lean`. After the build, it runs that audit, the independent public-import test, all Lean
 validation tests and Python tests, including dependency/scope/audit rejection cases.
+These gates precede the expensive kernel replay so failures return earlier.
+Every successful full check still replays the complete discovered module inventory.
 Unowned Lean sources are errors; keep validation harnesses under `tests/`.
 The audit permits only Lean's standard logical axioms (`propext`, `Quot.sound`,
 `Classical.choice`) and reports which are used; it rejects new axioms, unsafe or

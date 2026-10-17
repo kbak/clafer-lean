@@ -45,14 +45,17 @@ fi
 # from an entrypoint (notably examples and future internal helpers).
 mapfile -t modules < "$validation_dir/modules.txt"
 run_step 'Library and module build' lake build DPGraph FormalCD Clafer "${modules[@]/#/+}"
-# leanchecker recursively enumerates each public root, including unimported
-# helpers/examples. Avoid rescanning every dependency directory for each leaf.
-run_step 'Kernel checks (all discovered modules)' \
-  env LEAN_NUM_THREADS="${LEAN_NUM_THREADS:-4}" \
-  lake env leanchecker --verbose DPGraph FormalCD Clafer
+# Run the audit and regression gates before the more expensive kernel replay.
+# An invalid candidate should fail before rechecking all compiled project proofs.
 run_step 'Axiom audit' lake env lean -DwarningAsError=true "$validation_dir/axiom_audit.lean"
 while IFS= read -r source; do
   run_step "Lean test $source" lake env lean -DwarningAsError=true "$source"
 done < "$validation_dir/tests.txt"
 
 run_step 'Python tests (including Lean audit fixtures)' lake env python3 -m unittest discover -s tests -v
+
+# leanchecker recursively enumerates each public root, including unimported
+# helpers/examples. Avoid rescanning every dependency directory for each leaf.
+run_step 'Kernel checks (all discovered modules)' \
+  env LEAN_NUM_THREADS="${LEAN_NUM_THREADS:-4}" \
+  lake env leanchecker --verbose DPGraph FormalCD Clafer

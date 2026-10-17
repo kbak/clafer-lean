@@ -6,8 +6,11 @@ restriction, the selected concrete predicate meanings, and FormalCD
 structure/morphisms, signature support, the Figure 21c metamodel, bounded syntactic
 self-description and Figure 21b with its corrected VC interpretation are delivered.
 Clafer adds resolved deep syntax, a constraint boundary and individual Shapes.
-The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) tracks source/design
-close-out and later work; [design #13](https://github.com/kbak/clafer-lean/issues/13)
+The [roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) is delivered in
+[merged #40](https://github.com/kbak/clafer-lean/pull/40); its later increments
+retain their own tickets. [Research #41](https://github.com/kbak/clafer-lean/issues/41)
+owns the project-critical source and sketch-extension assessment.
+[Design #13](https://github.com/kbak/clafer-lean/issues/13)
 records the representation assessment delivered in
 [merged #39](https://github.com/kbak/clafer-lean/pull/39).
 The repository `kbak/clafer-lean` contains one Lake package named `clafer`.
@@ -69,6 +72,20 @@ and reversed-order composition laws. This is the abstract argument of B.5
 Theorem 3. It needs no closure or invariance axiom on the predicate meanings.
 The formula-level equivalence does not reflect whole-model satisfaction: the
 target may have additional declarations.
+
+The [supporting-source comparison](SOURCES.md#generalized-sketches-and-model-reduct-coherence)
+separates these laws from pullback restriction of typed instances. Retain the
+ordinary signature and fixed semantic graph. Dependency-enriched sketches and a
+typed-instance correspondence would need separately specified closure,
+consistency, size and coherence obligations; the bounded library assessment
+does not justify adding another dependency. The
+[inspected 2000 passages](SOURCES.md#universal-arrow-foundations-partial-source-assessment)
+support a bounded comparison of keys, names and hierarchical arities. The
+[criticality assessment](SOURCES.md#project-critical-source-disposition) uses
+accessible primary alternatives and makes further acquisition conditional on
+a necessary claim. Keep ordinary graph arities; importing the 2008 key's
+functional prerequisites would conflict with the delivered bag-sensitive key.
+Clafer label identity still needs the #20/#23 congruence and incidence decision.
 
 Semantic vertex/arrow universes are independent of all syntax universes, and
 `Hom` and reduct still support source and target carriers in different universes.
@@ -387,8 +404,10 @@ while failing server totality. These are models of Figure 21b, not Figure 21c.
 
 The [Project](https://github.com/users/kbak/projects/2), its existing
 [three phase milestones](https://github.com/kbak/clafer-lean/milestones?state=all),
-and [#2](https://github.com/kbak/clafer-lean/issues/2) own the backlog. Keep #2
-Open / In Progress through source/design close-out and PR acceptance. The
+and [#2](https://github.com/kbak/clafer-lean/issues/2) record the backlog.
+[Merged #40](https://github.com/kbak/clafer-lean/pull/40) delivers #2's
+documentation close-out; [#41](https://github.com/kbak/clafer-lean/issues/41)
+owns the deferred source research. The
 milestones organize increments; completion of the research issue does not
 require implementation of every milestone. Earlier issue discussion remains the
 decision history. The table records delivered merge references rather than
@@ -416,7 +435,7 @@ questions Q1–Q8 in [SOURCES](SOURCES.md#question-dispositions-and-validation-t
 | Area | Choice and alternatives | Evidence and remaining validation |
 | --- | --- | --- |
 | A1 — graph representation and Mathlib reuse | Retain `Quiver`/`Prefunctor`/`Quiv` over a second vertex/edge record or a category imposed on carrier arrows. Total edges are a dependent sum; loops and parallel arrows survive. | #14/#25 exercises isolated vertices and noninjective maps. #13/#39 assesses the wider Quiv imports; [cost decision](#dependency-cost-decision) states measurement limits and reassessment triggers. No new wrapper or dependency change is proposed. |
-| A2 — signatures, arities and declarations | Graph-valued arities and full dependent bindings, with declaration sets. Untyped arrow lists lose incidence/isolated vertices; injective bindings lose repetitions. Dependency-enriched sketches are a separate extension. | #14/#25 proves translation and declaration preservation; #18/#36 checks full-binding/argument-projection limits. #2 retains a deferred task to recheck suitable libraries and closure/reduct coherence against Diskin & Wolter §4.1 before any separately scoped dependency-enriched extension. |
+| A2 — signatures, arities and declarations | Graph-valued arities and full dependent bindings, with declaration sets. Untyped arrow lists lose incidence/isolated vertices; injective bindings lose repetitions. Dependency-enriched sketches are a separate extension. | #14/#25 proves translation and declaration preservation; #18/#36 checks full-binding/argument-projection limits. [#41](https://github.com/kbak/clafer-lean/issues/41) owns the [bounded library/closure/reduct assessment](SOURCES.md#generalized-sketches-and-model-reduct-coherence) against Diskin & Wolter §4.1–3. A future dependency-enriched extension needs its own scope and compatibility evidence. |
 | A3 — morphisms and categorical structure | Fixed-signature DP category; preservation permits identification and extra target declarations. Requiring embeddings or reflection would change Definition 10. FormalCD specializes this with metadata preservation. | #15/#27 and #17/#35 supply category/morphism laws; #28/#29 and #30/#33 are conditional derived results. #23 must prove the concrete label map preserves declarations and separately establish CD well-formedness; generic pushout existence or arbitrary-model reflection does not follow. |
 | A4 — spans, identities and universes | Retain explicit links/fiber indices and pullback composition. Relations discard multiplicity; a graph of all Lean types needs an unjustified size principle. Use independent universes and explicit bounded ambient objects. | #4/#32 proves roundtrips, units/associativity up to isomorphism and corrected Q1; #16/#34 checks shared-object inclusion and bag counts. #20/#23 must preserve these identities across role encodings without resizing or collapsing links. |
 | A5 — predicate syntax and meaning | Separate symbols/arities from interpretations and model maps. Generic syntax imposes no default set-valuedness; FormalCD supplies effective defaults. Primitive domains and VC require explicit interpretations. | #15/#27 proves reduct by precomposition; #16/#34 interprets the selected vocabulary and Q8; #19/#38 handles VC separately. #21 must distinguish typing from satisfaction, resolve Q3 before semantic equations and state each domain/interpretation assumption. |
@@ -443,13 +462,13 @@ link to the actual declarations; the statements below bound what may be inferred
 | The role-label map is a DP morphism, and the glued structure is a well-formed formal CD. | Proposed separate #23 targets after label congruence/incidence is settled. Neither follows solely from declaration-image construction. |
 | Compilation/gluing preserves all constraint meanings, or every CD semantically instantiates its metamodel. | Deferred; no accepted general statement or proof. Source resolution and explicit realizability/semantic hypotheses would be needed first. |
 
-#2's remaining acceptance task is review of this cross-check, the source
-dispositions and assigned validation work against the original brief and #13
-discussion. Missing-source acquisition stays visible under Q6. The pinned build,
+#40 delivers #2's cross-check and documentation close-out. Missing-source
+limits and conditional acquisition remain recorded under Q6 / #41; acceptance of the roadmap does not
+complete that research or later implementation tickets. The pinned build,
 kernel/axiom/layer checks and IntentBond validate the candidate and existing
 proofs; they do not certify the source interpretation or complete a deferred
-task. Exit 4 leaves semantic review pending. Issue closure requires acceptance
-and merge of the documentation PR, independently of future milestone completion.
+task. Exit 4 leaves semantic review pending. Each continuing issue requires its
+own accepted deliverables and any required documentation merge before closure.
 
 ## Resolved syntax and individual Shapes
 
