@@ -35,7 +35,12 @@ toolchain/dependency setup and prints elapsed seconds for each validation step.
 
 The shared check discovers every project module, rejects reverse dependencies
 (including through root/helper modules), builds and runs `leanchecker` on each,
-including examples, and generates an `import all` audit from
+including examples. It batches library/module builds in one Lake invocation and
+passes the three public roots to one verbose `leanchecker` invocation, which
+enumerates their compiled descendants, including unimported helpers/examples.
+This avoids repeated directory scans and overlapping module replay. The checker
+thread pool defaults to four threads; set `LEAN_NUM_THREADS` to choose its size.
+It generates an `import all` audit from
 `tests/axiom_audit.lean`. It runs the independent public-import test, all Lean
 validation tests and Python tests, including dependency/scope/audit rejection cases.
 Unowned Lean sources are errors; keep validation harnesses under `tests/`.

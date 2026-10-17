@@ -108,8 +108,11 @@ axioms. It selects by module origin even for private/generated declarations
 outside a root namespace, rejects an empty audit and prints dependencies and
 totals per root. [project_modules.py](../scripts/project_modules.py) discovers
 the complete module inventory and generates every `import all` in the audit.
-[scripts/check.sh](../scripts/check.sh) executes it after the build and kernel
-check, with warnings treated as errors. This is a validation test, not a theorem
+[scripts/check.sh](../scripts/check.sh) builds the complete inventory in one Lake
+invocation and passes the three public roots to one verbose `leanchecker`, which
+enumerates their compiled descendants without repeated overlapping targets.
+It executes the audit after kernel checking,
+with warnings treated as errors. This is a validation test, not a theorem
 about the intended semantics.
 
 [public_imports.lean](../tests/public_imports.lean) exercises the public names

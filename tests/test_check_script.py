@@ -25,7 +25,7 @@ class CheckScriptTest(unittest.TestCase):
 echo "${0##*/} $*" >> "$CALLS"
 if [[ "$1" == scripts/project_modules.py ]]; then
   mkdir -p .lake/validation
-  printf 'DPGraph\\nFormalCD\\nClafer\\n' > .lake/validation/modules.txt
+  printf 'DPGraph\\nDPGraph.Internal.New\\nFormalCD\\nClafer\\n' > .lake/validation/modules.txt
   printf 'tests/public_imports.lean\\n' > .lake/validation/tests.txt
 fi
 if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
@@ -59,19 +59,36 @@ if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
         self.assertLess(next(i for i, call in enumerate(calls) if "test_project_modules.py" in call),
                         calls.index("profile"))
         self.assertIn("building the pinned dependencies from source", result.stderr)
-        for module in ("DPGraph", "FormalCD", "Clafer"):
-            self.assertIn(f"lake build +{module}", calls)
-            self.assertIn(f"lake env leanchecker {module}", calls)
+        self.assertEqual([call for call in calls if call.startswith("lake build")], [
+            "lake build DPGraph FormalCD Clafer +DPGraph +DPGraph.Internal.New +FormalCD +Clafer",
+        ])
+        self.assertEqual([call for call in calls if "leanchecker" in call], [
+            "lake env leanchecker --verbose DPGraph FormalCD Clafer",
+        ])
         for source in (".lake/validation/axiom_audit.lean", "tests/public_imports.lean"):
             self.assertIn(f"lake env lean -DwarningAsError=true {source}", calls)
         self.assertIn("lake env python3 -m unittest discover -s tests -v", calls)
-        self.assertIn("[check] Kernel check DPGraph: exit 0,", result.stdout)
+        self.assertIn("[check] Kernel checks (all discovered modules): exit 0,", result.stdout)
 
     def test_failed_kernel_check_stops_before_audit_and_reports_its_exit(self):
-        result, calls = self.run_check(fail="env leanchecker DPGraph")
+        result, calls = self.run_check(fail="env leanchecker --verbose DPGraph FormalCD Clafer")
         self.assertEqual(result.returncode, 23)
         self.assertFalse(any("axiom_audit.lean" in call for call in calls))
-        self.assertIn("[check] Kernel check DPGraph: exit 23,", result.stdout)
+        self.assertIn("[check] Kernel checks (all discovered modules): exit 23,", result.stdout)
+
+    def test_build_audit_and_test_failures_stop_later_stages(self):
+        for failure, forbidden in [
+            ("build DPGraph", "leanchecker"),
+            ("axiom_audit.lean", "tests/public_imports.lean"),
+            ("tests/public_imports.lean", "unittest discover -s tests -v"),
+            ("unittest discover -s tests -v", None),
+        ]:
+            with self.subTest(failure=failure):
+                result, calls = self.run_check(fail=failure)
+                self.assertEqual(result.returncode, 23, result.stdout + result.stderr)
+                if forbidden:
+                    self.assertFalse(any(forbidden in call for call in calls))
+                self.assertIn("exit 23,", result.stdout)
 
 
 if __name__ == "__main__":
