@@ -2,8 +2,8 @@
 
 The [canonical intent](intent.md) selects three layers. Spans and their mapping
 operations, DPGraph syntax, its fixed-signature category and abstract model
-restriction, the selected concrete predicate meanings, and the first FormalCD
-structure/morphisms are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
+restriction, the selected concrete predicate meanings, and FormalCD
+structure/morphisms, signature support and the Figure 21c metamodel are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
 and [design (#13)](https://github.com/kbak/clafer-lean/issues/13) track later work.
 The repository `kbak/clafer-lean` contains one Lake package named `clafer`.
 Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
@@ -12,7 +12,7 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 | Layer | Responsibility and dependencies | Status |
 | --- | --- | --- |
 | DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract/concrete interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct and selected Table 3/A.1 meanings in [DPGraph](../DPGraph.lean) |
-| FormalCD | Class diagrams, naming/default obligations and name-preserving morphisms; builds on DPGraph | [Core API](../FormalCD.lean) delivered; Figure 21c encoding/self-description remain with [#18](https://github.com/kbak/clafer-lean/issues/18) and [#19](https://github.com/kbak/clafer-lean/issues/19) |
+| FormalCD | Class diagrams, naming/default obligations and name-preserving morphisms; builds on DPGraph | [Core API](../FormalCD.lean) delivered; Figure 21c construction and discipline meanings delivered; self-description remains with [#19](https://github.com/kbak/clafer-lean/issues/19) |
 | Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Entrypoint scaffold](../Clafer.lean) only; name resolution and constraint meaning require review |
 
 [Signature.lean](../DPGraph/Signature.lean) uses
@@ -176,7 +176,7 @@ map preserving declarations, its restricted model and a rejected overlapping
 binding. Zero-member key means a subsingleton source, cover an empty target,
 and disjointness is vacuous, while each central arity vertex survives.
 
-VC, metamodel-specific name/arity predicates (`nd`/`ad`), arbitrary path equations
+VC, arbitrary path equations
 beyond the triangle, FormalCD/Clafer-specific predicates, all-universes SetMap and computable finite
 presentations remain future work. The source map distinguishes the accepted Q1
 and Q8 corrections from the remaining open questions.
@@ -198,7 +198,8 @@ distinct inclusion arrows share isA. Registry entries are optional, and no globa
 name injectivity or acyclic inheritance condition is imposed. The registry's
 identifier, rather than the spelling of a name, determines predefined identity.
 Typed `Formula` bindings continue to enforce arity/incidence, including repeated
-arguments and isolated vertices. No replacement arity predicate is added.
+arguments and isolated vertices. The metamodel validates separately supplied candidate data and relates it to
+these existing typed bindings; it does not replace their representation.
 
 Declarations are already effective: ordinary arrows require setValued membership,
 inclusions require inclusion membership, and explicit bags add no default.
@@ -225,6 +226,52 @@ contravariant reduct to that projection, retaining an explicit interpretation an
 independent semantic universes. [Structural witnesses](../FormalCD/Examples.lean)
 and [concrete models](../FormalCD/SemanticsExamples.lean) are separate from the
 public entrypoint. Their declarations and obligations are linked in
-[formalcd-trace.md](formalcd-trace.md). User-defined predicate syntax, VC and
-metamodel-specific nd/ad predicates are unsupported by this fixed signature;
-Figure 21c encoding and self-description remain later increments.
+[formalcd-trace.md](formalcd-trace.md). Metamodel-specific nd/ad predicates use
+the compatible extension below; a general constraint language, VC and
+self-description remain later increments.
+
+
+## Figure 21c and compatible vocabularies
+
+[FormalCD.Signature](../FormalCD/Signature.lean) contains `Vocabulary`: an explicit
+built-in symbol embedding and two inverse arity Prefunctors. Its signature can
+have independent symbol/vertex/arrow universes. The disjoint `extend` constructor
+joins the built-in symbol universe 0 with the extra symbol universe and uses
+small arities; the general interface imposes no such bound. Formula embedding
+precomposes with the arity projection and commutes with carrier translation.
+`RawOver`, `CDOver` and `HomOver` use that vocabulary. The original `Raw`/`CD`
+structures wrap the built-in specialization and retain its public projections;
+`CD.generalize` forgets only this wrapper. Both morphism APIs use the same DPGraph
+laws, declarations, registry obligations and interpretations.
+
+[The metamodel](../FormalCD/Metamodel/Basic.lean) is a small typed CD with a single
+effective declaration set, whose source inventory is in [SOURCES](SOURCES.md#figure-21c-metamodel).
+The two extra symbols use explicit naming and incidence subgraphs. The metadata
+registry marks the underlined SING metaclass as singleton; assignments of concrete
+String/PredefStr/Signature domains belong to the interpretation context. Model
+metaclass identities, modeled classes and their objects remain ordinary separate
+data; no syntax node denotes the collection of all Lean types.
+
+`Candidate` retains a symbol, every vertex image and an indexed map of total
+arity arrows to total carrier arrows. Its `Valid` proposition checks both endpoint
+equations. Valid candidates are equivalent to the existing `DPGraph.Formula`.
+An `ArityDescriptor` adds optional candidates and optional index data to an actual
+span diagram. `ArityDiscipline` checks candidate validity, complete bijective
+fiber indexing, actual argument values, selected symbols and source/target maps.
+`NameDiscipline` checks actual names, optional registry identities/kinds and the
+predefined naming square by a span isomorphism. `Context` supplies data, never a
+validity assumption. The interpretation is over `semanticGraph U`, with the
+existing link universe `max z w` for `U : Type z`; candidate data retains the
+independent signature/carrier universes and their ordinary joins. Encodings into
+U are explicit embeddings; no resizing or all-universes semantic graph is used.
+
+The repeated-argument acceptance model concerns the ad/key/total fragment. Name
+witnesses separately satisfy nd. Construction well-formedness, fragment satisfaction
+and whole-metamodel satisfaction are distinct. The literal key compares unindexed
+bags, so it can identify projections of distinct positional bindings; arrow-only
+projection also loses isolated vertices. Total args excludes empty argument fibers
+although those formulas are legal in DPGraph. These facts bound #19: it must state
+and prove an explicit representation/well-formedness result with signature,
+registry, universe and any key/totality hypotheses. They do not prove that every
+CD is a semantic instance of the printed metamodel, nor that a model is its own
+semantic instance. Figure 21b/VC and self-description remain future work.

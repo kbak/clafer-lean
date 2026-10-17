@@ -40,7 +40,11 @@ preserving names, annotations and modes. Its ordinary maps require explicit
 set-valued declarations; its inclusions require inclusion declarations. Bag mode
 has no implicit set-valued declaration. Registry annotations identify optional
 predefined classes without implementing their concrete domains, and syntactic
-validity does not assert model existence or satisfaction. FormalCD self-description
+validity does not assert model existence or satisfaction. FormalCD also supplies
+compatible signature extension, the Figure 21c metamodel, explicit name/arity
+disciplines and full graph-binding identity with checked projection limitations.
+The printed key and total-args constraints impose additional conditions on
+instances; no universal realizability follows. FormalCD self-description
 and the Clafer implementation remain future work. An all-universes SetMap and the
 unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)

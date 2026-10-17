@@ -4,7 +4,8 @@ Formalizing [Clafer](https://www.clafer.org/)'s semantics in Lean 4.
 The proven foundation provides link-preserving spans and mapping operations
 from SoSyM B.1–B.2, plus DP-graphs, their fixed-signature category and abstract
 model restriction from B.4–B.5, and selected Table 3/A.1 predicate meanings.
-Formal class diagrams add naming/default obligations and name-preserving morphisms.
+Formal class diagrams add naming/default obligations, name-preserving morphisms
+and the Figure 21c metamodel with explicit name/arity disciplines.
 Structural 2014 Clafer remains a subsequent layer; start with
 the [product overview](docs/intent.md).
 

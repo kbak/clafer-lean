@@ -14,4 +14,13 @@ Expected affected files: FormalCD/Basic.lean, Morphism.lean, Semantics.lean, new
 
 Primary risks: silently conflating full bindings with bags; hiding the figure's empty-args restriction; vacuous nd/ad meanings; breaking the old specialization; and interpreting model-language metaclasses as Lean universes. The accepted specification addresses these explicitly. Further semantic choices that change these contracts require NEEDS_INPUT; ordinary file/API organization does not.
 
-No implementation or checks were executed by the coordinator. The factory owns execution and its final evidence. #19 stays open; any handoff must separate proved construction facts, structural validity, concrete satisfaction and remaining self-description obligations.
+Implementation organization: signature-independent wrappers preserve the existing
+Raw/CD/Hom API while RawOver/CDOver/HomOver carry arbitrary supported vocabularies.
+The metamodel is split into Shape, Basic, Binding, Discipline and Interpretation;
+Examples, InterpretationExamples and NameExamples keep acceptance witnesses out
+of public imports. Candidate validity is proved equivalent to typed Formula.
+Concrete interpretation acceptance uses an ad/key/total fragment and separate nd
+witnesses; whole-metamodel self-description remains outside the accepted scope.
+Validation uses the unchanged full trace/Lean command and full diff review, with
+results retained in external evidence rather than this plan.
+The factory owns export verification and independent review before publication. #19 stays open; any handoff must separate proved construction facts, structural validity, concrete satisfaction and remaining self-description obligations.

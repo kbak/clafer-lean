@@ -9,7 +9,10 @@ Definitions 6–10, a fixed-signature category, the abstract B.5 model reduct an
 selected Table 3/A.1 predicates in a bounded graph of subsets and spans, with the
 accepted common-target Q8 disjointness correction.
 FormalCD delivers raw/bundled class diagrams, naming/default obligations and
-name-preserving morphisms; self-description remains future work. Clafer currently
+name-preserving morphisms, compatible signature support and the Figure 21c
+metamodel with explicit disciplines; self-description remains future work.
+Preserve full graph bindings separately from the literal bag key and total-args
+conditions; see the source map before extending metamodel representation. Clafer currently
 has entrypoint scaffolding only. Read the future layer boundaries in
 [architecture](docs/ARCHITECTURE.md), the [requirements](docs/spec.md) and
 [roadmap #2](https://github.com/kbak/clafer-lean/issues/2)/
