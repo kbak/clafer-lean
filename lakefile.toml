@@ -1,5 +1,7 @@
 name = "clafer"
 version = "0.1.0"
+# Candidate libraries always rebuild in an isolated validation snapshot.
+enableArtifactCache = false
 defaultTargets = ["DPGraph", "FormalCD", "Clafer"]
 
 [leanOptions]

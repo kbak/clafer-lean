@@ -49,6 +49,15 @@ class PublicLibrariesTest(unittest.TestCase):
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
 
+    def test_project_artifact_cache_cannot_reuse_candidate_builds(self):
+        config = (REPO / "lakefile.toml").read_text()
+        for changed in [config.replace("enableArtifactCache = false", "enableArtifactCache = true"),
+                        config.replace("enableArtifactCache = false", "")]:
+            with self.subTest(config=changed):
+                self.write("lakefile.toml", changed)
+                with self.assertRaisesRegex(ValueError, "project artifact caching"):
+                    validate(self.repo)
+
     def test_reverse_edges_including_helper_and_root_imports_are_rejected(self):
         for path, dep in [("DPGraph/Core.lean", "FormalCD"),
                           ("DPGraph.lean", "Clafer"),

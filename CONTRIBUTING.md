@@ -32,6 +32,9 @@ For quick feedback while editing, run `bash scripts/check.sh --preflight`.
 This checks module discovery and its Python regressions without requiring Lean;
 it does not replace the full check. The full command runs this preflight before
 toolchain/dependency setup and prints elapsed seconds for each validation step.
+The project package disables Lake artifact caching so isolated checks compile the
+current candidate. A factory profile may enable native caching for pinned dependencies;
+keep that cache outside captured source and preserve the complete validation gates.
 
 The shared check discovers every project module, rejects reverse dependencies
 (including through root/helper modules), builds and runs `leanchecker` on each,

@@ -24,6 +24,9 @@ time for build, kernel-check and test stages, identifying every kernel-checked
 module in the output. Batch module builds and deduplicate overlapping kernel-check
 targets while retaining the complete discovered inventory. Preflight success does not satisfy
 the full validation requirement.
+Keep artifact caching disabled for the project package so each isolated check
+rebuilds candidate modules. Deployment-managed dependency caches may reuse pinned
+dependency artifacts without replacing any build, kernel or audit gate.
 Audit declarations by their originating project modules, including private and
 generated declarations regardless of namespace, with complete `import all`
 coverage. Reject unsafe/partial definitions, new axioms and transitive axiom
