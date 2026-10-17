@@ -26,7 +26,8 @@ run_cmd do
         (`FormalCD.SemanticsExamples).isPrefixOf name ||
         (`FormalCD.Metamodel.Examples).isPrefixOf name ||
         (`FormalCD.Metamodel.InterpretationExamples).isPrefixOf name ||
-        (`FormalCD.Metamodel.NameExamples).isPrefixOf name then
+        (`FormalCD.Metamodel.NameExamples).isPrefixOf name ||
+        (`FormalCD.Figure21.Examples).isPrefixOf name then
       throwError "independent FormalCD entrypoint imported {name}"
 
 universe p v₁ u₁ v₂ u₂ v₃ u₃ vm um
@@ -59,3 +60,12 @@ example : (f.comp g).toDPHom = f.toDPHom.comp g.toDPHom := rfl
 example (m : J.Model C.toDPGraph) :
     (f.comp g).reduct J m = f.reduct J (g.reduct J m) := HomOver.reduct_comp J f g m
 end Extended
+
+#check FormalCD.bounded_self_description
+#check FormalCD.metamodelFormulaRepresentation
+#check FormalCD.Figure21.diagram
+#check FormalCD.Figure21.declaration_injective
+#check FormalCD.Figure21.satisfies_vc_iff_guarded
+#check FormalCD.Figure21.builtins_unchanged
+#check FormalCD.Figure21.twelve_effective_formulas
+#check FormalCD.Figure21.declared_vc_iff_guarded

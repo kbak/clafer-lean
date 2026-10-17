@@ -267,3 +267,121 @@ Covers:
 - `req~formalcd-metamodel-disciplines~1`
 - `req~formalcd-formula-identity~1`
 - `req~formalcd-metamodel-examples~1`
+
+## Bounded syntactic self-description data
+`impl~formalcd-bounded-self-description-data~1`
+
+[SelfDescription.lean](../FormalCD/SelfDescription.lean) reuses the existing
+`Metamodel.diagram` in `CDOver.{0,0,0,0,0,0}` at `Metamodel.vocabulary` and
+`Metamodel.registry`. `metamodelFormulaRepresentation` specializes the existing
+`Candidate.formulaEquiv` without altering full binding or bag projection semantics.
+
+Covers:
+- `req~formalcd-bounded-self-description~1`
+
+## Bounded syntactic self-description proof
+`proof~formalcd-bounded-self-description-laws~1`
+
+[SelfDescription.lean](../FormalCD/SelfDescription.lean):
+`FormalCD.bounded_self_description` reuses the raw-data equality, `wellFormed`,
+`eleven_nodes` and `thirteen_arrows`; `metamodel_formula_roundtrip` reuses the
+full-binding equivalence. These are representation and syntactic validity results,
+not proofs of semantic self-instantiation or universal realizability.
+
+Covers:
+- `req~formalcd-bounded-self-description~1`
+
+## Figure 21b data and effective formulas
+`impl~formalcd-figure21-construction~1`
+
+[Figure21/Basic.lean](../FormalCD/Figure21/Basic.lean): `Node`, `Edge`, `graph`,
+`VCEdge`, `vcShape`, `vcBinding`, `extraSignature`, `vocabulary`, `vc`, `registry`,
+`nodeName`, `edgeName`, `edgeMode`, `inclusions`, `opposite`, `Declaration`,
+`declaration`, `raw`, `diagram`, `edges`, `effectiveFormulasEquiv`.
+Names are in `FormalCD.Figure21`. These reuse full typed Formula bindings and
+the existing optional metadata/default framework. Sources: §6.1.1–3, Figure 21b,
+p.19's twelve effective declarations, and B.4 Definitions 7–9.
+
+Covers:
+- `req~formalcd-figure21-example~1`
+
+## Figure 21b syntax and inventory proofs
+`proof~formalcd-figure21-construction-laws~1`
+
+[Figure21/Basic.lean](../FormalCD/Figure21/Basic.lean): `wellFormed`, `declared`,
+`four_classes`, `five_arrows`, `edges_complete`, `edges_nodup`,
+`inclusion_identities_distinct`, `inclusion_names`, `int_metadata`,
+`no_singleton_required`, `twelve_declarations`, `declaration_injective`,
+`twelve_effective_formulas`, `four_vc_arrows`, `vc_edges_complete`, `vc_edges_nodup`.
+`effectiveFormulasEquiv` proves exact correspondence between the twelve labels
+and the effective formula set. Edge constructors and the complete list expose
+all five incidences, with the four VC arrows bound by `vcBinding`.
+[VC.lean](../FormalCD/Figure21/VC.lean): `one_one_total_single` and
+`zero_one_single` explain the arrow notation through link multiplicities.
+
+Covers:
+- `req~formalcd-figure21-example~1`
+
+## Guarded VC interpretation data
+`impl~formalcd-vc-meaning~1`
+
+[Figure21/VC.lean](../FormalCD/Figure21/VC.lean): `IntegerRealization`, `.domain`,
+`InheritedVersion`, `VCMeaning`, `vcInterpretation`, `interpretation`,
+`asComponent`, `versionValue`, `GuardedComparison`. All names are in
+`FormalCD.Figure21`. VC checks the realized integer domain and compares decoded
+version targets along actual inclusion/version links for each server link.
+There is no comparison for an empty server fiber. Semantic universes retain
+`U : Type u`, subset vertices and link bound `max u w`. The source correction
+is Figure 8 line 9 / §4.2.3–4.3, Figure 21a / §6.1.2 and Appendix F, recorded as Q7
+in the source map; the generic built-in catalogue remains separate.
+
+Covers:
+- `req~formalcd-vc-semantics~1`
+
+## Guarded VC correspondence proofs
+`proof~formalcd-vc-meaning-laws~1`
+
+[Figure21/VC.lean](../FormalCD/Figure21/VC.lean): `builtins_unchanged`,
+`satisfies_vc`, `one_one_total_single`, `zero_one_single`, `versionValue_link`,
+`inherited_iff_value`, `satisfies_vc_iff_guarded`, `declared_vc_iff_guarded`. The
+last two theorems assume the
+explicit integer domain, both inclusions and version 1..1; it proves equivalence
+with the guarded integer comparison for actual typed VC satisfaction. It assumes
+neither server totality nor whole-model satisfaction.
+
+Covers:
+- `req~formalcd-vc-semantics~1`
+
+## Figure 21b model and boundary data
+`impl~formalcd-vc-witness-data~1`
+
+[Figure21/Examples.lean](../FormalCD/Figure21/Examples.lean): `Universe`, `integers`,
+`components`, `singletonObjects`, `component`, `singletonObject`, `inclusionSpan`,
+`serverSpan`, `versionNumber`, `versionSpan`, `objects`, `modelMap`, `model`.
+Names are in `FormalCD.Figure21.Examples`. The ambient type is `Bool ⊕ Int`;
+component sets are finite but the integer domain realizes every integer.
+The models are parameterized by server presence and arbitrary ECU/display versions.
+
+Covers:
+- `req~formalcd-vc-witnesses~1`
+
+## Figure 21b satisfaction and counterexamples
+`proof~formalcd-vc-witness-laws~1`
+
+[Figure21/Examples.lean](../FormalCD/Figure21/Examples.lean): `inclusion_holds`,
+`server_multiplicity`, `display_multiplicity`, `version_multiplicity`,
+`server_set`, `display_set`, `version_set`, `inverse_holds`, `cover_holds`,
+`disjoint_holds`, `other_declarations`, `inherited_version`, `vc_iff`, `model_iff`,
+`component_classes_nonempty`, `every_integer_realized`, `served_link`, `greater_vc`, `equal_vc`,
+`lower_not_vc`, `lower_other_declarations`, `unserved_vc`, `unserved_model`,
+`unserved_no_link`, `unserved_multiplicity`, `unserved_not_total`.
+`model_iff` characterizes whole-model satisfaction for all parameters; the actual
+`model` supplies a nonempty satisfying witness. The lower-version witness fails
+VC while satisfying the other eleven declarations. The unserved witness shows
+both VC vacuity and 0..1 without totality. All are actual interpreted formulas,
+with no claim that these models instantiate the Figure 21c metamodel.
+The shared module discovery, kernel replay, axiom audit and independent import
+checks include the new modules and preserve all existing regressions.
+
+Covers:
+- `req~formalcd-vc-witnesses~1`

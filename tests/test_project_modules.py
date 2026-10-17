@@ -56,6 +56,8 @@ class PublicLibrariesTest(unittest.TestCase):
             "FormalCD.Metamodel.Binding", "FormalCD.Metamodel.Discipline",
             "FormalCD.Metamodel.Interpretation", "FormalCD.Metamodel.Examples",
             "FormalCD.Metamodel.InterpretationExamples", "FormalCD.Metamodel.NameExamples",
+            "FormalCD.SelfDescription", "FormalCD.Figure21.Basic",
+            "FormalCD.Figure21.VC", "FormalCD.Figure21.Examples",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
         self.assertIn(Path("tests/formalcd_imports.lean"), tests)
