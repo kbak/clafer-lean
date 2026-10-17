@@ -76,16 +76,27 @@ small signature in both a small graph and a graph with vertices/arrows in
 component declarations on a supplied carrier cocone point. Its two injections
 preserve declarations by construction, and the supplied graph equation gives
 the DP-graph cocone. `CompatibleModels` records equality of component reducts.
-[Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean), importing only this
-basic module, lifts a supplied carrier `IsColimit` to the DP-graph cocone at
-fixed carrier universes. For any target DP cocone, its carrier mediator preserves
-declarations: each declaration comes from one component, and translation
-composition plus the corresponding factorization equation reduces preservation
-to that component's DP map. Carrier factorization and uniqueness then lift by
-`Hom.ext`. This is a derived result over B.4 Definitions 9–10, not a verbatim
-paper theorem or an assertion of global pushout existence. Model amalgamation
-remains a separate obligation of [#30](https://github.com/kbak/clafer-lean/issues/30).
-No concrete CD or Clafer gluing is supplied by these constructions.
+
+[Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean) independently imports
+the basic data and lifts a supplied carrier `IsColimit` to the DP-graph cocone
+at fixed carrier universes. For any target DP cocone, its carrier mediator
+preserves declarations: each declaration comes from one component, and translation
+composition plus that component's factorization equation reduces preservation
+to its DP map. Carrier factorization and uniqueness lift through `Hom.ext`.
+
+[Pushout/Models.lean](../DPGraph/Pushout/Models.lean) independently imports the
+same data and derives `Pushout.modelEquiv` from the supplied carrier colimit.
+Its forward map is exactly the two reducts. Compatibility gives a cocone into the
+semantic graph; its mediator satisfies the declaration union by satisfaction
+under translation and the two component model proofs. Carrier factorization
+recovers both component models, and uniqueness recovers the original model.
+`modelEquiv_fst` and `modelEquiv_snd` expose the forward projection equations.
+Here `Ω : Quiv.{v,u}` shares the fixed carrier universes so that the supplied
+universal property applies. This restriction is local to the equivalence;
+interpretations, reducts and compatible-model data retain their independent
+semantic universes. Both results are derived over SoSyM B.4 Definitions 9–10
+and abstract B.5 Theorem 3. They add no predicate-meaning or amalgamation axiom,
+assert no global pushout existence, and supply no concrete CD or Clafer gluing.
 
 Concrete span interpretations, SetMap, span operations, and computable finite
 presentations are later increments. The

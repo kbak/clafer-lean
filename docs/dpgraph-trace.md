@@ -324,3 +324,51 @@ additional axioms or model amalgamation assumption.
 
 Covers:
 - `req~dpgraph-pushout-universal~1`
+
+## Model amalgamation implementation
+`impl~dpgraph-model-amalgamation~1`
+
+[Pushout/Models.lean](../DPGraph/Pushout/Models.lean): `Pushout.modelEquiv`
+maps a model to exactly its two reducts and uses the private `Pushout.amalgamate`
+for its inverse. That helper applies `PushoutCocone.IsColimit.desc` to the two
+underlying component maps and their compatibility equation. The module imports
+`Pushout.Basic` independently; [DPGraph.lean](../DPGraph.lean) publicly imports it.
+Only this equivalence restricts `Ω` to the carrier universes. This is a derived
+result over SoSyM B.4 Definitions 9–10 and abstract B.5 Theorem 3.
+
+Covers:
+- `req~dpgraph-model-amalgamation~1`
+
+## Model amalgamation proofs
+`proof~dpgraph-model-amalgamation~1`
+
+[Pushout/Models.lean](../DPGraph/Pushout/Models.lean): the private
+`Pushout.amalgamate` proves satisfaction by splitting membership in the union of
+declaration images, applying `Interpretation.satisfies_translate`, and using the
+appropriate carrier factorization equation and component model proof.
+Private `Pushout.amalgamate_inl` and `Pushout.amalgamate_inr` prove the inverse's
+reducts recover the component models. In `Pushout.modelEquiv`, the forward
+compatibility proof uses the reduct composition law and cocone equation;
+`left_inv` uses carrier-colimit uniqueness, while `right_inv` uses the two helper
+equations and subtype/product extensionality. `Pushout.modelEquiv_fst` and
+`Pushout.modelEquiv_snd` prove the required forward projection equations with
+explicit argument order `F J c I hc m`. All proof obligations use the supplied
+carrier colimit and existing satisfaction semantics, without additional axioms.
+
+Covers:
+- `req~dpgraph-model-amalgamation~1`
+
+## Public pushout interfaces
+`itest~dpgraph-pushout-public-api~1`
+
+[public_imports.lean](../tests/public_imports.lean) imports only `DPGraph` and
+checks the common cocone-data names. Its universe-polymorphic typed examples
+exercise `Pushout.isColimit`, `modelEquiv`, `modelEquiv_fst` and `modelEquiv_snd`
+with the required explicit argument order and exact projection equations. The
+existing import-environment audit still rejects upper layers and examples. The
+shared check compiles this test with warnings as errors.
+
+Covers:
+- `req~dpgraph-pushout-data~1`
+- `req~dpgraph-pushout-universal~1`
+- `req~dpgraph-model-amalgamation~1`
