@@ -138,6 +138,42 @@ Distinguish proposed, proved and deferred theorem statements. This research
 requirement adds no Lean theorem or mathematical implementation obligation;
 later semantic increments require their own authorized scope. The existing
 validation, IntentBond and GitHub-tracking requirements continue to apply.
+Continuing source acquisition and the conditional sketch-extension assessment
+are tracked by [#41](https://github.com/kbak/clafer-lean/issues/41) after #2 closes.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl
+
+## Supporting-source and coherence research
+`req~supporting-source-research~1`
+
+Maintain the bounded assessment authorized by
+[#41](https://github.com/kbak/clafer-lean/issues/41), with SoSyM B.4 Definitions
+7–10 and B.5 Theorem 3 as the semantic reference. Compare the inspected Diskin
+& Wolter §4.1–3 signature dependencies, declaration closure, typed-instance
+satisfaction and pullback coherence with the actual `Signature`, `Interpretation`
+and reduct laws. Distinguish precomposition equalities from coherent
+isomorphisms for chosen pullback reducts; assert no unproved equivalence of the
+model representations and add no semantic or dependency change through this audit.
+
+Record exact inspected statements, source/version identities and the limits of
+browser excerpts versus acquired complete files. The 2003 keyed-sketch and 2000
+universal-arrow full texts require acquisition and applicability assessment;
+unavailable texts remain explicit unresolved work on #41 unless a separate
+review accepts another disposition. Record hashes and locators for acquired
+files, and retain failed-route evidence outside living documentation. Abstracts,
+snippets and indexed PDF results do not establish a technical audit.
+
+Bound the Lean-library search by queries, inspected source trees and immutable
+candidate revisions. Distinguish relevant foundations from a ready-made sketch
+package, and static inspection from compatibility verified by building. Preserve
+the adopted pins and separately review any future extension, adapter and license.
+Keep source limits, architecture, canonical intent and trace links consistent.
+This documentation requirement adds no Lean proof obligation and does not close
+the outstanding full-text research merely by recording it.
 
 Covers:
 - `intent~formalization-foundation~1`

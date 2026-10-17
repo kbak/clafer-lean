@@ -1,7 +1,10 @@
 # Sources and open decisions
 
 The [roadmap/source audit (#2)](https://github.com/kbak/clafer-lean/issues/2)
-remains Open / In Progress. The representation assessment for
+is delivered in [merged #40](https://github.com/kbak/clafer-lean/pull/40).
+[Continuing research #41](https://github.com/kbak/clafer-lean/issues/41) owns
+the missing-source acquisition and conditional sketch-extension assessment.
+The representation assessment for
 [design #13](https://github.com/kbak/clafer-lean/issues/13) is present in
 [merged #39](https://github.com/kbak/clafer-lean/pull/39); the bounded
 self-description and Figure 21b work for #19 is present in
@@ -63,9 +66,11 @@ citations; publication text and figures are not reproduced.
 
 The supporting comparison uses the inspected author-uploaded Diskin & Wolter (2008),
 [DOI 10.1016/j.entcs.2008.10.041](https://doi.org/10.1016/j.entcs.2008.10.041),
-§4.1 Definitions 4.1–4.5. Its signatures add dependency arrows and closure.
-Those additions are deliberately absent from this SoSyM slice. Its discussion
-of pullback reducts also requires care about coherence up to isomorphism.
+[full-text rendering](https://www.researchgate.net/publication/220368840_A_Diagrammatic_Logic_for_Object-Oriented_Visual_Modeling).
+The upload is headed ACCAT 2006; use its numbered statements rather than
+assuming the journal's pagination. The comparison below identifies the relevant
+syntax and semantics separately. A downloaded PDF identity for this upload has
+not been established; browser section excerpts are distinct from a complete file.
 The inspected Diskin, Easterbrook & Dingel (2008) §3 formal-CD/mapping discussion
 and §5 association examples support retaining link identity and distinguishing
 extensional and navigational views; the full-text identity is recorded below.
@@ -74,15 +79,63 @@ The audit limits for the other requested sources are specific:
 
 | Source | Available evidence | Remaining audit |
 | --- | --- | --- |
-| Diskin & Kadish (2003), [DOI 10.1016/S0169-023X(03)00047-8](https://doi.org/10.1016/S0169-023X(03)00047-8) | Bibliographic record, abstract and publisher section snippets | Full text not obtained; technical object-identity definitions have not been audited. Obtain and compare before relying on them for Q4. |
-| Diskin, Kadish, Piessens & Johnson (2000), [Universal Arrow Foundations for Visual Modeling](https://researchers.mq.edu.au/en/publications/universal-arrow-foundations-for-visual-modeling/) | Institutional abstract/publication record and indexed opening text | Full-text retrieval failed; detailed universal-arrow machinery remains unreviewed and outside the delivered claims. |
+| Diskin & Kadish (2003), *Variable set semantics for keyed generalized sketches*, [DOI 10.1016/S0169-023X(03)00047-8](https://doi.org/10.1016/S0169-023X(03)00047-8), pp. 1–59 | Bibliographic record, abstract and publisher section snippets; scholarly indexes supply no downloadable copy | Full text not obtained. Its technical object-identity definitions remain unaudited under #41. Obtain and compare before relying on them for Q4; the abstract does not select Clafer label identity. |
+| Diskin, Kadish, Piessens & Johnson (2000), [Universal Arrow Foundations for Visual Modeling](https://researchers.mq.edu.au/en/publications/universal-arrow-foundations-for-visual-modeling/), pp. 345–360, [DOI 10.1007/3-540-44590-0_30](https://doi.org/10.1007/3-540-44590-0_30) | Institutional/publisher abstracts and indexed opening text; the linked Toronto/Queen's author files are unavailable and the publisher exposes a subscription preview | Full text not obtained. Detailed universal-arrow definitions and applicability remain unaudited under #41. An indexed PDF result or a publisher page returned for a PDF URL is not an acquired full text. |
 
-No suitable Lean generalized-sketch library was identified by the recorded
-targeted search; that is not a proof of absence. Recheck the Mathlib tree and
-literature before proposing dependency-enriched sketches. The maintained Haskell
+The [bounded library assessment](#lean-library-assessment) identifies reusable
+foundations, without establishing a ready-made generalized-sketch dependency or
+proving that none exists. The maintained Haskell
 compiler has not been used as semantic evidence; later use must pin a commit,
 check licensing and distinguish post-2014 constructs. Downloaded publications
 remain outside the repository.
+
+## Generalized sketches and model-reduct coherence
+`impl~supporting-source-assessment~1`
+
+This assessment supports the [research requirement](spec.md#supporting-source-and-coherence-research).
+The unavailable 2003/2000 full texts remain open work in #41. No mathematical
+implementation or new theorem is delivered by this comparison.
+
+Covers:
+- `req~supporting-source-research~1`
+
+| Concern | SoSyM B.4–B.5 and the delivered API | Diskin & Wolter author upload |
+| --- | --- | --- |
+| Signature and consequences | Definition 7 / `Signature`: symbols with graph arities; Definition 9 / `DPGraph`: a declaration set without inference closure. | §4.1 Definition 4.1 uses a predicate/dependency category and an arity functor. Definition 4.5 (Inf) closes declarations: a dependency `r : Q → P` carries `P(d)` to `Q(α(r) ; d)`. |
+| Models and satisfaction | A map from the carrier to fixed `Ω`; `Interpretation.meaning` selects satisfying arity maps. | §4.2 Definitions 4.7/4.9 use instances typed into a carrier and satisfaction by pullback. Meanings are isomorphism-closed and consistent with dependency pullbacks. |
+| Restriction and its laws | B.5 Theorem 3 / `isModel_reduct` restricts by precomposition. `reduct_id` and `reduct_comp` prove equalities of model values. | §4.3 Lemma 4.13, Proposition 4.14 and Corollary 4.15 use chosen pullbacks, coherent natural isomorphisms and isomorphism-closed meanings. Theorem 4.19 packages the sketch instance pseudofunctor. |
+
+The comparison does not identify these two model representations. A future
+typed-instance bridge needs an explicit construction and correspondence theorem
+with its size and semantic hypotheses. The existing precomposition laws require
+neither pullback choices nor extra axioms on meanings; they do not establish
+strict equality for arbitrary chosen pullback reducts. For a dependency-enriched
+extension, separately specify dependency direction, arity functoriality,
+declaration closure, interpretation consistency and the intended coherence laws.
+That extension and its proofs require a new authorized scope.
+
+### Lean library assessment
+
+The bounded search inspected the full `Mathlib/` tree at the pin above for
+`sketch`, `generalized/generalised sketch` and `institution`, followed relevant
+category-theory modules, and checked GitHub repository queries
+`sketch language:Lean` and `"generalized sketches"`, web/Reservoir discovery,
+and the candidate README/manifests below. Keyword hits included proof outlines
+and *Sketches of an Elephant* citations; they did not identify a sketch API.
+Search results and compatibility are separate: none of the external candidates
+was built against this project's Lean/Mathlib pins or added as a dependency.
+
+| Inspected source | Relevant content and suitability limit |
+| --- | --- |
+| [Pinned Mathlib](https://github.com/leanprover-community/mathlib4/tree/56a005855ea17e0b0958f73ec801ae140b0a1679) | `CategoryTheory/Limits/Shapes/Pullback/`, `FiberedCategory/`, `Grothendieck.lean` and `Bicategory/Functor/Pseudofunctor.lean` provide foundations. They do not supply the selected predicate/dependency signature, closure and satisfaction package together; those obligations remain to be specified. |
+| [sinhp/LeanFibredCategories at a58604a](https://github.com/sinhp/LeanFibredCategories/tree/a58604a389544523aa171daf890386fb8317568b) | Fibers, Cartesian lifts and Grothendieck examples; README describes upstreaming foundations to Mathlib. Manifest pins Lean v4.4.0-rc1. Relevant background, without the required generalized-sketch layer. |
+| [jacobneu/GeneralizedAlgebra at d2f4029](https://github.com/jacobneu/GeneralizedAlgebra/tree/d2f402944052f7d93d2f600ab1131c13d92d4351) | Generalized algebraic-theory signatures and generated algebra descriptions; Lean v4.13.0. A different specification language, without an inspected DP-sketch interpretation/reduct adapter. |
+| [b-mehta/topos at c9032b1](https://github.com/b-mehta/topos/tree/c9032b11789e36038bc841a1e2b486972421b983) | Topos/pullback foundations; `leanpkg.toml` pins Lean 3.24.0. This is not a directly compatible Lean 4 dependency or a delivered diagram-predicate package. |
+
+Retain the existing Mathlib dependency and ordinary DPGraph signature. Before
+adopting an external library, check its license, exact API, maintained toolchain
+compatibility and a compiling adapter with meaningful satisfaction/closure laws.
+The scoped negative search cannot rule out other libraries or later versions.
 
 ## Span composition: Q1 research for #4
 
@@ -243,13 +296,13 @@ source gaps. Keep the original issue discussions as the decision history.
 | Q3 — Appendix D notation | Unresolved: D.4.2 prints set difference in the intersection equation; some type-rule notation is inconsistent. Following the named intersection and D.1–D.3 is a proposal, not an accepted semantic equation. | #21 must locate each discrepant rule, record alternatives and obtain a reviewed disposition before semantics. Validate common-element versus difference examples, empty operands, and accepted/rejected typing/navigation/binder cases; no theorem of constraint meaning is claimed here. |
 | Q4 — labels and identity | Unresolved for Clafer: §6.2.4 indices and §6.2.5 label identification require a precise congruence. Existing FormalCD names are metadata, not identity. | #20/#22/#23 must distinguish source names, generated IDs, class identities and endpoint-qualified map labels; show repeated parent/isA names do not merge incompatible endpoints, define the intended same-label identifications, and prove label incidence before declaration preservation. Compare 2003 identity details only after obtaining the full text. |
 | Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
-| Q6 — acquisition and visual completeness | Partial audit: 2003/2000 full texts unavailable. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | #2 retains acquisition and applicability assessment; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Record obtained file hashes/locators or continued unavailability; never mark unread technical definitions audited. |
+| Q6 — acquisition and visual completeness | Partial audit: 2003/2000 full texts unavailable; see the supporting-source limits and coherence assessment above. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) retains acquisition and applicability assessment after #2's documentation close-out; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Record obtained file hashes/locators or continued unavailability; never mark unread technical definitions audited. |
 | Q7 — VC order and guard | Accepted: display.version ≥ server.version, guarded by a nonempty server fiber. Contrary adjacent p.17 prose is the discrepancy. | #19 / #38 delivers the [guarded correspondence and whole models](#figure-21b-and-the-accepted-q7-correction): greater/equal pass, lower fails VC, absent server passes. No remaining implementation task for this correction. |
 | Q8 — disjointness shape | Accepted: §6.1.2/Figure 21 common-target maps with nonoverlapping images; Table 3's common-source shape is erroneous. | #16 / #34 delivers typed arity, interpretation and overlap/repeated-nonempty-binding failures. [Contract below](#predicate-contracts-and-the-accepted-q8-correction); no second predicate or source-object inequality. |
 
 The roadmap can be accepted with deferred work explicitly assigned; it cannot
-claim that those tasks or missing-source research are completed. #2 retains the
-final source/design cross-check and documentation review. The architecture records
+claim that those tasks or missing-source research are completed. #40 delivers
+#2's source/design cross-check; #41 retains the unfinished research. The architecture records
 the existing #13 assessment and the separate proof-status boundaries.
 
 ## Predicate contracts and the accepted Q8 correction
