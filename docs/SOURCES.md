@@ -89,6 +89,17 @@ compiler has not been used as semantic evidence; later use must pin a commit,
 check licensing and distinguish post-2014 constructs. Downloaded publications
 remain outside the repository.
 
+### Additional Diskin sources and applicability
+
+Accessible alternatives support particular questions; they do not establish the
+unread 2003/2000 definitions or settle Clafer's label congruence (Q4).
+
+| Inspected source | Applicable statements and limits |
+| --- | --- |
+| Wolter & Diskin, *From Indexed to Fibred Semantics — The Generalized Sketch File*, Bergen report 361 (2007), [author-uploaded full-text rendering](https://www.researchgate.net/publication/264922657_From_Indexed_to_Fibred_Semantics_--_The_Generalized_Sketch_File) | §3 Definitions 6–7 use an ordinary signature; Remark 4 explicitly sets aside the dependency-category extension. §4 Definition 11 / Proposition 3 give models into a semantic universe and precomposition reduction. §7 Definitions 18–19 / Proposition 5 give isomorphism-closed meanings and pullback reduction, with canonical coherence at the section opening. §6 treats the graph semantic universe; Remark 13 flags additional identity loops in that construction. This is relevant background for A2, not a proved bridge for the delivered bounded span semantics. Browser-rendered statements were inspected; no complete PDF hash is claimed. |
+| Diskin, Dingel & Liang, *Scenario Integration via Higher-Order Graphs*, Queen's report 2006-517, [PDF](https://research.cs.queensu.ca/TechReports/Reports/2006-517.pdf) | §3.1–3.3, printed pp. 9–13, separate names from denotations, specify correspondences by spans, merge by generated equivalence, and lift the construction to graphs. Correspondence discovery is an input, not a derived identity rule. The closing sketch/constraint caveat prevents treating graph merge alone as constrained-model integration. Useful for formulating Q4's alternatives, without selecting a Clafer congruence. Acquired 23-page PDF SHA-256: `7da666e6016f5c1c4d2b261922990ac009bce090d4bff10243e41402b2d704c7`. |
+| Diskin, Easterbrook & Dingel, *Engineering Associations* (2008), and Diskin's *Model Synchronization* tutorial (2011) | The [Q1 source comparison](#span-composition-q1-research-for-4) records their PDF hashes and locators. They support link identity, association views and span composition; neither selects Clafer's label congruence. Both full PDFs were acquired and their recorded hashes verified. |
+
 ## Generalized sketches and model-reduct coherence
 `impl~supporting-source-assessment~1`
 
@@ -113,6 +124,8 @@ strict equality for arbitrary chosen pullback reducts. For a dependency-enriched
 extension, separately specify dependency direction, arity functoriality,
 declaration closure, interpretation consistency and the intended coherence laws.
 That extension and its proofs require a new authorized scope.
+The 2007 report above supplies an ordinary-signature comparison; generalized
+sketch references do not all assume the 2008 dependency-enriched signature.
 
 ### Lean library assessment
 

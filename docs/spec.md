@@ -166,6 +166,9 @@ unavailable texts remain explicit unresolved work on #41 unless a separate
 review accepts another disposition. Record hashes and locators for acquired
 files, and retain failed-route evidence outside living documentation. Abstracts,
 snippets and indexed PDF results do not establish a technical audit.
+Assess accessible alternative Diskin sources by their exact statements and
+applicability limits, without treating them as the missing full texts or as an
+implicit choice of Clafer label identity.
 
 Bound the Lean-library search by queries, inspected source trees and immutable
 candidate revisions. Distinguish relevant foundations from a ready-made sketch
