@@ -1,10 +1,12 @@
 module
 
 public import FormalCD
+public import Clafer.Shape.Diagram
 
 /-!
 # Structural 2014 Clafer
 
-Public entrypoint reserved for resolved syntax, Shapes/MCS and eventual
-Compile/gluing. No Clafer semantics is implemented yet; see docs/ARCHITECTURE.md.
+Resolved deep syntax, constraint/binder boundary and individual Shapes over
+FormalCD and DPGraph. MCS, expressions, Compile and gluing remain separate
+increments; see docs/ARCHITECTURE.md. Acceptance examples are checked separately.
 -/

@@ -1,13 +1,13 @@
-# Foundation, roadmap, DP-graph and FormalCD requirements
+# Foundation, DP-graph, FormalCD and Clafer requirements
 
 These requirements cover the repository infrastructure and the delivered
 span operations, DP-graph category, abstract model reduct and concrete predicate
 semantics over a bounded graph of subsets and spans, plus FormalCD
 structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntactic
 self-description and the complete Figure 21b example with corrected VC. Structural
-Clafer remains later work; the source audit and roadmap below authorize documentation
-only. Future definitions and theorems need scoped requirements and
-source links.
+Clafer now includes resolved deep syntax and individual Shapes under the scoped
+requirements below. MCS, full expressions, compilation, gluing and integration
+remain separate increments. The source-audit roadmap alone authorizes no semantic work.
 
 ## Reproducible Lean validation
 `req~lean-validation~1`
@@ -101,7 +101,9 @@ Theorems 1–2 and B.2.1–2 span operations (with the adopted Q1 reduction law)
 B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
 graph, and the first FormalCD structure/name-preserving morphisms, from future
-predicates, all-universes SetMap, semantic self-instantiation and Clafer implementations.
+predicates, all-universes SetMap, semantic self-instantiation and the remaining
+Clafer MCS/expression/compilation/gluing increments. It documents the delivered
+resolved AST, constraint boundary and individual Shapes.
 It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
@@ -989,6 +991,111 @@ Show the unserved case satisfies 0..1 without falsely requiring totality.
 Keep examples separate from public imports and distinguish whole Figure 21b
 satisfaction from syntactic well-formedness and metamodel-instance claims.
 Preserve all existing validation, trace coverage and dependency/toolchain pins.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Resolved 2014 Clafer syntax
+`req~clafer-resolved-syntax~1`
+
+Implement directly constructible deep containment syntax for the selected 2014
+constructs in §5.3.1–5, §5.4–5, §6.2.2/Figure 22 and Appendix C/Figure 27.
+Keep resolved declaration IDs separate from source/display names, preserving
+identity when names repeat. Distinguish the synthetic root, selected predefined
+primitive-domain declarations (int, string, bool), and user declarations. Include
+basic/reference-set/reference-bag forms, optional super IDs, abstractness and
+both clafer and group multiplicities, with natural lower bounds and finite or
+unbounded upper bounds. Input is already resolved and defaulted: retain authored
+values separately, validate explicit overrides, default 1..1 clafer bounds,
+keyword-induced optional children, and default 0..* or inherited group bounds.
+Retain inherited keyword provenance. No parser, name resolver or elaboration
+correctness theorem is promised.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Selected Clafer input well-formedness
+`req~clafer-input-wellformedness~1`
+
+State and check Clafer-local conditions from §5.3.4–5, §5.4–5 and §6.2.2:
+unique resolved IDs, a distinguished parentless basic synthetic root with no
+super, resolved parent/target/super edges, parentless non-root declarations
+abstract, and nested abstractness confined to abstract containment. Primitive
+domains are unique predefined basic declarations parented by the root, with
+canonical names and no super. Require valid effective intervals and consistency
+of authored/defaulted values. Enforce §5.5's kind restrictions and equal parents
+when the super has a parent. Rule out containment and inheritance cycles using
+the deep containment representation and explicit depth/rank conditions. These
+conditions do not strengthen FormalCD or DPGraph. Supply a well-formed mixed
+model with basic, set, bag, top-level abstract basic/reference and nested abstract
+cases, plus rejected malformed or uninhabitable witnesses for important boundaries.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Constraint and binder input boundary
+`req~clafer-constraint-boundary~1`
+
+Expose a resolved declaration context and a finite indexed bag of referenced
+scope occurrences for each constraint (§6.2.2/Figure 22). Preserve repeated
+references in different positions; context is recorded separately. Provide
+separate binder IDs, display names and resolved domain occurrences as the input
+interface for #21, validating known IDs and unique binder IDs per boundary.
+Constraint bodies, expression typing, resolution rules and Appendix D semantic
+equations remain on #21. The context module must not depend on that future
+implementation. Check repeated-occurrence and dangling-reference examples.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Individual Clafer Shapes
+`req~clafer-individual-shapes~1`
+
+Represent Figure 16/Table 4 and §6.2.3's individual Shapes as typed role graphs
+using the existing graph/CD foundations. The head class is always present;
+source requires a parent and target requires a reference kind. Give head
+(source→head), parent (head→source), dereference (head→target) and target
+(source→target) maps exactly when their endpoints exist. Supply finite,
+kind-indexed role inventories and incidence proofs. When a super is selected,
+head inclusion is required and source/target inclusions exist exactly for shared
+endpoints; absent supers supply no inclusion family.
+
+Apply the accepted #3 source correction: §5.3.4 (p.14) incorrectly excludes the
+head of a top-level abstract clafer, contrary to §6.2.3 (p.20) and Figure 23's
+total head role. Retain the head and omit source/parent-dependent maps. An
+abstract reference retains target and dereference. Read Table 7's basic-source
+statement with this exception. Preserve publication and historical snapshots.
+
+Use existing predicates for local inverse, triangle, effective multiplicities,
+ordinary set defaults and the set-reference projection key when its endpoints
+exist. Bag target maps have bag mode. Expose local diagrams as well-formed
+FormalCDs without claiming model existence, full MCS invariants, global cojoining
+or gluing. Include positive basic/set/bag/abstract examples and impossible
+incidence/absent-role cases.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Finite syntax and compilation termination basis
+`req~clafer-finite-traversal~1`
+
+Keep finiteness local to the Clafer input and role presentation. Provide a finite
+indexing of all traversed declarations and a structural fold on containment,
+with a decreasing child measure and well-founded resolved parent traversal.
+Reference IDs are not recursive children; cyclic references must not prevent
+finite traversal. Prove finite class/map-role carriers. This is a basis for
+future terminating compilation (#22), not a parser, compiler correctness or
+full MCS theorem. Preserve independent generic DPGraph imports.
 
 Covers:
 - `intent~formalization-foundation~1`

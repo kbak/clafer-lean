@@ -223,7 +223,7 @@ Covers:
 | Predicate catalogue: B.3 Table 3, §6.1.1–2, A.1 Table 2 | Separate typed arities and span meanings; invariance, multiplicity and empty/repeated-family boundaries; Q8 correction | Selected vocabulary proved in #16 / [#34](https://github.com/kbak/clafer-lean/pull/34); unsupported predicates deferred |
 | Formal CD: §6.1.1–3, Figure 21a–b | Raw/bundled CD, registry, naming and effective defaults; name-preserving morphisms are an explicit library specialization | #17 / [#35](https://github.com/kbak/clafer-lean/pull/35); whole Figure 21b/guarded VC models in #19 / [#38](https://github.com/kbak/clafer-lean/pull/38) |
 | Metamodel: §6.1.3, Figure 21c | Compatible vocabulary, nd/ad disciplines, full graph bindings; separate syntactic self-description from semantic instantiation | #18 / [#36](https://github.com/kbak/clafer-lean/pull/36), bounded self-description #19 / #38; literal-key/total-args limits below |
-| Syntax and individual Shapes: §5.2 Figure 16, §6.2.2 Figure 22, Appendix C | Proposed resolved deep AST and shape data; IDs, containment, inheritance, references, abstractness, root and domains; finite construction boundary | [#3](https://github.com/kbak/clafer-lean/issues/3), not implemented |
+| Syntax and individual Shapes: §5.2 Figure 16, §6.2.2 Figure 22, Appendix C | Resolved deep AST and individual Shapes; IDs, containment, inheritance, references, abstractness, root/domains and finite traversal | [#3](https://github.com/kbak/clafer-lean/issues/3), [implementation and proofs](clafer-trace.md) |
 | MCS: §6.2.3 Figure 23, Appendix E Tables 5–8 | Proposed typed role graph plus explicit invariants; expand analogous clauses, optional roles, naming and cojoining before selecting proofs | [#20](https://github.com/kbak/clafer-lean/issues/20), Q2/Q4 pending |
 | Constraints: Appendix D.1–D.4 | Proposed resolved expression syntax and checked typing; binders, navigation and set operations; meaning remains distinct from syntax | [#21](https://github.com/kbak/clafer-lean/issues/21), Q3 pending |
 | Compile: §6.2.4 | Proposed finite resolved-AST-to-MCS transformation; termination, freshness, incidence, cojoining, kind/name preservation under explicit input well-formedness | [#22](https://github.com/kbak/clafer-lean/issues/22), depends on #3/#20/#21 |
@@ -505,3 +505,52 @@ ECU/display integers and a present/absent server link. Greater and equal cases
 pass, lower fails only VC, and an absent server passes with a faithful 0..1
 multiplicity. These are whole Figure 21b model claims, distinct from the bounded
 syntactic self-description theorem and the Figure 21c fragment witnesses.
+
+## Resolved 2014 Clafer and individual Shapes
+
+Issue [#3](https://github.com/kbak/clafer-lean/issues/3) implements the selected
+constructs from the same 34-page preprint (SHA-256
+`56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`).
+Figures 16, 22 and 23 were visually cross-checked against their accompanying
+text. The formalization is independent; no publication figures/text or compiler
+implementation are vendored, and the Haskell compiler is not semantic evidence.
+
+| Source locator | Selected contract and Lean correspondence |
+| --- | --- |
+| §5.3.1–3/Table 4 (p.13), Figure 22 (p.20) | `Reference`, `Kind`: basic, reference set and reference bag; resolved target IDs |
+| §5.3.4–5/§5.4 (p.14), §6.2.2 (p.20) | `Origin`, `Declaration`, `Tree`, `AST.WellFormed`: distinguished root, selected int/string/bool domains, nested and top-level abstract declarations, deep containment |
+| §5.5 (pp.14–16), Figure 18 | `Kind.CanExtend`, `inheritance_kind`, `inheritance_parent`: no basic-over-reference or bag-over-set; equal parents when super is parented; local inclusion roles |
+| Appendix C/Figure 27 (pp.30–31) | `Multiplicity`, `GroupCard`, `GroupMultiplicity`, `Defaults`: authored/effective intervals, unbounded upper limit, xor/or/mux/opt, explicit child overrides, inherited group provenance |
+| §6.2.2/Figure 22 (p.20), D.2 boundary (p.31) | `ConstraintBoundary`, `Binder`: resolved context, repeated scope/domain occurrences and separate binder identities; full expressions deferred |
+| §5.2/Figure 16/Table 4 (pp.12–13), §6.2.3/Figure 23 (pp.20–21) | `Roles.Class`, `Roles.Arrow`, `Shape`, local `Shape.diagram`: typed optional roles, inverse/triangle/multiplicity/set/key declarations using FormalCD and DPGraph |
+| §5.5/Figure 18, Table 6's local inclusion endpoints (p.33) | `Shape.SharedClass`, `Shape.Inclusions`, `Shape.OptionalInclusions`: head inclusion and source/target inclusions where both endpoints exist; full cojoining deferred |
+| §5.4 and §6.2.4 traversal (pp.14,21) | `Tree.fold`, `Tree.child_smaller`, `AST.every_entry_indexed`, `parent_wellFounded`: derived finite representation/termination basis; no compilation correctness claim |
+
+The resolved boundary accepts IDs, not textual resolution requests. `Defaults`
+checks explicit values and the effective values supplied by an elaborator.
+Clafer multiplicity sugar is already numeric at this boundary: `?` is 0..1,
+`+` is 1..*, and `*` is 0..*. Authored values record whether an interval was
+explicit, without preserving the original token spelling.
+Group keywords retain their provenance through inheritance so their child-default
+policy remains inspectable. Numeric group bounds alone do not induce keyword
+optional defaults. Effective bounds must be valid; root/domain metadata is
+separate from user defaulting. Acyclic inheritance uses an explicit rank witness
+as a selected well-formed-input condition, not a theorem attributed verbatim to
+Figure 22. Reference cycles are permitted and do not enter containment recursion.
+
+**Accepted top-level abstract correction.** Section 5.3.4, printed p.14, says
+that a parentless abstract's CS excludes the *head* class. Section 6.2.3, p.20,
+says the head is always present, and Figure 23 gives the head-class role total
+multiplicity. The maintainer's accepted #3 interpretation retains the head and
+removes the source and parent-dependent maps. A top-level abstract reference
+therefore has head, target and dereference, with no head map, parent map or
+target map. The basic-source-present statement in Table 7 (p.33) is read with
+this top-level abstract exception (and its separate synthetic-root rule).
+Source/target inclusion roles are likewise omitted when either endpoint is
+absent; head inclusion remains. This is an explicit correction, not a claim that
+the conflicting sentence says the same thing. The publication and historical
+accepted snapshots remain unchanged.
+
+Full MCS invariants/analogous equations (#20), expressions and Appendix D's Q3
+(#21), compilation (#22), label congruence/gluing (#23) and integration (#24)
+remain separate. No new interpretation of those unresolved equations is adopted.
