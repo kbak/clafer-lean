@@ -104,6 +104,67 @@ and abstract B.5 Theorem 3. They add no predicate-meaning or amalgamation axiom,
 assert no global pushout existence, and supply no concrete CD or Clafer gluing.
 
 
+## DP-graph representation decision
+
+Keep Mathlib `Quiver`, `Prefunctor` and bundled `Quiv` for SoSyM B.4
+Definitions 6–10. The [design assessment (#13)](https://github.com/kbak/clafer-lean/issues/13)
+records the acceptance evidence and dependency-cost comparison. The delivered
+[core requirements](spec.md#graphs-signatures-and-typed-declarations) and
+[trace artifacts](dpgraph-trace.md#core-representation) state the checked contract.
+
+| Choice | Reason and alternative |
+| --- | --- |
+| Endpoint-indexed arrows | A `Quiver` permits loops and parallel arrows. An explicit vertex/edge/source/target record is mathematically equivalent: take the total edge type `Σ x y, (x ⟶ y)` in one direction and the fiber `{e // source e = x ∧ target e = y}` in the other. Reusing `Prefunctor` avoids a second incidence-preserving map API. The correspondence is explanatory here; no new Lean equivalence theorem is claimed. |
+| Graph-valued arities and full bindings | `Signature.arity` and `Formula.binding` retain every arity vertex and arrow. An untyped arrow list loses endpoint checking and isolated vertices; requiring injective bindings loses repeated arguments. |
+| Sets of declarations | `Set (Formula σ G)` matches Definition 9 without global finiteness or decidable equality. Finite lists, `Finset` and executable maps belong at later algorithmic boundaries. |
+| Fixed-signature morphisms | `Hom` combines a graph map with declaration preservation. Neither injectivity, reflection of extra target declarations nor predicate-dependency closure is required. The dependency-enriched sketches in the secondary source are a separate possible extension. |
+| Separate interpretations | `Interpretation` selects meanings in an explicit semantic graph. Satisfaction and the contravariant reduct are derived from composition; the syntax does not prescribe a solver, primitive domains or a graph of all types. |
+| Mathlib graph category | `Quiv` reuses the category of graphs and its existing colimit interfaces. A local bundle with only Quiver/Prefunctor imports could reduce the syntax-only import closure, but would require adapters for the delivered carrier cocones and conditional pushout/model-amalgamation API. |
+
+The independent universes in `Signature.{s,va,ua}` bound symbols, arity arrows
+and arity vertices. `DPGraph.{s,va,ua,v,u}` adds carrier arrow and vertex bounds;
+`Interpretation` adds independent semantic bounds. `Hom` supports different
+source and target bounds, while each category fixes its carrier bounds. A
+dependent binding's arrow action has endpoints determined by its vertex action:
+`Hom.ext_of_obj_map` therefore uses the endpoint transports of `Prefunctor.ext`,
+and `Hom.ext` removes only the proof-field distinction. Translation and morphism
+laws reuse `Prefunctor.comp_id`, `id_comp` and `comp_assoc`. These obligations are
+exercised by the existing [structural](../DPGraph/Examples.lean) and
+[semantic](../DPGraph/SemanticsExamples.lean) witnesses, including noninjective
+arrow maps, repeated arguments, isolated vertices, failed declaration
+preservation and larger semantic universes.
+
+### Dependency-cost decision
+
+Retain the current `Mathlib.CategoryTheory.Category.Quiv` import and both
+dependency pins. That module includes category, adjunction and path-category
+machinery beyond the smaller `Mathlib.Combinatorics.Quiver.Prefunctor` import.
+The comparison in #13 measures the exact imported environments, cached import
+processes and rebuilding each named Mathlib module with cached prerequisites.
+Retained and fresh full validation runs assess a fresh project build with pinned
+dependencies already provisioned against the baseline scope's 900-second test
+limit; CI separately has a 20-minute job limit. This evidence supports the
+existing design in that environment. It does not measure rebuilding the whole
+dependency closure from source or a machine with cold filesystem caches, nor
+guarantee the same timing on another runner. The unchanged check retains its
+source-build fallback when the optional Mathlib cache is unavailable.
+
+The larger import closure alone does not justify a local wrapper: the public
+foundation already uses graph-category colimits, so such a change needs an
+end-to-end comparison including adapters, build/kernel checks and public API
+compatibility. Reassess if supported-runner validation approaches its budget or
+a separately scoped syntax-only consumer needs smaller imports. Measurements,
+commands, source identities and review results belong in #13 and its PR/evidence,
+rather than in the maintained mathematical contract.
+
+The original representation criteria are met by the delivered core and its
+witnesses; acceptance of the final assessment follows #13's review and merge
+gate. Later source questions and Clafer meanings remain on the
+[roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2). Bounded syntactic
+self-description and the telematics example are delivered in
+[#19 / #38](https://github.com/kbak/clafer-lean/pull/38), with the limitations
+described below; neither semantic self-instantiation nor Clafer gluing follows.
+
 ## Spans and indexed mappings
 
 [Span.Basic](../DPGraph/Span/Basic.lean) defines `Span A B` with a head `Link`

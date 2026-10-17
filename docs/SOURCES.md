@@ -24,7 +24,7 @@ B.5 Theorem 3 ground this slice:
 | B.1 Theorem 1, relation correspondence | `Span.red_toFamily`, `IndexedFamily.red_toSpan`, `Span.red_ofRelation` |
 | B.1 Theorem 2, set-valuedness | `Span.jointlyInjective_iff_fiberwise`, `Span.jointlyInjective_iff_iso_relation` |
 | B.2.1–2, mapping operations | `Span.comp`, `IndexedFamily.comp`, `Span.leftUnit`, `Span.rightUnit`, `Span.associator`, `Span.inverse`; corrected comparison is detailed below |
-| Definition 6, graphs and graph morphisms | Mathlib `Quiver`, `Quiv`, `Prefunctor`; [representation](ARCHITECTURE.md) |
+| Definition 6, graphs and graph morphisms | Mathlib `Quiver`, `Quiv`, `Prefunctor`; [representation decision and dependency tradeoff](ARCHITECTURE.md#dp-graph-representation-decision) |
 | Definition 7, signature | `DPGraph.Signature` |
 | Definition 8, formula | `DPGraph.Formula` |
 | Definition 9, DP-graph | `DPGraph` |
