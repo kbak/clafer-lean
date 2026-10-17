@@ -1,11 +1,12 @@
-# Foundation, DP-graph and FormalCD requirements
+# Foundation, roadmap, DP-graph and FormalCD requirements
 
 These requirements cover the repository infrastructure and the delivered
 span operations, DP-graph category, abstract model reduct and concrete predicate
 semantics over a bounded graph of subsets and spans, plus FormalCD
 structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntactic
 self-description and the complete Figure 21b example with corrected VC. Structural
-Clafer remains later work; future definitions and theorems need scoped requirements and
+Clafer remains later work; the source audit and roadmap below authorize documentation
+only. Future definitions and theorems need scoped requirements and
 source links.
 
 ## Reproducible Lean validation
@@ -102,6 +103,45 @@ plan until the retention policy permits removal.
 
 Covers:
 - `intent~formalization-foundation~1`
+
+Needs: impl
+
+## Source audit and three-layer roadmap
+`req~formalization-roadmap~1`
+
+Maintain the three reusable layers and explicit exclusions in [intent](intent.md),
+the source-to-construct mapping in [SOURCES](SOURCES.md), and representation
+alternatives, dependencies and validation tasks in [architecture](ARCHITECTURE.md).
+SoSyM is the primary semantic authority; identify exact sections/definitions/figures,
+the inspected preprint hash and Mathlib commit. Distinguish inspected full texts
+from abstracts, snippets and unavailable sources. Record disagreements before
+selecting meanings; the compiler is supplementary context and any use as evidence
+requires an immutable revision and a license check.
+
+Acceptance of roadmap/source-audit issue [#2](https://github.com/kbak/clafer-lean/issues/2)
+requires all of the following:
+
+- Three phase milestones and a dependency-ordered backlog in the existing Project,
+  linked from the maintained architecture.
+- A source map with exact locators and the Mathlib pin, without compiler-driven semantics.
+- A cross-check of all nine architectural decision areas, with alternatives,
+  delivered evidence and explicit remaining validation tasks assigned to live issues.
+- Honest available-source audit limits and dispositions of source disagreements,
+  including the unavailable 2003/2000 full texts; recording a limit does not
+  complete the missing-source research.
+- PR review of maintained documentation, this scoped requirement and trace links.
+  Research progress alone is not acceptance. Keep #2 Open / In Progress until
+  its deliverables are accepted and the implementing PR is merged, preserving
+  its earlier discussion.
+
+Distinguish proposed, proved and deferred theorem statements. This research
+requirement adds no Lean theorem or mathematical implementation obligation;
+later semantic increments require their own authorized scope. The existing
+validation, IntentBond and GitHub-tracking requirements continue to apply.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
 
 Needs: impl
 

@@ -1,11 +1,14 @@
 # Sources and open decisions
 
-The [roadmap/source audit (#2)](https://github.com/kbak/clafer-lean/issues/2) and
-[architecture design (#13)](https://github.com/kbak/clafer-lean/issues/13) remain
-open. [Slice #14](https://github.com/kbak/clafer-lean/issues/14) and the
-[abstract reduct #15](https://github.com/kbak/clafer-lean/issues/15), together with
-[spans #4](https://github.com/kbak/clafer-lean/issues/4), select the
-following bounded source; this is not a complete audit of the literature.
+The [roadmap/source audit (#2)](https://github.com/kbak/clafer-lean/issues/2)
+remains Open / In Progress. The representation assessment for
+[design #13](https://github.com/kbak/clafer-lean/issues/13) is present in
+[merged #39](https://github.com/kbak/clafer-lean/pull/39); the bounded
+self-description and Figure 21b work for #19 is present in
+[merged #38](https://github.com/kbak/clafer-lean/pull/38).
+The [architecture](ARCHITECTURE.md#roadmap-and-validation-accounting) tracks
+delivered increments and later work. The sources below support bounded claims;
+they do not constitute a complete audit of the literature.
 
 ## Primary source
 
@@ -61,10 +64,25 @@ citations; publication text and figures are not reproduced.
 The supporting comparison uses the inspected author-uploaded Diskin & Wolter (2008),
 [DOI 10.1016/j.entcs.2008.10.041](https://doi.org/10.1016/j.entcs.2008.10.041),
 §4.1 Definitions 4.1–4.5. Its signatures add dependency arrows and closure.
-Those additions are deliberately absent from this SoSyM slice. Full 2003/2000
-secondary papers were not obtained. The maintained Haskell compiler is
-supplementary context, not evidence used for this slice; later use must pin a
-commit and check licensing.
+Those additions are deliberately absent from this SoSyM slice. Its discussion
+of pullback reducts also requires care about coherence up to isomorphism.
+The inspected Diskin, Easterbrook & Dingel (2008) §3 formal-CD/mapping discussion
+and §5 association examples support retaining link identity and distinguishing
+extensional and navigational views; the full-text identity is recorded below.
+
+The audit limits for the other requested sources are specific:
+
+| Source | Available evidence | Remaining audit |
+| --- | --- | --- |
+| Diskin & Kadish (2003), [DOI 10.1016/S0169-023X(03)00047-8](https://doi.org/10.1016/S0169-023X(03)00047-8) | Bibliographic record, abstract and publisher section snippets | Full text not obtained; technical object-identity definitions have not been audited. Obtain and compare before relying on them for Q4. |
+| Diskin, Kadish, Piessens & Johnson (2000), [Universal Arrow Foundations for Visual Modeling](https://researchers.mq.edu.au/en/publications/universal-arrow-foundations-for-visual-modeling/) | Institutional abstract/publication record and indexed opening text | Full-text retrieval failed; detailed universal-arrow machinery remains unreviewed and outside the delivered claims. |
+
+No suitable Lean generalized-sketch library was identified by the recorded
+targeted search; that is not a proof of absence. Recheck the Mathlib tree and
+literature before proposing dependency-enriched sketches. The maintained Haskell
+compiler has not been used as semantic evidence; later use must pin a commit,
+check licensing and distinguish post-2014 constructs. Downloaded publications
+remain outside the repository.
 
 ## Span composition: Q1 research for #4
 
@@ -185,15 +203,54 @@ The accepted [#16](https://github.com/kbak/clafer-lean/issues/16) contracts belo
 interpret Table 3 commutation and inverse using link-preserving isomorphism;
 equality of reduced relations alone does not establish these predicates.
 
-## Open for later increments
+## Audit coverage and remaining decisions
+`impl~formalization-roadmap-sources~1`
 
-Keep these questions open in #2/#13 before implementing the affected semantics:
+The table extends the exact DPGraph mapping above through the two upper layers.
+Future representations and obligations are proposals for their owning increments,
+not additional promises of implemented mathematics. Detailed delivered
+declarations remain in [DPGraph trace artifacts](dpgraph-trace.md) and
+[FormalCD trace artifacts](formalcd-trace.md).
+The [supporting-source audit limits](#supporting-sources-and-licenses) and
+[Q1–Q8 dispositions](#question-dispositions-and-validation-tasks) supply the
+remaining research obligations for this source-map artifact.
 
-- Appendix D intersection typo and Appendix E analogous clauses.
-- Label/identity choices for gluing.
+Covers:
+- `req~formalization-roadmap~1`
 
-These remaining questions are not resolved by the span definitions or examples.
-Q1, Q7 and Q8 have the adopted corrections recorded here.
+| Construct and exact SoSyM locator | Representation and obligations | Status / owner |
+| --- | --- | --- |
+| Predicate catalogue: B.3 Table 3, §6.1.1–2, A.1 Table 2 | Separate typed arities and span meanings; invariance, multiplicity and empty/repeated-family boundaries; Q8 correction | Selected vocabulary proved in #16 / [#34](https://github.com/kbak/clafer-lean/pull/34); unsupported predicates deferred |
+| Formal CD: §6.1.1–3, Figure 21a–b | Raw/bundled CD, registry, naming and effective defaults; name-preserving morphisms are an explicit library specialization | #17 / [#35](https://github.com/kbak/clafer-lean/pull/35); whole Figure 21b/guarded VC models in #19 / [#38](https://github.com/kbak/clafer-lean/pull/38) |
+| Metamodel: §6.1.3, Figure 21c | Compatible vocabulary, nd/ad disciplines, full graph bindings; separate syntactic self-description from semantic instantiation | #18 / [#36](https://github.com/kbak/clafer-lean/pull/36), bounded self-description #19 / #38; literal-key/total-args limits below |
+| Syntax and individual Shapes: §5.2 Figure 16, §6.2.2 Figure 22, Appendix C | Proposed resolved deep AST and shape data; IDs, containment, inheritance, references, abstractness, root and domains; finite construction boundary | [#3](https://github.com/kbak/clafer-lean/issues/3), not implemented |
+| MCS: §6.2.3 Figure 23, Appendix E Tables 5–8 | Proposed typed role graph plus explicit invariants; expand analogous clauses, optional roles, naming and cojoining before selecting proofs | [#20](https://github.com/kbak/clafer-lean/issues/20), Q2/Q4 pending |
+| Constraints: Appendix D.1–D.4 | Proposed resolved expression syntax and checked typing; binders, navigation and set operations; meaning remains distinct from syntax | [#21](https://github.com/kbak/clafer-lean/issues/21), Q3 pending |
+| Compile: §6.2.4 | Proposed finite resolved-AST-to-MCS transformation; termination, freshness, incidence, cojoining, kind/name preservation under explicit input well-formedness | [#22](https://github.com/kbak/clafer-lean/issues/22), depends on #3/#20/#21 |
+| Gluing: §6.2.5 | Proposed role-label graph map and declaration image; endpoint congruence, label DP-morphism, then separate CD well-formedness | [#23](https://github.com/kbak/clafer-lean/issues/23), Q4 pending; generic pushout results alone do not prove this |
+| Integration: Appendix F and selected earlier figures | Proposed finite AST/MCS/CD examples exercising compile/glue statements; enumerate unsupported constructs | [#24](https://github.com/kbak/clafer-lean/issues/24), after #22/#23 |
+
+### Question dispositions and validation tasks
+
+Q1–Q8 name source questions; A1–A9 in the architecture name design areas.
+An accepted correction is a bounded decision, not permission to fill unrelated
+source gaps. Keep the original issue discussions as the decision history.
+
+| Question | Disposition and alternatives | Validation and owner |
+| --- | --- | --- |
+| Q1 — B.2.1 composition | Accepted: retain pullback links and prove equality after reduction. The unqualified relational-span isomorphism is false. | #4 / #32 delivered `Span.red_comp`, the exact endpoint-injectivity criterion and two-path/parallel-link counterexamples; [source comparison](#span-composition-q1-research-for-4). No remaining #4 implementation task. |
+| Q2 — Appendix E analogous clauses | Unresolved: implementing only printed representatives would omit the prose obligations. No expansion is selected here. | #20 must enumerate source/target, reference, parent and super-role variants from Tables 5–8, record which endpoints may be undefined and each guard, visually cross-check Figure 23, and attach positive/negative incidence and optional-role witnesses to the accepted checklist. |
+| Q3 — Appendix D notation | Unresolved: D.4.2 prints set difference in the intersection equation; some type-rule notation is inconsistent. Following the named intersection and D.1–D.3 is a proposal, not an accepted semantic equation. | #21 must locate each discrepant rule, record alternatives and obtain a reviewed disposition before semantics. Validate common-element versus difference examples, empty operands, and accepted/rejected typing/navigation/binder cases; no theorem of constraint meaning is claimed here. |
+| Q4 — labels and identity | Unresolved for Clafer: §6.2.4 indices and §6.2.5 label identification require a precise congruence. Existing FormalCD names are metadata, not identity. | #20/#22/#23 must distinguish source names, generated IDs, class identities and endpoint-qualified map labels; show repeated parent/isA names do not merge incompatible endpoints, define the intended same-label identifications, and prove label incidence before declaration preservation. Compare 2003 identity details only after obtaining the full text. |
+| Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
+| Q6 — acquisition and visual completeness | Partial audit: 2003/2000 full texts unavailable. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | #2 retains acquisition and applicability assessment; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Record obtained file hashes/locators or continued unavailability; never mark unread technical definitions audited. |
+| Q7 — VC order and guard | Accepted: display.version ≥ server.version, guarded by a nonempty server fiber. Contrary adjacent p.17 prose is the discrepancy. | #19 / #38 delivers the [guarded correspondence and whole models](#figure-21b-and-the-accepted-q7-correction): greater/equal pass, lower fails VC, absent server passes. No remaining implementation task for this correction. |
+| Q8 — disjointness shape | Accepted: §6.1.2/Figure 21 common-target maps with nonoverlapping images; Table 3's common-source shape is erroneous. | #16 / #34 delivers typed arity, interpretation and overlap/repeated-nonempty-binding failures. [Contract below](#predicate-contracts-and-the-accepted-q8-correction); no second predicate or source-object inequality. |
+
+The roadmap can be accepted with deferred work explicitly assigned; it cannot
+claim that those tasks or missing-source research are completed. #2 retains the
+final source/design cross-check and documentation review. The architecture records
+the existing #13 assessment and the separate proof-status boundaries.
 
 ## Predicate contracts and the accepted Q8 correction
 
