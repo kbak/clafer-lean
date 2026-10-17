@@ -56,6 +56,18 @@ def toFamily (q : Span.{u, v, w} A B) : IndexedFamily.{u, v, w} A B where
   Index a := { l : q.Link // q.source l = a }
   eval _ l := q.target l.1
 
+/-- Link relabeling transports every source fiber, preserving its values. -/
+def Iso.fiberEquiv {q : Span.{u, v, w} A B} {r : Span.{u, v, w'} A B}
+    (e : Iso q r) (a : A) : q.toFamily.Index a ≃ r.toFamily.Index a where
+  toFun l := ⟨e.equiv l.1, (e.source_eq l.1).trans l.2⟩
+  invFun l := ⟨e.equiv.symm l.1, (e.symm.source_eq l.1).trans l.2⟩
+  left_inv l := Subtype.ext (e.equiv.left_inv l.1)
+  right_inv l := Subtype.ext (e.equiv.right_inv l.1)
+
+@[simp] theorem Iso.fiberEquiv_target {q : Span.{u, v, w} A B}
+    {r : Span.{u, v, w'} A B} (e : Iso q r) (a : A) (l : q.toFamily.Index a) :
+    r.target (e.fiberEquiv a l).1 = q.target l.1 := e.target_eq l.1
+
 /-- The span roundtrip is a head equivalence, with head universe `max u w`. -/
 def familySpanIso (q : Span.{u, v, w} A B) : Iso q.toFamily.toSpan q where
   equiv :=

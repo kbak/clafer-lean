@@ -25,6 +25,20 @@ def comp (q : Span.{u, v, w} A B) (r : Span.{v, z, w'} B C) :
   source p := q.source p.1.1
   target p := r.target p.1.2
 
+/-- Pullback composition retains isomorphisms of both link types (B.2.1). -/
+def Iso.comp {q : Span.{u, v, w} A B} {q' : Span.{u, v, w'} A B}
+    {r : Span.{v, z, w''} B C} {r' : Span.{v, z, t} B C}
+    (e : Iso q q') (f : Iso r r') : Iso (q.comp r) (q'.comp r') where
+  equiv :=
+    { toFun := fun p => ⟨(e.equiv p.1.1, f.equiv p.1.2),
+        (e.target_eq _).trans (p.2.trans (f.source_eq _).symm)⟩
+      invFun := fun p => ⟨(e.equiv.symm p.1.1, f.equiv.symm p.1.2),
+        (e.symm.target_eq _).trans (p.2.trans (f.symm.source_eq _).symm)⟩
+      left_inv := fun p => Subtype.ext (Prod.ext (e.equiv.left_inv p.1.1) (f.equiv.left_inv p.1.2))
+      right_inv := fun p => Subtype.ext (Prod.ext (e.equiv.right_inv p.1.1) (f.equiv.right_inv p.1.2)) }
+  source_eq p := e.source_eq p.1.1
+  target_eq p := f.target_eq p.1.2
+
 /-- Identity links are the objects themselves. -/
 def identity (A : Type u) : Span.{u, u, u} A A where
   Link := A

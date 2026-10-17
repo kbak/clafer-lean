@@ -1,9 +1,10 @@
 # Foundation and DP-graph requirements
 
 These requirements cover the repository infrastructure and the delivered
-span operations, DP-graph category and abstract model reduct. FormalCD, structural Clafer and
-concrete predicate semantics remain later work; future definitions and theorems
-need scoped requirements and source links.
+span operations, DP-graph category, abstract model reduct and concrete predicate
+semantics over a bounded graph of subsets and spans. FormalCD and structural
+Clafer remain later work; future definitions and theorems need scoped requirements
+and source links.
 
 ## Reproducible Lean validation
 `req~lean-validation~1`
@@ -85,9 +86,9 @@ It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.1 Definitions 1–5,
 Theorems 1–2 and B.2.1–2 span operations (with the adopted Q1 reduction law),
-B.4 Definitions 6–10 foundation and abstract B.5 model reduct from future
-concrete predicate interpretations, SetMap and
-FormalCD/Clafer implementations and keeps private deployment
+B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
+Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
+graph from future predicates, all-universes SetMap and FormalCD/Clafer implementations and keeps private deployment
 configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
@@ -382,6 +383,185 @@ of the intermediate object fails to imply the stronger isomorphism. Exercise
 conversions, unit/associativity laws and relation criteria at differing universe
 levels. Expose the generic API via independent `import DPGraph`; examples remain
 separate modules covered by the full build, kernel and axiom audits.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Bounded semantic graph
+`req~setmap-semantic-graph~1`
+
+Provide a graph over an ambient `U : Type u` whose vertices are subsets `A : Set U`
+and arrows are existing spans between subtype carriers. Links live in an explicit
+universe containing u (chosen as `max u w`); state vertex universe u and arrow
+universe `max u w + 1`. Shared underlying objects retain their identity across
+subsets. Reuse Quiv/Prefunctor without a category on span arrows, resizing or an
+all-universes SetMap. Preserve unrestricted Span and Interpretation universes.
+Exercise a larger link universe through the concrete interpretation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Separate typed predicate arities
+`req~predicate-arities~1`
+
+Declare the selected Table 3/A.1 symbols with real arity quivers, separately
+from meanings. Inverse has opposite arrows, commutation a triangle, key an
+n-member common-source family, and cover/disjointness an n-member common-target
+family. Unary maps and multiplicities have one-arrow arities; multiplicity
+symbols carry a natural lower bound and finite natural or unbounded upper bound.
+Retain the isolated central vertex for n=0 and repeated graph-map argument
+bindings. Impose no global finiteness, decidable equality or implicit set-valued
+default. Catalogue VC, naming/arity disciplines, arbitrary path equations beyond
+the triangle and later FormalCD/Clafer-specific predicates as unsupported.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Inverse predicate
+`req~predicate-inverse~1`
+
+Interpret Table 3 inverse using B.1 Definition 2 and B.2.2: for opposite spans
+q and r, require inhabited `Span.Iso q.inverse r`. This is leg-swapping, not a
+categorical inverse equation. Prove symmetry and invariance under independent
+endpoint-preserving relabelings of both link types, including across universes.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Triangle commutation
+`req~predicate-commutation~1`
+
+Interpret Table 3 equality as inhabited `Span.Iso (q.comp r) s` for a typed
+triangle. Preserve every composable link pair and the continuing Q1 reduction
+law. Prove invariance under relabeling all three spans. Exhibit relabeled
+satisfying triangles and a two-composite-link/one-direct-link triangle whose
+reduced relations agree but which fails commutation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Bag-sensitive finite-family keys
+`req~predicate-key~1`
+
+A common-source finite family is a key exactly when target-preserving
+equivalences between every pair of corresponding source fibers imply equality
+of the two source objects. Compare full bags, retaining repeated values, with
+no implicit totality, single-valuedness or set-valuedness assumption (Figure 21c).
+Prove endpoint-preserving link-isomorphism invariance. Prove zero-member key
+is equivalent to a subsingleton source. Check a key distinguishing bags with
+identical support but different multiplicities and a failing key with equal
+complete bag tuples at distinct sources.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Covering common-target families
+`req~predicate-cover~1`
+
+Interpret Table 3 cover and §6.1.2 as every target object being reached by a
+link in some family member. Permit bag-valued arrows. Prove invariance under
+link isomorphisms and that zero-member cover is equivalent to an empty target.
+Check positive and negative cover, repeated bindings and empty domains.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Disjoint images: accepted Q8 correction
+`req~predicate-disjointness~1`
+
+Use §6.1.2/Figure 21 common-target family maps: for distinct indices i and j,
+no target value is reached by both maps. Table 3's common-source shape and
+source-inequality condition are errors, not a second supported predicate.
+Shared source objects do not exempt overlap. Permit bag-valued arguments and
+prove link-isomorphism invariance and vacuity for zero-member families.
+Check disjoint images, overlap, repeated nonempty inclusion bindings and empty
+domains. Record the accepted interpretation and exact source locators.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Set-valued, total, single-valued and inclusion maps
+`req~predicate-unary-maps~1`
+
+Use B.1.4/Theorem 2 joint endpoint injectivity for set-valuedness; use A.1,
+Table 2 and §6.1.1 source surjectivity for totality and source injectivity for
+single-valuedness. Single-valuedness permits empty fibers and excludes duplicate
+copies. Literal inclusion between subsets of U has a bijective source leg and
+equal underlying source/target U values for every link. Prove each predicate
+invariant under endpoint-preserving link isomorphism, the set-valued relation
+characterization, total/nonempty-fiber and single-valued/subsingleton-fiber
+characterizations, and inclusion's subset and identity consequences. Check a
+literal and empty inclusion, a moving injective permutation and duplicate
+identity links; existence of an injection alone does not imply inclusion.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Cardinal multiplicity bounds on links
+`req~predicate-multiplicity~1`
+
+Interpret Table 3 mult-trg/mult-src and B.1 indexed families by bounding each
+outgoing/incoming link fiber, including repeated target/source values. Lower m
+means an embedding from Fin m; finite upper n means an embedding into Fin n.
+Unbounded upper * imposes no upper bound or local finiteness. Do not use a
+natural cardinality that maps infinite types to zero. Prove isomorphism
+invariance, source/target duality under inversion and agreement with distinct
+reachable-value counts for set-valued spans. Check finite lower/upper boundaries,
+empty fibers, repeated values, reversal and infinite fibers satisfying unbounded
+ranges but failing every finite upper bound.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Concrete interpretation and generic model restriction
+`req~predicate-interpretation~1`
+
+Connect every symbol to its span meaning in the bounded semantic graph using
+the existing Interpretation. Use delivered formula satisfaction, translation
+and model reduct APIs. Demonstrate a satisfying concrete model, restriction
+along a nonidentity declaration-preserving DP morphism, a rejected predicate
+instance and explicit larger semantic link universes. Preserve the generic
+interfaces and their lack of whole-model reflection.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Predicate acceptance witnesses
+`req~predicate-examples~1`
+
+Provide kernel-checked positive and negative witnesses for the complete selected
+vocabulary: relabeled inverse/commutation; the Q1 two-path counterexample; one
+versus two links with a repeated target; multiplicity-sensitive and failing
+keys; cover/disjointness with repeated bindings, empty domains and zero-member
+families whose central vertex survives; literal/empty inclusion and moving or
+duplicated counterexamples; finite/empty/infinite ranges and reversal; concrete
+formula translation and nonidentity model restriction; larger link universes.
+Expose the reusable API through independent import DPGraph and keep examples
+separate. The unchanged shared check must discover, build, kernel replay and
+audit every added module; preserve warning enforcement, source export checks,
+IntentBond coverage and independent semantic review. No solver is required.
 
 Covers:
 - `intent~formalization-foundation~1`

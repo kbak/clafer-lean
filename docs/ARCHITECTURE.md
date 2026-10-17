@@ -2,7 +2,7 @@
 
 The [canonical intent](intent.md) selects three layers. Spans and their mapping
 operations, DPGraph syntax, its fixed-signature category and abstract model
-restriction are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
+restriction and the selected concrete predicate meanings are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
 and [design (#13)](https://github.com/kbak/clafer-lean/issues/13) track later work.
 The repository `kbak/clafer-lean` contains one Lake package named `clafer`.
 Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
@@ -10,7 +10,7 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 
 | Layer | Responsibility and dependencies | Status |
 | --- | --- | --- |
-| DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct in [DPGraph](../DPGraph.lean) |
+| DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract/concrete interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct and selected Table 3/A.1 meanings in [DPGraph](../DPGraph.lean) |
 | FormalCD | Independently reusable class-diagram vocabulary and reviewed naming/structural invariants; builds on DPGraph | [Entrypoint scaffold](../FormalCD.lean) only; future self-description aims at Figure 21c ([#17](https://github.com/kbak/clafer-lean/issues/17), [#18](https://github.com/kbak/clafer-lean/issues/18), [#19](https://github.com/kbak/clafer-lean/issues/19)) |
 | Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Entrypoint scaffold](../Clafer.lean) only; name resolution and constraint meaning require review |
 
@@ -23,9 +23,10 @@ preservation proofs, identity, composition, extensionality and laws. The signatu
 is fixed throughout these operations; arities and each carrier can occupy distinct
 vertex/arrow universes. [Examples.lean](../DPGraph/Examples.lean) uses finite types locally.
 `import DPGraph` exposes the generic foundation without importing examples or
-upper layers. `DPGraph.Examples`, `DPGraph.SemanticsExamples` and
-`DPGraph.Span.Examples` are built and checked separately. Library globs and the shared check's discovered module
-inventory cover all project modules,
+upper layers. `DPGraph.Examples`, `DPGraph.SemanticsExamples`,
+`DPGraph.Span.Examples` and `DPGraph.Predicates.Examples` are built and checked
+separately. Library globs and the shared check's discovered module inventory
+cover all project modules,
 including future helpers that no entrypoint imports. That same inventory drives
 explicit builds, `leanchecker` and the generated `import all` axiom audit.
 Dependency checks reject reverse imports through root/helper modules and reject
@@ -65,10 +66,12 @@ target may have additional declarations.
 
 Semantic vertex/arrow universes are independent of all syntax universes, and
 `Hom` and reduct still support source and target carriers in different universes.
-A future universe-bounded graph with vertices `Type u` would have vertices in
-`Type (u+1)`; spans with head `Type w` likewise require accounting for the head
-universe. The generic interface imposes no resizing and asserts no all-universes
-SetMap. [SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean) interprets a
+The concrete semantic graph has vertices `Set U` in `Type u` for
+`U : Type u`, and spans between their subtype carriers as arrows. Links in
+`Type (max u w)` give arrows in `Type (max u w + 1)`. The shared ambient type
+lets two subsets contain the same object; subtype membership does not change
+its identity. The generic interface remains unrestricted and imposes no resizing
+or all-universes SetMap. [SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean) interprets a
 small signature in both a small graph and a graph with vertices/arrows in
 `Type 1`, and proves positive and negative satisfaction cases.
 
@@ -135,6 +138,44 @@ intermediates even when the second relation is single-valued, and retain paralle
 input links even when the intermediate is unique. They also exercise empty heads
 and the universe joins.
 
-Concrete predicate interpretations, SetMap and computable finite presentations
-remain later increments. The [source map](SOURCES.md) distinguishes the adopted
-Q1 correction from the remaining unresolved questions.
+## Concrete predicates
+
+[Predicates.Signature](../DPGraph/Predicates/Signature.lean) declares the vocabulary
+and real arity quivers, independently of meanings. The two-arrow inverse shape
+has opposite arrows; commutation has a triangle; key has a common source;
+cover and disjointness have a common target. Family arities are parameterized by
+n, retain a central vertex at n=0, and allow repeated graph-map bindings.
+Unary predicates and range bounds are explicit symbols. There is no automatic
+set-valued declaration.
+
+[Predicates.Meaning](../DPGraph/Predicates/Meaning.lean) compares inverse and
+composite spans by inhabited `Span.Iso`, preserving multiplicity. Keys compare
+source fibers by target-preserving equivalence, so different bags with the same
+support remain distinguishable. Cover and disjointness intentionally inspect
+reachable target values. Q8 selects §6.1.2/Figure 21's common-target disjoint
+images and records Table 3's shape as erroneous in the [source map](SOURCES.md).
+
+Set-valuedness is joint endpoint injectivity; totality and single-valuedness are
+source surjectivity and injectivity. Inclusion requires a bijective source and
+identical underlying ambient objects at both ends. It implies subset membership
+and a unique identity-valued link per source; a moving permutation fails.
+Multiplicities bound actual link fibers by embeddings from/to finite types.
+The unbounded branch has no local finiteness requirement. For set-valued spans,
+fiber evaluation gives an equivalence onto distinct reachable values, proving
+agreement of the two counts. Inversion exchanges outgoing and incoming bounds.
+Each predicate is invariant under endpoint-preserving link isomorphisms,
+including relabelings into different universes. These statements do not relabel
+the endpoints themselves.
+
+[Predicates.Interpretation](../DPGraph/Predicates/Interpretation.lean) connects every
+symbol to the existing `Interpretation` interface. Satisfaction, translation and
+model restriction retain the generic definitions and proofs. Concrete witnesses
+in [Predicates.Examples](../DPGraph/Predicates/Examples.lean) include a nonidentity
+map preserving declarations, its restricted model and a rejected overlapping
+binding. Zero-member key means a subsingleton source, cover an empty target,
+and disjointness is vacuous, while each central arity vertex survives.
+
+VC, name/arity disciplines, arbitrary path equations beyond the triangle,
+FormalCD/Clafer-specific predicates, all-universes SetMap and computable finite
+presentations remain future work. The source map distinguishes the accepted Q1
+and Q8 corrections from the remaining open questions.

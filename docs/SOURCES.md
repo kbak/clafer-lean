@@ -40,7 +40,8 @@ composed with a candidate model belongs to that set. A target model restricts al
 source declaration to a target declaration; graph-map associativity identifies
 the two evaluations. This proves the abstract reduct direction of Theorem 3,
 without extra closure or invariance assumptions on predicate meanings. Concrete
-span predicate interpretations and SetMap are not implemented. The formula-level
+span predicates use the selected contracts below in a bounded graph of subsets
+and spans; no all-universes SetMap is asserted. The formula-level
 satisfaction equivalence does not assert whole-model reflection.
 [Trace artifacts](dpgraph-trace.md) name the actual declarations and proofs.
 
@@ -180,18 +181,74 @@ return a head in the original syntactic universe. Explicit joins and the mixed-u
 examples track these bounds without imposing one global universe or a resizing axiom.
 
 A bicategory, a quotient of all spans, global finiteness and executable object generation are unnecessary for #4.
-The meaning of commutativity and inverse predicates in Table 3 remains a
-separate review for [#16](https://github.com/kbak/clafer-lean/issues/16); equality
-of reduced relations alone does not establish equality or isomorphism of spans.
+The accepted [#16](https://github.com/kbak/clafer-lean/issues/16) contracts below
+interpret Table 3 commutation and inverse using link-preserving isomorphism;
+equality of reduced relations alone does not establish these predicates.
 
 ## Open for later increments
 
 Keep these questions open in #2/#13 before implementing the affected semantics:
 
-- Table 3 versus Figure 21 disjointness arity.
 - Figure 21 VC inequality direction.
 - Appendix D intersection typo and Appendix E analogous clauses.
 - Label/identity choices for gluing.
 
 These remaining questions are not resolved by the span definitions or examples.
-Q1 alone has the adopted correction and proof references above.
+Q1 and Q8 have the adopted corrections recorded here.
+
+## Predicate contracts and the accepted Q8 correction
+
+Issue [#16](https://github.com/kbak/clafer-lean/issues/16) selects Table 3
+(printed p.12), §6.1.1–2 and Figure 21 (pp.17–18), Appendix A.1 (p.28),
+and B.1–3 (pp.28–30) of the hashed preprint above. The maintainer accepted
+§6.1.2/Figure 21's common-target disjointness meaning: distinct family members
+have nonoverlapping target images. Table 3's common-source shape and its
+source-inequality condition are erroneous. In particular, two inclusions
+containing the same ambient object overlap even at equal source values;
+repeated nonempty bindings fail disjointness. No common-source alternative is
+part of this vocabulary.
+
+The selected interpretation of Table 3 inverse and equality uses B.1 Definition 2
+link-renaming equivalence, B.2.2 leg-swapping inversion and B.2.1 pullback
+composition. Equality is triangular commutation up to span isomorphism.
+The Q1 correction continues to distinguish this from equality after reduction.
+Key compares finite tuples of bags using target-preserving source-fiber
+equivalences, including multiplicity; Figure 21c permits a bag-valued argument.
+Cover and corrected disjointness compare reachable target values and require
+no set-valuedness. Zero-member key requires a subsingleton source, cover an
+empty target, and disjointness is vacuous; the central arity vertex remains.
+
+B.1.4/Theorem 2 gives set-valuedness as joint endpoint injectivity. A.1,
+Table 2 and §6.1.1 give totality and single-valuedness as source surjectivity
+and injectivity respectively. Single-valuedness excludes duplicate copies.
+Literal inclusion (A.1, §6.1.1) additionally fixes the underlying ambient
+object and supplies exactly one link per source. An arbitrary injection,
+or a permutation moving an object, is insufficient.
+
+Table 3 mult-trg/mult-src and B.1 indexed families count actual outgoing/incoming
+links. Finite bounds are embeddings to/from `Fin`; an unbounded upper limit
+adds no finiteness condition. Under set-valuedness, fiber evaluation is a
+bijection onto distinct reachable values. Source bounds are target bounds
+of the inverse. These are bounded semantic graphs over subsets of a specified
+ambient type, with an explicit link universe, not an all-universes SetMap.
+No automatic set-valued default is imposed.
+
+Unsupported predicates remain VC (including its inequality-direction question),
+name/arity disciplines, arbitrary path equations beyond the triangle, and
+later FormalCD/Clafer-specific predicates.
+
+
+| Source locator | Concrete declarations (namespace `DPGraph.Predicates`) |
+| --- | --- |
+| Table 3 inv/= (p.12); B.1 Definition 2, B.2.1–2 (pp.28–30) | `Inverse`, `Commutation`, `inverse_symmetry`, `inverse_iff`, `commutation_iff`; `Span.Iso.inverse`, `.comp` |
+| Table 3 key (p.12); Figure 21c (p.17) | `BagEquiv`, `Key`, `BagEquiv.transport`, `key_iff`, `key_zero` |
+| Table 3 cover (p.12); §6.1.2 (p.18) | `Cover`, `cover_iff`, `cover_zero` |
+| §6.1.2/Figure 21 (pp.17–18), accepted Q8 correction | `Disjoint`, `disjoint_iff`, `disjoint_zero` |
+| A.1 (p.28), Table 2 (p.11), §6.1.1 (pp.17–18), B.1.4/Theorem 2 (p.29) | `SetValued`, `Total`, `SingleValued`, `Inclusion`; fiber characterizations and `inclusion_subset`, `inclusion_identity` |
+| Table 3 mult-trg/mult-src (p.12), B.1 indexed families (pp.28–29) | `InRange`, `TargetMultiplicity`, `SourceMultiplicity`, `distinctValuesEquiv`, multiplicity invariance/duality/distinct-value theorems |
+| B.4 Definitions 6–9 and B.5 (p.30) | `signature`, `semanticGraph`, `interpretation`; generic `Interpretation.Satisfies` and `.reduct` |
+
+The [trace artifacts](dpgraph-trace.md) link implementations and checked
+acceptance witnesses to the current mathematical requirements. Transport and
+invariance results are derived library statements for these selected contracts,
+not additional claims attributed verbatim to the paper.

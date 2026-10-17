@@ -5,7 +5,9 @@ The sibling public roots are `DPGraph`, `FormalCD` and `Clafer`, with permitted
 dependencies `Clafer -> FormalCD -> DPGraph -> Mathlib`. Keep DPGraph independently
 importable. Its delivered slice includes SoSyM B.1 Definitions 1–5, Theorems 1–2 and
 B.2.1–2 link-preserving span operations with the adopted Q1 correction, B.4
-Definitions 6–10, a fixed-signature category and the abstract B.5 model reduct.
+Definitions 6–10, a fixed-signature category, the abstract B.5 model reduct and
+selected Table 3/A.1 predicates in a bounded graph of subsets and spans, with the
+accepted common-target Q8 disjointness correction.
 FormalCD and Clafer currently have entrypoint scaffolding only. Read the future layer boundaries in
 [architecture](docs/ARCHITECTURE.md), the [requirements](docs/spec.md) and
 [roadmap #2](https://github.com/kbak/clafer-lean/issues/2)/
