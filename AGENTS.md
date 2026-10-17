@@ -10,7 +10,10 @@ selected Table 3/A.1 predicates in a bounded graph of subsets and spans, with th
 accepted common-target Q8 disjointness correction.
 FormalCD delivers raw/bundled class diagrams, naming/default obligations and
 name-preserving morphisms, compatible signature support and the Figure 21c
-metamodel with explicit disciplines; self-description remains future work.
+metamodel with explicit disciplines, bounded syntactic self-description and
+Figure 21b with its corrected guarded VC interpretation and concrete models.
+Self-description does not assert semantic self-instantiation. VC remains a
+FormalCD extension, separate from the generic built-in vocabulary.
 Preserve full graph bindings separately from the literal bag key and total-args
 conditions; see the source map before extending metamodel representation. Clafer currently
 has entrypoint scaffolding only. Read the future layer boundaries in

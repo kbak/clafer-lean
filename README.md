@@ -5,7 +5,9 @@ The proven foundation provides link-preserving spans and mapping operations
 from SoSyM B.1–B.2, plus DP-graphs, their fixed-signature category and abstract
 model restriction from B.4–B.5, and selected Table 3/A.1 predicate meanings.
 Formal class diagrams add naming/default obligations, name-preserving morphisms
-and the Figure 21c metamodel with explicit name/arity disciplines.
+and the Figure 21c metamodel with explicit name/arity disciplines and bounded
+syntactic self-description. Figure 21b includes the corrected guarded version
+constraint and checked concrete models.
 Structural 2014 Clafer remains a subsequent layer; start with
 the [product overview](docs/intent.md).
 

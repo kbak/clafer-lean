@@ -3,8 +3,9 @@
 These requirements cover the repository infrastructure and the delivered
 span operations, DP-graph category, abstract model reduct and concrete predicate
 semantics over a bounded graph of subsets and spans, plus FormalCD
-structure, name-preserving morphisms and the Figure 21c metamodel. Self-description and structural Clafer
-remain later work; future definitions and theorems need scoped requirements and
+structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntactic
+self-description and the complete Figure 21b example with corrected VC. Structural
+Clafer remains later work; future definitions and theorems need scoped requirements and
 source links.
 
 ## Reproducible Lean validation
@@ -90,7 +91,7 @@ Theorems 1–2 and B.2.1–2 span operations (with the adopted Q1 reduction law)
 B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
 graph, and the first FormalCD structure/name-preserving morphisms, from future
-predicates, all-universes SetMap, FormalCD self-description and Clafer implementations.
+predicates, all-universes SetMap, semantic self-instantiation and Clafer implementations.
 It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
@@ -418,7 +419,8 @@ symbols carry a natural lower bound and finite natural or unbounded upper bound.
 Retain the isolated central vertex for n=0 and repeated graph-map argument
 bindings. Impose no global finiteness, decidable equality or implicit set-valued
 default. Catalogue VC, naming/arity disciplines, arbitrary path equations beyond
-the triangle and later FormalCD/Clafer-specific predicates as unsupported.
+the triangle and later FormalCD/Clafer-specific predicates as outside this generic
+built-in vocabulary. FormalCD extensions supply nd/ad and the selected VC.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -667,7 +669,8 @@ WellFormed expresses syntactic/structural validity, not model existence or
 satisfaction. Registry entries record identity/naming, not concrete primitive
 or singleton domains. Generic models concern declared predicates under an explicit
 interpretation. The metamodel-specific nd/ad meanings are specified below;
-a general constraint language, VC and full object-diagram semantics remain future work.
+the selected VC extension is specified below. A general constraint language and
+full object-diagram semantics remain future work.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -751,7 +754,8 @@ Keep examples separate from the public entrypoint and kernel check:
 
 Preserve independent DPGraph import, module discovery, import-layer checks, warnings,
 kernel replay, axiom audits and trace coverage. The Figure 21c acceptance
-requirements below extend these witnesses; Figure 21b/VC semantics remain future work. No sorry/admit, unchecked axioms, unsafe/partial mathematical declarations,
+requirements below extend these witnesses, together with the complete Figure
+21b and VC requirements. No sorry/admit, unchecked axioms, unsafe/partial mathematical declarations,
 disabled warnings, skipped checks or weakened scope/coverage.
 
 Covers:
@@ -832,8 +836,8 @@ Its satisfaction is an additional instance condition. Check that bag projection
 can forget positions and arrow-only projection can forget isolated vertices;
 never quotient formulas by these projections or assert their injectivity without
 hypotheses. Full-binding identity and the printed metamodel do not imply universal
-realizability. Leave #19's explicitly typed, signature/registry/universe-bounded
-self-description statement, examples and VC semantics open. Add no self-containing
+realizability. The requirements below add the explicitly typed, signature/registry/universe-bounded
+self-description statement, Figure 21b example and VC semantics. Add no self-containing
 universe, resizing, unchecked casts or escape axioms.
 
 Covers:
@@ -853,6 +857,89 @@ fail, distinguishing fragments from whole metamodel instances. Preserve existing
 examples, supported-signature morphism/reduct laws and independent public imports.
 Run the unchanged shared validation and trusted trace checks without weakening
 coverage, warnings, proofs or scope.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+
+## Bounded syntactic self-description
+`req~formalcd-bounded-self-description~1`
+
+For SoSyM §6.1.3 / Figure 21c, provide a named checked representation and
+well-formedness statement reusing Metamodel.diagram and wellFormed in
+CDOver with its concrete built-in-plus-nd/ad vocabulary, SING registry and
+explicit small syntax/registry universes. Reuse the inventory and full-binding
+Candidate.formulaEquiv correspondence. Class, Map and Signature remain ordinary
+data. Preserve indexed occurrences, isolated vertex images, zero-arrow formulas,
+literal bag key and total-args limitations. This is a syntactic representation
+result, not semantic self-instantiation or universal every-CD realizability;
+it requires no new axiom or metamodel-instance assertion.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Complete Figure 21b example
+`req~formalcd-figure21-example~1`
+
+Construct Figure 21b / §6.1.1–3 with exactly Comp, ECU, Display, Int and five
+arrow identities: i1:ECU→Comp, i2:Display→Comp, server:Display→ECU,
+display:ECU→Display, version:Comp→Int. Both inclusions are named isA.
+Register Int as a primitive with canonical name Int; do not require Sing or
+other optional predefined entries. Preserve existing naming and map modes.
+Use the compatible vocabulary extension for VC and full graph bindings.
+
+The effective declaration set has exactly the twelve distinct formulas on p.19:
+disjoint(i1,i2), cover(i1,i2), inverse(server,display), inclusion(i1), inclusion(i2),
+0..5(display), 1..1(version), 0..1(server), VC(server,i1,i2,version), and
+setValued(version), setValued(server), setValued(display). Multiplicities count
+outgoing links. Explain total/single-valued notation via these bounds, retaining
+Q8 common-target disjointness and existing span inverse meanings. Prove inventory,
+incidence, declaration membership/distinctness, naming/default obligations and
+syntactic well-formedness in the same CDOver family as the metamodel.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Corrected guarded VC semantics
+`req~formalcd-vc-semantics~1`
+
+Adopt Q7: display.version ≥ server.version, with equality allowed and an absent
+server satisfying VC vacuously. Sources: Figure 8 line 9 and its accompanying
+§4.2.3 discussion (p.8; §4.3 supplies configuration context on p.9), Figure 21a
+OCL / §6.1.2, and Appendix F; retain the discrepancy with the adjacent reversed
+prose in the source map. VC's arity has exactly the
+server, i1, i2 and version arrows and all endpoints. Interpret its actual typed
+formula through DPGraph.Interpretation over the existing bounded subset/span
+graph, with an explicit integer realization/decoding and universe parameters.
+Keep built-in meanings unchanged. Under inclusion and version 1..1 declarations,
+prove correspondence with the guarded integer comparison. No True placeholder,
+unconnected Boolean test, server-totality assumption, global primitive framework,
+finiteness restriction or change to the generic predicate catalogue is allowed.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Figure 21b semantic witnesses
+`req~formalcd-vc-witnesses~1`
+
+Provide a concrete nonempty model satisfying all twelve effective declarations,
+including inverse, cover/disjointness, multiplicities, defaults and VC, with
+all integers explicitly realized. Kernel-check actual interpreted VC satisfaction
+for a served display with a strictly greater version, equal versions, a strictly
+lower version (failure), and an unserved display (success). Prove the eleven
+other declarations still hold in the lower-version counterexample, isolating VC.
+Show the unserved case satisfies 0..1 without falsely requiring totality.
+Keep examples separate from public imports and distinguish whole Figure 21b
+satisfaction from syntactic well-formedness and metamodel-instance claims.
+Preserve all existing validation, trace coverage and dependency/toolchain pins.
 
 Covers:
 - `intent~formalization-foundation~1`

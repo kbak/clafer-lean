@@ -44,8 +44,12 @@ validity does not assert model existence or satisfaction. FormalCD also supplies
 compatible signature extension, the Figure 21c metamodel, explicit name/arity
 disciplines and full graph-binding identity with checked projection limitations.
 The printed key and total-args constraints impose additional conditions on
-instances; no universal realizability follows. FormalCD self-description
-and the Clafer implementation remain future work. An all-universes SetMap and the
+instances; no universal realizability follows. A bounded syntactic self-description
+statement reuses that metamodel in CDOver. The complete Figure 21b diagram has
+twelve effective declarations and an explicit integer/span interpretation of the
+corrected guarded VC, with nonempty whole-model and boundary witnesses. These
+results do not assert semantic self-instantiation. The Clafer implementation
+remains future work. An all-universes SetMap and the
 unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),

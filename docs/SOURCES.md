@@ -189,12 +189,11 @@ equality of reduced relations alone does not establish these predicates.
 
 Keep these questions open in #2/#13 before implementing the affected semantics:
 
-- Figure 21 VC inequality direction.
 - Appendix D intersection typo and Appendix E analogous clauses.
 - Label/identity choices for gluing.
 
 These remaining questions are not resolved by the span definitions or examples.
-Q1 and Q8 have the adopted corrections recorded here.
+Q1, Q7 and Q8 have the adopted corrections recorded here.
 
 ## Predicate contracts and the accepted Q8 correction
 
@@ -233,8 +232,9 @@ of the inverse. These are bounded semantic graphs over subsets of a specified
 ambient type, with an explicit link universe, not an all-universes SetMap.
 No automatic set-valued default is imposed.
 
-Unsupported predicates remain VC (including its inequality-direction question),
-arbitrary path equations beyond the triangle, and later FormalCD/Clafer-specific predicates.
+The generic built-in vocabulary excludes VC, arbitrary path equations beyond
+the triangle, and FormalCD/Clafer-specific predicates. FormalCD supplies the
+separate corrected VC extension described below.
 
 
 | Source locator | Concrete declarations (namespace `DPGraph.Predicates`) |
@@ -282,7 +282,8 @@ setValued constraints. Structural validity alone implies neither satisfaction no
 model existence; an explicit interpretation and a model proof remain necessary.
 This increment reuses the supported predicate vocabulary, preserving Q1 and Q8.
 The metamodel extension below adds nd/ad and Figure 21c construction; a general
-constraint language, VC and complete primitive/object-diagram semantics remain open.
+constraint language and complete primitive/object-diagram semantics remain open.
+Figure 21b supplies a bounded integer realization for its separate VC extension.
 
 The [FormalCD trace artifacts](formalcd-trace.md) link these independently
 formalized contracts and acceptance witnesses to their Lean declarations.
@@ -391,10 +392,59 @@ Zero-arrow arities (with isolated vertices) remain valid generic formulas but
 cannot satisfy that totality with their complete indexed argument representation.
 This restriction is retained rather than erasing the figure annotation.
 
-Issue [#19](https://github.com/kbak/clafer-lean/issues/19) must supply an explicitly
-typed representation/well-formedness statement with its signature, registry and
-universe bounds, and whatever key/totality hypotheses it needs. The printed
-metamodel plus full-binding identity API does not prove universal realizability,
-semantic self-instantiation, or a self-containing Lean universe. A stronger
-statement needs additional justified hypotheses, not Type : Type, resizing or
-self-instantiation axioms. Figure 21b/VC semantics and Q7 remain open.
+The bounded result in [SelfDescription.lean](../FormalCD/SelfDescription.lean)
+reuses `Metamodel.diagram`, its well-formedness and inventory in the small
+`CDOver` family with the concrete nd/ad vocabulary and SING registry. Its full
+formula representation is the existing `Candidate.formulaEquiv`. This states
+that MCD is representable as a formal CD; it claims no semantic self-instantiation,
+universal realizability or self-containing universe. Literal key and total args
+remain separate instance conditions, with the projection failures above intact.
+
+## Figure 21b and the accepted Q7 correction
+
+Issue [#19](https://github.com/kbak/clafer-lean/issues/19) selects the corrected
+inequality **display.version ≥ server.version**. Figure 8 line 9 (p.8), its
+accompanying §4.2.3 discussion and Appendix F (p.34) support this direction.
+Section 4.3 (p.9) supplies the configuration context.
+The paragraph accompanying Figure 8 describes the display's version as not lower
+than the server's. Figure 21a (p.17) explicitly guards the comparison by
+`self.server->notEmpty()`: a display without a server satisfies VC vacuously.
+Equality passes. The nearby p.17 prose instead says the ECU's version is not
+lower than the display's; that discrepancy is retained as a source error, not
+an alternative interpretation. The rendering and original publication remain
+reference inputs, not repository content.
+
+The Figure 21b construction follows §6.1.1–3 and the exact twelve-formula list
+on p.19, with B.4 Definitions 7–9 supplying signature/formula/DP-graph structure:
+
+| Identity | Incidence | Name / declarations |
+| --- | --- | --- |
+| i1 | ECU → Comp | isA; inclusion |
+| i2 | Display → Comp | isA; inclusion |
+| server | Display → ECU | server; 0..1, setValued |
+| display | ECU → Display | display; 0..5, setValued |
+| version | Comp → Int | version; 1..1, setValued |
+
+Together with disjoint(i1,i2), cover(i1,i2), inverse(server,display) and
+VC(server,i1,i2,version), these are twelve effective formulas, proved distinct.
+Class identities are exactly Comp, ECU, Display and Int. Int has the canonical
+primitive registry annotation; the example selects no Sing class. The registry
+API still permits optional entries. The italic Comp label adds no separate
+constraint: cover/disjointness impose the partition. The bullet/open arrowheads
+on version are accounted for by 1..1; server's open head is accounted for by
+0..1 and does not imply totality. Display remains a general map bounded by 0..5.
+
+`FormalCD.Telematics.vocabulary` adds VC through the compatible extension API,
+leaving `DPGraph.Predicates` and its Q8 common-target/inverse/multiplicity meanings
+unchanged. VC has a real four-arrow arity with all four vertex images. Its
+interpretation checks an explicit integer-domain realization and follows the
+inclusion/version links for every server link. The theorem
+`satisfies_vc_iff_guarded` connects actual formula satisfaction to the selected
+integer comparison under inclusion and 1..1 version hypotheses.
+
+The example models in `FormalCD.Telematics.Examples` realize all integers in
+`Bool ⊕ Int`. `model_iff` characterizes all twelve declarations for arbitrary
+ECU/display integers and a present/absent server link. Greater and equal cases
+pass, lower fails only VC, and an absent server passes with a faithful 0..1
+multiplicity. These are whole Figure 21b model claims, distinct from the bounded
+syntactic self-description theorem and the Figure 21c fragment witnesses.

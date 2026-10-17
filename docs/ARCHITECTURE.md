@@ -3,7 +3,8 @@
 The [canonical intent](intent.md) selects three layers. Spans and their mapping
 operations, DPGraph syntax, its fixed-signature category and abstract model
 restriction, the selected concrete predicate meanings, and FormalCD
-structure/morphisms, signature support and the Figure 21c metamodel are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
+structure/morphisms, signature support, the Figure 21c metamodel, bounded syntactic
+self-description and Figure 21b with its corrected VC interpretation are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
 and [design (#13)](https://github.com/kbak/clafer-lean/issues/13) track later work.
 The repository `kbak/clafer-lean` contains one Lake package named `clafer`.
 Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
@@ -12,7 +13,7 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 | Layer | Responsibility and dependencies | Status |
 | --- | --- | --- |
 | DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract/concrete interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct and selected Table 3/A.1 meanings in [DPGraph](../DPGraph.lean) |
-| FormalCD | Class diagrams, naming/default obligations and name-preserving morphisms; builds on DPGraph | [Core API](../FormalCD.lean) delivered; Figure 21c construction and discipline meanings delivered; self-description remains with [#19](https://github.com/kbak/clafer-lean/issues/19) |
+| FormalCD | Class diagrams, naming/default obligations and name-preserving morphisms; builds on DPGraph | [Core API](../FormalCD.lean) delivered; Figure 21c and disciplines, bounded syntactic self-description, and Figure 21b/VC delivered |
 | Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Entrypoint scaffold](../Clafer.lean) only; name resolution and constraint meaning require review |
 
 [Signature.lean](../DPGraph/Signature.lean) uses
@@ -176,10 +177,11 @@ map preserving declarations, its restricted model and a rejected overlapping
 binding. Zero-member key means a subsingleton source, cover an empty target,
 and disjointness is vacuous, while each central arity vertex survives.
 
-VC, arbitrary path equations
-beyond the triangle, FormalCD/Clafer-specific predicates, all-universes SetMap and computable finite
-presentations remain future work. The source map distinguishes the accepted Q1
-and Q8 corrections from the remaining open questions.
+The generic built-in vocabulary excludes VC and FormalCD/Clafer-specific
+predicates; the telematics example below supplies VC as a FormalCD extension.
+Arbitrary path equations beyond the triangle, all-universes SetMap and computable
+finite presentations remain future work. The source map records the accepted
+Q1, Q7 and Q8 corrections and the remaining open questions.
 
 ## Formal class diagrams
 
@@ -227,8 +229,8 @@ independent semantic universes. [Structural witnesses](../FormalCD/Examples.lean
 and [concrete models](../FormalCD/SemanticsExamples.lean) are separate from the
 public entrypoint. Their declarations and obligations are linked in
 [formalcd-trace.md](formalcd-trace.md). Metamodel-specific nd/ad predicates use
-the compatible extension below; a general constraint language, VC and
-self-description remain later increments.
+the compatible extension below; Figure 21b adds a separate VC extension. A general
+constraint language and semantic self-instantiation remain outside this slice.
 
 
 ## Figure 21c and compatible vocabularies
@@ -270,8 +272,47 @@ witnesses separately satisfy nd. Construction well-formedness, fragment satisfac
 and whole-metamodel satisfaction are distinct. The literal key compares unindexed
 bags, so it can identify projections of distinct positional bindings; arrow-only
 projection also loses isolated vertices. Total args excludes empty argument fibers
-although those formulas are legal in DPGraph. These facts bound #19: it must state
-and prove an explicit representation/well-formedness result with signature,
-registry, universe and any key/totality hypotheses. They do not prove that every
-CD is a semantic instance of the printed metamodel, nor that a model is its own
-semantic instance. Figure 21b/VC and self-description remain future work.
+although those formulas are legal in DPGraph. These facts bound self-description
+to an explicit syntactic representation/well-formedness result with signature,
+registry and universes. They do not prove that every CD is a semantic instance
+of the printed metamodel, nor that a model is its own
+semantic instance.
+
+
+## Bounded self-description and Figure 21b
+
+[SelfDescription.lean](../FormalCD/SelfDescription.lean) reuses `Metamodel.diagram`
+in `CDOver.{0,0,0,0,0,0}` with `Metamodel.vocabulary` (built-ins plus nd/ad) and
+`Metamodel.registry` (SING). `bounded_self_description` combines exact raw-data
+representation, existing well-formedness and the eleven-node/thirteen-arrow
+inventory. `metamodelFormulaRepresentation` specializes `Candidate.formulaEquiv`;
+its roundtrip retains all vertex images and indexed arrows. This is the same
+CDOver family used by the built-in specialization and Figure 21b, with different
+explicit vocabulary/registry parameters. No metamodel-instance result is inferred,
+so no literal-key/totality hypotheses are silently discharged by this theorem.
+
+[Telematics/Basic.lean](../FormalCD/Telematics/Basic.lean) formalizes the telematics
+example (§2) as the four-node, five-arrow diagram in Figure 21b, with Int registry
+metadata and twelve distinct effective formulas.
+[VC.lean](../FormalCD/Telematics/VC.lean) adds one symbol through `Vocabulary.extend`.
+Its four-arrow arity retains both inheritance paths to Comp and version to Int.
+`IntegerRealization` embeds every integer in an ambient U and supplies a decoder
+with a roundtrip law. VC requires the Int vertex to equal this image and compares
+the decoded targets reached through actual inclusion and version links for each
+actual server link. `builtins_unchanged` preserves the existing span meanings.
+
+For `U : Type u`, semantic vertices are subsets of U and links live in
+`Type (max u w)`; semantic arrows inhabit `Type (max u w + 1)`. Syntax remains
+small; neither DPGraph nor the interpretation acquires a finiteness assumption.
+Under inclusion and 1..1(version), `satisfies_vc_iff_guarded` derives the functional
+integer comparison. 0..1(server) gives single-valuedness without totality;
+0..5(display) bounds the inverse's outgoing links. Equality passes and an empty
+server fiber contributes no comparison.
+
+[Examples.lean](../FormalCD/Telematics/Examples.lean), checked separately from public
+imports, uses `Bool ⊕ Int`: two component objects, disjoint ECU/Display singleton
+subsets, all integers, and an optional single server link with its actual inverse.
+The parameterized `model_iff` proves whole Figure 21b satisfaction exactly when
+the optional link respects the corrected order. The lower-version counterexample
+satisfies all eleven other declarations; the unserved model keeps the 0..1 bound
+while failing server totality. These are models of Figure 21b, not Figure 21c.
