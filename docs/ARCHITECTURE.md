@@ -240,7 +240,22 @@ reachable target values. Q8 selects §6.1.2/Figure 21's common-target disjoint
 images and records Table 3's shape as erroneous in the [source map](SOURCES.md).
 
 Set-valuedness is joint endpoint injectivity; totality and single-valuedness are
-source surjectivity and injectivity. Inclusion requires a bijective source and
+source surjectivity and injectivity.
+[FunctionalKey](../DPGraph/Predicates/FunctionalKey.lean) derives the ordinary-key
+criterion: one-link-per-source function spans satisfy `Key` exactly when their
+dependent tuple map is injective. For arbitrary spans, explicit componentwise
+`Total` and `SingleValued` hypotheses make each source leg bijective;
+`targetValue` evaluates its inverse and `functionalSpanIso` preserves both legs.
+Transport by `key_iff` yields the same tuple criterion with independent link and
+endpoint universes. Zero arity recovers `key_zero`; empty and subsingleton source
+types need no extra assumptions. The
+[finite repeated-marriage witness](../DPGraph/Predicates/Examples/FunctionalKey.lean)
+has equal spouse values and distinct dates, so its spouse pair fails `Key` and
+its spouse/date triple satisfies it. This witness asserts no general marriage
+identity rule. The original full-bag predicate and its multiplicity counterexamples
+remain applicable outside the functional hypotheses.
+
+Inclusion requires a bijective source and
 identical underlying ambient objects at both ends. It implies subset membership
 and a unique identity-valued link per source; a moving permutation fails.
 Multiplicities bound actual link fibers by embeddings from/to finite types.

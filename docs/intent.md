@@ -32,7 +32,10 @@ and [model amalgamation](spec.md#model-amalgamation-on-a-carrier-pushout) identi
 models of the declaration union with compatible component models when the
 semantic graph shares the fixed carrier universes.
 Concrete inverse, triangle commutation, bag-sensitive keys, cover, disjointness,
-map properties and cardinal multiplicities are delivered. Their bounded semantic
+map properties and cardinal multiplicities are delivered. The derived
+[ordinary-key correspondence](spec.md#ordinary-key-correspondence-and-repeated-marriages)
+identifies keys with injective tuples under explicit totality and single-valuedness,
+and checks a finite repeated-marriage witness. The bounded semantic
 graph retains shared ambient objects and link multiplicity; it imposes no
 automatic set-valued default. FormalCD adds inspectable class/map metadata, a
 shared predefined registry, syntactic well-formedness and composable morphisms
