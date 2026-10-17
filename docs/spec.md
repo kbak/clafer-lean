@@ -212,6 +212,42 @@ Covers:
 
 Needs: impl, proof
 
+## Model reduct injectivity
+`req~model-reduct-injective~1`
+
+For any `I : Interpretation σ Ω`, `F : Hom S T` and `J : Hom T S`, prove
+`Function.Injective (I.reduct F)` from `J.comp F = Hom.id T`, with independent
+signature, source/target carrier and semantic universes. Expose
+`Interpretation.reduct_injective_of_comp_eq_id` through `import DPGraph`.
+This is a derived library consequence of the existing reduct laws, grounded in
+SoSyM B.4 Definitions 9–10 and the abstract B.5 Theorem 3, not a verbatim paper
+theorem or concrete Clafer/span semantics. Require no finiteness, decidable
+equality, interpretation invariance or injectivity assumptions, and assert no
+whole-model reflection for arbitrary DP morphisms.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Model reduct surjectivity
+`req~model-reduct-surjective~1`
+
+For any `I : Interpretation σ Ω`, `F : Hom S T` and `J : Hom T S`, prove
+`Function.Surjective (I.reduct F)` from `F.comp J = Hom.id S`, with independent
+signature, source/target carrier and semantic universes. Expose
+`Interpretation.reduct_surjective_of_comp_eq_id` through `import DPGraph`.
+This is a derived library consequence of the existing reduct laws, grounded in
+SoSyM B.4 Definitions 9–10 and the abstract B.5 Theorem 3, not a verbatim paper
+theorem or concrete Clafer/span semantics. Require no finiteness, decidable
+equality, interpretation invariance or injectivity assumptions, and assert no
+whole-model reflection for arbitrary DP morphisms.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
 ## Interpreted witnesses
 `req~dpgraph-semantics-examples~1`
 
