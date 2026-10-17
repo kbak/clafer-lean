@@ -123,9 +123,9 @@ the source-to-construct mapping in [SOURCES](SOURCES.md), and representation
 alternatives, dependencies and validation tasks in [architecture](ARCHITECTURE.md).
 SoSyM is the primary semantic authority; identify exact sections/definitions/figures,
 the inspected preprint hash and Mathlib commit. Distinguish inspected full texts
-from abstracts, snippets and unavailable sources. Record disagreements before
-selecting meanings; the compiler is supplementary context and any use as evidence
-requires an immutable revision and a license check.
+and recovered-page subsets from abstracts, snippets and unavailable sources.
+Record disagreements before selecting meanings; the compiler is supplementary
+context and any use as evidence requires an immutable revision and a license check.
 
 Acceptance of roadmap/source-audit issue [#2](https://github.com/kbak/clafer-lean/issues/2)
 requires all of the following:
@@ -136,7 +136,7 @@ requires all of the following:
 - A cross-check of all nine architectural decision areas, with alternatives,
   delivered evidence and explicit remaining validation tasks assigned to live issues.
 - Honest available-source audit limits and dispositions of source disagreements,
-  including the unavailable 2003/2000 full texts; recording a limit does not
+  including gaps in 2003/2000 source coverage; recording a limit does not
   complete the missing-source research.
 - PR review of maintained documentation, this scoped requirement and trace links.
   Research progress alone is not acceptance. Keep #2 Open / In Progress until
@@ -147,6 +147,55 @@ Distinguish proposed, proved and deferred theorem statements. This research
 requirement adds no Lean theorem or mathematical implementation obligation;
 later semantic increments require their own authorized scope. The existing
 validation, IntentBond and GitHub-tracking requirements continue to apply.
+Project-critical source research and the conditional sketch-extension assessment
+are tracked by [#41](https://github.com/kbak/clafer-lean/issues/41) after #2 closes.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl
+
+## Supporting-source and coherence research
+`req~supporting-source-research~1`
+
+Maintain the bounded assessment authorized by
+[#41](https://github.com/kbak/clafer-lean/issues/41), with SoSyM B.4 Definitions
+7–10 and B.5 Theorem 3 as the semantic reference. Compare the inspected Diskin
+& Wolter §4.1–3 signature dependencies, declaration closure, typed-instance
+satisfaction and pullback coherence with the actual `Signature`, `Interpretation`
+and reduct laws. Distinguish precomposition equalities from coherent
+isomorphisms for chosen pullback reducts; assert no unproved equivalence of the
+model representations and add no semantic or dependency change through this audit.
+
+Record exact inspected statements, source/version identities and the limits of
+browser excerpts, recovered-page subsets and acquired complete files. For partial
+collections, record file/page hashes, page gaps and which claims are supported;
+do not treat recovered passages as uninspected or missing passages as audited.
+Bound acquisition by the claims required for an active increment. Use accessible
+primary alternatives when they establish the exact needed statement, recording
+its applicability limits. The unread 2003 keyed-sketch material and missing 2000
+universal-arrow pages remain explicit audit limits; further acquisition is
+deferred unless a named necessary claim lacks adequate primary evidence.
+Review this disposition with #41's assessment. Record hashes and locators for acquired
+files, and retain failed-route evidence outside living documentation. Abstracts,
+snippets and indexed PDF results do not establish a technical audit.
+Assess accessible alternative Diskin sources by their exact statements and
+applicability limits, without treating them as the missing full texts or as an
+implicit choice of Clafer label identity.
+
+Bound the Lean-library search by queries, inspected source trees and immutable
+candidate revisions. Distinguish relevant foundations from a ready-made sketch
+package, and static inspection from compatibility verified by building. Preserve
+the adopted pins and separately review any future extension, adapter and license.
+Keep source limits, architecture, canonical intent and trace links consistent.
+Compare ordinary graph arities, marker-bearing arities and dependency-category
+signatures; state the extra closure, preservation and semantic-consistency
+obligations without importing them into the delivered API. Check proposed
+dependencies against the actual bag-sensitive key and existing counterexamples.
+This documentation requirement adds no Lean proof obligation. Acceptance requires
+the bounded assessment and a reviewed disposition of remaining necessary claims;
+a missing paper alone does not block an independently justified increment.
 
 Covers:
 - `intent~formalization-foundation~1`
