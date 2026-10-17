@@ -114,9 +114,9 @@ the source-to-construct mapping in [SOURCES](SOURCES.md), and representation
 alternatives, dependencies and validation tasks in [architecture](ARCHITECTURE.md).
 SoSyM is the primary semantic authority; identify exact sections/definitions/figures,
 the inspected preprint hash and Mathlib commit. Distinguish inspected full texts
-from abstracts, snippets and unavailable sources. Record disagreements before
-selecting meanings; the compiler is supplementary context and any use as evidence
-requires an immutable revision and a license check.
+and recovered-page subsets from abstracts, snippets and unavailable sources.
+Record disagreements before selecting meanings; the compiler is supplementary
+context and any use as evidence requires an immutable revision and a license check.
 
 Acceptance of roadmap/source-audit issue [#2](https://github.com/kbak/clafer-lean/issues/2)
 requires all of the following:
@@ -127,7 +127,7 @@ requires all of the following:
 - A cross-check of all nine architectural decision areas, with alternatives,
   delivered evidence and explicit remaining validation tasks assigned to live issues.
 - Honest available-source audit limits and dispositions of source disagreements,
-  including the unavailable 2003/2000 full texts; recording a limit does not
+  including gaps in 2003/2000 source coverage; recording a limit does not
   complete the missing-source research.
 - PR review of maintained documentation, this scoped requirement and trace links.
   Research progress alone is not acceptance. Keep #2 Open / In Progress until
@@ -160,9 +160,12 @@ isomorphisms for chosen pullback reducts; assert no unproved equivalence of the
 model representations and add no semantic or dependency change through this audit.
 
 Record exact inspected statements, source/version identities and the limits of
-browser excerpts versus acquired complete files. The 2003 keyed-sketch and 2000
-universal-arrow full texts require acquisition and applicability assessment;
-unavailable texts remain explicit unresolved work on #41 unless a separate
+browser excerpts, recovered-page subsets and acquired complete files. For partial
+collections, record file/page hashes, page gaps and which claims are supported;
+do not treat recovered passages as uninspected or missing passages as audited.
+The 2003 keyed-sketch and 2000 universal-arrow full texts require acquisition
+and applicability assessment; unavailable portions remain explicit unresolved
+work on #41 unless a separate
 review accepts another disposition. Record hashes and locators for acquired
 files, and retain failed-route evidence outside living documentation. Abstracts,
 snippets and indexed PDF results do not establish a technical audit.

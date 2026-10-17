@@ -77,8 +77,10 @@ separates these laws from pullback restriction of typed instances. Retain the
 ordinary signature and fixed semantic graph. Dependency-enriched sketches and a
 typed-instance correspondence would need separately specified closure,
 consistency, size and coherence obligations; the bounded library assessment
-does not justify adding another dependency. Missing 2003/2000 full texts remain
-open research under #41 and cannot determine Clafer label identity.
+does not justify adding another dependency. The
+[recovered 2000 pages](SOURCES.md#recovered-2000-pages-bounded-applicability)
+support a bounded comparison of keys, names and hierarchical arities; the missing
+pages and 2003 full text remain open under #41. Clafer label identity is unresolved.
 
 Semantic vertex/arrow universes are independent of all syntax universes, and
 `Hom` and reduct still support source and target carriers in different universes.

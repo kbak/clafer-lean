@@ -79,20 +79,41 @@ The audit limits for the other requested sources are specific:
 
 | Source | Available evidence | Remaining audit |
 | --- | --- | --- |
-| Diskin & Kadish (2003), *Variable set semantics for keyed generalized sketches*, [DOI 10.1016/S0169-023X(03)00047-8](https://doi.org/10.1016/S0169-023X(03)00047-8), pp. 1–59 | Bibliographic record, abstract and publisher section snippets; scholarly indexes supply no downloadable copy | Full text not obtained. Its technical object-identity definitions remain unaudited under #41. Obtain and compare before relying on them for Q4; the abstract does not select Clafer label identity. |
-| Diskin, Kadish, Piessens & Johnson (2000), [Universal Arrow Foundations for Visual Modeling](https://researchers.mq.edu.au/en/publications/universal-arrow-foundations-for-visual-modeling/), pp. 345–360, [DOI 10.1007/3-540-44590-0_30](https://doi.org/10.1007/3-540-44590-0_30) | Institutional/publisher abstracts and indexed opening text; the linked Toronto/Queen's author files are unavailable and the publisher exposes a subscription preview | Full text not obtained. Detailed universal-arrow definitions and applicability remain unaudited under #41. An indexed PDF result or a publisher page returned for a PDF URL is not an acquired full text. |
+| Diskin & Kadish (2003), *Variable set semantics for keyed generalized sketches*, [DOI 10.1016/S0169-023X(03)00047-8](https://doi.org/10.1016/S0169-023X(03)00047-8), pp. 1–59 | Bibliographic record, abstract and publisher section snippets; inspected scholarly indexes supplied no downloadable copy | Full text not obtained. Its technical object-identity definitions remain unaudited under #41. Obtain and compare before relying on them for Q4; the abstract does not select Clafer label identity. |
+| Diskin, Kadish, Piessens & Johnson (2000), [Universal Arrow Foundations for Visual Modeling](https://researchers.mq.edu.au/en/publications/universal-arrow-foundations-for-visual-modeling/), pp. 345–360, [DOI 10.1007/3-540-44590-0_30](https://doi.org/10.1007/3-540-44590-0_30) | User-recovered pp. 345–348, 350, 352–357 and 359: a two-page PDF and ten page images, inspected below. Page 345 identifies the title, authors and Diagrams 2000 / LNAI 1889 publication. | Partial source acquired: pp. 349, 351, 358 and 360 are missing. The applicability assessment below is limited to recovered pages; complete-source acquisition and review remain open under #41. |
 
 The [bounded library assessment](#lean-library-assessment) identifies reusable
 foundations, without establishing a ready-made generalized-sketch dependency or
 proving that none exists. The maintained Haskell
 compiler has not been used as semantic evidence; later use must pin a commit,
-check licensing and distinguish post-2014 constructs. Downloaded publications
+check licensing and distinguish post-2014 constructs. Acquired publications
 remain outside the repository.
+
+### Recovered 2000 pages: bounded applicability
+
+The recovered-page manifest records filenames, printed page numbers and individual
+SHA-256 hashes; its SHA-256 is
+`18a96974f04e89fe79b8241dc934d18149b20424d0c2c96976cb2893a2411242`.
+This identifies the partial collection, not a complete-paper PDF. The source
+files and manifest are retained externally; acquisition limits remain on #41.
+
+| Inspected locator | Finding and applicability boundary |
+| --- | --- |
+| §2.1, p. 348 | The separating-family example uses an injective tuple map of ordinary functions. This supports key constraints as diagram properties; it does not establish a correspondence with the delivered bag-sensitive `Key`. Table 1 is not among the recovered pages. |
+| Predicate-declaration discussion, p. 350 | Bindings are incidence-preserving graph maps. Arity shapes may themselves carry predicate markers, and bindings must preserve them. This supports A2's hierarchical-arity alternative; it is not an identification with the 2008 predicate/dependency category or the delivered ordinary graph arities. |
+| §3.1–3.2, pp. 352–353 | Class structure is expressed by outgoing arrows and constraints. Optional/multivalued references use pm-functions with separate single-valuedness and totality markers. The set-valued notation does not provide the multiplicity-bearing links of SoSyM B.1; these examples do not replace the span interpretation. |
+| §3.3, pp. 353–354, Figure 1; §3.5, p. 356 | Repeated marriages motivate a key on `(wife, husb, mdate)` rather than the spouses alone. Page 354 distinguishes unconstraining names from semantic markers for predefined domains. These support explicit keys and separation of names from meaning, without choosing Clafer's same-label congruence (Q4). |
+| §3.4, pp. 354–355, Figure 2; §3.5, pp. 356–357 | Association-class and qualification visualizations abbreviate explicit sketch structures. This supports preserving underlying bindings rather than inferring identity from a drawing; no general endpoint-based link identification follows. |
+
+The missing pages interrupt Table 1 and the category-theory discussion in §2.3,
+and omit part of the conclusion and references. The recovered material does not
+complete a universal-arrow foundation or pullback-coherence audit. The broad
+expressiveness discussion in §4, p. 357, is not a theorem delivered by this library.
 
 ### Additional Diskin sources and applicability
 
 Accessible alternatives support particular questions; they do not establish the
-unread 2003/2000 definitions or settle Clafer's label congruence (Q4).
+unread 2003 definitions or missing 2000 passages, or settle Clafer's label congruence (Q4).
 
 | Inspected source | Applicable statements and limits |
 | --- | --- |
@@ -103,9 +124,10 @@ unread 2003/2000 definitions or settle Clafer's label congruence (Q4).
 ## Generalized sketches and model-reduct coherence
 `impl~supporting-source-assessment~1`
 
-This assessment supports the [research requirement](spec.md#supporting-source-and-coherence-research).
-The unavailable 2003/2000 full texts remain open work in #41. No mathematical
-implementation or new theorem is delivered by this comparison.
+The [recovered-page assessment](#recovered-2000-pages-bounded-applicability) and
+comparison below support the [research requirement](spec.md#supporting-source-and-coherence-research).
+The missing 2003 full text and 2000 page gaps remain open work in #41.
+No mathematical implementation or new theorem is delivered by this comparison.
 
 Covers:
 - `req~supporting-source-research~1`
@@ -309,7 +331,7 @@ source gaps. Keep the original issue discussions as the decision history.
 | Q3 — Appendix D notation | Unresolved: D.4.2 prints set difference in the intersection equation; some type-rule notation is inconsistent. Following the named intersection and D.1–D.3 is a proposal, not an accepted semantic equation. | #21 must locate each discrepant rule, record alternatives and obtain a reviewed disposition before semantics. Validate common-element versus difference examples, empty operands, and accepted/rejected typing/navigation/binder cases; no theorem of constraint meaning is claimed here. |
 | Q4 — labels and identity | Unresolved for Clafer: §6.2.4 indices and §6.2.5 label identification require a precise congruence. Existing FormalCD names are metadata, not identity. | #20/#22/#23 must distinguish source names, generated IDs, class identities and endpoint-qualified map labels; show repeated parent/isA names do not merge incompatible endpoints, define the intended same-label identifications, and prove label incidence before declaration preservation. Compare 2003 identity details only after obtaining the full text. |
 | Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
-| Q6 — acquisition and visual completeness | Partial audit: 2003/2000 full texts unavailable; see the supporting-source limits and coherence assessment above. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) retains acquisition and applicability assessment after #2's documentation close-out; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Record obtained file hashes/locators or continued unavailability; never mark unread technical definitions audited. |
+| Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. See the supporting-source limits and coherence assessment above. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) retains acquisition and applicability assessment after #2's documentation close-out; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Record obtained file hashes/locators or continued unavailability; never mark unread technical definitions audited. |
 | Q7 — VC order and guard | Accepted: display.version ≥ server.version, guarded by a nonempty server fiber. Contrary adjacent p.17 prose is the discrepancy. | #19 / #38 delivers the [guarded correspondence and whole models](#figure-21b-and-the-accepted-q7-correction): greater/equal pass, lower fails VC, absent server passes. No remaining implementation task for this correction. |
 | Q8 — disjointness shape | Accepted: §6.1.2/Figure 21 common-target maps with nonoverlapping images; Table 3's common-source shape is erroneous. | #16 / #34 delivers typed arity, interpretation and overlap/repeated-nonempty-binding failures. [Contract below](#predicate-contracts-and-the-accepted-q8-correction); no second predicate or source-object inequality. |
 

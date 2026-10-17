@@ -67,8 +67,9 @@ decisions. Its source/design close-out is a documentation deliverable: it requir
 review of the architectural alternatives, remaining validation tasks and audit
 limits, rather than completion of all three layers. Continuing source acquisition
 and the [bounded sketch/coherence assessment](SOURCES.md#generalized-sketches-and-model-reduct-coherence)
-belong to [#41](https://github.com/kbak/clafer-lean/issues/41). Unavailable full
-texts remain unaudited. The current ordinary signature and precomposition
+belong to [#41](https://github.com/kbak/clafer-lean/issues/41). Recovered pages
+support only the inspected source claims; missing portions remain unaudited.
+The current ordinary signature and precomposition
 reduct laws remain the delivered contract; stronger semantic representations
 and dependency-enriched extensions require separate authorization.
 Planning the later increments does not authorize their semantic implementation.
