@@ -128,10 +128,7 @@ as appropriate. These names here are a work list, not duplicate declarations.
 Use named Markdown artifacts in docs/formalcd-trace.md linking actual Lean
 declarations, per docs/traceability.md.
 
-Preserve continuing IDs/revisions, especially req~dpgraph-core~1,
-req~dpgraph-morphisms~1, req~predicate-arities~1,
-req~predicate-unary-maps~1, req~predicate-interpretation~1,
-req~lean-validation~1, req~intentbond-workflow~1 and req~github-tracking~1.
+Preserve continuing IDs/revisions, especially req~dpgraph-core~1, req~dpgraph-morphisms~1, req~predicate-arities~1, req~predicate-unary-maps~1, req~predicate-interpretation~1, req~lean-validation~1, req~intentbond-workflow~1 and req~github-tracking~1.
 Update the delivered-slice wording of req~public-foundation~1 and the maintained
 overview/architecture/source map where affected, without duplicating the overview
 or turning later phases into delivered promises. Generic predicate meanings,

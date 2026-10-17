@@ -29,7 +29,10 @@ this accepted package. Retain the supplied task branch and frozen snapshots.
    Update the delivered-slice overview, architecture, source map and scaffold
    guidance; preserve existing IDs, generic predicate meanings, scope and pins.
 6. Compile the new modules and inspect the complete change against the reviewed
-   base. Run the controller-provided feedback wrapper for IntentBond, including
+   base. Apply the authorized whitespace-only reflow of the frozen specification's
+   continuing-ID paragraph so references are not parsed as declarations; preserve
+   every word, ID, revision and the original acceptance hashes.
+   Run the controller-provided feedback wrapper for IntentBond, including
    `bash scripts/check.sh`, with trusted scope and that same base. Retain external
    evidence and verify the exported candidate. Resolve in-scope failures before
    handoff; exit 4 leaves independent semantic review pending.
