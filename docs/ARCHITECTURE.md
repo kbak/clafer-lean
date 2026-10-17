@@ -8,7 +8,7 @@ self-description and Figure 21b with its corrected VC interpretation are deliver
 The [roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) is delivered in
 [merged #40](https://github.com/kbak/clafer-lean/pull/40); its later increments
 retain their own tickets. [Research #41](https://github.com/kbak/clafer-lean/issues/41)
-owns continuing source acquisition and the sketch-extension assessment.
+owns the project-critical source and sketch-extension assessment.
 [Design #13](https://github.com/kbak/clafer-lean/issues/13)
 records the representation assessment delivered in
 [merged #39](https://github.com/kbak/clafer-lean/pull/39).
@@ -79,8 +79,12 @@ typed-instance correspondence would need separately specified closure,
 consistency, size and coherence obligations; the bounded library assessment
 does not justify adding another dependency. The
 [recovered 2000 pages](SOURCES.md#recovered-2000-pages-bounded-applicability)
-support a bounded comparison of keys, names and hierarchical arities; the missing
-pages and 2003 full text remain open under #41. Clafer label identity is unresolved.
+support a bounded comparison of keys, names and hierarchical arities. The
+[criticality assessment](SOURCES.md#project-critical-source-disposition) uses
+accessible primary alternatives and makes further acquisition conditional on
+a necessary claim. Keep ordinary graph arities; importing the 2008 key's
+functional prerequisites would conflict with the delivered bag-sensitive key.
+Clafer label identity still needs the #20/#23 congruence and incidence decision.
 
 Semantic vertex/arrow universes are independent of all syntax universes, and
 `Hom` and reduct still support source and target carriers in different universes.
@@ -458,7 +462,7 @@ link to the actual declarations; the statements below bound what may be inferred
 | Compilation/gluing preserves all constraint meanings, or every CD semantically instantiates its metamodel. | Deferred; no accepted general statement or proof. Source resolution and explicit realizability/semantic hypotheses would be needed first. |
 
 #40 delivers #2's cross-check and documentation close-out. Missing-source
-acquisition stays open under Q6 / #41; acceptance of the roadmap does not
+limits and conditional acquisition remain recorded under Q6 / #41; acceptance of the roadmap does not
 complete that research or later implementation tickets. The pinned build,
 kernel/axiom/layer checks and IntentBond validate the candidate and existing
 proofs; they do not certify the source interpretation or complete a deferred

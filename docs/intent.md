@@ -65,10 +65,13 @@ The [three-phase roadmap](ARCHITECTURE.md#roadmap-and-validation-accounting)
 separates delivered results from proposed theorem statements and deferred source
 decisions. Its source/design close-out is a documentation deliverable: it requires
 review of the architectural alternatives, remaining validation tasks and audit
-limits, rather than completion of all three layers. Continuing source acquisition
+limits, rather than completion of all three layers. Project-critical source research
 and the [bounded sketch/coherence assessment](SOURCES.md#generalized-sketches-and-model-reduct-coherence)
 belong to [#41](https://github.com/kbak/clafer-lean/issues/41). Recovered pages
 support only the inspected source claims; missing portions remain unaudited.
+Accessible primary alternatives can establish the necessary claims. Further
+acquisition is conditional on a named active claim lacking adequate evidence,
+as recorded in the [source disposition](SOURCES.md#project-critical-source-disposition).
 The current ordinary signature and precomposition
 reduct laws remain the delivered contract; stronger semantic representations
 and dependency-enriched extensions require separate authorization.

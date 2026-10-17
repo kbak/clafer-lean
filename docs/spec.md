@@ -138,7 +138,7 @@ Distinguish proposed, proved and deferred theorem statements. This research
 requirement adds no Lean theorem or mathematical implementation obligation;
 later semantic increments require their own authorized scope. The existing
 validation, IntentBond and GitHub-tracking requirements continue to apply.
-Continuing source acquisition and the conditional sketch-extension assessment
+Project-critical source research and the conditional sketch-extension assessment
 are tracked by [#41](https://github.com/kbak/clafer-lean/issues/41) after #2 closes.
 
 Covers:
@@ -163,10 +163,12 @@ Record exact inspected statements, source/version identities and the limits of
 browser excerpts, recovered-page subsets and acquired complete files. For partial
 collections, record file/page hashes, page gaps and which claims are supported;
 do not treat recovered passages as uninspected or missing passages as audited.
-The 2003 keyed-sketch and 2000 universal-arrow full texts require acquisition
-and applicability assessment; unavailable portions remain explicit unresolved
-work on #41 unless a separate
-review accepts another disposition. Record hashes and locators for acquired
+Bound acquisition by the claims required for an active increment. Use accessible
+primary alternatives when they establish the exact needed statement, recording
+its applicability limits. The unread 2003 keyed-sketch material and missing 2000
+universal-arrow pages remain explicit audit limits; further acquisition is
+deferred unless a named necessary claim lacks adequate primary evidence.
+Review this disposition with #41's assessment. Record hashes and locators for acquired
 files, and retain failed-route evidence outside living documentation. Abstracts,
 snippets and indexed PDF results do not establish a technical audit.
 Assess accessible alternative Diskin sources by their exact statements and
@@ -178,8 +180,13 @@ candidate revisions. Distinguish relevant foundations from a ready-made sketch
 package, and static inspection from compatibility verified by building. Preserve
 the adopted pins and separately review any future extension, adapter and license.
 Keep source limits, architecture, canonical intent and trace links consistent.
-This documentation requirement adds no Lean proof obligation and does not close
-the outstanding full-text research merely by recording it.
+Compare ordinary graph arities, marker-bearing arities and dependency-category
+signatures; state the extra closure, preservation and semantic-consistency
+obligations without importing them into the delivered API. Check proposed
+dependencies against the actual bag-sensitive key and existing counterexamples.
+This documentation requirement adds no Lean proof obligation. Acceptance requires
+the bounded assessment and a reviewed disposition of remaining necessary claims;
+a missing paper alone does not block an independently justified increment.
 
 Covers:
 - `intent~formalization-foundation~1`
