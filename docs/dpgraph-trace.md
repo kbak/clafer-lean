@@ -18,7 +18,9 @@ symbol and arity universes and Mathlib bundled quivers.
 [Basic.lean](../DPGraph/Basic.lean): `DPGraph`, with a `Set`
 of declarations over its carrier.
 [DPGraph.lean](../DPGraph.lean) is the independent entrypoint.
-The [architecture](ARCHITECTURE.md) explains total edges as a dependent sum.
+The [representation decision](ARCHITECTURE.md#dp-graph-representation-decision)
+explains total edges as a dependent sum, rejected alternatives, universe and
+dependent-equality obligations, and the reason for retaining the Quiv dependency.
 [lakefile.toml](../lakefile.toml) and [lake-manifest.json](../lake-manifest.json)
 record the exact Mathlib pin, compatible with the preserved Lean toolchain.
 
