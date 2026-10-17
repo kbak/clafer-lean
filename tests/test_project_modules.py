@@ -50,6 +50,7 @@ class PublicLibrariesTest(unittest.TestCase):
             "DPGraph.Predicates", "DPGraph.Predicates.Signature",
             "DPGraph.Predicates.SemanticGraph", "DPGraph.Predicates.Meaning",
             "DPGraph.Predicates.Interpretation", "DPGraph.Predicates.Examples",
+            "DPGraph.Predicates.FunctionalKey", "DPGraph.Predicates.Examples.FunctionalKey",
             "FormalCD.Basic", "FormalCD.Morphism", "FormalCD.Semantics",
             "FormalCD.Examples", "FormalCD.SemanticsExamples", "FormalCD.Signature",
             "FormalCD.Metamodel.Shape", "FormalCD.Metamodel.Basic",

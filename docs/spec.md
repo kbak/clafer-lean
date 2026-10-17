@@ -574,6 +574,44 @@ Covers:
 
 Needs: impl, proof
 
+## Ordinary-key correspondence and repeated marriages
+`req~predicate-key-functional~1`
+
+Derive an ordinary-function specialization of `req~predicate-key~1` without
+changing its unrestricted `Key`/`BagEquiv` meaning. Represent each function
+`f i : A → B i` by a span with exactly one outgoing link at every source.
+For every finite arity `n`, prove both directions of
+`Key (fun i => Span.ofFunction (f i)) ↔ Function.Injective (fun a i => f i a)`.
+For arbitrary span families, assume `Total` and `SingleValued` componentwise,
+define their unique target values and prove the corresponding tuple-injectivity
+equivalence, with justified link-preserving functional-span isomorphisms.
+Set-valuedness alone does not provide a unique total value. Preserve independent
+source, target and link universes; impose no inhabitance, finiteness or decidable
+equality on the source or targets. Include zero arity, consistently with
+`key_zero`, and empty/subsingleton sources.
+
+Check a finite witness with two distinct marriages sharing wife and husband
+values but having different dates: the spouse pair fails `Key` and the
+spouse/date triple satisfies it. This establishes only that finite predicate
+witness, not an unrestricted real-world marriage identity rule. Preserve the
+existing multiplicity-sensitive, identical-support and equal-bag counterexamples.
+Keep results independently available through `import DPGraph`, with examples
+built and kernel checked by the existing module-discovery runner.
+
+Primary semantics: SoSyM B.1 Definitions 1–5 / Theorems 1–2, Table 3 key and
+Figure 21c. Supporting comparison: Diskin, Kadish, Piessens & Johnson (2000),
+*Universal Arrow Foundations for Visual Modeling*, DOI 10.1007/3-540-44590-0_30,
+§2.1 p. 348 (separating family / injective tuple), §3.3 pp. 353–354 / Figure 1
+and §3.5 p. 356 (marriage key). These are derived library results under explicit
+hypotheses; the 2000 set-valued notation is not identified with all SoSyM spans.
+See the [partial-source assessment](SOURCES.md#universal-arrow-foundations-partial-source-assessment)
+and [#44](https://github.com/kbak/clafer-lean/issues/44).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
 ## Covering common-target families
 `req~predicate-cover~1`
 
