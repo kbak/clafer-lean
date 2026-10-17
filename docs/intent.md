@@ -59,6 +59,14 @@ explains the mathematics and future layer boundaries; [requirements](spec.md),
 Track subsequent work in the [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) and
 [design (#13)](https://github.com/kbak/clafer-lean/issues/13).
 
+The [three-phase roadmap](ARCHITECTURE.md#roadmap-and-validation-accounting)
+separates delivered results from proposed theorem statements and deferred source
+decisions. Its source/design close-out is a documentation deliverable: it requires
+review of the architectural alternatives, remaining validation tasks and audit
+limits, rather than completion of all three layers. Keep #2 Open / In Progress
+until those deliverables are accepted and the corresponding PR is merged.
+Planning the later increments does not authorize their semantic implementation.
+
 Exclude instance/object generation, Alloy/SMT/SAT integration, runtime
 configurations, Claferize, post-2014 extensions, a production parser and
 visualization. Keep the foundation reproducible and reviewable and the README
