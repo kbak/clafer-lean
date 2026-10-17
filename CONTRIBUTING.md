@@ -14,8 +14,9 @@ acceptance criteria before implementation. See [AGENTS.md](AGENTS.md).
 Repository `kbak/clafer-lean` contains the single Lake package `clafer`, with
 sibling public libraries `DPGraph`, `FormalCD` and `Clafer`. Place modules beneath
 their owning root and preserve `Clafer -> FormalCD -> DPGraph -> Mathlib`.
-`import DPGraph` exposes the reusable foundation independently. FormalCD/Clafer
-entrypoints currently reserve future work; see [architecture](docs/ARCHITECTURE.md).
+`import DPGraph` exposes the reusable foundation independently. `import FormalCD`
+adds class-diagram structure and name-preserving morphisms; Clafer remains a
+scaffold. See [architecture](docs/ARCHITECTURE.md).
 
 Install Lean with [elan](https://lean-lang.org/install/), Python 3.11+, Git,
 Java 17+, and the [GitHub CLI](https://cli.github.com/). Then:

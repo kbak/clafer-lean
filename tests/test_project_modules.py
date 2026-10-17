@@ -50,8 +50,11 @@ class PublicLibrariesTest(unittest.TestCase):
             "DPGraph.Predicates", "DPGraph.Predicates.Signature",
             "DPGraph.Predicates.SemanticGraph", "DPGraph.Predicates.Meaning",
             "DPGraph.Predicates.Interpretation", "DPGraph.Predicates.Examples",
+            "FormalCD.Basic", "FormalCD.Morphism", "FormalCD.Semantics",
+            "FormalCD.Examples", "FormalCD.SemanticsExamples",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
+        self.assertIn(Path("tests/formalcd_imports.lean"), tests)
 
     def test_project_artifact_cache_cannot_reuse_candidate_builds(self):
         config = (REPO / "lakefile.toml").read_text()

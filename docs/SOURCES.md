@@ -234,8 +234,8 @@ ambient type, with an explicit link universe, not an all-universes SetMap.
 No automatic set-valued default is imposed.
 
 Unsupported predicates remain VC (including its inequality-direction question),
-name/arity disciplines, arbitrary path equations beyond the triangle, and
-later FormalCD/Clafer-specific predicates.
+metamodel-specific name/arity predicates (`nd`/`ad`), arbitrary path equations
+beyond the triangle, and later FormalCD/Clafer-specific predicates.
 
 
 | Source locator | Concrete declarations (namespace `DPGraph.Predicates`) |
@@ -252,3 +252,38 @@ The [trace artifacts](dpgraph-trace.md) link implementations and checked
 acceptance witnesses to the current mathematical requirements. Transport and
 invariance results are derived library statements for these selected contracts,
 not additional claims attributed verbatim to the paper.
+
+## FormalCD structure and selected morphisms
+
+Issue [#17](https://github.com/kbak/clafer-lean/issues/17) adopts the first
+FormalCD increment from the same hashed SoSyM preprint, §6.1.1–3 and Figure
+21b–c (pp.17–18), over B.4 Definitions 6–10. The correspondence is:
+
+| Source / selected contract | FormalCD declarations |
+| --- | --- |
+| §6.1.1 classes, maps, inclusion identities/names | `Raw.className`, `Raw.mapName`, `MapMode`, `Raw.WellFormed.inclusion_name` |
+| §6.1.2 typed predicates; B.4 Definitions 6–9 | Existing `DPGraph`, `Formula`, `Predicates.signature`; `arrowBinding`, `inclusionFormula`, `setValuedFormula` |
+| §6.1.3 predefined naming discipline | `Registry`, `PredefinedKind`, `Raw.predefined`, `Raw.WellFormed.predefined_name`, `.user_name`, `.unique_predefined` |
+| §6.1.1–3 defaults; Figure 21c explicit bag-valued args | `Raw.mode`, `Raw.WellFormed.inclusion_decl`, `.ordinary_decl`; `Examples.no_bag_default`, `.explicit_bag_wellFormed` |
+| Adopted name/annotation/mode-preserving specialization of B.4 Definition 10 | `Hom`, `.id`, `.comp`, `.ext`, `.comp_assoc`, `.id_comp`, `.comp_id`, `.toDPHom` |
+| Existing abstract B.5 reduct after forgetting | `Hom.reduct`, `.reduct_id`, `.reduct_comp`; `Examples.restrictedModel` |
+
+The extra metadata equalities are an accepted library contract, not a verbatim
+theorem about arbitrary DP morphisms. Class identities are vertices and map
+identities are arrows; strings need not be globally injective. Different inclusion
+arrows may both be named isA. A selected predefined identifier has one realization
+at most, but no predefined entry is compulsory. Registry kinds distinguish the
+singleton vocabulary from primitive domains without implementing their object sets.
+
+WellFormed requires default membership in the authoritative effective declaration
+set; it adds no generic DPGraph defaults or inference closure. Inclusion and bag
+are separate modes. Inclusion's semantic consequences come from its already delivered
+literal span meaning. User declarations are retained, including explicit bag
+setValued constraints. Structural validity alone implies neither satisfaction nor
+model existence; an explicit interpretation and a model proof remain necessary.
+This increment reuses the supported predicate vocabulary, preserving Q1 and Q8.
+It supplies no user-defined predicate syntax, VC interpretation, metamodel nd/ad
+predicates, full Figure 21c encoding or complete primitive/object-diagram semantics.
+
+The [FormalCD trace artifacts](formalcd-trace.md) link these independently
+formalized contracts and acceptance witnesses to their Lean declarations.

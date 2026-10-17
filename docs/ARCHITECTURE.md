@@ -2,7 +2,8 @@
 
 The [canonical intent](intent.md) selects three layers. Spans and their mapping
 operations, DPGraph syntax, its fixed-signature category and abstract model
-restriction and the selected concrete predicate meanings are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
+restriction, the selected concrete predicate meanings, and the first FormalCD
+structure/morphisms are delivered. The [live roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2)
 and [design (#13)](https://github.com/kbak/clafer-lean/issues/13) track later work.
 The repository `kbak/clafer-lean` contains one Lake package named `clafer`.
 Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
@@ -11,7 +12,7 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 | Layer | Responsibility and dependencies | Status |
 | --- | --- | --- |
 | DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract/concrete interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct and selected Table 3/A.1 meanings in [DPGraph](../DPGraph.lean) |
-| FormalCD | Independently reusable class-diagram vocabulary and reviewed naming/structural invariants; builds on DPGraph | [Entrypoint scaffold](../FormalCD.lean) only; future self-description aims at Figure 21c ([#17](https://github.com/kbak/clafer-lean/issues/17), [#18](https://github.com/kbak/clafer-lean/issues/18), [#19](https://github.com/kbak/clafer-lean/issues/19)) |
+| FormalCD | Class diagrams, naming/default obligations and name-preserving morphisms; builds on DPGraph | [Core API](../FormalCD.lean) delivered; Figure 21c encoding/self-description remain with [#18](https://github.com/kbak/clafer-lean/issues/18) and [#19](https://github.com/kbak/clafer-lean/issues/19) |
 | Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Entrypoint scaffold](../Clafer.lean) only; name resolution and constraint meaning require review |
 
 [Signature.lean](../DPGraph/Signature.lean) uses
@@ -175,7 +176,55 @@ map preserving declarations, its restricted model and a rejected overlapping
 binding. Zero-member key means a subsingleton source, cover an empty target,
 and disjointness is vacuous, while each central arity vertex survives.
 
-VC, name/arity disciplines, arbitrary path equations beyond the triangle,
-FormalCD/Clafer-specific predicates, all-universes SetMap and computable finite
+VC, metamodel-specific name/arity predicates (`nd`/`ad`), arbitrary path equations
+beyond the triangle, FormalCD/Clafer-specific predicates, all-universes SetMap and computable finite
 presentations remain future work. The source map distinguishes the accepted Q1
 and Q8 corrections from the remaining open questions.
+
+## Formal class diagrams
+
+[FormalCD.Basic](../FormalCD/Basic.lean) layers metadata on the existing
+`DPGraph Predicates.signature`. `Raw` retains the carrier and a single effective
+declaration set, plus `className`, `mapName`, `predefined` and `mode`. The shared
+`Registry` maps stable identifiers to canonical names and singleton/primitive
+kinds. `Raw.WellFormed` checks canonical predefined names, exclusion of reserved
+names for user classes, uniqueness of each realized predefined identifier, the
+isA name for inclusions, and the required inclusion/setValued declarations.
+`CD` bundles raw data with that proof. Failed obligations remain expressible on
+raw data; all data projections remain inspectable.
+
+Strings do not define vertex or arrow equality. User classes can share names;
+distinct inclusion arrows share isA. Registry entries are optional, and no global
+name injectivity or acyclic inheritance condition is imposed. The registry's
+identifier, rather than the spelling of a name, determines predefined identity.
+Typed `Formula` bindings continue to enforce arity/incidence, including repeated
+arguments and isolated vertices. No replacement arity predicate is added.
+
+Declarations are already effective: ordinary arrows require setValued membership,
+inclusions require inclusion membership, and explicit bags add no default.
+Authors may explicitly declare a bag set-valued. No constructor drops declarations
+or silently creates another set. Inclusion's object-preserving span meaning and
+the Q1/Q8 contracts remain in DPGraph unchanged. These syntactic obligations do
+not assert existence of a model or satisfaction by a proposed interpretation map.
+Primitive annotations do not constrain that map to concrete Int/String/Bool or
+singleton domains; complete primitive and object-diagram semantics remain later work.
+
+[FormalCD.Morphism](../FormalCD/Morphism.lean) defines `Hom` as an existing
+`DPGraph.Hom` plus equalities preserving every metadata field at mapped identities.
+The registry and supported signature are shared; source and target carry independent
+well-formedness proofs. Equality of optional annotations preserves user/predefined
+status as well as each identifier, and equality of modes distinguishes all three
+cases. Carrier maps may identify user vertices/arrows, and target declarations
+may be stronger. The chosen name-preserving specialization is a library contract
+over B.4 Definition 10; it is not the paper's generic morphism definition.
+Identity and composition close each metadata obligation; extensionality and laws
+reuse DPGraph. Forgetting is `Hom.toDPHom`, with identity/composition equations.
+
+[FormalCD.Semantics](../FormalCD/Semantics.lean) simply applies the existing
+contravariant reduct to that projection, retaining an explicit interpretation and
+independent semantic universes. [Structural witnesses](../FormalCD/Examples.lean)
+and [concrete models](../FormalCD/SemanticsExamples.lean) are separate from the
+public entrypoint. Their declarations and obligations are linked in
+[formalcd-trace.md](formalcd-trace.md). User-defined predicate syntax, VC and
+metamodel-specific nd/ad predicates are unsupported by this fixed signature;
+Figure 21c encoding and self-description remain later increments.
