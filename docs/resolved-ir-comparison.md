@@ -21,8 +21,12 @@ The primary reference is the [SoSyM source](SOURCES.md#primary-source), 34-page
 preprint SHA-256 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
 Locators below use its printed page numbers. Compiler observations use only
 [gsdlab/clafer at 15adb2216909421bcb5022174d2d84ef2b42307c][compiler], whose
-`clafer.cabal` says 0.5.3. The comparison with existing Lean declarations uses
-`kbak/clafer-lean` at `e920d72281a9fd5a8c684a5c759083471f48feea`.
+`clafer.cabal` says 0.5.3. The comparison with existing Lean declarations starts
+from planning baseline `kbak/clafer-lean` at
+`e920d72281a9fd5a8c684a5c759083471f48feea` and is cross-checked against
+`1d6567433e1d20af9a457b008ef8a50644412018`. The cited Clafer syntax and Shapes
+are unchanged between these revisions; the latter also supplies the derived
+functional-key correspondence identified below.
 Later revisions require a new matrix audit, even if a version string is unchanged.
 
 The compiler is supplementary implementation evidence. Its [MIT license][license]
@@ -48,8 +52,11 @@ every compiler feature or a fresh visual audit of the whole paper.
 
 Lean names in this table denote **current declarations**, except where explicitly
 called missing. `Clafer` names are in [Syntax](../Clafer/Syntax.lean),
-[Shape](../Clafer/Shape.lean) or [Shape.Diagram](../Clafer/Shape/Diagram.lean);
-predicate names are in [DPGraph.Predicates.Meaning](../DPGraph/Predicates/Meaning.lean).
+[Shape](../Clafer/Shape.lean), [Shape.Diagram](../Clafer/Shape/Diagram.lean) or
+[Examples](../Clafer/Examples.lean). Predicate names are in
+[DPGraph.Predicates.Meaning](../DPGraph/Predicates/Meaning.lean), with the derived
+key correspondence in [FunctionalKey](../DPGraph/Predicates/FunctionalKey.lean).
+Generic satisfaction and reduct names are in [DPGraph.Semantics](../DPGraph/Semantics.lean).
 Their [trace artifacts](clafer-trace.md) distinguish syntax proofs from satisfaction.
 S = proposed supported subject to the stated guard; X = excluded from version 1;
 D = awaiting a decision, rejected by the version-1 admission gate for now.
@@ -68,7 +75,7 @@ D = awaiting a decision, rejected by the version-1 admission gate for now.
 | Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated class identity: **D** whole-model obligation. Alloy top-level signatures are disjoint even without an explicit `extends`; do not silently impose that on the Lean candidate domain to obtain agreement. |
 | Direct class-target reference set/bag on a concrete declaration | §5.3.2–3/Table 4 pp.13–14; B.1 Defs.1–5/Thm.2 pp.28–29 | `Reference.set/bag`, `Roles.mode`, `Shape.keyBinding`, `Key`, `SetValued`, `TargetMultiplicity` | **S**: C2 `_isSet = true/false`; C3 has one target per reference head and emits uniqueness per parent for sets. Targets must be admitted user classes, not expressions or primitive domains. |
 | Top-level abstract set/bag references | §5.3.4 corrected by §6.2.3/Fig.23; Table 7 exception | `abstract_reference_no_key`, `Roles.no_parent_maps`; head, target and dereference remain | **D**, D3: C3 globally enforces distinct targets for abstract set heads when card permits repetition. Lean's accepted parentless Shape has no parent/deref pair key. Bag lacks this uniqueness but inherited reference identity still requires a bridge. Do not invent a root parent or silently add a unary key. |
-| Span multiplicity, set keys and map equality | B.1 Def.2/Thm.2; B.2.1–2; B.3 Table 3; A.1 | `Span.comp`, `Span.Iso`, `Key`, `BagEquiv`, `Commutation` | **S** interpretation target: retain links under accepted Q1, not endpoint reduction. Keys compare output bags; the functional parent/deref specialization gives uniqueness of `(parent,target)`. No ordinary-key replacement for the generic predicate. |
+| Span multiplicity, set keys and map equality | B.1 Def.2/Thm.2; B.2.1–2; B.3 Table 3; A.1 | `Span.comp`, `Span.Iso`, `Key`, `BagEquiv`, `Commutation`, `key_total_singleValued_iff` | **S** interpretation target: retain links under accepted Q1, not endpoint reduction. Keys compare output bags; the derived tuple criterion requires total, single-valued projections. Its parent/deref specialization gives uniqueness of `(parent,target)` once those hypotheses are established. No ordinary-key replacement for the generic predicate. |
 | Whole-model satisfaction and compile/glue correspondence | §6.1.1–3 pp.17–20; §6.2.4–5 p.21; B.4 Defs.6–10/B.5 Thm.3 pp.29–30; App.E Tables 5–8 | `FormalCD.CD`, `DPGraph.Interpretation.Satisfies`, `IsModel`, `isModel_reduct`; **Clafer whole-model interpretation/bridge missing** | **D** prerequisite for every comparison: C3's facts are not themselves the selected Lean interpretation. #20/#22/#23 structural outputs and #50's interpretation/bridge must be connected; reduct alone is not reflection. |
 | Synthetic root, base and predefined classes | §5.3.5 p.14; §6.2.2/Fig.22; App.E Table 7 | `Origin.syntheticRoot`, `PrimitiveDomain`, `AST.WellFormed.root_shape` | **S** for the root convention below; compiler `clafer` is not a user class or Lean root. **X** for all runtime primitive values. C4 has `integer/int/string/double/real/boolean`; Lean has selected `int/string/bool` identities, not their value domains. No automatic alias/domain translation. |
 | User constraints, assertions, goals, expressions and temporal modifiers | App.D and post-2014 features | `ConstraintBoundary` only; #21 is deferred | **X** for all `IEConstraint` (both `_isHard` values), `IEGoal`, and every expression except the allowed direct ID slots. C7 0.5.0 adds behavior; C1 may switch silently to `AlloyLtl` without this gate. |
@@ -268,6 +275,10 @@ functional dereference condition these counts agree. A set-reference key is
 the existing two-projection `Key`, not an additional global target uniqueness
 condition. Top-level abstracts have no `Q_d` or synthetic-root parent; D3
 therefore prevents importing their compiler-wide set key as a local predicate.
+The existing `DPGraph.Predicates.key_total_singleValued_iff` supplies the generic
+tuple-injectivity criterion under explicit totality and single-valuedness.
+#50 still must connect the candidate's two projections and their hypotheses to
+the interpreted Shape key; the generic theorem alone supplies no such bridge.
 
 Inheritance is subset inclusion **of the same ambient objects**, with identity
 inclusion spans. Abstract heads are the union of their direct subtype heads;
