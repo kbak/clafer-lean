@@ -415,7 +415,7 @@ not formalized evaluator results.
 | Locator | Source contract | Delivered typing boundary |
 | --- | --- | --- |
 | D.1/Figure 28; D.3.1 | Universal quantification, conjunction, negation, comparison, arithmetic, cardinality, and embedded set expressions | `Expr` has Boolean/integer terms and class-indexed unary/binary collections. Boolean literals and integer literals are resolved core conveniences. `all` has a unary domain and a Boolean body; its variable has the element class and is intended to denote a singleton. Tuple quantification is not implemented. |
-| D.3.1, Comparison / Arithmetic operator | Comparison requires a common type; arithmetic lists addition and subtraction although the conclusion displays only addition | Equality accepts any common core sort; less-than, addition and subtraction currently support integers. String/other primitive operations and extraction of an integer singleton from navigation remain implementation limits, not paper prohibitions. Cardinality yields an integer for either collection shape; no finiteness or evaluator theorem is asserted. |
+| D.3.1, Comparison / Arithmetic operator | Comparison requires a common type; arithmetic lists addition and subtraction although the conclusion displays only addition | Equality accepts any common core sort; less-than, addition and subtraction currently support integers. The integer-extraction extension supplies a partial singleton bridge with explicit domain evidence; string/other primitive operations remain implementation limits, not paper prohibitions. Cardinality yields an integer for either collection shape; no finiteness or evaluator theorem is asserted. |
 | D.3.2, Set operators / Subsetting | Equal operand types; union, difference, intersection; Boolean subsetting | Both unary sets and binary relations have distinct union/difference/intersection constructors with a common shape, and Boolean subsetting. Explicit widening can first move inheritance-compatible operands to a chosen common class or endpoint pair. |
 | D.3.2, Relational join | Binary–binary composition and unary–binary image, with matching middle type | Both joins are supported; `Path.navigate` builds endpoint-checked unary navigation. Widening is available before a join, so inherited members are not excluded. Reversed or unrelated endpoints require valid evidence and cannot be silently equated. |
 | D.2, Descendants; §5.5 inheritance | Lookup takes inherited clafers into account | Widening records equal resolved identities or paths of actual super edges in the support graph. Both relation endpoints may be widened. The caller selects the common type; no least-common-supertype algorithm or name resolver is claimed. |
@@ -436,16 +436,48 @@ asserted to be an automatically extracted minimal support. A full graph binding
 is required for a future predicate declaration (§6.2.2). This is an interface,
 not a translation or a meaning proof.
 
-No interpretation of `Expr`, object-diagram environment, primitive singleton
-conversion, finite-instance cardinality, relational reduction of bag links,
+No full interpretation of `Expr`, general object-diagram environment,
+finite-instance cardinality, core-wide relational reduction of bag links,
 substitution, solver, parser, resolver or runtime evaluator is delivered. In
 particular, `<` on arbitrary object sets is not justified by the schematic τ
 in D.3.1; only the integer fragment is implemented. The interface does not settle
-numeric overflow, string ordering, automatic coercion selection, or tuple binders.
+string ordering, automatic coercion selection, or tuple binders. The integer
+extraction extension uses mathematical `Int` without overflow.
 Those extensions require concrete source/semantic contracts before implementation.
 The [requirements](spec.md#resolved-core-constraint-typing) and
 [trace artifacts](clafer-trace.md#resolved-core-expression-constructors) state
 exactly the implemented claims.
+
+## Integer extraction and Appendix F version operands
+
+[Issue #67](https://github.com/kbak/clafer-lean/issues/67) extends the D.3–D.4
+boundary with an explicit partial unary collection-to-integer operation. This is
+a selected implementation contract for the primitive bridge, not a claim that
+the paper spells out a runtime error API. Success requires an exact singleton of
+a realized integer; invalid results are undefined (`none`). The integer-domain
+encoding/decoder is reused from Figure 21, without using its VC predicate to
+interpret general expressions. [The conversion contract](integer-extraction.md)
+and [trace artifacts](clafer-trace.md#integer-extraction-interface) state its limits.
+
+The primary PDF above was used for Appendix F p.34, D.3–D.4 and §6.1/Figure 21.
+The selected Appendix F declarations have these navigation consequences:
+
+| Source fragment | Resolved/semantic consequence |
+| --- | --- |
+| `comp` owns `version` referring to integer | version head from comp to reference objects, followed by a total functional dereference to the integer domain |
+| ECU and display extend comp | separate inclusion maps justify inherited version access, preserving ambient objects |
+| display owns `server` referring to ECU | server head and dereference lead to ECU before inherited version access |
+| omitted version and server multiplicities | default 1..1, unlike Figure 21's 0..1 server; singleton results are derived from link bounds |
+| display comparison | display.version >= server.version, with no additional guard |
+| `plaDisplay` specializes display and constrains server to parent | a further whole-model restriction; the selected operand-definedness theorem does not assume it or implement all inherited structures |
+
+The Lean fragment retains reference objects instead of identifying head maps
+with the combined Figure 21 maps. Its semantic theorem assumes the selected
+multiplicity/reference/inclusion discipline and derives singleton operands;
+structural Compile alone does not discharge those assumptions. The concrete
+examples include five structural objects and **all** integers. No bounded Alloy
+arithmetic or compiler evidence is used. Q3's unresolved general expression
+interpretation remains separate; #68 can consume this interface.
 
 ## Predicate contracts and the accepted Q8 correction
 

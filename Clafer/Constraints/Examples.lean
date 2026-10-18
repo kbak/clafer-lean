@@ -39,6 +39,7 @@ theorem support_resolved : support.Resolved sample := by
     fin_cases e <;> simp [Support.MapResolved, support, sample_entries,
       rootDecl, intDecl, basicDecl, setDecl, bagDecl, derivedDecl,
       abstractDecl, abstractChild, abstractRefDecl, Reference.target]
+  · intro v h; cases h
 
 def inherited : Widen support 1 2 := .inclusion 3 rfl
 

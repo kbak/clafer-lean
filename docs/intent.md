@@ -13,7 +13,7 @@ with reusable foundations supporting structural Clafer. The repository
 | --- | --- | --- |
 | DPGraph | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
 | FormalCD | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
-| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration and constraint meaning remain separate; Compile-to-gluing integration is on [#24](https://github.com/kbak/clafer-lean/issues/24) |
+| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration and general constraint meaning remain separate; the integer bridge proves selected Appendix F operand definedness; Compile-to-gluing integration is on [#24](https://github.com/kbak/clafer-lean/issues/24) |
 
 Preserve the accepted [paper corrections and clarifications](sosym-errata.md):
 composition retains links and agrees with relations after reduction;
@@ -82,6 +82,7 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | [Source map](SOURCES.md) | Paper correspondence, immutable source citations, decisions and audit limits |
 | [Paper companion](sosym-errata.md) | Concise corrections and clarifications for SoSyM readers |
 | [DPGraph](dpgraph-trace.md), [FormalCD](formalcd-trace.md) and [Clafer](clafer-trace.md) traces | Named implementation/proof artifacts and actual Lean declarations |
+| [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix F navigation assumptions |
 | [MCS inventory](mcs-invariants.md) and [Compile contract](compile.md) | Detailed structural clauses and transformation assumptions |
 | [IR comparison contract](resolved-ir-comparison.md) | Proposed comparison domain, compiler audit and remaining prerequisites |
 | [Contributing](../CONTRIBUTING.md), [trace convention](traceability.md) and [maintenance](maintenance.md) | Setup/checks, evidence links and repository administration |

@@ -7,8 +7,9 @@ public import DPGraph.Formula
 # Typed resolved core constraints
 
 SoSyM D.1/Figure 28, D.2, D.3.1–2; the Q3 disposition is in docs/SOURCES.md.
-These constructors certify sorts and lexical scope. There is no evaluator,
-singleton-extraction operation or constraint-preservation theorem here.
+These constructors certify sorts and lexical scope. Integer extraction has a
+separate partial meaning in Integer.lean; no full evaluator or constraint-
+preservation theorem is supplied here.
 -/
 
 @[expose] public section
@@ -76,6 +77,10 @@ inductive Expr (s : Support) : List (Local s) → Ty s → Type where
   | equal {Γ t} : Expr s Γ t → Expr s Γ t → Expr s Γ .boolean
   | less {Γ} : Expr s Γ .integer → Expr s Γ .integer → Expr s Γ .boolean
   | arithmetic {Γ} : Arithmetic → Expr s Γ .integer → Expr s Γ .integer → Expr s Γ .integer
+  /-- D.3–D.4 bridge: typing identifies the primitive class; runtime
+  singleton/domain validity remains a separate obligation. -/
+  | integerOf {Γ x} (primitive : s.integer x = true) :
+      Expr s Γ (.collection (.objects x)) → Expr s Γ .integer
   | cardinality {Γ k} : Expr s Γ (.collection k) → Expr s Γ .integer
   | setOp {Γ k} : SetOp → Expr s Γ (.collection k) → Expr s Γ (.collection k) →
       Expr s Γ (.collection k)
