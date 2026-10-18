@@ -5,8 +5,9 @@ span operations, DP-graph category, abstract model reduct and concrete predicate
 semantics over a bounded graph of subsets and spans, plus FormalCD
 structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntactic
 self-description and the complete Figure 21b example with corrected VC. Structural
-Clafer now includes resolved deep syntax and individual Shapes under the scoped
-requirements below, including the MCS structural discipline. Full expressions, compilation, gluing and integration
+Clafer now includes resolved deep syntax, typed core constraints, individual
+Shapes and the MCS structural discipline under the scoped requirements below.
+Constraint interpretation, compilation, gluing and integration
 remain separate increments. The source-audit roadmap alone authorizes no semantic work.
 
 ## Reproducible Lean validation
@@ -105,8 +106,9 @@ B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
 graph, and the first FormalCD structure/name-preserving morphisms, from future
 predicates, all-universes SetMap, semantic self-instantiation and the remaining
-Clafer expression/compilation/gluing increments. It documents the delivered
-resolved AST, constraint boundary, individual Shapes and MCS structural discipline.
+Clafer interpretation/compilation/gluing increments. It documents the delivered
+resolved AST, typed core constraints, constraint boundary, individual Shapes and
+MCS structural discipline.
 It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
@@ -154,6 +156,68 @@ later semantic increments require their own authorized scope. The existing
 validation, IntentBond and GitHub-tracking requirements continue to apply.
 Project-critical source research and the conditional sketch-extension assessment
 are tracked by [#41](https://github.com/kbak/clafer-lean/issues/41) after #2 closes.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl
+
+## Resolved-IR comparison contract and compatibility audit
+`req~resolved-ir-comparison-contract~1`
+
+Maintain the documentation/source-analysis deliverable for
+[#49](https://github.com/kbak/clafer-lean/issues/49), under
+[#48](https://github.com/kbak/clafer-lean/issues/48), in
+[the comparison contract](resolved-ir-comparison.md). Use SoSyM as the primary
+semantic reference and pin the supplementary compiler to
+`15adb2216909421bcb5022174d2d84ef2b42307c`. Distinguish current Lean declarations,
+proposed interfaces and unresolved source/version differences. This requirement
+authorizes a specification and audit, not an executable comparison implementation
+or a change to the current intent exclusions.
+
+Acceptance requires:
+
+- A cross-checked compatibility matrix with exact paper/compiler/Lean locators,
+  proposed-supported, excluded and decision-pending forms/flags, including
+  top-level abstract roles, inheritance, set/bag keys and multiplicity counts.
+- A smallest useful structural fragment covering nesting, effective clafer/group
+  bounds, abstractness, single inheritance and direct class-target set/bag
+  references, with combination guards and a complete rejected-form/modifier
+  inventory. Exclude user expressions, primitive values, temporal features,
+  goals, backend escapes and reference-target expressions.
+- A hashed same-IR/options JSON/Alloy boundary covering IDs, implicit registry,
+  supers/bindings, unbounded limits, reference mode, keyword and global-card
+  metadata, duplicate/dangling-ID rejection and backend state missing from JSON.
+  Specify constrained options and any minimal additional export needed.
+- An explicit disposition of lost authored/default provenance: an effective-core
+  boundary with a justified, proposed semantics-preserving bridge, or a faithful
+  minimal export. Invent neither provenance nor defaults/name-resolution proofs.
+- Finite candidate object/link identity, exact same-candidate pinning/decoding,
+  inheritance/root/unused-atom/renaming/auxiliary conventions, manual scopes,
+  cardinality bitwidth/overflow conditions, pinned solver/options and an artifact
+  schema. Keep scope-inference and optimization correctness outside the claim.
+- Visible malformed, unsupported, unknown, timeout and error outcomes; proposed
+  bounded soundness/reverse-comparison properties distinguishing random search,
+  finite exhaustive checking and universal proof; positive and negative examples.
+- A precise proposed companion-harness or separately bounded in-project location,
+  with requirements/architecture amendments reviewed before implementation.
+  Preserve policy and dependency layers during this planning increment.
+- Missing whole-model interpretation and finite-checker bridge obligations
+  allocated to [#50](https://github.com/kbak/clafer-lean/issues/50). Record a
+  reviewed structural dependency disposition before any constraint-free shortcut;
+  #21 typing and #22/#23 structural results alone do not suffice. Preserve existing
+  roadmap dependencies until that review, without requiring unrelated deferred
+  language features to be completed first.
+- Explicit source-decision records and review of the contract/matrix and
+  documentation PR. Keep #49 open until review and acceptance/merge; automated
+  validation or a proposed interface does not establish semantic implementation.
+
+Keep the existing requirements `req~clafer-resolved-syntax~1`,
+plus `req~clafer-input-wellformedness~1` and `req~clafer-individual-shapes~1`,
+unchanged by this audit. Future executable
+promises need separately reviewed implementing requirements. Existing source
+audit, public documentation, tracking and IntentBond obligations remain in force.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1137,8 +1201,9 @@ scope occurrences for each constraint (§6.2.2/Figure 22). Preserve repeated
 references in different positions; context is recorded separately. Provide
 separate binder IDs, display names and resolved domain occurrences as the input
 interface for #21, validating known IDs and unique binder IDs per boundary.
-Constraint bodies, expression typing, resolution rules and Appendix D semantic
-equations remain on #21. The context module must not depend on that future
+Constraint bodies and expression typing are supplied by the separate core
+constraint module below. Name resolution and Appendix D semantic equations
+remain unformalized. The context module must not depend on the expression
 implementation. Check repeated-occurrence and dangling-reference examples.
 
 Covers:
@@ -1248,6 +1313,85 @@ accepted repeated occurrences and rejection of duplicate-key formula objects.
 Expose a DP-graph declaration set and transport existing local Shape declarations
 without inventing a constraint language or asserting compiler completeness.
 Keep those later obligations separate from structural validity.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Resolved core constraint typing
+`req~clafer-core-typing~1`
+
+Provide deep, intrinsically typed resolved expressions for the selected core of
+SoSyM D.1/Figure 28 and D.3.1–2: Boolean conjunction/negation, same-sort equality,
+integer comparison/addition/subtraction, collection cardinality, unary-set and
+binary-relation union/difference/intersection and Boolean subsetting, unary–binary
+image and binary–binary join. Both joins require matching middle classes. Include
+Boolean/integer literals and explicit no/one/lone/some helpers for resolved input.
+Follow the [Q3 source disposition](SOURCES.md#appendix-d-rule-dispositions-q3):
+intersection is ordinary common-element intersection, already printed as ∩;
+D.4.1 identifies E and S on set expressions. This increment supplies syntax and
+typing, not semantic equations or interpretation theorems.
+
+Support inheritance-compatible expressions through explicit widening of object
+classes or either relation endpoint to a chosen common type. Widening must follow
+equal resolved IDs or actual super edges; arbitrary unrelated type coercions are
+not permitted. Name resolution and selection/insertion of coercions remain caller
+obligations. Integer operations are the implemented primitive fragment; other
+primitive operations, scalar extraction from navigation, higher-arity relations,
+tuple quantification and full surface syntax remain implementation limits, not
+restrictions attributed to the paper. No evaluator, solver or substitution is required.
+Include accepted/rejected operand and join examples, including successful inherited
+navigation, composition and a relation union with an inherited endpoint.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Lexical scope and typed constraint input
+`req~clafer-core-binding~1`
+
+Keep source names, resolved declaration/binder IDs and occurrence positions
+separate. Universal quantification has a unary collection domain and a Boolean
+body under a fresh binder ID; a variable has its domain's element class and is
+intended to denote a singleton in the future interpretation. Check the domain
+outside the new binder's scope. Preserve nested name shadowing and reject
+out-of-scope variables, repeated active IDs, relation domains and non-Boolean
+bodies. Prove that a typed variable indexes an existing local of the stated class.
+
+Tie `this` to the enclosing class. State compiler input assumptions explicitly:
+existing AST well-formedness, resolved map incidence, resolved boundary context
+and occurrence bags, matching external binder IDs/names, and domains typed in the
+outer lexical environment. Boundary binders are outermost first; the typed context
+is nearest first. Preserve repeated scope/domain occurrences by indexed mappings
+into the support graph; do not assert automatic extraction of minimal support or
+correctness of textual resolution. Provide a complete input witness over an
+existing well-formed AST and positive/negative quantification examples.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Constraint graph support and semantic boundary
+`req~clafer-core-support~1`
+
+Provide a finite graph of class/map occurrences for a constraint (§6.2.2/Figure
+22). Map roles include head, parent, dereference, target and inheritance inclusion;
+validate their endpoints against resolved declarations. Graph arrows and navigation
+paths retain endpoint evidence. Widening paths must imply the reflexive/transitive
+closure of actual inheritance edges. Preserve isolated vertices and repeated
+resolved identities, with source names as metadata. Expose a DPGraph signature
+whose predicate arities are these complete support graphs, and accept full graph
+bindings for later formula construction. Check endpoint rejection and preservation
+of repeated occurrences and full bindings.
+
+Document the missing meanings: environments/object diagrams, primitive singleton
+conversion, cardinality of finite interpretations, relational treatment of bag
+links, and source-to-predicate translation. An abstract symbol/arity is not a proof
+of any constraint's meaning. Neither expression satisfaction nor compilation
+preservation is asserted; independent semantic review remains necessary.
 
 Covers:
 - `intent~formalization-foundation~1`

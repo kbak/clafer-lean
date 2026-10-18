@@ -7,7 +7,8 @@ public import Mathlib.Data.Fintype.EquivFin
 # Resolved constraint boundary
 
 SoSyM §6.2.2, Figure 22 (p.20), Appendix D.2 (p.31).
-This is the input seam for #21, not an expression language or a name resolver.
+This is the input seam for Constraints.Typing, independent of that extension
+and of any name resolver.
 Lists index occurrences: repeated declaration references are retained.
 -/
 
@@ -30,7 +31,7 @@ structure Binder where
   deriving DecidableEq, Repr
 
 /-- An opaque constraint occurrence with the enclosing declaration and scope bag.
-The expression implementation may attach a body to `id` without a dependency
+The expression implementation attaches a body to `id` without a dependency
 from this module to that implementation. Binder order is outermost first. -/
 structure ConstraintBoundary where
   id : Nat
@@ -45,7 +46,8 @@ abbrev ConstraintBoundary.Occurrence (c : ConstraintBoundary) :=
 def ConstraintBoundary.referenced (c : ConstraintBoundary) (i : c.Occurrence) : DeclId :=
   c.scopeOccurrences[i]
 
-/-- Resolution validity only; typing and binder semantics belong to #21. -/
+/-- Resolution validity only; typing belongs to Constraints.Typing and meanings
+remain unformalized. -/
 def ConstraintBoundary.Resolved (c : ConstraintBoundary) (known : DeclId → Prop) : Prop :=
   known c.context ∧ (∀ i ∈ c.scopeOccurrences, known i) ∧
     (c.binders.map Binder.id).Nodup ∧

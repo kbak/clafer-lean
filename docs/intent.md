@@ -52,7 +52,9 @@ statement reuses that metamodel in CDOver. The complete Figure 21b diagram has
 twelve effective declarations and an explicit integer/span interpretation of the
 corrected guarded VC, with nonempty whole-model and boundary witnesses. These
 results do not assert semantic self-instantiation. Clafer supplies finite resolved
-deep syntax, a binder/constraint context boundary and individual Shapes. Source
+deep syntax, typed core constraints with lexical binders, graph support and
+explicit inheritance widening, and individual Shapes. Constraint meaning and
+predicate translation remain separate from typing. Source
 names remain metadata separate from resolved IDs. Top-level abstract clafers keep
 their head class and omit parent-dependent roles under the accepted source
 correction in [SOURCES](SOURCES.md#resolved-2014-clafer-and-individual-shapes).
@@ -60,7 +62,10 @@ The MCS structural discipline covers Figure 23 and the expanded Appendix E
 inventory, using guarded Shape slots and the accepted map-role ownership
 correction. Role identities, resolved referents and strings remain distinct;
 full formula bindings retain separate total-args and literal bag-key obligations.
-Expressions, compilation, gluing and integration remain on issues #21–24. An all-universes SetMap and the
+The selected [typed constraint core](spec.md#resolved-core-constraint-typing)
+follows D.1–D.3 and the [Q3 disposition](SOURCES.md#appendix-d-rule-dispositions-q3);
+primitive conversion and constraint evaluation remain unformalized. Compilation,
+gluing and integration remain on issues #22–24. An all-universes SetMap and the
 unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
@@ -88,6 +93,13 @@ The current ordinary signature and precomposition
 reduct laws remain the delivered contract; stronger semantic representations
 and dependency-enriched extensions require separate authorization.
 Planning the later increments does not authorize their semantic implementation.
+
+The [resolved-IR comparison audit](resolved-ir-comparison.md) specifies a proposed
+bounded structural comparison with the pinned compiler's generated Alloy. It
+records compatibility limits, an effective-data boundary and missing whole-model
+interpretation obligations for #50. Its companion-harness recommendation requires
+review before executable work; it adds no solver integration or new semantic
+claim to the delivered libraries.
 
 Exclude instance/object generation, Alloy/SMT/SAT integration, runtime
 configurations, Claferize, post-2014 extensions, a production parser and

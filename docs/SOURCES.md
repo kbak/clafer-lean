@@ -85,7 +85,7 @@ The audit limits for the other requested sources are specific:
 The [bounded library assessment](#lean-library-assessment) identifies reusable
 foundations, without establishing a ready-made generalized-sketch dependency or
 proving that none exists. The maintained Haskell
-compiler has not been used as semantic evidence; later use must pin a commit,
+compiler does not select the formalization's semantics; supplementary use must pin a commit,
 check licensing and distinguish post-2014 constructs. Acquired publications
 remain outside the repository.
 
@@ -360,7 +360,7 @@ Covers:
 | Metamodel: §6.1.3, Figure 21c | Compatible vocabulary, nd/ad disciplines, full graph bindings; separate syntactic self-description from semantic instantiation | #18 / [#36](https://github.com/kbak/clafer-lean/pull/36), bounded self-description #19 / #38; literal-key/total-args limits below |
 | Syntax and individual Shapes: §5.2 Figure 16, §6.2.2 Figure 22, Appendix C | Resolved deep AST and individual Shapes; IDs, containment, inheritance, references, abstractness, root/domains and finite traversal | [#3](https://github.com/kbak/clafer-lean/issues/3), [implementation and proofs](clafer-trace.md) |
 | MCS: §6.2.3 Figure 23, Appendix E Tables 5–8 | Accepted guarded incidence/naming and analogous expansion, preserving exact Shape presence rules and distinct identity levels; see the [inventory](mcs-invariants.md). The accepted Q9 correction applies source `0..1` to the four ordinary-map and three inclusion-role associations, retaining exact Shape presence. | [#20](https://github.com/kbak/clafer-lean/issues/20), Q2/Q9 resolved; Q4 representation selected, gluing deferred |
-| Constraints: Appendix D.1–D.4 | Proposed resolved expression syntax and checked typing; binders, navigation and set operations; meaning remains distinct from syntax | [#21](https://github.com/kbak/clafer-lean/issues/21), Q3 pending |
+| Constraints: Appendix D.1–D.4 | Resolved typed core, lexical binders, both joins, explicit inheritance widening and finite graph support; meaning remains distinct from syntax | [#21](https://github.com/kbak/clafer-lean/issues/21), Q3 disposition below |
 | Compile: §6.2.4 | Proposed finite resolved-AST-to-MCS transformation; termination, freshness, incidence, cojoining, kind/name preservation under explicit input well-formedness | [#22](https://github.com/kbak/clafer-lean/issues/22), depends on #3/#20/#21 |
 | Gluing: §6.2.5 | Proposed role-label graph map and declaration image; endpoint congruence, label DP-morphism, then separate CD well-formedness | [#23](https://github.com/kbak/clafer-lean/issues/23), Q4 pending; generic pushout results alone do not prove this |
 | Integration: Appendix F and selected earlier figures | Proposed finite AST/MCS/CD examples exercising compile/glue statements; enumerate unsupported constructs | [#24](https://github.com/kbak/clafer-lean/issues/24), after #22/#23 |
@@ -375,7 +375,7 @@ source gaps. Keep the original issue discussions as the decision history.
 | --- | --- | --- |
 | Q1 — B.2.1 composition | Accepted: retain pullback links and prove equality after reduction. The unqualified relational-span isomorphism is false. | #4 / #32 delivered `Span.red_comp`, the exact endpoint-injectivity criterion and two-path/parallel-link counterexamples; [source comparison](#span-composition-q1-research-for-4). No remaining #4 implementation task. |
 | Q2 — Appendix E analogous clauses | Accepted: incidence/naming equations apply only to present roles; existing Shape rules separately require or forbid each role. The analogous expansion includes Sing/root, every supported primitive domain, the accepted parentless exception and both directions of canonical naming equivalences. | The [complete Table 5–8 inventory](mcs-invariants.md#appendix-e-inventory) enumerates the guards. #20 attaches definitions and positive/negative witnesses in the inventory; the accepted Figure 23 multiplicity correction is Q9. |
-| Q3 — Appendix D notation | Unresolved: D.4.2 prints set difference in the intersection equation; some type-rule notation is inconsistent. Following the named intersection and D.1–D.3 is a proposal, not an accepted semantic equation. | #21 must locate each discrepant rule, record alternatives and obtain a reviewed disposition before semantics. Validate common-element versus difference examples, empty operands, and accepted/rejected typing/navigation/binder cases; no theorem of constraint meaning is claimed here. |
+| Q3 — Appendix D notation | Resolved for the selected core: ordinary common-element intersection is already printed as ∩ in D.4.2. D.4.1 equates E and S on set expressions, reconciling the mixed subscripts. D.1–D.3 govern typing; the implementation boundary is enumerated below. | #21 supplies typed syntax and explicit inheritance paths. Interpretation, finite-instance cardinality and primitive singleton extraction remain unformalized; no predicate-meaning theorem follows from a signature. |
 | Q4 — labels and identity | #20 representation accepted: preserve role identities separately from resolved class/map referents and displayed names, and state the identity level of cojoining equalities. Repeated parent/dref/isA strings do not identify arrows. The gluing policy is not yet complete. | #20 retains the data needed for intended identifications and repeated-name witnesses; #23 selects the congruence and proves endpoint/declaration preservation. #22 retains generated identities. Existing FormalCD names remain metadata. |
 | Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
 | Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) owns the bounded assessment and reviewed source disposition; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
@@ -387,6 +387,60 @@ The roadmap can be accepted with deferred work explicitly assigned; it cannot
 claim that those tasks or missing-source research are completed. #40 delivers
 #2's source/design cross-check; #41 retains the unfinished research. The architecture records
 the existing #13 assessment and the separate proof-status boundaries.
+
+### Appendix D rule dispositions (Q3)
+
+The primary preprint identified above places D.1/Figure 28 and D.2 on p.31,
+and D.3–D.4 on p.32. The [#21](https://github.com/kbak/clafer-lean/issues/21)
+disposition follows D.1–D.3 for typing and the maintainer's Alloy-inspired
+relational set reading. Alloy is supplementary guidance, not a replacement
+specification. No compiler implementation or third-party code is incorporated.
+
+**Intersection and evaluator notation.** Visual inspection of D.4.2 confirms
+that the intersection equation prints **∩**. Text extraction of this PDF
+misidentifies the glyph. Ordinary
+common-element intersection is the intended operation. D.4.1 explicitly identifies
+E(SetExp, env) with S(SetExp, env), so the E subscript on right operands of
+D.4.2's union, difference and intersection is reconciled by that equation. It is
+not necessary to invent a conversion or change the meaning of either operand.
+For example, intersection of {a,b} and {b,c} is {b}, while their difference is
+{a}; intersection with the empty set is empty. These are explanatory set examples,
+not formalized evaluator results.
+
+| Locator | Source contract | Delivered typing boundary |
+| --- | --- | --- |
+| D.1/Figure 28; D.3.1 | Universal quantification, conjunction, negation, comparison, arithmetic, cardinality, and embedded set expressions | `Expr` has Boolean/integer terms and class-indexed unary/binary collections. Boolean literals and integer literals are resolved core conveniences. `all` has a unary domain and a Boolean body; its variable has the element class and is intended to denote a singleton. Tuple quantification is not implemented. |
+| D.3.1, Comparison / Arithmetic operator | Comparison requires a common type; arithmetic lists addition and subtraction although the conclusion displays only addition | Equality accepts any common core sort; less-than, addition and subtraction currently support integers. String/other primitive operations and extraction of an integer singleton from navigation remain implementation limits, not paper prohibitions. Cardinality yields an integer for either collection shape; no finiteness or evaluator theorem is asserted. |
+| D.3.2, Set operators / Subsetting | Equal operand types; union, difference, intersection; Boolean subsetting | Both unary sets and binary relations have distinct union/difference/intersection constructors with a common shape, and Boolean subsetting. Explicit widening can first move inheritance-compatible operands to a chosen common class or endpoint pair. |
+| D.3.2, Relational join | Binary–binary composition and unary–binary image, with matching middle type | Both joins are supported; `Path.navigate` builds endpoint-checked unary navigation. Widening is available before a join, so inherited members are not excluded. Reversed or unrelated endpoints require valid evidence and cannot be silently equated. |
+| D.2, Descendants; §5.5 inheritance | Lookup takes inherited clafers into account | Widening records equal resolved identities or paths of actual super edges in the support graph. Both relation endpoints may be widened. The caller selects the common type; no least-common-supertype algorithm or name resolver is claimed. |
+| Appendix D introductory prose; D.4.1, Set expression | Bare navigation defaults to `some`; no/one/lone/some test cardinality | Explicit typed syntax helpers express these tests using cardinality and integer comparison. A resolved input inserts the default helper; a collection is not itself a Boolean term. Correctness of desugaring is deferred with evaluation. |
+
+D.2's reserved names, binder lookup and model lookup remain an upstream resolution
+obligation. `this` is tied to the enclosing support vertex; head, parent,
+dereference and target maps have resolved owners and checked endpoints. Display
+names are metadata. Local variables use lexical positions and retain independent
+binder IDs; duplicate names are allowed, while active IDs must be fresh. A domain
+is outside its new binder's scope, and the body is inside it. External boundary
+binders are outermost first and are reversed into the nearest-first typed context.
+
+The finite support graph includes all maps and classes available to an expression,
+including isolated/repeated occurrences and intermediate inheritance vertices.
+Boundary scope and domain occurrence bags are retained separately; they are not
+asserted to be an automatically extracted minimal support. A full graph binding
+is required for a future predicate declaration (§6.2.2). This is an interface,
+not a translation or a meaning proof.
+
+No interpretation of `Expr`, object-diagram environment, primitive singleton
+conversion, finite-instance cardinality, relational reduction of bag links,
+substitution, solver, parser, resolver or runtime evaluator is delivered. In
+particular, `<` on arbitrary object sets is not justified by the schematic τ
+in D.3.1; only the integer fragment is implemented. The interface does not settle
+numeric overflow, string ordering, automatic coercion selection, or tuple binders.
+Those extensions require concrete source/semantic contracts before implementation.
+The [requirements](spec.md#resolved-core-constraint-typing) and
+[trace artifacts](clafer-trace.md#resolved-core-expression-constructors) state
+exactly the implemented claims.
 
 ## Predicate contracts and the accepted Q8 correction
 
@@ -651,7 +705,8 @@ constructs from the same 34-page preprint (SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`).
 Figures 16, 22 and 23 were visually cross-checked against their accompanying
 text. The formalization is independent; no publication figures/text or compiler
-implementation are vendored, and the Haskell compiler is not semantic evidence.
+implementation are vendored. The Haskell compiler does not select this slice's
+semantics; its separately pinned compatibility audit is linked below.
 
 | Source locator | Selected contract and Lean correspondence |
 | --- | --- |
@@ -691,10 +746,9 @@ accepted snapshots remain unchanged.
 
 The #20 MCS structural implementation follows the Q2 guards/analogous expansion,
 Q4 identity separation and Q9 source correction in the [MCS inventory](mcs-invariants.md).
-Expressions and
-Appendix D's Q3 (#21), compilation (#22), label congruence/gluing (#23) and
-integration (#24) remain separate.
-
+The typed constraint extension and Q3 disposition are described above; constraint
+meaning and its preservation remain unformalized. Compilation (#22), label
+congruence/gluing (#23) and integration (#24) remain separate.
 
 ## Figure 23 and Appendix E MCS discipline
 
@@ -712,3 +766,24 @@ resolved referents and repeated names remain separate.
 The [sample](../Clafer/MCS/Examples.lean) validates a nonempty family including
 int/string/bool, basic/set/bag, parentless abstracts and guarded inheritance.
 No third-party implementation or publication text is copied into these modules.
+
+## Pinned compiler compatibility audit
+
+The [resolved-IR comparison contract](resolved-ir-comparison.md) records the
+documentation/source audit for [#49](https://github.com/kbak/clafer-lean/issues/49),
+under #48, against compiler commit
+[`15adb2216909421bcb5022174d2d84ef2b42307c`](https://github.com/gsdlab/clafer/tree/15adb2216909421bcb5022174d2d84ef2b42307c)
+(package 0.5.3), with its MIT license inspected. Its matrix maps exact compiler
+passes/fields to SoSyM §§5.3–5.5, 6.1–6.2/Figures 16/22/23, Appendices A.1/B/C/E
+and current Lean declarations. Compiler behavior is supplementary evidence,
+not a replacement semantic authority. No compiler code or fixtures are vendored.
+
+The audit retains the accepted Q1/Q8 and top-level abstract corrections. New
+decision items D1–D8 distinguish effective/default provenance, nested
+abstractness, parentless abstract-reference keys/global cards, inheritance
+refinement, hidden backend state, group interpretation, harness location and
+structural prerequisites. They are proposals or unresolved compatibility limits,
+not additional accepted source corrections. Follow the contract's decision table
+and example inventory before extending the supported fragment. In particular,
+local Shapes and the B.5 reduct do not establish whole-model comparison;
+#50 owns the missing interpretation and bridge obligations.

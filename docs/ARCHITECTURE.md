@@ -5,7 +5,8 @@ operations, DPGraph syntax, its fixed-signature category and abstract model
 restriction, the selected concrete predicate meanings, and FormalCD
 structure/morphisms, signature support, the Figure 21c metamodel, bounded syntactic
 self-description and Figure 21b with its corrected VC interpretation are delivered.
-Clafer adds resolved deep syntax, a constraint boundary and individual Shapes.
+Clafer adds resolved deep syntax, typed core constraints, individual Shapes and
+the Figure 23/Appendix E structural MCS discipline.
 The [roadmap (#2)](https://github.com/kbak/clafer-lean/issues/2) is delivered in
 [merged #40](https://github.com/kbak/clafer-lean/pull/40); its later increments
 retain their own tickets. [Research #41](https://github.com/kbak/clafer-lean/issues/41)
@@ -21,7 +22,7 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 | --- | --- | --- |
 | DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract/concrete interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct and selected Table 3/A.1 meanings in [DPGraph](../DPGraph.lean) |
 | FormalCD | Class diagrams, naming/default obligations and name-preserving morphisms; builds on DPGraph | [Core API](../FormalCD.lean) delivered; Figure 21c and disciplines, bounded syntactic self-description, and Figure 21b/VC delivered |
-| Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Resolved syntax and individual Shapes](../Clafer.lean) delivered; Figure 23/Appendix E structural MCS delivered; name resolution and constraint meaning remain separate |
+| Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Resolved syntax, typed core constraints and individual Shapes](../Clafer.lean) delivered; Figure 23/Appendix E structural MCS delivered; name resolution and constraint meaning remain separate |
 
 [Signature.lean](../DPGraph/Signature.lean) uses
 `CategoryTheory.Quiv.{arrowUniverse, vertexUniverse}` for arity graphs;
@@ -439,7 +440,7 @@ Covers:
 | --- | --- | --- |
 | 1 — reusable DP-graphs | [#13](https://github.com/kbak/clafer-lean/issues/13) representation; [#14](https://github.com/kbak/clafer-lean/issues/14) → [#15](https://github.com/kbak/clafer-lean/issues/15), with derived [#28](https://github.com/kbak/clafer-lean/issues/28)/[#30](https://github.com/kbak/clafer-lean/issues/30); [#4](https://github.com/kbak/clafer-lean/issues/4) → [#16](https://github.com/kbak/clafer-lean/issues/16) | #14/#25, #15/#27, #28/#29, #4/#32, #30/#33 and #16/#34 delivered. #13's final representation/dependency assessment is in #39. Generic DPGraph remains independently importable. |
 | 2 — reusable formal CDs | #16 → [#17](https://github.com/kbak/clafer-lean/issues/17) → [#18](https://github.com/kbak/clafer-lean/issues/18) → [#19](https://github.com/kbak/clafer-lean/issues/19) | #17/#35, #18/#36 and #19/#38 delivered: structure, morphisms, compatible vocabulary, Figure 21c, bounded syntactic self-description and Figure 21b/VC. Semantic self-instantiation remains outside scope. |
-| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. The structural MCS disciplines are implemented for #20; expression typing and the gluing congruence precede Compile/gluing; integration requires both. Planning tickets alone authorize no further implementations. |
+| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. The structural MCS disciplines are implemented for #20; #21 adds typed core expressions and graph support. The gluing congruence remains on #23; integration requires Compile and gluing. Planning tickets alone authorize no further implementations. |
 
 ### Nine architectural decision areas
 
@@ -458,7 +459,7 @@ questions Q1–Q8 in [SOURCES](SOURCES.md#question-dispositions-and-validation-t
 | A6 — formal-CD metamodel and self-description | Reuse `CDOver` with explicit vocabulary/registry, nd/ad meanings and full-binding correspondence. Reject a Lean universe fixpoint and an inference from syntactic well-formedness to semantic self-instantiation. | #18/#36 and #19/#38 deliver the bounded result and Figure 21 example. Ordered/isolated bindings expose bag-key and total-args restrictions. Stronger realizability/self-instantiation is deferred and would require new accepted hypotheses and examples. |
 | A7 — Clafer syntax, MCS and finiteness | Deep resolved AST and typed individual role graphs, with raw data plus explicit well-formedness propositions. A shallow Lean encoding would obscure source syntax/compilation; globally finite DPGraphs would restrict reusable semantics. Use finite data only at the executable boundary. | #3 accounts for Figure 16/22, Appendix C and the accepted top-level abstract correction in the [Clafer source map](SOURCES.md#resolved-2014-clafer-and-individual-shapes); #20 has an [accepted guarded inventory](mcs-invariants.md) of Appendix E clauses (Q2), with exact presence still enforced by Shape. Figure 23's accepted source-multiplicity correction (Q9) makes the seven map/inclusion associations uniquely owned on their images; nonempty examples validate this boundary. Validate finite presentations against the generic graph API with positive/malformed role examples before promising a compiler. |
 | A8 — names, generated identity, Compile and gluing | Accepted #20 separation of role identities, resolved class/map referents and displayed names. Repeated parent/dref/isA strings do not identify arrows. Preserve the information needed for intended gluing; the endpoint-compatible congruence and declaration image remain on #23. | #20 states the level of cojoining equality and covers repeated names. #22 owns generated identities, freshness and termination; #23 owns intended identifications and incidence/declaration preservation. Review the congruence before defining its quotient/map. A DP-morphism proof and a CD-well-formedness proof are separate targets. |
-| A9 — constraints and end-to-end claims | Proposed resolved typed expressions, with syntax/typing first and semantic translation only after source dispositions. Neither a production parser nor the current Haskell compiler defines the 2014 meaning. Structural Compile/glue correctness is distinct from full constraint-semantic preservation. | #21 resolves Appendix D discrepancies (Q3) and checks binders/navigation/types; #22/#23 state explicit well-formed-input assumptions; #24 enumerates supported Appendix F examples and unsupported constructs. Full constraint preservation remains deferred until both source and target meanings are specified. |
+| A9 — constraints and end-to-end claims | Resolved typed core expressions with explicit inheritance widening and graph support; semantic translation remains separate. Neither a production parser nor the current Haskell compiler defines the 2014 meaning. Structural Compile/glue correctness is distinct from full constraint-semantic preservation. | #21 resolves Appendix D discrepancies (Q3) and checks binders/navigation/types; #22/#23 state explicit well-formed-input assumptions; #24 enumerates supported Appendix F examples and unsupported constructs. Full constraint preservation remains deferred until both source and target meanings are specified. |
 
 ### Theorem statements and proof status
 
@@ -515,9 +516,25 @@ References and super IDs are never followed by the containment fold.
 [Clafer.Context](../Clafer/Context.lean) is the dependency boundary for #21.
 `ConstraintBoundary` stores a context ID, occurrence-indexed referenced-scope
 list, and binder IDs/names/domain occurrences. Distinct positions can reference
-the same declaration; no deduplication occurs. A later expression module can
-associate a body with a boundary ID and validate its occurrences. Neither expression
-syntax nor Appendix D's disputed equations are selected here.
+the same declaration; no deduplication occurs.
+[Constraints.Typing](../Clafer/Constraints/Typing.lean) attaches intrinsically typed
+expressions without a reverse dependency. Its sorts separate Boolean/integer
+terms from unary object sets and binary relations. Lexical variables carry a
+context position and element class; quantifier domains are outside the new
+binder's scope. Both joins check the common endpoint. Inheritance-compatible
+operations use explicit paths through resolved super edges, including widening
+of either relation endpoint. The input interface states AST, incidence, boundary
+and external-domain assumptions; it does not prove name resolution.
+
+[Constraints.Support](../Clafer/Constraints/Support.lean) supplies a finite graph
+whose vertices and arrows are occurrences with resolved identities. Whole graph
+bindings preserve isolated vertices and repeated identities. The signature
+interface can use this graph as the arity of a future constraint predicate.
+Neither this interface nor a typed AST supplies an interpretation. The
+[Q3 disposition](SOURCES.md#appendix-d-rule-dispositions-q3) reconciles the
+printed intersection and evaluator notation; the supported forms, primitive
+limits and deferred semantics are enumerated there. No substitution or
+compilation-preservation theorem is asserted.
 
 [Clafer.Shape](../Clafer/Shape.lean) uses subtypes of finite class/map role enums
 and the existing `Quiver`/`Quiv` API. Hom types contain both endpoint equations;
@@ -565,3 +582,24 @@ this is not a semantic self-instantiation theorem. The nonempty
 all primitive domains, repeated arrow labels and guarded inclusions. Local Shape
 formulas transport through `Roles.localDiagram`; generation and completeness of
 Compile's declarations remain #22 obligations.
+
+## Proposed bounded structural comparison boundary
+
+The [#49 contract and compiler matrix](resolved-ir-comparison.md) are a
+documentation proposal under #48. They recommend a separate `clafer-compare`
+companion with a pinned dependency on `clafer`, an effective-core adapter and
+finite candidates retaining shared object identity and bag link occurrences.
+JSON/Alloy pairing requires a same-generation state receipt; JSON alone loses
+authored/default provenance and backend state. Current `AST.WellFormed` and
+local `Shape.diagram` proofs do not supply the proposed satisfaction bridge.
+
+The contract assigns missing whole-model structural interpretation, finite
+representation/checker correctness and the effective-core bridge to #50, with
+explicit interfaces from #20/#22/#23. It preserves #21 and the existing roadmap
+dependencies until a structural-only disposition is reviewed. Unrelated deferred
+language features need not block an accepted structural slice. The detailed
+[location and decision proposal](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
+identifies the companion paths, possible reusable `Clafer/Semantics/` additions
+and the alternative in-project verification extension. Each requires its
+implementing requirements and architecture review first. This proposal leaves
+the current intent exclusions, public layers and validation policy in force.
