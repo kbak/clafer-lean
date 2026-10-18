@@ -998,6 +998,8 @@ records build identities. [protocol.py](../scripts/verification/protocol.py)
 checks consumed-map projection/registry, backend ownership/processing, options,
 explicit bounds and artifact hashes. [capture.py](../scripts/verification/capture.py)
 retains source and original JSON/Alloy with the common manifest and receipt.
+[runtime.py](../scripts/verification/runtime.py) prepares or checks that exporter
+for the shared validation command, retaining its build outside captured source.
 
 Covers:
 - `req~clafer-compiler-capture~1`
@@ -1011,6 +1013,10 @@ cards, source constructors, options and receipts. [Lean tests](../tests/resolved
 exercise kernel/native admission and identity witnesses in
 [ImportExamples.lean](../Clafer/Verification/ImportExamples.lean), including
 repeated names, reference modes and repeated-target occurrences.
+[Runtime setup tests](../tests/test_capture_runtime.py) check fresh provisioning,
+cache invalidation, explicit producer settings, hash failures and child-process
+environment/status propagation. [Runner tests](../tests/test_check_script.py)
+check setup ordering and failure propagation through the shared validation gates.
 
 Covers:
 - `req~clafer-resolved-import~1`

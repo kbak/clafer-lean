@@ -11,6 +11,24 @@ realization does not enlarge the import whitelist.
 ## Build and replay
 
 Use Python 3.11+, the pinned Lean toolchain, Stack 3.11.1, GHC 9.6.7 and GMP headers.
+On Linux x86_64, the full `bash scripts/check.sh` command provisions the pinned
+exporter before running Python tests when neither `CLAFER_CAPTURE` nor a
+`clafer-capture` executable on `PATH` is supplied. Install `libgmp-dev` first on
+Debian/Ubuntu. Automatic setup downloads hash-checked compiler and Stack archives
+and runs the builder below, which obtains the pinned GHC and dependencies.
+It uses `$XDG_CACHE_HOME/clafer-capture` (default `~/.cache/clafer-capture`);
+`CLAFER_CAPTURE_CACHE` selects another directory outside the repository.
+Build logs and identities remain there. Fresh validation snapshots use the same
+cache, checking exporter source/binary and compiler/dependency identities before
+reuse; a changed builder or exporter rebuilds it. Setup failure stops validation.
+The wrapper passes the exporter and build record to the test process, so it does
+not depend on environment variables exported by an earlier interactive session.
+Explicit exporter settings are checked and take precedence; an invalid explicit
+setting fails rather than selecting another producer. Other platforms require
+explicit provisioning.
+
+To build explicitly or use the capture commands independently:
+
 Obtain the compiler source archive for
 `gsdlab/clafer@15adb2216909421bcb5022174d2d84ef2b42307c`, SHA-256
 `a4d05b1575071d2357223700ec887bd08a093d288a2d6f92bb3ac16ec7579913`.
@@ -46,7 +64,7 @@ python3 scripts/verification/capture.py import /path/to/new-bundle --candidate c
 bash scripts/check.sh
 ```
 
-Full validation requires the exporter above. Python tests run actual pinned
+Full validation prepares or checks the exporter above. Python tests run actual pinned
 exports and Lean admission, plus deterministic malformed/unsupported mutations;
 no missing-compiler skip is treated as a pass. Test fixtures retain upstream MIT
 attribution. The cached ordinary compiler CLI can additionally exercise exports;
