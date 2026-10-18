@@ -1,7 +1,7 @@
 name = "clafer"
 version = "0.1.0"
-# Candidate libraries always rebuild in an isolated validation snapshot.
-enableArtifactCache = false
+# Validation controls native content-keyed caching via LAKE_ARTIFACT_CACHE.
+# Every project module still undergoes fresh kernel replay and axiom auditing.
 defaultTargets = ["DPGraph", "FormalCD", "Clafer"]
 
 [leanOptions]

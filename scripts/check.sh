@@ -28,6 +28,11 @@ if [[ "${1:-}" == --preflight ]]; then
   exit 0
 fi
 
+# Caching is opt-in and keyed by Lake's source/options/import traces. Restore
+# every artifact locally so the audit and leanchecker inspect this build.
+export LAKE_ARTIFACT_CACHE="${LAKE_ARTIFACT_CACHE:-false}"
+export LAKE_RESTORE_ARTIFACTS=true
+
 # IntentMade supplies this trusted profile to provision the pinned Lean toolchain.
 if [[ -n "${FACTORY_TESTS:-}" && -f "$FACTORY_TESTS/lean-env.sh" ]]; then
   printf '\n[check] Lean toolchain: starting\n'

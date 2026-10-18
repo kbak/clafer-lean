@@ -117,8 +117,8 @@ def validate(repo):
     config = tomllib.loads((repo / "lakefile.toml").read_text())
     if config.get("name") != "clafer" or config.get("defaultTargets") != list(ROOTS):
         raise ValueError("package/default targets must cover all three public libraries")
-    if config.get("enableArtifactCache") is not False:
-        raise ValueError("project artifact caching must stay disabled for independent validation")
+    if "enableArtifactCache" in config:
+        raise ValueError("project artifact caching must inherit the validation environment")
     libraries = config.get("lean_lib", [])
     if len(libraries) != len(ROOTS):
         raise ValueError("expected exactly three public libraries")

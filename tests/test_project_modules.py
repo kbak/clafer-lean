@@ -120,10 +120,10 @@ class PublicLibrariesTest(unittest.TestCase):
         self.assertIn(Path("tests/formalcd_imports.lean"), tests)
         self.assertIn(Path("tests/structural_checker.lean"), tests)
 
-    def test_project_artifact_cache_cannot_reuse_candidate_builds(self):
+    def test_project_artifact_cache_preserves_environment_control(self):
         config = (REPO / "lakefile.toml").read_text()
-        for changed in [config.replace("enableArtifactCache = false", "enableArtifactCache = true"),
-                        config.replace("enableArtifactCache = false", "")]:
+        for setting in ["true", "false"]:
+            changed = f"enableArtifactCache = {setting}\n" + config
             with self.subTest(config=changed):
                 self.write("lakefile.toml", changed)
                 with self.assertRaisesRegex(ValueError, "project artifact caching"):
