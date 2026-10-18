@@ -135,6 +135,16 @@ noncomputable def family (i : Input a) : Family a.Occurrence where
   name c := (a.at c).declaration.name
   multiplicity c := (a.at c).declaration.multiplicity.effective
   root := resolve a a.root i.ast.root_exists
+  group c := (a.at c).declaration.group
+
+/-- Appendix C provenance and effective bounds are carried without defaulting
+again. This is data preservation, not a group satisfaction theorem. -/
+@[simp] theorem group_preserved (i : Input a) (c) :
+    (family i).group c = (a.at c).declaration.group := rfl
+
+theorem group_bounds_valid (i : Input a) (c) :
+    ValidRange ((family i).group c).effective.range :=
+  (i.ast.valid_bounds _ (List.getElem_mem _)).2
 
 @[simp] theorem parent_ids (i : Input a) (c) :
     ((family i).parent c).map (sourceId a) = (a.at c).parent := resolveOption_ids _ _
@@ -150,6 +160,36 @@ noncomputable def family (i : Input a) : Family a.Occurrence where
 @[simp] theorem super_eq (i : Input a) (c s) :
     (family i).super c = some s ↔ (a.at c).declaration.super = some (sourceId a s) :=
   resolveOption_eq_some i.ast _ _ _
+
+/-- The direct-child inventory of §6.2.2. Inherited-family realization is a
+separate interface: this type neither copies children nor selects super paths. -/
+abbrev DirectChild (i : Input a) (p : a.Occurrence) :=
+  {c : a.Occurrence // (family i).parent c = some p}
+
+theorem directChildren_finite (i : Input a) (p : a.Occurrence) :
+    Finite (DirectChild i p) := inferInstance
+
+theorem directChild_iff (i : Input a) (p c : a.Occurrence) :
+    (family i).parent c = some p ↔ (a.at c).parent = some (sourceId a p) :=
+  parent_eq i c p
+
+/-- Each selected child supplies its head map, including reference children.
+The target is the child's own head, never its dereference target. -/
+noncomputable def directChildHead (i : Input a) (p : a.Occurrence)
+    (c : DirectChild i p) : (family i).canonicalRoles.Arrow p c.val := by
+  have hp : ((family i).shape c.val).hasParent = true := by
+    simp [Family.shape, c.property]
+  refine ⟨.ordinary c.val ⟨.head, hp⟩, ?_, rfl⟩
+  change ((family i).parent c.val).getD c.val = p
+  simp [c.property]
+
+theorem directChildHead_owner (i : Input a) (p : a.Occurrence)
+    (c : DirectChild i p) : (directChildHead i p c).val.owner = c.val := rfl
+
+theorem directChildHead_injective (i : Input a) (p : a.Occurrence) :
+    Function.Injective (fun c : DirectChild i p => (directChildHead i p c).val) := by
+  intro c d h
+  exact Subtype.ext (congrArg Family.MapId.owner h)
 
 theorem family_wellFormed (i : Input a) : (family i).WellFormed where
   root_origin c := by

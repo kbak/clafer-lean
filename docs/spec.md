@@ -1508,8 +1508,9 @@ Resolution, default elaboration, binder environments, explicit inheritance
 widening and nonminimal support remain caller obligations. Compile must not
 assume an output MCS, output validity or a supplied graph binding. Unsupported
 surface/primitive forms remain those of the typed core; this increment adds no
-expression interpretation, group/abstract semantic translation, gluing quotient
-or full semantic-preservation claim. Follow the [Compile contract](compile.md).
+expression interpretation or full semantic-preservation claim. The separate
+augmented group output below extends generated declarations without changing this
+input contract or asserting general abstract/inherited-family realization. Follow the [Compile contract](compile.md).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1560,6 +1561,70 @@ constraint signature. Check repeated occurrences of one resolved map and equal
 source boundaries at distinct positions. These declarations provide syntax and
 structural validity; neither typed bodies nor fresh predicate symbols establish
 constraint meanings or semantic preservation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Compile group data and direct-child maps
+`req~clafer-compile-group-data~1`
+
+Preserve each resolved declaration's complete `GroupMultiplicity` in the
+compiled family, including authored/effective values and keyword provenance
+(Appendix C p.31). Derive validity of its effective bounds from the accepted
+AST; do not run default elaboration again or change keyword child defaults.
+Derive the direct-child inventory exactly from resolved parent identity. Each
+entry supplies the typed head map from that parent's head to the child's head,
+including reference children; different child entries retain different map
+identities. This inventory is finite because the accepted AST is finite.
+
+Retain empty inventories and abstract declarations as structural input. Check
+preservation of an empty xor group's metadata and reference-child head incidence.
+These data guarantees support the interpreted extension below; metadata
+preservation alone does not establish group satisfaction.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Interpreted group compilation and augmented gluing
+`req~clafer-compile-groups~1`
+
+Generate one interpreted group declaration for every concrete context using its
+resolved effective bound and the union of own and super-hierarchy child heads.
+Abstract groups supply inheritable bounds without a separate original-child
+invariant. Preserve Appendix C provenance/defaults/overrides and ordinary explicit
+constraints on abstract contexts. Follow the accepted [D6 contract](group-compilation.md)
+and its pinned source citations, including the explicit discrepancy with the
+compiler's empty-inventory skip.
+
+Retain complete arities, context vertices, owner identities, head and inheritance
+maps and incidence-preserving bindings. Count distinct ambient child-head objects
+per parent object, including distinct reference occurrences sharing one target;
+multiple paths to the same object count once. Empty inventories count zero:
+zero-containing bounds pass, and positive lower bounds force empty context extents.
+Do not replace this meaning with a declaration count, target count or sum of fibers.
+
+Expose an augmented Compile result with a separate generated declaration component
+for zero-arrow supports. Forgetting it must recover the existing structural MCS.
+Keep the old bank's full bindings, literal bag key, nonempty args and user input
+contract unchanged; do not claim the complete bank satisfies MCS total args.
+The complete diagram must contain the exact union of both components, and gluing
+must preserve its exact translated image, naming, incidence, metadata and complete
+effective defaults. Prove that complete satisfaction accounts for both components
+and that each generated group is equivalent to the selected child-count bounds
+under explicit typed-relation and finite-count assumptions. Reuse #50 counting
+and representation APIs without extending its guarded checker or reversing its
+dependency. Keep #66 inherited field realization and map restrictions explicit;
+selection alone cannot establish those laws.
+
+Check actual compiled/glued positive and negative xor (one passes, zero/two fail
+while individual optional bounds hold), inherited extension and effective override,
+numeric bounds, or/mux/opt, repeated reference targets, overlapping inherited
+head visibility, multiple instances of one declaration, and empty-child bounds
+in empty and inhabited contexts, including zero-arrow support.
 
 Covers:
 - `intent~formalization-foundation~1`

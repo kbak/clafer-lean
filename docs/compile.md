@@ -34,6 +34,15 @@ source and target slots cojoin at the resolved parent's and target's heads.
 Ordinary map identities pair the owner position with the exact map role.
 Inclusions retain their owner, selected super and shared class role.
 
+The family retains the complete authored/effective group record without another
+defaulting pass; `group_bounds_valid` derives effective interval validity from
+the AST. `DirectChild` derives the finite own-child inventory from resolved
+parent identity, and `directChildHead` supplies each child's typed head map,
+including reference children. These data guarantees feed the separate interpreted group extension described in
+the [group compilation contract](group-compilation.md). `compileAugmented` retains
+this structural result and adds every concrete context's effective group predicate
+over its own and inherited child heads, including vertex-only empty inventories.
+
 Allocation is deterministic for the same ordered AST. Equal display names do
 not coalesce identities. Repeated references to one uniquely declared `DeclId`
 share its class, while reference heads and dereference maps remain distinct.
@@ -72,6 +81,12 @@ existing constraint signature; equal bodies at distinct attachments remain
 separate symbols. `formulas_wellFormed` proves total args and the combined key.
 `shape_declared`, `inclusion_declared` and `constraint_declared` state completeness
 for this inventory. Full binding data is never replaced by a bag or a quotient.
+
+The complete augmented bank contains both original and group declarations; it is
+not asserted to satisfy MCS total args. `gluedGroups` preserves its exact translated
+union with naming, metadata and effective-default completeness. Group satisfaction
+is equivalent to the selected child-object bounds for typed configurations, with
+explicit finite-count assumptions for numeric cardinalities.
 
 ## Limits and examples
 

@@ -417,6 +417,13 @@ entries in preorder, allocates class IDs and resolves finite edges.
 [Binding.lean](../Clafer/Compile/Binding.lean) builds complete constraint bindings;
 [Local.lean](../Clafer/Compile/Local.lean) generates Shape/inclusion declarations;
 [Basic.lean](../Clafer/Compile/Basic.lean) combines banks and validity proofs.
+[GroupSupport.lean](../Clafer/Compile/GroupSupport.lean),
+[Groups.lean](../Clafer/Compile/Groups.lean) and
+[GroupSemantics.lean](../Clafer/Compile/GroupSemantics.lean) add full inherited group
+supports, a separate augmented declaration component, exact union gluing and
+child-object counting correspondence. The old structural bank remains intact;
+vertex-only groups do not claim its total-args discipline. See the
+[group contract](group-compilation.md) for D6, empty inventories and #50/#66 boundaries.
 The [Compile contract](compile.md) owns exact input assumptions, identity/sharing
 rules, formula generation and guarantees. It derives structural MCS validity,
 not constraint-semantic preservation; integration with gluing remains on #24.

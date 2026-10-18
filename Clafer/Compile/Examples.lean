@@ -11,7 +11,8 @@ open Clafer.Examples CategoryTheory
 
 /-- Two constraint positions deliberately have the same source boundary number. -/
 def withConstraints : Declaration := { derivedDecl with constraints := [Clafer.Constraints.Examples.boundary, Clafer.Constraints.Examples.boundary] }
-def nestedDecl : Declaration := { id := ⟨9⟩, name := "same" }
+def nestedDecl : Declaration :=
+  { id := ⟨9⟩, name := "same", group := ⟨some .xor, .xor⟩ }
 
 def ast : AST := ⟨⟨0⟩,
   [.branch rootDecl [.branch intDecl [], .branch basicDecl [.branch nestedDecl []],
@@ -116,6 +117,34 @@ theorem shared_target_distinct_dereferences :
   exact fresh_maps input (by decide) _ _
 
 theorem inheritance_preserved : result.family.super derived = some abstractRef := rfl
+
+/-- A childless xor remains accepted structural input. The structural result alone
+retains metadata; the augmented result supplies the separate empty-group predicate. -/
+theorem empty_xor_metadata_preserved :
+    result.family.group nested = ⟨some .xor, .xor⟩ := rfl
+
+theorem nested_has_no_direct_children : IsEmpty (DirectChild input nested) := by
+  refine ⟨fun c => ?_⟩
+  have h := (directChild_iff input nested c.val).mp c.property
+  obtain ⟨c, _⟩ := c
+  change Fin 10 at c
+  fin_cases c <;> cases h
+
+noncomputable def nestedChild : DirectChild input basic := ⟨nested, rfl⟩
+
+theorem nested_child_head_incidence :
+    result.roles.source (directChildHead input basic nestedChild).val = basic ∧
+    result.roles.target (directChildHead input basic nestedChild).val = nested :=
+  (directChildHead input basic nestedChild).property
+
+noncomputable def derivedChild : DirectChild input result.family.root := ⟨derived, rfl⟩
+
+/-- The selected reference-child map ends at its head although its target is
+the distinct basic declaration. -/
+theorem reference_child_head_not_target :
+    result.roles.target (directChildHead input result.family.root derivedChild).val = derived ∧
+    (result.family.reference derived).target = some basic ∧ derived ≠ basic :=
+  ⟨rfl, rfl, by decide⟩
 
 theorem repeated_support_maps :
     (⟨1, by decide⟩ : (support input q0).Edge) ≠ ⟨6, by decide⟩ ∧

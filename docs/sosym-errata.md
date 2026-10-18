@@ -152,6 +152,18 @@ rules and notation do not by themselves supply constraint interpretation or
 primitive-value conversion.
 [Visual-source disposition and selected typing scope](SOURCES.md#appendix-d-rule-dispositions-q3).
 
+### Effective group inheritance and empty inventories
+
+**§4.2.1–2, §6.2.2, Appendix C and D.4.** Groups on abstract declarations supply
+inheritable bounds. Each concrete context enforces its effective bound over the
+union of own and inherited child heads; no separate abstract original-child
+invariant is added. This selected D6 interpretation follows the pinned compiler
+inheritance regressions. Ordinary explicit abstract-context constraints remain
+invariants. Empty inventories retain count zero, intentionally differing from
+the compiler's unconditional skip. A positive lower bound forces an empty context
+extent. [Source account, examples and representation boundary](group-compilation.md)
+explain the complete arities and separate component needed for vertex-only formulas.
+
 ## Formalization boundary
 
 Structural compilation and gluing establish structural results under their

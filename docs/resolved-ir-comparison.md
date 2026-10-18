@@ -293,8 +293,10 @@ A concrete parent's group count is the number of distinct **child head objects**
 in the union of its effective child fibers. Do not count child declarations,
 dereferenced targets, or the same inherited object twice. For S, child fibers
 have no inheritance overlap. The generalized union, effective inherited child
-inventory and behavior of abstract groups are D6; they require source review
-and a whole-model interpretation before extending the domain.
+inventory and behavior of abstract groups follow the [accepted D6 group
+contract](group-compilation.md). #65 generates interpreted declarations; the
+comparison domain remains guarded until #66 supplies inherited-family realization
+and its whole-model bridge.
 
 User objects must occur in some user head; arbitrary unused ambient garbage is
 not part of a candidate. Satisfaction must enforce the selected root/reachability
@@ -526,7 +528,7 @@ compiler behavior overrides a current Lean requirement.
 | D3 — parentless key and cards | Retain current corrected Shapes; reject abstract references and nontrivial abstract global cards until reviewed. Do not add a root parent/key to force compiler agreement. | #49/#50 with #20/#23; separate source correction if ever proposed. |
 | D4 — inheritance/refinement | Require selected parent/kind rules and the guarded S subset. Compiler parent-subtyping, redefinition, inherited ref fields and target narrowing are extensions requiring an explicit bridge. | #20/#22/#23/#50; preserve existing input requirement. |
 | D5 — hidden generation state | Same-generation minimal receipt and exact options; unsupported without it. Alternative broader state export needs a versioned schema. | #49; Alloy adapter follow-ups #51/#52 after review. |
-| D6 — group/global obligations | Own-child groups count head objects; inherited role union, abstract-group constraints and source/target sharing need a complete structural declaration inventory. C3 also suppresses a group fact with no declared children, even with a positive lower bound; retain this as a decision case. | #20 enumerates source clauses; #50 interprets/checks them. |
+| D6 — group/global obligations | Accepted for #65: abstract groups are inheritable bounds; concrete contexts count the union of own and inherited child heads. Empty inventories count zero, intentionally differing from C3’s skip. The [group compilation contract](group-compilation.md) records the separate generated component and complete bindings. | #50 retains its guarded checker; #65 generates/interprets groups; #66 owns inherited realization and map restrictions. |
 | D7 — location and scope | Accepted: reusable semantics, candidates, bridges and checker stay in this repository. No `clafer-compare` repository is created for #50. External harness placement remains deferred. | #50 implements the in-project extension under unchanged full validation; #51–52 own later harness decisions. |
 | D8 — structural dependency cut | Accepted guarded S interface: dependencies #3/#16/#17/#20/#21/#22/#23/#49 are complete. Unrelated Lean class extents may overlap; Alloy top-level disjointness is not added. Whole-model interpretation and finite correctness bridges remain #50 deliverables. | #50 owns the complete global structural interpretation; expression evaluation and external comparison remain excluded. |
 

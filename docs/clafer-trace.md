@@ -393,6 +393,35 @@ mapping and owner context. [Local](../Clafer/Compile/Local.lean):
 Covers:
 - `req~clafer-compile-formulas~1`
 
+## Compile group metadata and direct-child inventory
+`impl~clafer-compile-group-data~1`
+
+[MCS/Basic.lean](../Clafer/MCS/Basic.lean) adds `Family.group` as metadata;
+the existing MCS structural disciplines do not interpret it.
+[Compile/Structure.lean](../Clafer/Compile/Structure.lean) carries the complete
+group record in `family`. `DirectChild` selects exactly declarations whose
+resolved parent is the owner; `directChildHead` constructs their typed head maps.
+These declarations do not generate group predicates or select inherited paths.
+
+Covers:
+- `req~clafer-compile-group-data~1`
+
+## Compile group data preservation proofs
+`proof~clafer-compile-group-data~1`
+
+In [Structure](../Clafer/Compile/Structure.lean), `group_preserved` retains the
+whole metadata record, `group_bounds_valid` derives valid effective bounds,
+`directChild_iff` relates the inventory to source IDs, and
+`directChildHead_owner`/`directChildHead_injective` retain distinct child map
+identities. `directChildren_finite` derives finiteness from AST occurrences.
+[Examples](../Clafer/Compile/Examples.lean) checks
+`empty_xor_metadata_preserved`, `nested_has_no_direct_children`,
+`nested_child_head_incidence` and `reference_child_head_not_target`.
+The empty xor witness is accepted input, not a claim that its bound is enforced.
+
+Covers:
+- `req~clafer-compile-group-data~1`
+
 ## MCS gluing representation
 `impl~clafer-gluing-identity~1`
 
@@ -718,3 +747,60 @@ records the full command outcome, not a separate per-artifact certificate.
 Covers:
 - `req~clafer-finite-checker~1`
 - `req~clafer-checker-witnesses~1`
+
+## Interpreted group generation
+`impl~clafer-compile-groups~1`
+
+[GroupSupport.lean](../Clafer/Compile/GroupSupport.lean): `Ancestor`, `Child`,
+`arity`, `binding`, `Id`, `Objects`, `interpretation`, `ChildObjects`, `Holds`.
+[Groups.lean](../Clafer/Compile/Groups.lean): `groupBank`, `groupVocabulary`,
+`promote`, `generatedGroup`, `completeBank`, `Augmented`, `compileAugmented`,
+`gluedGroups`, `groupInterpretation`. The complete union keeps the original
+MCS bank separate from vertex-only generated declarations.
+
+Covers:
+- `req~clafer-compile-groups~1`
+- `req~clafer-compile-formulas~1`
+- `req~clafer-gluing-declarations~1`
+
+## Group generation and gluing correspondence
+`proof~clafer-compile-groups~1`
+
+[GroupSupport.lean](../Clafer/Compile/GroupSupport.lean): `binding_context`,
+`child_iff`. [Groups.lean](../Clafer/Compile/Groups.lean): `forget_augmented`,
+`complete_declarations`, `group_declared`, `group_owner`, `group_context`,
+`complete_defaults`, `groupCompatible`, `glued_declarations`, `glued_group_declared`,
+`group_label_unlabel`, `original_satisfaction`, `glued_model_iff`.
+[GroupSemantics.lean](../Clafer/Compile/GroupSemantics.lean): `head_relation`,
+`objects_interpret`, `satisfies_iff`, `finite_bounds`, `direct_child_iff`,
+`empty_holds_iff`, `generated_group_iff`, `descendGroups_reduct`,
+`glued_group_iff`, `descended_group_iff`, `descended_model_iff`.
+Typedness proves endpoint representation; finite counts reuse #50's
+`Verification.inRange_card`. Inherited field realization/commutation remains #66's
+obligation. Generic interpretations still require authored predicate meanings.
+
+Covers:
+- `req~clafer-compile-groups~1`
+- `req~clafer-gluing-declarations~1`
+- `req~clafer-gluing-formalcd~1`
+- `req~predicate-multiplicity~1`
+
+## Compiled and glued group witnesses
+`proof~clafer-compile-group-examples~1`
+
+[GroupExamples.lean](../Clafer/Compile/GroupExamples.lean): `emitted`,
+`glued_emitted`, `compiled_count`, `glued_count`, `xor_compiled_glued`,
+`numeric_compiled_glued`, `keywords_compiled_glued`, `inherited_new_child`,
+`abstract_has_no_group`, `override_two`, `one_declaration_two_objects`,
+`shared_target_occurrences`, `xor_individually_optional`, `xor_optional_head_maps`.
+[EmptyGroupExamples.lean](../Clafer/Compile/EmptyGroupExamples.lean):
+`inventory_empty`, `no_support_arrows`, `no_role_maps`, `accepted_iff`,
+`empty_context_positive`, `inhabited_context_positive_rejected`,
+`inhabited_zero_bounds`.
+[GroupOverlapExamples.lean](../Clafer/Compile/GroupOverlapExamples.lean):
+`overlap_typed`, `union_unchanged`, `two_head_paths_one_object`,
+`compiled_overlap_xor`, `glued_overlap_xor`. These check group predicates under explicit typed
+configurations, not a claim of complete #66 inherited-family realizability.
+
+Covers:
+- `req~clafer-compile-groups~1`

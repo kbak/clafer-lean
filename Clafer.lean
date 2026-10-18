@@ -6,6 +6,7 @@ public import Clafer.MCS.Metamodel
 public import Clafer.MCS.Gluing.Origins
 public import Clafer.Constraints.IntegerNavigation
 public import Clafer.Compile.Basic
+public import Clafer.Compile.GroupSemantics
 public import Clafer.Semantics.Abstracts
 public import Clafer.Semantics.Reachability
 public import Clafer.Verification.Representation

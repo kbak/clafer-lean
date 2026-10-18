@@ -847,6 +847,19 @@ interpretation. Generated local predicates are exactly the existing individual
 Shape inventory plus guarded inclusion predicates; group/abstract semantic
 translation and full constraint preservation remain outside this increment.
 
+The [accepted D6 group contract](group-compilation.md) extends this structural
+result through a separate generated component. Abstract groups are inheritable
+bounds, applied at concrete contexts over the union of own and super-hierarchy
+child heads. This follows the pinned compiler's `genGroupConst`, `analyzeGCard`,
+`findHierarchy` and inheritance regressions, while empty inventories deliberately
+retain literal count zero instead of the compiler's skip. The contract records
+all six immutable compiler links and the comparison with §4.2.2, §6.2.2, D.4 and
+Appendix C. No D1 default-policy change is made. Vertex-only formulas use B.4
+Definition 8 without claiming Figure 23 total args for the complete union.
+#50 supplies the selected count/representation interface; #66 owns inherited
+realization and commuting restrictions. Typed relation/count and exact union
+gluing proofs establish the bounded correspondence, not whole-language semantics.
+
 ## MCS gluing and the approved Q4 rule
 
 Primary source: SoSyM §6.2.5 (p.21) describes labeling from class/map roles to

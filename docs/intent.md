@@ -28,7 +28,11 @@ uses equal referents under incidence/metadata consistency and preserves the exac
 translated declarations; FormalCD validity additionally requires complete effective
 defaults. Structural Compile derives MCS validity under its [resolved-input
 contract](compile.md). Neither transformation establishes full constraint-semantic
-preservation. The [requirements](spec.md) state the precise promises, including
+preservation. Augmented Compile generates effective group predicates over the union of own and
+inherited child heads at each concrete context, including empty inventories.
+The [group compilation contract](group-compilation.md) explains the separate
+declaration component, exact union gluing and conditional semantic correspondence.
+The [requirements](spec.md) state the precise promises, including
 ordinary-key correspondence under totality/single-valuedness and the bounded
 metamodel/primitive-conversion limits.
 
