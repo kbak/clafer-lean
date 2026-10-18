@@ -280,7 +280,7 @@ Covers:
 | --- | --- | --- |
 | 1 — reusable DP-graphs | [#13](https://github.com/kbak/clafer-lean/issues/13) representation; [#14](https://github.com/kbak/clafer-lean/issues/14) → [#15](https://github.com/kbak/clafer-lean/issues/15), with derived [#28](https://github.com/kbak/clafer-lean/issues/28)/[#30](https://github.com/kbak/clafer-lean/issues/30); [#4](https://github.com/kbak/clafer-lean/issues/4) → [#16](https://github.com/kbak/clafer-lean/issues/16) | #14/#25, #15/#27, #28/#29, #4/#32, #30/#33 and #16/#34 delivered. #13's final representation/dependency assessment is in #39. Generic DPGraph remains independently importable. |
 | 2 — reusable formal CDs | #16 → [#17](https://github.com/kbak/clafer-lean/issues/17) → [#18](https://github.com/kbak/clafer-lean/issues/18) → [#19](https://github.com/kbak/clafer-lean/issues/19) | #17/#35, #18/#36 and #19/#38 delivered: structure, morphisms, compatible vocabulary, Figure 21c, bounded syntactic self-description and Figure 21b/VC. Semantic self-instantiation remains outside scope. |
-| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. The structural MCS disciplines are implemented for #20; #21 adds typed core expressions and graph support. Structural Compile is implemented for #22 under its explicit contract. The approved Q4 gluing is implemented for #23 with separate default-completeness hypotheses; Compile-to-gluing integration remains on #24. Planning tickets alone authorize no further implementations. |
+| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. The structural MCS disciplines are implemented for #20; #21 adds typed core expressions and graph support. Structural Compile is implemented for #22 under its explicit contract. The approved Q4 gluing is implemented for #23 with separate default-completeness hypotheses. The [representative integration](representative-models.md) checks concrete Compile/gluing structure, generated xor predicates and the selected version attachment; full expression preservation and Appendix F satisfaction remain #68/#69/#64. Planning tickets alone authorize no further implementations. |
 
 ### Nine architectural decision areas
 
@@ -317,6 +317,7 @@ link to the actual declarations; the statements below bound what may be inferred
 | The metamodel has a bounded syntactic CD representation; guarded VC agrees with the selected integer comparison and the example models. | Proved as `bounded_self_description`, `satisfies_vc_iff_guarded` and `Examples.model_iff` (#19/#38); preserve their vocabulary/registry, integer-domain, inclusion and version hypotheses. No semantic self-instantiation. |
 | A well-formed resolved AST compiles to an MCS satisfying the explicitly enumerated invariants. | Derived by `Compile.compile`/`wellFormed` under `Compile.Input`, including canonical naming and positive constraint support. Finite traversal/lookup and owner-role identities establish termination and freshness; see [the contract](compile.md). |
 | The role-label map is a DP morphism, and the glued structure is a well-formed formal CD. | Proved separately in `Gluing.labelHom` and `raw_wellFormed`: approved referent incidence/metadata consistency, with naming and effective-default completeness additionally required for CD validity. |
+| Representative resolved models preserve structural relationships through compilation and gluing; generated xor distinguishes zero/one/two children. | Proved in `Examples.Integration`; `Examples.VersionCompilation` derives selected operand definedness from emitted local formulas plus integer-domain realization. [Coverage](representative-models.md) distinguishes structural attachment, definedness, predicate truth and whole-model satisfaction. |
 | Compilation/gluing preserves all constraint meanings, or every CD semantically instantiates its metamodel. | Deferred; no accepted general statement or proof. Source resolution and explicit realizability/semantic hypotheses would be needed first. |
 
 #40 delivers #2's cross-check and documentation close-out. Missing-source
@@ -450,8 +451,11 @@ silently added. The [gluing boundary](mcs-invariants.md#gluing-boundary),
 [Boundaries](../Clafer/MCS/Gluing/Boundaries.lean) exercise merges, parallel maps,
 formula collisions, defaults and full-binding transport; the
 [trace map](clafer-trace.md#mcs-gluing-representation) gives exact declarations.
-DP preservation, CD validity and model satisfaction are distinct. Compiler
-integration and global pushout existence are separate obligations.
+DP preservation, CD validity and model satisfaction are distinct. The
+[representative integration](representative-models.md) establishes concrete
+Compile/gluing obligations with the derived compatibility and default proofs.
+Global pushout existence and general constraint-semantic preservation remain
+separate obligations.
 
 ## Integer extraction boundary
 

@@ -7,8 +7,8 @@ structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntacti
 self-description and the complete Figure 21b example with corrected VC. Structural
 Clafer now includes resolved deep syntax, typed core constraints, individual
 Shapes, the MCS structural discipline, structural Compile and resolved-referent
-gluing under the scoped requirements below. Constraint interpretation and integration
-remain separate increments. The source-audit roadmap alone authorizes no semantic work.
+gluing and representative integration under the scoped requirements below. General
+constraint interpretation and full Appendix F satisfaction remain separate increments. The source-audit roadmap alone authorizes no semantic work.
 
 ## Reproducible Lean validation
 `req~lean-validation~1`
@@ -1501,8 +1501,9 @@ boundaries. Appendix F has a mandatory server and an unguarded comparison;
 Figure 21's 0..1 server and nonempty-server guard remain a distinct contract.
 The theorem is conditional on the selected structural semantics, not a proof
 that structural Compile establishes those semantics or a whole Appendix F model.
-The inherited structures and other constraints (including `server = parent`)
-remain obligations for #50/#66 and the later interpreter. Document Q3 limits and
+The [inherited realization extension](inherited-realization.md) supplies the selected
+structural fields; the other constraints (including `server = parent`) and their
+combined interpretation remain #68/#69/#64 obligations. Document Q3 limits and
 the full mathematical integer realization separately from finite object examples.
 
 Covers:
@@ -1906,5 +1907,63 @@ fixture or complete satisfaction result.
 
 Covers:
 - `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Representative compilation and gluing
+`req~clafer-representative-integration~1`
+
+Apply the delivered Compile/gluing correctness interfaces to concrete resolved
+models (SoSyM §6.2.4–5, selected Figures 16, 18, 21–23 and Appendix F), proving
+expected nesting, inheritance, shared-reference identity, multiplicity and typed
+constraint-attachment relationships. Establish MCS validity, FormalCD validity
+with complete effective defaults, and exact translated declaration preservation
+for the selected concrete banks. Keep role identities, referents and names
+separate; retain full support bindings and repeated constraint occurrences.
+
+Check actual generated group predicates after both compilation and gluing. A
+compiled/glued xor must accept one selected child object and reject zero and two,
+with all individual optional child-head multiplicity formulas satisfied in each
+case. Reuse the delivered group/structural semantics, including inherited fields;
+AST group metadata alone does not meet this obligation. Reuse the complete
+Appendix F declaration projection and its nonempty structural realization.
+
+Compile and glue the selected Appendix F c02 typed attachment, preserving the
+mandatory server and unguarded display-version >= server-version direction.
+Derive the delivered integer-navigation bound/inclusion hypotheses from the
+actual emitted local predicates under interpretation; keep the integer-domain
+assumption explicit. Reuse the selected partial comparison and its defined
+true/false and invalid-operand witnesses. Distinguish structural attachment,
+operand definedness, interpreted predicate satisfaction and whole-model
+satisfaction. Do not substitute Figure 21's optional guarded VC or assert general
+expression preservation; #68/#69 retain those remaining obligations.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Representative paper coverage accounting
+`req~clafer-representative-coverage~1`
+
+Maintain a concise [feature/source and completion matrix](representative-models.md)
+linking every advertised feature to a checked example and actual theorem. Account
+for all Appendix F d01–d26 declarations and c01–c12 conjuncts from the accepted
+[inventory](inherited-realization.md), including every omission from each selected
+fixture. Separate required results, proved statements, assumptions and unfinished
+questions. Preserve the distinct source IDs of each representation; do not combine
+separate fixtures into an unsupported full-model claim.
+
+The structural projection includes all printed declarations; the separately
+compiled c02 fragment is a supported subset, not full Appendix F completion.
+Full interpretation of all printed constraints, final selections and a nonempty
+satisfying full model remain #64. #69 depends on this structural milestone and
+is not a prerequisite for its narrower result. Preserve independent public imports
+for DPGraph, FormalCD and Clafer under the existing layer checks. Keep #24 open
+until its deliverables are accepted and the implementing PR is merged.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
 
 Needs: impl, proof

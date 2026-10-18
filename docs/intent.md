@@ -13,7 +13,7 @@ with reusable foundations supporting structural Clafer. The repository
 | --- | --- | --- |
 | DPGraph | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
 | FormalCD | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
-| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration and general constraint meaning remain separate; the integer bridge proves selected Appendix F operand definedness; Compile-to-gluing integration is on [#24](https://github.com/kbak/clafer-lean/issues/24) |
+| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration and general constraint meaning remain separate; the [representative integration](representative-models.md) checks Compile-to-gluing structure and selected Appendix F operand definedness, with full expression meaning and full-model satisfaction still separate |
 
 Preserve the accepted [paper corrections and clarifications](sosym-errata.md):
 composition retains links and agrees with relations after reduction;
@@ -64,8 +64,10 @@ The separate [inherited realization extension](inherited-realization.md) supplie
 Appendix F's ordinary field instances, explicit abstract families, restrictions of
 shared maps, and generated structural correspondence. Authored abstract types and
 fields made effectively abstract by containment retain different realization rules.
-The complete fixture and final selections remain #64; general expression meaning
-and its combined bridge remain #68/#69.
+The [representative models](representative-models.md) connect concrete compilation
+and gluing, generated xor boundary cases and the mandatory version attachment.
+The full constraint-bearing fixture and final selections remain #64; general
+expression meaning and its combined bridge remain #68/#69.
 
 Exclude instance/object generation, Alloy/SMT/SAT integration, production runtime
 configuration management, Claferize, post-2014 extensions, a production parser and
@@ -98,6 +100,7 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | [Source map](SOURCES.md) | Paper correspondence, immutable source citations, decisions and audit limits |
 | [Paper companion](sosym-errata.md) | Concise corrections and clarifications for SoSyM readers |
 | [DPGraph](dpgraph-trace.md), [FormalCD](formalcd-trace.md) and [Clafer](clafer-trace.md) traces | Named implementation/proof artifacts and actual Lean declarations |
+| [Representative models](representative-models.md) | Checked integration, source/feature coverage and explicit Appendix F omissions |
 | [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix F navigation assumptions |
 | [MCS inventory](mcs-invariants.md) and [Compile contract](compile.md) | Detailed structural clauses and transformation assumptions |
 | [IR comparison contract](resolved-ir-comparison.md) | Proposed comparison domain, compiler audit and remaining prerequisites |
