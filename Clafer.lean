@@ -13,6 +13,12 @@ public import Clafer.Semantics.Abstracts
 public import Clafer.Semantics.Reachability
 public import Clafer.Verification.Representation
 public import Clafer.Verification.ProtocolProofs
+public import Clafer.Constraints.CollectionMeaning
+public import Clafer.Constraints.DenotationLaws
+public import Clafer.Constraints.DenotationInvariance
+public import Clafer.Constraints.DenotationSupport
+public import Clafer.Constraints.DenotationRenaming
+public import Clafer.Constraints.DenotationDefined
 
 /-!
 # Structural 2014 Clafer
@@ -20,8 +26,8 @@ public import Clafer.Verification.ProtocolProofs
 Resolved deep syntax, typed core constraints, a binder/context boundary and
 individual Shapes over FormalCD and DPGraph, with the Figure 23 MCS structural
 disciplines, structural Compile, resolved-referent gluing and verified finite
-structural satisfaction for the guarded effective core. Integer extraction and
-selected Appendix F navigation have partial meanings; a full constraint interpreter
-remains a separate increment; see docs/ARCHITECTURE.md. Acceptance examples are
+structural satisfaction for the guarded effective core. The resolved core has independent
+partial denotation, explicit model environments and Appendix F expansions;
+compiler preservation remains separate. See docs/ARCHITECTURE.md. Acceptance examples are
 checked separately.
 -/

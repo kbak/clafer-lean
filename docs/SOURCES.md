@@ -379,7 +379,7 @@ source gaps. Keep the original issue discussions as the decision history.
 | --- | --- | --- |
 | Q1 — B.2.1 composition | Accepted: retain pullback links and prove equality after reduction. The unqualified relational-span isomorphism is false. | #4 / #32 delivered `Span.red_comp`, the exact endpoint-injectivity criterion and two-path/parallel-link counterexamples; [source comparison](#span-composition-q1-research-for-4). No remaining #4 implementation task. |
 | Q2 — Appendix E analogous clauses | Accepted: incidence/naming equations apply only to present roles; existing Shape rules separately require or forbid each role. The analogous expansion includes Sing/root, every supported primitive domain, the accepted parentless exception and both directions of canonical naming equivalences. | The [complete Table 5–8 inventory](mcs-invariants.md#appendix-e-inventory) enumerates the guards. #20 attaches definitions and positive/negative witnesses in the inventory; the accepted Figure 23 multiplicity correction is Q9. |
-| Q3 — Appendix D notation | Resolved for the selected core: ordinary common-element intersection is already printed as ∩ in D.4.2. D.4.1 equates E and S on set expressions, reconciling the mixed subscripts. D.1–D.3 govern typing; the implementation boundary is enumerated below. | #21 supplies typed syntax and explicit inheritance paths. Interpretation, finite-instance cardinality and primitive singleton extraction remain unformalized; no predicate-meaning theorem follows from a signature. |
+| Q3 — Appendix D notation | Resolved for the selected core: ordinary common-element intersection is already printed as ∩ in D.4.2. D.4.1 equates E and S on set expressions, reconciling the mixed subscripts. D.1–D.3 govern typing; the implementation boundary is enumerated below. | #21 supplies typed syntax and explicit inheritance paths. The [denotation extension](constraint-denotation.md) supplies independent core meanings, local finite cardinality and the #67 singleton bridge; no compiler-preservation theorem follows from a signature. |
 | Q4 — labels and identity | #20 representation accepted: preserve role identities separately from resolved class/map referents and displayed names, and state the identity level of cojoining equalities. Repeated parent/dref/isA strings do not identify arrows. Approved Q4: identify exactly equal class/map referents; equal map referents require equal endpoint class referents, and identified roles require equal names, predefined identities/kinds and modes. Reject conflicts. | #20 retains the data needed for intended identifications and repeated-name witnesses; #23 implements this congruence and proves endpoint/declaration preservation, then separate CD validity under explicit default assumptions. #22 retains generated identities. Existing FormalCD names remain metadata. |
 | Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
 | Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) owns the bounded assessment and reviewed source disposition; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
@@ -409,8 +409,8 @@ E(SetExp, env) with S(SetExp, env), so the E subscript on right operands of
 D.4.2's union, difference and intersection is reconciled by that equation. It is
 not necessary to invent a conversion or change the meaning of either operand.
 For example, intersection of {a,b} and {b,c} is {b}, while their difference is
-{a}; intersection with the empty set is empty. These are explanatory set examples,
-not formalized evaluator results.
+{a}; intersection with the empty set is empty. The denotation witnesses check these ordinary intersection boundaries in the
+actual typed core.
 
 | Locator | Source contract | Delivered typing boundary |
 | --- | --- | --- |
@@ -419,7 +419,7 @@ not formalized evaluator results.
 | D.3.2, Set operators / Subsetting | Equal operand types; union, difference, intersection; Boolean subsetting | Both unary sets and binary relations have distinct union/difference/intersection constructors with a common shape, and Boolean subsetting. Explicit widening can first move inheritance-compatible operands to a chosen common class or endpoint pair. |
 | D.3.2, Relational join | Binary–binary composition and unary–binary image, with matching middle type | Both joins are supported; `Path.navigate` builds endpoint-checked unary navigation. Widening is available before a join, so inherited members are not excluded. Reversed or unrelated endpoints require valid evidence and cannot be silently equated. |
 | D.2, Descendants; §5.5 inheritance | Lookup takes inherited clafers into account | Widening records equal resolved identities or paths of actual super edges in the support graph. Both relation endpoints may be widened. The caller selects the common type; no least-common-supertype algorithm or name resolver is claimed. |
-| Appendix D introductory prose; D.4.1, Set expression | Bare navigation defaults to `some`; no/one/lone/some test cardinality | Explicit typed syntax helpers express these tests using cardinality and integer comparison. A resolved input inserts the default helper; a collection is not itself a Boolean term. Correctness of desugaring is deferred with evaluation. |
+| Appendix D introductory prose; D.4.1, Set expression | Bare navigation defaults to `some`; no/one/lone/some test cardinality | Explicit typed syntax helpers express these tests using cardinality and integer comparison. A resolved input inserts the default helper; a collection is not itself a Boolean term. The denotation extension proves the helper equations and manually elaborates c01–c12; general textual desugaring correctness remains separate. |
 
 D.2's reserved names, binder lookup and model lookup remain an upstream resolution
 obligation. `this` is tied to the enclosing support vertex; head, parent,
@@ -436,10 +436,10 @@ asserted to be an automatically extracted minimal support. A full graph binding
 is required for a future predicate declaration (§6.2.2). This is an interface,
 not a translation or a meaning proof.
 
-No full interpretation of `Expr`, general object-diagram environment,
-finite-instance cardinality, core-wide relational reduction of bag links,
-substitution, solver, parser, resolver or runtime evaluator is delivered. In
-particular, `<` on arbitrary object sets is not justified by the schematic τ
+The [independent denotation](constraint-denotation.md) now supplies `Expr`
+meanings, explicit environments, local finite cardinality and explicit span
+reduction. Substitution, a solver, parser, resolver and executable evaluator remain
+outside this extension. In particular, `<` on arbitrary object sets is not justified by the schematic τ
 in D.3.1; only the integer fragment is implemented. The interface does not settle
 string ordering, automatic coercion selection, or tuple binders. The integer
 extraction extension uses mathematical `Int` without overflow.
@@ -476,8 +476,8 @@ with the combined Figure 21 maps. Its semantic theorem assumes the selected
 multiplicity/reference/inclusion discipline and derives singleton operands;
 structural Compile alone does not discharge those assumptions. The concrete
 examples include five structural objects and **all** integers. No bounded Alloy
-arithmetic or compiler evidence is used. Q3's unresolved general expression
-interpretation remains separate; #68 can consume this interface.
+arithmetic or compiler evidence is used. The #68 [denotation extension](constraint-denotation.md) consumes this interface
+and retains these singleton obligations.
 
 ## Predicate contracts and the accepted Q8 correction
 
@@ -783,8 +783,9 @@ accepted snapshots remain unchanged.
 
 The #20 MCS structural implementation follows the Q2 guards/analogous expansion,
 Q4 identity separation and Q9 source correction in the [MCS inventory](mcs-invariants.md).
-The typed constraint extension and Q3 disposition are described above; constraint
-meaning and its preservation remain unformalized. [Structural Compile](compile.md)
+The typed constraint extension and Q3 disposition are described above. The
+[independent core denotation](constraint-denotation.md) supplies constraint meaning
+and the Appendix F expansions; compilation preservation remains #69. [Structural Compile](compile.md)
 and [resolved-referent gluing](#mcs-gluing-and-the-approved-q4-rule) have separate
 input contracts; their integration remains on #24.
 
@@ -924,3 +925,26 @@ The equal-parent declaration rule remains in force; broader refinement is
 unsupported. The linked contract records all 26 declarations, seven super edges,
 five explicit abstract families, three xor inventories and twelve conjuncts,
 with the pinned primary and supplementary source identities.
+
+
+## Independent constraint meaning and Appendix F elaboration
+
+The primary source is the same SHA-256-identified SoSyM preprint, Appendix
+D.1–D.4/Figure 28 pp.31–32 and Appendix F p.34. Q3 selects ordinary
+intersection; Q7 retains display >= server with no Appendix F optional-server
+guard. The [denotation contract](constraint-denotation.md) describes the exact
+partiality and local finite-cardinality boundary. The [inherited inventory](inherited-realization.md#constraint-scope-handoff)
+records every c01–c12 expansion; `AppendixFConstraints.inventory` supplies its
+typed body and checked support against that same complete structural AST.
+Global abstract navigation uses a resolved extent, since a parentless abstract
+has no synthetic-root head map. This is a resolved-core representation choice;
+no general textual resolver or frontend correctness is asserted.
+
+B.1/B.2 link identities remain in model spans. `ambientRelation`, `image_span`
+and `join_span` make the D.4 relational reduction explicit, while head counts
+retain different reference objects at equal targets. Source operations do not
+justify imposing a finite universe of primitive values. The complete integer
+realization and partial singleton extraction therefore remain #67's contract.
+The expression environments reuse #66's nonprimitive carrier; a complete
+structural/primitive/compiler bridge remains #69. No supplementary compiler
+claim or third-party implementation is introduced by these equations.
