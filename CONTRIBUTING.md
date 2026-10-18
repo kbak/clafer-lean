@@ -18,7 +18,8 @@ their owning root and preserve `Clafer -> FormalCD -> DPGraph -> Mathlib`.
 adds class-diagram structure, name-preserving morphisms and the Figure 21c
 metamodel/discipline API, bounded syntactic self-description and the Figure 21b
 VC interpretation; its concrete examples are checked separately. Clafer supplies
-the resolved AST, binder/context boundary and individual Shapes. See
+the resolved AST, binder/context boundary, individual Shapes and Figure 23/Appendix E
+structural MCS discipline. See
 [architecture](docs/ARCHITECTURE.md).
 
 Install Lean with [elan](https://lean-lang.org/install/), Python 3.11+, Git,

@@ -5,9 +5,10 @@ The source is SoSyM §6.2.3/Figure 23 (pp.20–21) and Appendix E Tables 5–8
 records the accepted Q2 expansion and Q4 representation boundary for
 [#20](https://github.com/kbak/clafer-lean/issues/20). The
 [existing Shape contract](spec.md#individual-clafer-shapes) controls exact presence.
-These equations are a specification inventory; MCS definitions and proofs remain
-pending the independent Figure 23 multiplicity decision below. No compiler,
-gluing congruence or semantic model-existence result is claimed.
+The [MCS modules](../Clafer/MCS/Basic.lean) implement this structural inventory.
+The [source correction](#figure-23-source-multiplicity-correction) applies to
+seven associations. Compiler formula generation, gluing congruence and semantic
+model existence remain separate obligations.
 
 ## Appendix E inventory
 
@@ -82,42 +83,73 @@ from well-typed full bindings. Reuse the
 Do not weaken that key to indexed equality or suppress total args for zero-arrow
 arities.
 
-## Figure 23 source-multiplicity conflict
+## Figure 23 source-multiplicity correction
 
-**Unresolved Q9, owned by #20.** Figure 23 prints `1` at the source of each
-ordinary-map slot (head, parent, dref, target), as well as the three super slots,
-head-class slot and formulas association. Table 3's `mult-src` semantics
-counts the inverse fiber at a target. Consequently, a literal source `1` on
-`parent_map : Clafer → MapRole` requires every map-role object to occur as a
-parent map of exactly one clafer. The corresponding `1` on `dref_map` requires
-every map-role object to occur as a dereference map of exactly one clafer.
+The accepted #20 correction changes the source multiplicity on each of the four
+ordinary-map and three inclusion-role associations from `1` to `0..1` over its
+common target: each role has at most one owner within each association's image.
+Shape and inheritance guards still enforce exact required and forbidden presence.
+The head class always exists. Top-level abstracts omit source and parent-dependent
+maps, retaining target/dereference when they are references.
 
-For any map role `m`, choose those two clafers. Table 8's guarded equations apply
-because the chosen roles exist. They give `label(m) = "parent"` and
-`label(m) = "dref"`. Figure 23's label is single-valued, so the two distinct
-strings would be equal. Thus the literal conjunction permits no map-role
-objects. Any parented shape requires a map role under the accepted Shape rules,
-so it cannot satisfy that conjunction. Only inverse **existence** was needed
-for this contradiction; weakening uniqueness alone does not remove it.
+The printed lower bounds cannot support nonempty map examples: source `1` on
+both parent_map and dref_map forces every MapRole into both images. Table 8 then
+requires its single label to be both `"parent"` and `"dref"`. The correction removes
+these conflicting inverse-existence obligations, including on all three super
+associations. It does not change head-class source `1` (each ClassRole is one
+clafer's head) or formulas source `1` (each Formula has one owner). The publication
+and frozen historical snapshots retain the printed annotations.
 
-Q2's optional-role guards do not resolve this conflict: they guard the naming
-and incidence equations at a clafer, while source multiplicity constrains every
-object in the common target MapRole set. Q4's separation of referents from role
-identities does not resolve it either: the conflict already occurs at a single
-role's displayed label, before gluing.
+## Definition and proof map
 
-Two possible source treatments require explicit selection:
+All names below are in `Clafer.MCS` unless qualified. The representation uses
+explicit ordinary and inclusion slot occurrences as map-role identities. Shared
+class roles are vertices of a common graph; `Roles.Cojoining` compares those
+vertices, before referent or string equality. `Family.canonicalRoles` supplies a
+constructible cojoining of a resolved family, without resolving names or compiling
+an AST. Arbitrary vertex assignments remain expressible and are checked by
+`Roles.Cojoining`. The occurrence presentation retains separate arrows until the
+later gluing operation, even if their endpoints, referents or names agree.
 
-- Retain each printed source `1` literally over its common target and state the
-  resulting lack of any MCS with map roles. This cannot meet #20's requested
-  nonempty parented/reference witnesses.
-- Correct the affected ownership annotation to uniqueness on the image of that
-  particular slot (equivalently source upper bound `0..1` over the common target),
-  leaving exact required/forbidden role presence to Shape. This removes the
-  conflicting lower bounds but is a semantic departure from the printed `1`.
+| Inventory clauses | Definition/proposition | Boundary evidence |
+| --- | --- | --- |
+| Table 5 head, parent, dref, target endpoints | `Roles.binding`, `Roles.source`, `Roles.target`, existing `Roles.source/target` in `Clafer.Roles` | `Roles.incidence`; typed Shape arrows have the two exact endpoints |
+| Table 6 parent and target cojoining | `Roles.Cojoining.parent`, `.target` | `Family.canonical_cojoining`, `primitive_cojoins_root`, `Examples.wrong_parent_cojoining_rejected`, `Examples.wrong_target_cojoining_rejected` |
+| Table 6 head/source/target inclusions | `Family.InclusionSlot`, `Roles.inclusion` | `Roles.inclusion_incidence`, `super_has_head`, `no_super_no_inclusion`, `missing_sub_source`, `missing_super_source`, `missing_sub_target`, `missing_super_target`, `Examples.shared_source_present` |
+| Table 7 Sing/root | `Family.WellFormed.root_origin`, `.root_shape` | `root_has_head`, `root_no_maps`, `no_super_no_inclusion`, `Examples.root_super_rejected` |
+| Table 7 Dom: int/string/bool | `Family.WellFormed.primitive_shape`, `.unique_primitive` | `primitive_no_target`, `primitive_cojoins_root`, `Examples.family_valid` covers all three; `Examples.primitive_reference_rejected` |
+| Table 7 basic/set/bag presence and modes | `Family.shape`, `ReferenceTo.kind/target`, `Clafer.Roles.classPresent/mapPresent/mode`, `Family.MapId.mode` | `reference_target_iff`, existing `Clafer.Roles.no_basic_target`, `.no_parent_source`, `.no_parent_maps`, `Examples.bag_mode` |
+| Table 7 parentless exception | `Family.WellFormed.parentless_abstract` | `Examples.parentless_reference_retains_dref`, `Examples.family_valid` (abstract basic and reference), `Examples.missing_parent_rejected` |
+| Table 8 head/parent/dref/target names | `Labels.WellFormed.head_name`, `.ordinary_name` | `target_name_via_head`, `Examples.labels_valid` |
+| Table 8 Sing and each primitive equivalence, both directions | `Labels.WellFormed.sing_iff`, `.primitive_iff` | `reserved_names_exclude_users`, `Examples.user_named_Sing_rejected` |
+| Inherited inclusion naming | `Labels.WellFormed.inclusion_name` | `Examples.repeated_inclusion_names` |
+| Corrected ordinary/inclusion ownership | `Family.MapId` occurrence identities | `ordinary_owner_unique`, `inclusion_owner_unique` |
+| Literal head-class and formula ownership | `Roles.Cojoining.head_bijective`, `Formulas.owner` | `Family.canonical_cojoining`, `Examples.sample_valid` |
+| Role cover/disjointness and inclusion subtype | `Role`, `Family.MapId.inclusion`, `Family.MapId.mode` | `role_cover`, `role_disjoint`, typed inclusion incidence |
+| Total labels and endpoints; PredefStr | `Labels.label`, `Roles.source/target`, `predefinedStrings` | `Labels.WellFormed`, `Roles.incidence` |
+| Formula symbol, full binding and occurrence bag | `Formulas`, `.Arg`, `.argument`, `.diagram` | `Examples.repeated_occurrences_preserved`, `.repeated_args_valid` |
+| Separate total args and literal (args,pred) key | `Formulas.WellFormed.total_args`, `.literal_key`, `Formulas.SameBag` | `Formulas.no_zero_arrow`, `.formula_injective`, `.sameBag_iff_map_roles`, `Examples.duplicate_formulas_rejected` |
+| Local Shape diagram predicates | `Roles.localDiagram` translates existing `Shape.declarations` | `Roles.local_declared`, `Examples.shapes_compose` |
 
-The decision must also specify its application to the three super-role slots.
-The head-class and formulas annotations need their own literal/ownership
-accounting; they are not automatically changed by a correction to map slots.
-No multiplicity correction is adopted here. The publication, existing Shape
-requirements and frozen task snapshots remain unchanged.
+[Metamodel.lean](../Clafer/MCS/Metamodel.lean) enumerates all nine nodes and twenty
+arrows of Figure 23. Its `Metamodel.diagram` uses the existing FormalCD vocabulary,
+including bag args, literal key, role cover/disjointness, functional/total maps,
+unchanged source-one ownership and the seven corrected source bounds.
+The explicit `nd`/`ad` symbols attach to the whole structural context; the typed
+bindings and separate validity propositions above state their contracts. This does
+not assert a semantic self-instantiation or a concrete span interpretation of the
+whole metamodel.
+
+`Examples.sample` combines eleven owners, all primitive domains, basic/set/bag
+shapes, parentless abstracts, two inheritance patterns and a nonempty formula
+bank. `Examples.sample_valid` proves its complete structural obligations.
+`Examples.repeated_parent_names`, `.repeated_dref_names` and
+`.repeated_inclusion_names` retain distinct identities despite equal strings.
+The sample bank contains inclusion declarations and unrestricted ordinary-arrow
+bounds. Local inverse/triangle/key/default formulas can be transported by
+`Roles.localDiagram`; generating the complete compiler output and proving its
+formula-bank obligations belong to #22. Structural validity neither assumes that
+compilation theorem nor proves satisfaction of the declared constraints.
+
+The canonical requirements and named proof artifacts are in
+[spec](spec.md#mcs-metamodel-and-ownership) and [Clafer trace](clafer-trace.md#mcs-metamodel).

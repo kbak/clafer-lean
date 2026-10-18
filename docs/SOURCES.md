@@ -359,7 +359,7 @@ Covers:
 | Formal CD: §6.1.1–3, Figure 21a–b | Raw/bundled CD, registry, naming and effective defaults; name-preserving morphisms are an explicit library specialization | #17 / [#35](https://github.com/kbak/clafer-lean/pull/35); whole Figure 21b/guarded VC models in #19 / [#38](https://github.com/kbak/clafer-lean/pull/38) |
 | Metamodel: §6.1.3, Figure 21c | Compatible vocabulary, nd/ad disciplines, full graph bindings; separate syntactic self-description from semantic instantiation | #18 / [#36](https://github.com/kbak/clafer-lean/pull/36), bounded self-description #19 / #38; literal-key/total-args limits below |
 | Syntax and individual Shapes: §5.2 Figure 16, §6.2.2 Figure 22, Appendix C | Resolved deep AST and individual Shapes; IDs, containment, inheritance, references, abstractness, root/domains and finite traversal | [#3](https://github.com/kbak/clafer-lean/issues/3), [implementation and proofs](clafer-trace.md) |
-| MCS: §6.2.3 Figure 23, Appendix E Tables 5–8 | Accepted guarded incidence/naming and analogous expansion, preserving exact Shape presence rules and distinct identity levels; see the [inventory](mcs-invariants.md). Figure 23 source multiplicities need the Q9 decision before implementation. | [#20](https://github.com/kbak/clafer-lean/issues/20), Q2 resolved; Q4 representation selected, gluing deferred; Q9 pending |
+| MCS: §6.2.3 Figure 23, Appendix E Tables 5–8 | Accepted guarded incidence/naming and analogous expansion, preserving exact Shape presence rules and distinct identity levels; see the [inventory](mcs-invariants.md). The accepted Q9 correction applies source `0..1` to the four ordinary-map and three inclusion-role associations, retaining exact Shape presence. | [#20](https://github.com/kbak/clafer-lean/issues/20), Q2/Q9 resolved; Q4 representation selected, gluing deferred |
 | Constraints: Appendix D.1–D.4 | Proposed resolved expression syntax and checked typing; binders, navigation and set operations; meaning remains distinct from syntax | [#21](https://github.com/kbak/clafer-lean/issues/21), Q3 pending |
 | Compile: §6.2.4 | Proposed finite resolved-AST-to-MCS transformation; termination, freshness, incidence, cojoining, kind/name preservation under explicit input well-formedness | [#22](https://github.com/kbak/clafer-lean/issues/22), depends on #3/#20/#21 |
 | Gluing: §6.2.5 | Proposed role-label graph map and declaration image; endpoint congruence, label DP-morphism, then separate CD well-formedness | [#23](https://github.com/kbak/clafer-lean/issues/23), Q4 pending; generic pushout results alone do not prove this |
@@ -374,14 +374,14 @@ source gaps. Keep the original issue discussions as the decision history.
 | Question | Disposition and alternatives | Validation and owner |
 | --- | --- | --- |
 | Q1 — B.2.1 composition | Accepted: retain pullback links and prove equality after reduction. The unqualified relational-span isomorphism is false. | #4 / #32 delivered `Span.red_comp`, the exact endpoint-injectivity criterion and two-path/parallel-link counterexamples; [source comparison](#span-composition-q1-research-for-4). No remaining #4 implementation task. |
-| Q2 — Appendix E analogous clauses | Accepted: incidence/naming equations apply only to present roles; existing Shape rules separately require or forbid each role. The analogous expansion includes Sing/root, every supported primitive domain, the accepted parentless exception and both directions of canonical naming equivalences. | The [complete Table 5–8 inventory](mcs-invariants.md#appendix-e-inventory) enumerates the guards. #20 must attach definitions and positive/negative witnesses when implementing it; the independent Figure 23 multiplicity conflict is Q9. |
+| Q2 — Appendix E analogous clauses | Accepted: incidence/naming equations apply only to present roles; existing Shape rules separately require or forbid each role. The analogous expansion includes Sing/root, every supported primitive domain, the accepted parentless exception and both directions of canonical naming equivalences. | The [complete Table 5–8 inventory](mcs-invariants.md#appendix-e-inventory) enumerates the guards. #20 attaches definitions and positive/negative witnesses in the inventory; the accepted Figure 23 multiplicity correction is Q9. |
 | Q3 — Appendix D notation | Unresolved: D.4.2 prints set difference in the intersection equation; some type-rule notation is inconsistent. Following the named intersection and D.1–D.3 is a proposal, not an accepted semantic equation. | #21 must locate each discrepant rule, record alternatives and obtain a reviewed disposition before semantics. Validate common-element versus difference examples, empty operands, and accepted/rejected typing/navigation/binder cases; no theorem of constraint meaning is claimed here. |
 | Q4 — labels and identity | #20 representation accepted: preserve role identities separately from resolved class/map referents and displayed names, and state the identity level of cojoining equalities. Repeated parent/dref/isA strings do not identify arrows. The gluing policy is not yet complete. | #20 retains the data needed for intended identifications and repeated-name witnesses; #23 selects the congruence and proves endpoint/declaration preservation. #22 retains generated identities. Existing FormalCD names remain metadata. |
 | Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
 | Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) owns the bounded assessment and reviewed source disposition; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
 | Q7 — VC order and guard | Accepted: display.version ≥ server.version, guarded by a nonempty server fiber. Contrary adjacent p.17 prose is the discrepancy. | #19 / #38 delivers the [guarded correspondence and whole models](#figure-21b-and-the-accepted-q7-correction): greater/equal pass, lower fails VC, absent server passes. No remaining implementation task for this correction. |
 | Q8 — disjointness shape | Accepted: §6.1.2/Figure 21 common-target maps with nonoverlapping images; Table 3's common-source shape is erroneous. | #16 / #34 delivers typed arity, interpretation and overlap/repeated-nonempty-binding failures. [Contract below](#predicate-contracts-and-the-accepted-q8-correction); no second predicate or source-object inequality. |
-| Q9 — Figure 23 source multiplicities | Unresolved: the printed source `1` on both parent_map and dref_map requires each MapRole to occur in both images. Table 8 then forces its single label to equal both "parent" and "dref". Thus the literal conjunction admits no map roles. | #20 needs an explicit disposition of the lower bounds before claiming nonempty valid MCS examples. The [conflict and proposed alternatives](mcs-invariants.md#figure-23-source-multiplicity-conflict) preserve the printed annotations and distinguish them from the accepted optional-role guards. |
+| Q9 — Figure 23 source multiplicities | Accepted source correction: source `0..1` on the four ordinary-map and three inclusion-role associations means unique ownership within each image. The printed lower bounds force every MapRole into both parent_map and dref_map images, contradicting their distinct Table 8 names. | Shape/inheritance guards still require or forbid roles exactly. Head-class and formula source `1` are unchanged. The [correction and proof map](mcs-invariants.md#figure-23-source-multiplicity-correction) link the typed representation and nonempty witnesses. |
 
 The roadmap can be accepted with deferred work explicitly assigned; it cannot
 claim that those tasks or missing-source research are completed. #40 delivers
@@ -689,8 +689,26 @@ absent; head inclusion remains. This is an explicit correction, not a claim that
 the conflicting sentence says the same thing. The publication and historical
 accepted snapshots remain unchanged.
 
-Full MCS implementation remains on #20. Its Q2 guards/analogous expansion and
-Q4 identity separation are accepted in the [MCS inventory](mcs-invariants.md);
-Figure 23's Q9 source multiplicities still require a decision. Expressions and
+The #20 MCS structural implementation follows the Q2 guards/analogous expansion,
+Q4 identity separation and Q9 source correction in the [MCS inventory](mcs-invariants.md).
+Expressions and
 Appendix D's Q3 (#21), compilation (#22), label congruence/gluing (#23) and
 integration (#24) remain separate.
+
+
+## Figure 23 and Appendix E MCS discipline
+
+The [MCS inventory](mcs-invariants.md) maps every applicable Tables 5–8 row and
+analogous clause to definitions/propositions and boundary proofs. The source is
+the same pinned preprint, §6.2.3/Figure 23 (pp.20–21), Appendix E (p.33).
+[MCS/Metamodel.lean](../Clafer/MCS/Metamodel.lean) gives a typed graph for the
+nine nodes and twenty arrows, with the accepted seven-association source-bound
+correction. Its nd/ad symbols explicitly attach to the whole structural context;
+this binding choice makes all required data available without claiming that the
+paper drew those dashed attachments. [MCS/Basic.lean](../Clafer/MCS/Basic.lean)
+and [Laws.lean](../Clafer/MCS/Laws.lean) separate structural validity from
+formula generation and gluing. Cojoining equates role-graph vertices. Arrow slots,
+resolved referents and repeated names remain separate.
+The [sample](../Clafer/MCS/Examples.lean) validates a nonempty family including
+int/string/bool, basic/set/bag, parentless abstracts and guarded inheritance.
+No third-party implementation or publication text is copied into these modules.

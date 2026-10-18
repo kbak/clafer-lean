@@ -146,3 +146,88 @@ correctness theorem follows from these finite presentation results.
 
 Covers:
 - `req~clafer-finite-traversal~1`
+
+
+## MCS metamodel
+`impl~clafer-mcs-metamodel~1`
+
+[MCS/Metamodel.lean](../Clafer/MCS/Metamodel.lean): `Metamodel.Node`, `Edge`,
+`declarations`, `raw`, `diagram`, `corrected`, `isOwned`. [MCS/Basic.lean](../Clafer/MCS/Basic.lean):
+`Family.MapId`, `Role`, `Roles.graph`, `Labels`, `predefinedStrings`,
+`Roles.Cojoining.head_bijective`, `Formulas.owner`. These declarations separate
+role identities, referents and strings and encode the accepted ownership bounds.
+
+Covers:
+- `req~clafer-mcs-metamodel~1`
+
+## MCS metamodel boundaries
+`proof~clafer-mcs-metamodel~1`
+
+[MCS/Metamodel.lean](../Clafer/MCS/Metamodel.lean): `Metamodel.wellFormed`,
+`twenty_edges`, `edges_complete`, `corrected_declared`, `ownership_declared`,
+`correction_boundary`, `args_total_declared`, `literal_key_declared`.
+[MCS/Laws.lean](../Clafer/MCS/Laws.lean): `role_cover`, `role_disjoint`,
+`ordinary_owner_unique`, `inclusion_owner_unique`, `Family.canonical_cojoining`.
+[MCS/Examples.lean](../Clafer/MCS/Examples.lean): `repeated_parent_names`,
+`repeated_dref_names`, `repeated_inclusion_names`, `sample_valid`.
+These are structural statements; no whole-metagraph semantic instantiation is claimed.
+
+Covers:
+- `req~clafer-mcs-metamodel~1`
+
+## MCS Appendix E definitions
+`impl~clafer-mcs-disciplines~1`
+
+[MCS/Basic.lean](../Clafer/MCS/Basic.lean): `Family`, `Family.WellFormed`,
+`Family.shape`, `Family.InclusionSlot`, `Roles.binding`, `Roles.Cojoining`,
+`Labels.WellFormed`, `Valid`, `Model`. The [inventory](mcs-invariants.md#definition-and-proof-map)
+expands every printed row and analogous case, with exact declarations and guards.
+
+Covers:
+- `req~clafer-mcs-disciplines~1`
+
+## MCS structural laws and nonempty composition
+`proof~clafer-mcs-disciplines~1`
+
+[MCS/Laws.lean](../Clafer/MCS/Laws.lean): `Roles.incidence`, `Roles.inclusion_incidence`,
+`Family.canonical_cojoining`, `no_super_no_inclusion`, `super_has_head`,
+`missing_sub_source`, `missing_super_source`, `missing_sub_target`, `missing_super_target`,
+`root_no_maps`, `root_has_head`, `primitive_no_target`, `primitive_cojoins_root`,
+`reference_target_iff`, `Family.WellFormed.no_self_parent`, `.no_self_super`,
+`target_name_via_head`, `reserved_names_exclude_users`.
+[MCS/Examples.lean](../Clafer/MCS/Examples.lean): `family_valid`, `labels_valid`,
+`sample_valid`, `shapes_compose`, `parentless_reference_retains_dref`,
+`missing_inherited_source`, `shared_source_present`, `bag_mode`,
+`wrong_cojoining_rejected`, `wrong_parent_cojoining_rejected`,
+`wrong_target_cojoining_rejected`, `missing_parent_rejected`,
+`primitive_reference_rejected`, `root_super_rejected`, `user_named_Sing_rejected`.
+The eleven-owner example covers int/string/bool and basic/set/bag, parentless
+abstracts, both shared-source and absent-source inheritance.
+
+Covers:
+- `req~clafer-mcs-disciplines~1`
+
+## MCS formula representation
+`impl~clafer-mcs-formulas~1`
+
+[MCS/Basic.lean](../Clafer/MCS/Basic.lean): `Formulas`, `Formulas.Arg`, `.argument`,
+`.SameBag`, `.WellFormed`, `.diagram`. [MCS/Laws.lean](../Clafer/MCS/Laws.lean):
+`Roles.localDiagram`. Full bindings and indexed occurrences are retained; the
+literal bag key and total arguments are additional, separately checked propositions.
+
+Covers:
+- `req~clafer-mcs-formulas~1`
+
+## MCS formula boundary proofs
+`proof~clafer-mcs-formulas~1`
+
+[MCS/Laws.lean](../Clafer/MCS/Laws.lean): `Formulas.no_zero_arrow`,
+`Formulas.formula_injective`, `Formulas.sameBag_iff_map_roles`,
+`Roles.arrowData_ext`, `Roles.local_declared`.
+[MCS/Examples.lean](../Clafer/MCS/Examples.lean): `formulas_valid`,
+`duplicate_formulas_rejected`, `repeated_args_valid`, `repeated_occurrences_preserved`.
+These establish structural formula-bank conditions, not generation of the complete
+Compile output or semantic satisfaction of the declarations.
+
+Covers:
+- `req~clafer-mcs-formulas~1`
