@@ -97,8 +97,8 @@ explicit primitive classification and rejection of reserved user names and
 zero-map Compile support. The output validity theorem quantifies over every
 accepted input, beyond these finite witnesses.
 
-The delivered typed-core limits remain in force. General constraint meanings
-remain separate work; the
+The delivered typed-core limits remain in force. The [selected semantic extension](constraint-preservation.md) derives constraint
+meanings from typed bodies and explicit external domains; the
 [integer extraction interface](integer-extraction.md) supplies selected partial
 singleton conversion and version-operand definedness. A fresh constraint symbol
 does not
@@ -115,7 +115,8 @@ hypotheses. The group extension derives those hypotheses for Compile output. The
 constructions for nesting, inheritance, references, typed attachments and actual
 generated xor predicates. Its selected version example derives operand
 definedness from emitted local formulas plus explicit integer-domain realization;
-it does not establish general expression preservation.
+the [selected bridge](constraint-preservation.md) supplies its separate semantic
+correspondence under explicit admissibility assumptions.
 
 
 ## Selected inherited realization extension
@@ -127,4 +128,6 @@ explicit abstract and group predicates for ordinary fields made effectively
 abstract by containment. `whole_model` relates the generated/glued bank to the
 independent extended structural conditions plus each original authored occurrence's
 meaning. Context views restrict the same interpreted links. This result does not
-extend the #50 checker or supply #68/#69's expression evaluator.
+extend the #50 checker. The [constraint preservation extension](constraint-preservation.md)
+fixes its authored-meaning parameter from #68’s typed denotation and explicit
+external domains, retaining the selected model assumptions.

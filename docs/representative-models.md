@@ -72,15 +72,15 @@ attachment here; the following omissions remain visible.
 
 | ID | Selected status | Remaining obligation |
 | --- | --- | --- |
-| c01 | Omitted: small size/cache implies fixed | Typed attachment, denotation and satisfaction in #68/#69/#64 |
-| c02 | Typed unguarded `not (displayVersion < serverVersion)` attached and glued; operand definedness derived from local formulas plus integer domain | General expression-denotation connection and satisfaction in the complete fixture (#68/#69/#64) |
-| c03 | Omitted: no inherited cache | Typed attachment, denotation and satisfaction |
-| c04 | Omitted: server = parent at ECU | Typed attachment, denotation and satisfaction; current server navigation is not this equality proof |
-| c05 | Omitted: dual iff ECU2 | Typed attachment, denotation and satisfaction |
-| c06 | Omitted: extraDisplay iff two ECU1 displays | Typed attachment, denotation and satisfaction |
-| c07 | Omitted: extraDisplay iff (ECU2 implies two ECU2 displays) | Preserve implication and absent-ECU2 vacuity in later interpretation |
-| c08 | Omitted: large iff no small options on all plaECU displays | Typed attachment, denotation and satisfaction |
-| c09 | Omitted: small iff no large options on all plaECU displays | Typed attachment, denotation and satisfaction |
+| c01 | Omitted: small size/cache implies fixed | Full-fixture attachment and simultaneous satisfaction (#64) |
+| c02 | Typed unguarded `not (displayVersion < serverVersion)` attached and glued; operand definedness derived from local formulas plus integer domain | Selected predicate correspondence is supplied by [the bridge](constraint-preservation.md); complete-fixture satisfaction remains #64 |
+| c03 | Omitted: no inherited cache | Full-fixture attachment and simultaneous satisfaction |
+| c04 | Omitted: server = parent at ECU | Full-fixture attachment and simultaneous satisfaction; current server navigation is not this equality proof |
+| c05 | Omitted: dual iff ECU2 | Full-fixture attachment and simultaneous satisfaction |
+| c06 | Omitted: extraDisplay iff two ECU1 displays | Full-fixture attachment and simultaneous satisfaction |
+| c07 | Omitted: extraDisplay iff (ECU2 implies two ECU2 displays) | Full-fixture attachment and simultaneous satisfaction, retaining the checked implication/absent-ECU2 vacuity |
+| c08 | Omitted: large iff no small options on all plaECU displays | Full-fixture attachment and simultaneous satisfaction |
+| c09 | Omitted: small iff no large options on all plaECU displays | Full-fixture attachment and simultaneous satisfaction |
 | c10 | Omitted: final dual selection | Full-model selection and satisfaction (#64) |
 | c11 | Omitted: final extraDisplay selection | Full-model selection and satisfaction (#64) |
 | c12 | Omitted: final large selection | Full-model selection and satisfaction (#64) |
@@ -108,7 +108,8 @@ satisfying interpretation under #64.
   Command-level build/IntentBond evidence records the configured validation;
   trace coverage does not certify the source correspondence. Independent semantic
   review and acceptance remain separate gates.
-* #68 owns general expression meaning; #69 owns the combined semantic bridge and
+* #68 supplies general expression meaning; [#69’s selected bridge](constraint-preservation.md)
+  connects body-derived predicates to exact Compile/gluing bindings and
   depends on this structural milestone. #64 owns full Appendix F satisfaction.
   This integration does not close those obligations or claim that all of Clafer
   or all paper figures are complete. #24 remains open until acceptance and merge.
