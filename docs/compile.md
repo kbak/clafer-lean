@@ -109,3 +109,15 @@ preservation. The delivered
 FormalCD validity under its explicit incidence, metadata and default-completeness
 hypotheses. Establishing those hypotheses for Compile output and integrating the
 two constructions remain separate work on #24.
+
+
+## Selected inherited realization extension
+
+[The Appendix F contract](inherited-realization.md) adds
+`Compile.Realization.compileRealized`, retaining `compileAugmented` exactly.
+The additional bank generates actual built-in cover/disjoint predicates for every
+explicit abstract and group predicates for ordinary fields made effectively
+abstract by containment. `whole_model` relates the generated/glued bank to the
+independent extended structural conditions plus each original authored occurrence's
+meaning. Context views restrict the same interpreted links. This result does not
+extend the #50 checker or supply #68/#69's expression evaluator.

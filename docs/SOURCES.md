@@ -912,3 +912,15 @@ signature partition, global unique parent across unrelated memberships, primitiv
 value domain or authored/default theorem is introduced. The [requirements](spec.md#whole-model-structural-satisfaction-and-interpretation)
 and [trace map](clafer-trace.md) distinguish definitions, implementation proofs and
 whole-model boundary tests.
+
+## Appendix F inherited realization clarification
+
+The accepted D2/D4/D6 combinations for #66 and the scoped #64 source inventory
+are recorded in [inherited realization](inherited-realization.md). This extends
+#50 without changing its guarded checker: ordinary effective-abstract fields
+are realized by their parents, explicit abstracts retain direct-subtype cover
+and Q8 disjointness, and inherited maps restrict shared objects and links.
+The equal-parent declaration rule remains in force; broader refinement is
+unsupported. The linked contract records all 26 declarations, seven super edges,
+five explicit abstract families, three xor inventories and twelve conjuncts,
+with the pinned primary and supplementary source identities.

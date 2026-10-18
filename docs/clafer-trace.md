@@ -804,3 +804,85 @@ configurations, not a claim of complete #66 inherited-family realizability.
 
 Covers:
 - `req~clafer-compile-groups~1`
+
+## Selected inherited realization
+`impl~clafer-inherited-realization~1`
+
+[Realization](../Clafer/Semantics/Realization.lean) defines `Core`, `Core.ofInput`,
+`Core.Selected`, `Abstracts`, `Groups`, `Satisfies`, `View`, `headView`, `derefView`
+and `targetView`. The extension retains authored metadata and original link
+identities. [The source contract](inherited-realization.md) records the selected
+D2/D4/D6 combinations and the complete scoped Appendix F inventory.
+
+Covers:
+- `req~clafer-inherited-realization~1`
+
+`proof~clafer-inherited-realization~1`
+
+In [Realization](../Clafer/Semantics/Realization.lean), `abstracts_generic`,
+`explicit_leaf_empty`, `same_parent_fiber`, `view_cover`, `abstract_parent_cover`,
+`disjoint_views`, `owner_agrees`, `deref_agrees`, `head_view_relation`,
+`deref_view_relation`, `context_parents`, `context_references`,
+`context_multiplicity`, `view_inverse`, `view_commutes`,
+`target_links_injective`, `child_view_iff`,
+`constraint_on_subtype`, `constraint_on_view` and `reaches` state the selected
+object/link, scope and whole-model guarantees.
+[RealizationCompatibility](../Clafer/Semantics/RealizationCompatibility.lean)
+proves `guarded_groups`, `guarded_compatibility`,
+`supported_input_compatibility` and `supported_checker_compatibility`. Selected
+AST input derives flag agreement; no satisfaction equivalence is an assumption.
+
+Covers:
+- `req~clafer-inherited-realization~1`
+
+## Generated realization declarations
+`impl~clafer-compile-realization~1`
+
+[Compile.Realization](../Clafer/Compile/Realization.lean) constructs `fanBinding`,
+`coverFormula`, `disjointFormula`, `fieldFormula`, the complete `bank`, `glued`,
+`interpretation` and `descend`. Abstract predicates use the built-in vocabulary;
+new field groups reuse #65's child-object union. The old bank and original
+constraint occurrences are promoted with full bindings.
+
+Covers:
+- `req~clafer-compile-realization~1`
+
+`proof~clafer-compile-realization~1`
+
+[RealizationLocal](../Clafer/Semantics/RealizationLocal.lean) proves `local_model`
+and `local_model_iff` for the selected broader input. In
+[Compile.Realization](../Clafer/Compile/Realization.lean), `cover_iff`,
+`disjoint_iff`, `declarations`, `cover_declared`, `disjoint_declared`,
+`field_declared`, `defaults`, `glued_declarations`, `forget`, `descend_reduct`,
+`field_iff`, `abstract_iff`, `bank_model_iff`, `correspondence` and `whole_model`
+connect actual generated declarations and exact gluing to the independent
+structural conditions, with authored expression meaning left as a parameter.
+
+Covers:
+- `req~clafer-compile-realization~1`
+
+## Inherited Appendix F acceptance witnesses
+`impl~clafer-inherited-witnesses~1`
+
+[Inherited](../Clafer/Examples/Inherited.lean) constructs the structural AST,
+source-order mapping, accepted Compile input and shared-object configuration.
+The structural fixture retains the 26 printed declarations plus implicit root/int;
+the separate twelve-conjunct inventory is in the source contract.
+
+Covers:
+- `req~clafer-inherited-witnesses~1`
+
+`proof~clafer-inherited-witnesses~1`
+
+[Inherited](../Clafer/Examples/Inherited.lean) supplies `wf`, `selected`, `satisfies`, `all_reach_root`, `compiled_glued_model`,
+`inherited_version`, `inherited_options_and_displays`, `realized_xor_generated`
+and `realized_xor_glued`.
+[InheritedRejections](../Clafer/Examples/InheritedRejections.lean) proves
+`inconsistent_context_parent`, `inconsistent_context_reference`,
+`shared_owner_rejected`, `duplicate_rejected`, `uncovered_rejected`,
+`overlap_rejected`, `uncovered_generated_cover`, `overlap_generated_disjoint`,
+`two_options_rejected`, `generated_xor_rejects_two` and
+`glued_xor_rejects_two`. No general expression satisfaction is claimed.
+
+Covers:
+- `req~clafer-inherited-witnesses~1`

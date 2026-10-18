@@ -60,6 +60,13 @@ from malformed or unsupported input and prove agreement with the independent
 structural meaning. Reference occurrences retain identity even at repeated targets.
 The external comparison harness and its location remain deferred to #51–52.
 
+The separate [inherited realization extension](inherited-realization.md) supplies
+Appendix F's ordinary field instances, explicit abstract families, restrictions of
+shared maps, and generated structural correspondence. Authored abstract types and
+fields made effectively abstract by containment retain different realization rules.
+The complete fixture and final selections remain #64; general expression meaning
+and its combined bridge remain #68/#69.
+
 Exclude instance/object generation, Alloy/SMT/SAT integration, production runtime
 configuration management, Claferize, post-2014 extensions, a production parser and
 visualization. Keep the foundation reproducible and reviewable and the README brief.

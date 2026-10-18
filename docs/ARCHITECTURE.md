@@ -472,3 +472,14 @@ realization, while its VC predicate and guarded optional-server semantics remain
 separate. The [conversion contract](integer-extraction.md) owns detailed limits;
 full expression interpretation, Compile semantic preservation and all inherited
 whole-model constraints remain future work.
+
+
+## Selected inherited realization
+
+`Clafer.Semantics.Realization` retains AST authored flags alongside the effective
+core and defines Appendix F contextual fields as subsets of existing owned
+objects. `Clafer.Compile.Realization` preserves the #65 bank and adds explicit
+abstract families and realized-field groups, with exact gluing and structural
+correspondence. See the [source/combination contract](inherited-realization.md)
+and [proof index](clafer-trace.md#selected-inherited-realization). The new modules
+remain in Clafer; #50's guarded checker and the public layer order are unchanged.

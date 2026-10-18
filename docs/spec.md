@@ -1807,3 +1807,85 @@ Covers:
 - `intent~traceable-contributions~1`
 
 Needs: impl, proof, utest
+
+## Selected inherited field and explicit abstract realization
+`req~clafer-inherited-realization~1`
+
+Extend the Clafer whole-model interpretation for the accepted Appendix F
+D2/D4/D6 combinations in [the scoped source contract](inherited-realization.md).
+Preserve #50's guarded fragment and checker unchanged. Read authored abstractness
+from retained AST metadata; do not reconstruct it from the erased effective flag.
+Keep the existing equal-parent declaration rule. Support the listed seven super
+edges to parentless explicit basic abstracts and ordinary nested field templates;
+general nested explicit abstract/refinement combinations remain unsupported.
+
+Use the same ambient objects and existing containment/dereference links. A field
+view at a context contains exactly its existing objects whose unique parent is in
+that context. Prove restrictions, shared occurrence identity along super chains,
+unique ownership, and context coverage derived from actual parent/type coverage.
+Disjoint parent alternatives yield disjoint owned fibers; ancestor views may
+intersect. Explicit abstract types are covered by direct explicit subtype heads
+with common-target sibling disjointness, even when covering heads are field
+templates. An explicit abstract leaf is empty; an ordinary effective-abstract
+field is not emptied by absence of an explicit subtype. When both classifications
+apply, enforce both. Exclude ungrounded recursive realization islands and derive
+root reachability from the selected finite rank and whole-model conditions.
+
+Count the #65 union of own/inherited child heads once per ambient object, retaining
+distinct reference occurrences at equal targets. Enforce effective group bounds
+at realized ordinary fields, particularly options.size; preserve #65's explicit
+abstract-template override and empty-inventory policy. Transport ordinary owner
+constraints to subtype and context-view objects parametrically, without claiming
+a general expression evaluator. Preserve Q1, Q8, top-level abstract heads and the
+absence of parentless local-fiber/global-cardinality inventions. Prove explicit
+compatibility with #50 satisfaction and therefore its supported checker results.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Generated inherited realization and structural correspondence
+`req~clafer-compile-realization~1`
+
+Generate or derive the structural obligations of `req~clafer-inherited-realization~1`
+in the actual compiled/glued representation. Generate cover/disjointness for every
+explicit abstract family, including empty families, and effective groups for
+realized ordinary fields omitted by the effective-abstract guard. Preserve all #65
+declarations and source constraints. Construct full bindings and prove actual
+declaration completeness and exact gluing images. Establish semantic correspondence
+from the constructed interpretation, not a caller-supplied equivalence assumption.
+Derive inherited map restrictions and link-preserving commutation from the same
+interpreted maps. Keep ordinary constraint meaning an explicit parameter
+for #68/#69 and retain every occurrence's original binding.
+
+Forgetting the extension recovers the existing augmented Compile and its valid
+structural MCS. Preserve role/referent/name separation, incidence and metadata
+compatibility, effective-default completeness, input positive support and the
+original bank's total-args/key discipline. Do not assert that the larger raw bank
+satisfies Figure 23 total args. Provide whole-model equivalence with explicit
+root/typedness conditions and structural scope transport for later interpretation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Appendix F inherited structural witnesses
+`req~clafer-inherited-witnesses~1`
+
+Provide kernel-checked positive witnesses for inherited comp.version across
+ECU/plaECU/ECU1/ECU2 and display/plaDisplay, display.options and nested xor,
+and plaECU.plaDisplay in both ECU1 and ECU2. Check compiled/generated and glued
+predicates on the actual constructed structural fixture. Reject inconsistent
+inherited containment/dereference values, uncovered explicit abstracts, forbidden
+explicit sibling overlap, shared owned occurrences at distinct parents and
+inappropriate duplicate occurrences. Reject an xor violation at realized
+options.size. Retain the source-ID mapping and the separate twelve-conjunct scope
+inventory; these structural witnesses do not claim #64's full expression-bearing
+fixture or complete satisfaction result.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof

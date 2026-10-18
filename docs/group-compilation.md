@@ -98,11 +98,12 @@ No user-expression interpreter is inferred from fresh predicate symbols.
 relates inventories when strict ancestors have no children; effective-bound
 agreement is also necessary when comparing to its `Configuration.Groups` (and
 holds for `EffectiveCore.erase`). #50 does not depend on this extension.
-[#66](https://github.com/kbak/clafer-lean/issues/66) owns realization of inherited
-fields, nested child specialization and commuting map restrictions. Selecting an
+The separate [#66 realization extension](inherited-realization.md) supplies the
+selected inherited-field realization and commuting map restrictions. Selecting an
 inherited head map does not prove those obligations or copy any object. Tests of
 an inherited abstract-child fiber are explicitly group-predicate tests under typed
-relations, not proofs of complete inherited-family realizability. The zero-arrow example
+relations, not proofs of complete inherited-family realizability; the separate
+[Appendix F witnesses](../Clafer/Examples/Inherited.lean) exercise the realization extension. The zero-arrow example
 uses only Sing; its empty-context case tests the group predicate vacuously and
 does not assert the separate root singleton obligation.
 
