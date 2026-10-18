@@ -38,9 +38,10 @@ The family retains the complete authored/effective group record without another
 defaulting pass; `group_bounds_valid` derives effective interval validity from
 the AST. `DirectChild` derives the finite own-child inventory from resolved
 parent identity, and `directChildHead` supplies each child's typed head map,
-including reference children. These are data guarantees. Group predicates and
-their inherited/abstract/empty cases remain subject to the
-[D6 proposal](group-compilation.md); preserving xor metadata does not enforce xor.
+including reference children. These data guarantees feed the separate interpreted group extension described in
+the [group compilation contract](group-compilation.md). `compileAugmented` retains
+this structural result and adds every concrete context's effective group predicate
+over its own and inherited child heads, including vertex-only empty inventories.
 
 Allocation is deterministic for the same ordered AST. Equal display names do
 not coalesce identities. Repeated references to one uniquely declared `DeclId`
@@ -81,6 +82,12 @@ separate symbols. `formulas_wellFormed` proves total args and the combined key.
 `shape_declared`, `inclusion_declared` and `constraint_declared` state completeness
 for this inventory. Full binding data is never replaced by a bag or a quotient.
 
+The complete augmented bank contains both original and group declarations; it is
+not asserted to satisfy MCS total args. `gluedGroups` preserves its exact translated
+union with naming, metadata and effective-default completeness. Group satisfaction
+is equivalent to the selected child-object bounds for typed configurations, with
+explicit finite-count assumptions for numeric cardinalities.
+
 ## Limits and examples
 
 [Examples](../Clafer/Compile/Examples.lean) compile a nonempty resolved AST with
@@ -90,10 +97,14 @@ explicit primitive classification and rejection of reserved user names and
 zero-map Compile support. The output validity theorem quantifies over every
 accepted input, beyond these finite witnesses.
 
-The delivered typed-core limits remain in force. Constraint meanings, primitive
-singleton conversion, whole-model interpretation, group and abstract semantic
-translation and semantic preservation are separate work. A fresh constraint
-symbol does not establish any meaning for its body. The delivered
+The delivered typed-core limits remain in force. Constraint meanings and primitive
+singleton conversion remain separate work. A fresh constraint symbol does not
+establish any meaning for its body. The guarded constraint-free
+[structural checker](structural-checker.md) supplies a whole-model interpretation
+of the exact generated local bank plus explicit global root, abstract and group
+obligations. `compiled_bank_iff` and `erasure_correspondence` prove this selected
+structural connection; they do not assert source elaboration or user-expression
+preservation. The delivered
 [MCS gluing](ARCHITECTURE.md#mcs-gluing) provides a label morphism and conditional
 FormalCD validity under its explicit incidence, metadata and default-completeness
 hypotheses. Establishing those hypotheses for Compile output and integrating the

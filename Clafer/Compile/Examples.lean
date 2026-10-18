@@ -61,6 +61,7 @@ theorem constraint_typed (q : ConstraintId ast) : Clafer.Constraints.Examples.co
       fin_cases e <;> simp [Constraints.Support.MapResolved, Clafer.Constraints.Examples.constraint, Clafer.Constraints.Examples.support, entries,
         rootDecl, intDecl, basicDecl, nestedDecl, withConstraints, derivedDecl,
         setDecl, bagDecl, abstractDecl, abstractChild, abstractRefDecl, Reference.target]
+    · intro v h; cases h
   · simp [ConstraintBoundary.Resolved, Clafer.Constraints.Examples.boundary, AST.Known, entries,
       rootDecl, basicDecl, withConstraints, derivedDecl, abstractRefDecl]
 
@@ -117,8 +118,8 @@ theorem shared_target_distinct_dereferences :
 
 theorem inheritance_preserved : result.family.super derived = some abstractRef := rfl
 
-/-- A childless xor remains accepted structural input. Carrying it is not yet
-enforcement; its generated predicate needs the reviewed empty-group interface. -/
+/-- A childless xor remains accepted structural input. The structural result alone
+retains metadata; the augmented result supplies the separate empty-group predicate. -/
 theorem empty_xor_metadata_preserved :
     result.family.group nested = ⟨some .xor, .xor⟩ := rfl
 
@@ -198,9 +199,10 @@ def zeroConstraint : Constraints.Constraint := ⟨zeroSupport, [], .boolean true
 /-- Zero-map Boolean input remains legal at the generic typing boundary. -/
 theorem zero_generic_input : zeroConstraint.Input ast (boundary ast q0) := by
   rw [constraint_boundary]
-  refine ⟨ast_wellFormed, ⟨?_, ?_⟩, ?_, ?_, rfl, ⟨.nil⟩⟩
+  refine ⟨ast_wellFormed, ⟨?_, ?_, ?_⟩, ?_, ?_, rfl, ⟨.nil⟩⟩
   · exact (constraint_typed q0).resolved.classes
   · intro e; exact Fin.elim0 e
+  · exact (constraint_typed q0).resolved.integers
   · exact (Clafer.Compile.Examples.constraint_typed q0).boundary_resolved
   · exact ⟨{
       context_eq := rfl

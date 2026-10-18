@@ -1367,9 +1367,11 @@ classes or either relation endpoint to a chosen common type. Widening must follo
 equal resolved IDs or actual super edges; arbitrary unrelated type coercions are
 not permitted. Name resolution and selection/insertion of coercions remain caller
 obligations. Integer operations are the implemented primitive fragment; other
-primitive operations, scalar extraction from navigation, higher-arity relations,
-tuple quantification and full surface syntax remain implementation limits, not
-restrictions attributed to the paper. No evaluator, solver or substitution is required.
+primitive operations, higher-arity relations, tuple quantification and full
+surface syntax remain implementation limits, not restrictions attributed to the
+paper. The separate integer-extraction extension below supplies the partial
+primitive bridge; it is not an evaluator for this core. No solver or substitution
+is required.
 Include accepted/rejected operand and join examples, including successful inherited
 navigation, composition and a relation union with an inherited endpoint.
 
@@ -1416,11 +1418,73 @@ whose predicate arities are these complete support graphs, and accept full graph
 bindings for later formula construction. Check endpoint rejection and preservation
 of repeated occurrences and full bindings.
 
-Document the missing meanings: environments/object diagrams, primitive singleton
-conversion, cardinality of finite interpretations, relational treatment of bag
-links, and source-to-predicate translation. An abstract symbol/arity is not a proof
-of any constraint's meaning. Neither expression satisfaction nor compilation
-preservation is asserted; independent semantic review remains necessary.
+Document the missing meanings: general environments/object diagrams, cardinality
+of finite interpretations, relational treatment of bag links throughout the core,
+and source-to-predicate translation. Integer singleton conversion is supplied by
+the separate extension below; this structural requirement does not assert it.
+An abstract symbol/arity is not a proof of any constraint's meaning. Neither
+expression satisfaction nor compilation preservation is asserted; independent semantic review remains necessary.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Integer extraction from primitive navigation
+`req~clafer-integer-extraction~1`
+
+Provide the selected D.3–D.4 unary collection-to-integer bridge as an explicitly
+typed operation. A support annotation identifies an integer vertex, and resolved
+input checks that its exact declaration ID has primitive integer origin. Names,
+reference object classes and inheritance widening do not substitute for this
+check. Preserve the complete graph support, binder context and existing widening.
+A semantic binding respects equal resolved IDs and actual inclusion edges, and
+identifies the annotated object's domain with an explicit integer realization.
+
+Reuse `FormalCD.Telematics.IntegerRealization`: its injective encoding and
+left-inverse decoder give a correspondence between its domain and all mathematical
+`Int` values. The partial extraction result is `some n` exactly when the navigation
+set is the singleton containing the encoded `n`. Prove unique results and the
+necessary and sufficient hypotheses: one object, and that object belongs to the
+integer domain. Empty, multiple-object and noninteger results return `none`;
+never select an arbitrary object or use the decoder's off-domain value. Typing
+alone gives no runtime singleton guarantee. Relational navigation results are
+sets of objects; equal targets of multiple links denote one set element, without
+changing the underlying link-sensitive multiplicity predicates.
+
+Supply named proofs of correspondence, successful extraction, rejection boundaries,
+resolved-ID rejection and inheritance preservation. Preserve arbitrary negative
+and positive integers without overflow or finite-bitwidth arithmetic. Document
+that this is an operation interface for the later expression interpreter (#68),
+not a general primitive-domain framework, parser or a reuse of VC as an evaluator.
+See [the conversion contract](integer-extraction.md).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Appendix F version operand well-definedness
+`req~clafer-version-navigation~1`
+
+Represent the actual Appendix F p.34 fragment's `version >= server.version` in
+the typed core, following comp inheritance, version/server reference objects,
+head maps and dereferences to the resolved integer class. Retain accepted Q7's
+display >= server direction. Derive both operands' singleton/domain hypotheses
+from the selected default 1..1 version/server multiplicities, functional total
+dereferences, and actual inheritance inclusions. Do not assume the final operands
+are singletons or that the comparison holds. Supply a resolved well-formed AST
+fragment and a complete typed constraint input witness.
+
+Give a partial interpretation of this selected comparison and concrete navigation
+examples for greater, equal and lower values, plus empty/multiple/wrong-domain
+boundaries. Appendix F has a mandatory server and an unguarded comparison;
+Figure 21's 0..1 server and nonempty-server guard remain a distinct contract.
+The theorem is conditional on the selected structural semantics, not a proof
+that structural Compile establishes those semantics or a whole Appendix F model.
+The inherited structures and other constraints (including `server = parent`)
+remain obligations for #50/#66 and the later interpreter. Document Q3 limits and
+the full mathematical integer realization separately from finite object examples.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1444,8 +1508,9 @@ Resolution, default elaboration, binder environments, explicit inheritance
 widening and nonminimal support remain caller obligations. Compile must not
 assume an output MCS, output validity or a supplied graph binding. Unsupported
 surface/primitive forms remain those of the typed core; this increment adds no
-expression interpretation, group/abstract semantic translation, gluing quotient
-or full semantic-preservation claim. Follow the [Compile contract](compile.md).
+expression interpretation or full semantic-preservation claim. The separate
+augmented group output below extends generated declarations without changing this
+input contract or asserting general abstract/inherited-family realization. Follow the [Compile contract](compile.md).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1516,11 +1581,50 @@ identities. This inventory is finite because the accepted AST is finite.
 
 Retain empty inventories and abstract declarations as structural input. Check
 preservation of an empty xor group's metadata and reference-child head incidence.
-These guarantees do not assert group satisfaction. The generated predicate,
-inherited inventory, abstract applicability and empty-support integration must
-follow the [D6 proposal and its decisions](group-compilation.md) before semantic
-generation is added; the full acceptance criteria of
-[#65](https://github.com/kbak/clafer-lean/issues/65) remain outstanding.
+These data guarantees support the interpreted extension below; metadata
+preservation alone does not establish group satisfaction.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Interpreted group compilation and augmented gluing
+`req~clafer-compile-groups~1`
+
+Generate one interpreted group declaration for every concrete context using its
+resolved effective bound and the union of own and super-hierarchy child heads.
+Abstract groups supply inheritable bounds without a separate original-child
+invariant. Preserve Appendix C provenance/defaults/overrides and ordinary explicit
+constraints on abstract contexts. Follow the accepted [D6 contract](group-compilation.md)
+and its pinned source citations, including the explicit discrepancy with the
+compiler's empty-inventory skip.
+
+Retain complete arities, context vertices, owner identities, head and inheritance
+maps and incidence-preserving bindings. Count distinct ambient child-head objects
+per parent object, including distinct reference occurrences sharing one target;
+multiple paths to the same object count once. Empty inventories count zero:
+zero-containing bounds pass, and positive lower bounds force empty context extents.
+Do not replace this meaning with a declaration count, target count or sum of fibers.
+
+Expose an augmented Compile result with a separate generated declaration component
+for zero-arrow supports. Forgetting it must recover the existing structural MCS.
+Keep the old bank's full bindings, literal bag key, nonempty args and user input
+contract unchanged; do not claim the complete bank satisfies MCS total args.
+The complete diagram must contain the exact union of both components, and gluing
+must preserve its exact translated image, naming, incidence, metadata and complete
+effective defaults. Prove that complete satisfaction accounts for both components
+and that each generated group is equivalent to the selected child-count bounds
+under explicit typed-relation and finite-count assumptions. Reuse #50 counting
+and representation APIs without extending its guarded checker or reversing its
+dependency. Keep #66 inherited field realization and map restrictions explicit;
+selection alone cannot establish those laws.
+
+Check actual compiled/glued positive and negative xor (one passes, zero/two fail
+while individual optional bounds hold), inherited extension and effective override,
+numeric bounds, or/mux/opt, repeated reference targets, overlapping inherited
+head visibility, multiple instances of one declaration, and empty-child bounds
+in empty and inhabited contexts, including zero-arrow support.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1609,3 +1713,97 @@ Covers:
 - `intent~formalization-foundation~1`
 
 Needs: impl, proof
+
+
+## Effective structural core and supported fragment
+`req~clafer-effective-core~1`
+
+Provide the accepted #50 effective-core interface in the Clafer layer, retaining
+resolved identities, display names, parent/super/reference edges, root/origin,
+abstractness and effective local/group bounds without fabricated authored/default
+provenance. State well-formedness separately from the guarded S fragment in
+[the comparison contract](resolved-ir-comparison.md). Preserve all existing syntax,
+Compile, gluing, Q1/Q8 and top-level abstract corrections. Reject excluded and
+pending combinations, including primitive values, user expressions, nested
+abstract bodies, reference inheritance and nontrivial abstract groups. Abstract
+inheritance chains and unrelated class overlap remain available.
+
+Prove effective erasure correspondence for valid supported constraint-free ASTs
+and the selected compiled structural interpretation, with complete declaration
+and metadata hypotheses explicit. Equal erasure must give equal structural
+satisfaction. The construction must not require importing a convenient authored
+AST or assuming a caller-supplied equivalence theorem.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Whole-model structural satisfaction and interpretation
+`req~clafer-structural-satisfaction~1`
+
+Define independent global structural satisfaction for the accepted fragment from
+SoSyM §§5.3–5.5, 6.1–6.2, B.1–B.5, Table 3/A.1 and Appendix E. Cover singleton
+fresh root, used-object coverage and containment reachability, per-declaration
+parent ownership, shared-object inheritance, abstract cover and common-target
+sibling disjointness, reference totality, set keys, local multiplicities and
+concrete own-child group bounds. Groups count the union of child head objects;
+references count occurrences, including distinct heads with equal parent/target.
+Unrelated class extents may overlap.
+
+Construct the subset/span interpretation and prove the correspondence to the
+selected complete compiled/glued structural diagram, explicitly accounting for
+global obligations absent from local Shapes. Prove the required ordinary-map
+representation, link/fiber count and key correspondences, object/link renaming
+invariance and completeness of the declared finite representation domain. Keep
+DPGraph independently importable and unrestricted. Do not claim global SetMap,
+user-expression semantics or full compiler/optimizer/source preservation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Finite structural checker and input protocol
+`req~clafer-finite-checker~1`
+
+Provide finite shared-object carriers, class memberships, containment and
+occurrence-preserving reference data and a terminating executable checker under
+`Clafer/Verification/`. The deterministic protocol distinguishes malformed or
+unsupported input from well-formed candidates that violate structural constraints.
+Duplicate object/link/ordinary-tuple identities and dangling/ill-typed endpoints
+are malformed; absent/multiple parents or dereference values are semantic
+violations. Keep empty classes and failing candidates in the representation.
+
+Prove both directions of `check m c = true ↔ StructuralSatisfies m (realize c)`
+under explicit validity and fragment hypotheses, plus malformed-input rejection.
+The specification must be independent of checker output. Count finite fibers
+using the existing embedding-based cardinal predicates; unbounded upper limits
+impose no finite cap. The checker theorem is kernel checked, while an ordinary
+native run is not a fresh kernel proof of the individual verdict. No per-instance
+certificate is claimed without a separate construction and verification theorem.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof, utest
+
+## Structural checker boundary and mutation witnesses
+`req~clafer-checker-witnesses~1`
+
+Supply positive and negative whole-model kernel-checked witnesses and executable
+tests for empty classes, zero/optional/exact/bounded/unbounded finite counts,
+groups, nesting, admitted inheritance and abstract cover/disjointness, malformed
+identities/endpoints, and repeated-target set/bag behavior. Exercise reference
+cycles without recursive target traversal and permit unrelated class overlap.
+Detect deliberate duplicate-collapse and omitted-bound mutations with the
+corresponding assertions. Keep all existing validation and coverage policy;
+record full pinned validation, theorem-axiom inspection, source-matched evidence
+and independent semantic review before acceptance. Candidate enumeration,
+production generation and solver integration remain outside #50.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl, proof, utest

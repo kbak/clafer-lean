@@ -415,7 +415,7 @@ not formalized evaluator results.
 | Locator | Source contract | Delivered typing boundary |
 | --- | --- | --- |
 | D.1/Figure 28; D.3.1 | Universal quantification, conjunction, negation, comparison, arithmetic, cardinality, and embedded set expressions | `Expr` has Boolean/integer terms and class-indexed unary/binary collections. Boolean literals and integer literals are resolved core conveniences. `all` has a unary domain and a Boolean body; its variable has the element class and is intended to denote a singleton. Tuple quantification is not implemented. |
-| D.3.1, Comparison / Arithmetic operator | Comparison requires a common type; arithmetic lists addition and subtraction although the conclusion displays only addition | Equality accepts any common core sort; less-than, addition and subtraction currently support integers. String/other primitive operations and extraction of an integer singleton from navigation remain implementation limits, not paper prohibitions. Cardinality yields an integer for either collection shape; no finiteness or evaluator theorem is asserted. |
+| D.3.1, Comparison / Arithmetic operator | Comparison requires a common type; arithmetic lists addition and subtraction although the conclusion displays only addition | Equality accepts any common core sort; less-than, addition and subtraction currently support integers. The integer-extraction extension supplies a partial singleton bridge with explicit domain evidence; string/other primitive operations remain implementation limits, not paper prohibitions. Cardinality yields an integer for either collection shape; no finiteness or evaluator theorem is asserted. |
 | D.3.2, Set operators / Subsetting | Equal operand types; union, difference, intersection; Boolean subsetting | Both unary sets and binary relations have distinct union/difference/intersection constructors with a common shape, and Boolean subsetting. Explicit widening can first move inheritance-compatible operands to a chosen common class or endpoint pair. |
 | D.3.2, Relational join | Binary–binary composition and unary–binary image, with matching middle type | Both joins are supported; `Path.navigate` builds endpoint-checked unary navigation. Widening is available before a join, so inherited members are not excluded. Reversed or unrelated endpoints require valid evidence and cannot be silently equated. |
 | D.2, Descendants; §5.5 inheritance | Lookup takes inherited clafers into account | Widening records equal resolved identities or paths of actual super edges in the support graph. Both relation endpoints may be widened. The caller selects the common type; no least-common-supertype algorithm or name resolver is claimed. |
@@ -436,16 +436,48 @@ asserted to be an automatically extracted minimal support. A full graph binding
 is required for a future predicate declaration (§6.2.2). This is an interface,
 not a translation or a meaning proof.
 
-No interpretation of `Expr`, object-diagram environment, primitive singleton
-conversion, finite-instance cardinality, relational reduction of bag links,
+No full interpretation of `Expr`, general object-diagram environment,
+finite-instance cardinality, core-wide relational reduction of bag links,
 substitution, solver, parser, resolver or runtime evaluator is delivered. In
 particular, `<` on arbitrary object sets is not justified by the schematic τ
 in D.3.1; only the integer fragment is implemented. The interface does not settle
-numeric overflow, string ordering, automatic coercion selection, or tuple binders.
+string ordering, automatic coercion selection, or tuple binders. The integer
+extraction extension uses mathematical `Int` without overflow.
 Those extensions require concrete source/semantic contracts before implementation.
 The [requirements](spec.md#resolved-core-constraint-typing) and
 [trace artifacts](clafer-trace.md#resolved-core-expression-constructors) state
 exactly the implemented claims.
+
+## Integer extraction and Appendix F version operands
+
+[Issue #67](https://github.com/kbak/clafer-lean/issues/67) extends the D.3–D.4
+boundary with an explicit partial unary collection-to-integer operation. This is
+a selected implementation contract for the primitive bridge, not a claim that
+the paper spells out a runtime error API. Success requires an exact singleton of
+a realized integer; invalid results are undefined (`none`). The integer-domain
+encoding/decoder is reused from Figure 21, without using its VC predicate to
+interpret general expressions. [The conversion contract](integer-extraction.md)
+and [trace artifacts](clafer-trace.md#integer-extraction-interface) state its limits.
+
+The primary PDF above was used for Appendix F p.34, D.3–D.4 and §6.1/Figure 21.
+The selected Appendix F declarations have these navigation consequences:
+
+| Source fragment | Resolved/semantic consequence |
+| --- | --- |
+| `comp` owns `version` referring to integer | version head from comp to reference objects, followed by a total functional dereference to the integer domain |
+| ECU and display extend comp | separate inclusion maps justify inherited version access, preserving ambient objects |
+| display owns `server` referring to ECU | server head and dereference lead to ECU before inherited version access |
+| omitted version and server multiplicities | default 1..1, unlike Figure 21's 0..1 server; singleton results are derived from link bounds |
+| display comparison | display.version >= server.version, with no additional guard |
+| `plaDisplay` specializes display and constrains server to parent | a further whole-model restriction; the selected operand-definedness theorem does not assume it or implement all inherited structures |
+
+The Lean fragment retains reference objects instead of identifying head maps
+with the combined Figure 21 maps. Its semantic theorem assumes the selected
+multiplicity/reference/inclusion discipline and derives singleton operands;
+structural Compile alone does not discharge those assumptions. The concrete
+examples include five structural objects and **all** integers. No bounded Alloy
+arithmetic or compiler evidence is used. Q3's unresolved general expression
+interpretation remains separate; #68 can consume this interface.
 
 ## Predicate contracts and the accepted Q8 correction
 
@@ -815,14 +847,18 @@ interpretation. Generated local predicates are exactly the existing individual
 Shape inventory plus guarded inclusion predicates; group/abstract semantic
 translation and full constraint preservation remain outside this increment.
 
-Group metadata now survives `Compile.family`, with a derived direct-child head
-map inventory. This is the settled data interface of
-[#65](https://github.com/kbak/clafer-lean/issues/65), not group enforcement.
-The [D6 proposal](group-compilation.md) records the primary-source evidence,
-abstract-invariant versus concrete-template alternatives, inherited inventory
-interface with #66/#50, and the empty-support conflict with MCS total args.
-Its recommendations remain pending decisions and do not amend accepted paper
-corrections or D1's Appendix C default policy.
+The [accepted D6 group contract](group-compilation.md) extends this structural
+result through a separate generated component. Abstract groups are inheritable
+bounds, applied at concrete contexts over the union of own and super-hierarchy
+child heads. This follows the pinned compiler's `genGroupConst`, `analyzeGCard`,
+`findHierarchy` and inheritance regressions, while empty inventories deliberately
+retain literal count zero instead of the compiler's skip. The contract records
+all six immutable compiler links and the comparison with §4.2.2, §6.2.2, D.4 and
+Appendix C. No D1 default-policy change is made. Vertex-only formulas use B.4
+Definition 8 without claiming Figure 23 total args for the complete union.
+#50 supplies the selected count/representation interface; #66 owns inherited
+realization and commuting restrictions. Typed relation/count and exact union
+gluing proofs establish the bounded correspondence, not whole-language semantics.
 
 ## MCS gluing and the approved Q4 rule
 
@@ -853,3 +889,26 @@ MCS formula banks need not contain ordinary setValued or inclusion declarations.
 The exact image is never silently completed. Bag mode and source key/total-args
 semantics remain unchanged. No compiler integration, general constraint semantics,
 model-existence theorem or global pushout claim follows.
+
+
+## Finite structural candidate semantics
+
+The accepted [#50 boundary](resolved-ir-comparison.md) uses the same primary
+SoSyM preprint and the existing Q1/Q8, parentless-abstract and Appendix E
+corrections. Effective input retains identity and numeric bounds without
+reconstructing source/default provenance. The compiler pin remains comparison
+context only; its Alloy facts do not define the Lean relation.
+
+| Source | Structural obligation |
+| --- | --- |
+| §§5.3.1–3, 5.4; Table 4; A.1 | Finite supplied objects, containment/reference tables, exact parent/dereference multiplicity, local lower/upper bounds and set/bag reference occurrences |
+| §5.3.4–5, §5.5; Figure 18; Appendix E | Root and abstract membership, shared-object subtype inclusion, abstract cover and common-target sibling disjointness; finite acyclic hierarchies establish containment reachability |
+| Appendix C; §6.2.2 | Effective own-child group bounds count the union of child head objects; inherited/abstract group extensions remain unsupported |
+| B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 | Ordinary relation-tuple links and link-isomorphic representation; composite target spans preserve composable occurrences under Q1 |
+| §6.1–6.2, B.4 Definitions 6–10/B.5 | Interpretation into the existing bounded subset/span graph and explicit connection with the selected compiled structural declarations; global clauses supplement the local bank |
+
+Unrelated classes may overlap in the shared ambient carrier. No implicit Alloy
+signature partition, global unique parent across unrelated memberships, primitive
+value domain or authored/default theorem is introduced. The [requirements](spec.md#whole-model-structural-satisfaction-and-interpretation)
+and [trace map](clafer-trace.md) distinguish definitions, implementation proofs and
+whole-model boundary tests.

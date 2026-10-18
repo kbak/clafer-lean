@@ -1,142 +1,111 @@
-# Group compilation: D6 proposal
+# Compiling effective group cardinalities
 
-This is the semantic proposal for [#65](https://github.com/kbak/clafer-lean/issues/65),
-supporting #24 and #64. The choices below remain open; they are not delivered
-interpretation theorems or changes to the [Compile contract](compile.md).
-Preserving group metadata and deriving direct-child maps do not select them.
+[#65](https://github.com/kbak/clafer-lean/issues/65) extends the
+[structural Compile contract](compile.md) with interpreted group declarations.
+`Compile.compileAugmented` retains the original well-formed MCS, adds generated
+group declarations and exposes their complete union. `Compile.gluedGroups`
+preserves that exact union and derives FormalCD naming/default validity.
 
-## Source and settled meaning
+## Source and selected meaning
 
 The [primary preprint](SOURCES.md#primary-source), SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`, supplies:
 
-| Locator | Evidence and limit |
+| Locator | Meaning and boundary |
 | --- | --- |
-| §4.2.1 p.7 | A group bounds instances of children; xor allows exactly one small/large child instance. |
-| §4.2.2 p.8; D.4 p.32 | Constraints hold for each object of their context class. |
-| §4.2.3 p.8; §5.5 pp.14,16 | Subtyping shares objects and inherited structure; map commutation is required. This does not specify group override interaction. |
-| §5.3.4 p.14; Appendix F p.34 | Abstract containment propagates abstractness; the reusable options example contains xor size. Abstract bodies cannot simply be discarded. Retain the accepted head-class correction. |
-| §6.2.2 p.20 | A group is a constraint whose context is the parent and whose scope contains the children. |
-| Appendix C p.31 | xor = 1..1, or = 1..*, mux = 0..1, opt = 0..*; omitted groups inherit the super's group or default to 0..*. Keyword child defaults remain unchanged. |
-| §6.2.3–5 pp.20–21; B.4 Defs.8–10 p.30 | Generated predicates have complete graph bindings and gluing transports declarations. Figure 23's total args remains a separate obligation. |
+| §4.2.1 p.7; §6.2.2 p.20 | Group bounds constrain child instances per parent object. |
+| §4.2.2 p.8; Appendix D.4 p.32 | Explicit constraints hold for every object of their context, including subtype objects. |
+| §4.2.3 p.8; §5.5 pp.14–16; Appendix F p.34 | Inheritance shares objects and structure; map commutation/realization requires separate obligations. |
+| Appendix C p.31 | xor = 1..1, or = 1..*, mux = 0..1, opt = 0..*. Effective bounds/defaults are supplied by resolved input. |
+| B.4 Definitions 8–10 p.30; §6.2.3–5 pp.20–21 | Formulas retain full graph bindings; gluing translates declarations. Figure 23 total args is a separate MCS restriction. |
 
-For a parent object `p`, count the ambient objects in the **set union** of
-child-head fibers. Distinct reference heads pointing to the same target count
-separately. One object reached through two inherited paths counts once. A
-declaration count, a target count, or a sum of fiber cardinalities is unsuitable.
-Use the existing `DPGraph.Predicates.InRange` on that subtype; for a finite
-union, prove equivalence to the lower bound and finite/unbounded upper bound on
-its cardinality. Do not interpret an infinite set as having cardinality zero.
+The selected group-inheritance behavior follows compiler commit
+`15adb2216909421bcb5022174d2d84ef2b42307c`:
 
-Supplementary evidence is
-[`genGroupConst`, lines 324–334](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Generator/Alloy.hs#L324)
-at compiler commit `15adb2216909421bcb5022174d2d84ef2b42307c`.
-It unions child relations over the super hierarchy and skips abstract and empty
-groups. These skips do not decide paper meaning. The MIT license/source policy
-is recorded in [SOURCES](SOURCES.md#pinned-compiler-compatibility-audit); no
-compiler source is incorporated. D1's default-policy differences remain separate.
+* [Generator/Alloy.hs, genGroupConst](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Generator/Alloy.hs#L324)
+  unions own and super-hierarchy child relations and skips abstract contexts.
+* [Intermediate/ResolverInheritance.hs, analyzeGCard](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Intermediate/ResolverInheritance.hs#L213)
+  resolves the nearest authored group along the hierarchy.
+* [Common.hs, findHierarchy](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Common.hs#L171)
+  includes self and successive supers.
+* [groupCardInheritance.cfr](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/test/positive/groupCardInheritance.cfr),
+  its [Alloy regression](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/test/regression/groupCardInheritance.als.reg),
+  and [groupCardInheritance2.cfr](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/test/positive/groupCardInheritance2.cfr)
+  distinguish inherited alternatives, newly added children and local overrides.
 
-## Decision A: abstract applicability and inherited inventory
+An abstract group supplies an inheritable bound. It does not additionally impose
+an invariant over only the abstract declaration's original inventory. Every
+concrete context enforces its resolved effective bound over the union of its own
+children and children of every super. If abstract xor A has x/y and B : A adds z,
+a B object with only z passes. An effective opt override on B can admit two
+children. This special treatment of groups refines the paper's context-constraint
+account; ordinary explicit constraints on abstracts retain that account unchanged.
+Appendix C authored/effective provenance, override rules and child defaults are
+preserved. D1 compiler/default discrepancies remain separate from D6.
 
-**Recommendation:** treat a group as an invariant of its declaring context,
-including abstract contexts. Its inventory is the direct children of that
-declaration and its transitive supers. Evaluate inherited head maps at the same
-ambient parent object through identity inclusion paths. No subtype-only child
-is added to the super's inventory. Apply each context's effective bound; an
-explicit subtype group does not erase the super's invariant.
+An empty inventory counts zero. Bounds containing zero hold; a positive lower
+bound forces the context extent empty. An empty context satisfies the universal
+predicate vacuously. This deliberately differs from `genGroupConst`'s unconditional
+empty-inventory skip. The [compiler license/source policy](SOURCES.md#pinned-compiler-compatibility-audit)
+applies; no compiler source is incorporated.
 
-This follows the context-constraint reading of §6.2.2 and D.4. Appendix C fixes
-effective metadata but does not explicitly settle whether replacing that
-metadata suppresses an inherited invariant. **Alternative:** abstract groups
-are templates, realized only at concrete contexts using each concrete context's
-effective bound and full inherited inventory. That resembles the compiler's
-skip but requires a reviewed account of the paper's constraint reading.
+## Representation and interpretation
 
-Discriminating examples (explicit optional child multiplicities):
+`Groups.Ancestor` selects the reflexive transitive super hierarchy by resolved
+identity. `Groups.Child` pairs an ancestor with each declaration whose resolved
+parent is that ancestor. Finite ASTs therefore have finite inventories.
+The arity has one vertex for each selected ancestor and child, a distinguished
+context vertex, each selected child-head arrow, and the inclusion arrows between
+selected ancestor heads. `Groups.binding` maps all vertices and arrows into the
+canonical role graph, preserving incidence and ownership. A generated predicate
+symbol identifies one concrete owner; its effective bound and inventory are fixed
+by the compiled family. Reference children bind their heads, never their targets.
 
-* Abstract xor A has children x and y; B : A adds z with effective xor. An object
-  with only z fails the recommendation (A counts zero), but passes the template
-  alternative (B counts one).
-* With explicit opt on B, an object with x and y fails A's invariant under the
-  recommendation; the template alternative permits it. Appendix C defaults are
-  unchanged in both alternatives.
-* Abstract xor A has no children; B : A adds x. A B-object with x fails the
-  recommendation but passes the template alternative. An empty abstract head
-  satisfies universal group constraints vacuously.
+For each context object, `Groups.Objects` takes the **set union of ambient child
+objects** reached by those head maps from that same parent identity. Distinct bag
+heads with one reference target count separately. Multiple links or inherited
+paths witnessing the same object count once. No sum of declaration cardinalities
+or target deduplication is used. `InRange` gives the embedding-based meaning even
+for infinite sets; finite specialization reuses #50's `inRange_card`, with explicit
+finiteness of the counted subtype.
 
-For overlapping inherited paths, both alternatives must use union by ambient
-object identity. Realizing inherited fields, commuting maps, and nested child
-specialization belongs to #66; #65 must not assume arbitrary maps have those
-properties or silently strengthen `AST.WellFormed.inheritance_parent`.
+The extra component can contain vertex-only formulas. A childless context with
+no super has its context vertex and no arrows. These are legal under B.4
+Definition 8, but cannot satisfy Figure 23 total args. The original MCS bank, its
+literal bag key, nonempty argument proof and the positive-support contract for
+user constraints remain intact. No synthetic identity role is added. The complete
+raw bank is not claimed to satisfy the old MCS total-args discipline.
+`forget_augmented` recovers the existing structural result exactly.
 
-## Decision B: empty groups and total args
+## Gluing and semantic boundary
 
-**Recommended meaning:** an empty inventory has count zero at each parent
-object. Bounds containing zero pass; a positive lower bound forces the context
-head to be empty. An absent optional parent passes vacuously. Never omit a
-nontrivial bound because its inventory is empty.
+The complete source bank contains the union of original and generated
+declarations, including ordinary/inclusion effective defaults. `glued_declarations`
+proves exact image equality for both components, retaining full bindings under
+labeling. Compile's referents are injective, so incidence, metadata compatibility
+and a graph inverse to labeling are derived. `descendGroups` therefore constructs
+an actual glued interpretation from a configuration and proves its reduct equality.
+Generic noninjective MCS gluing still requires its existing consistency conditions.
 
-The natural group arity has a context vertex, a vertex for each selected child
-head, all child head arrows, and every intermediate vertex/inclusion arrow
-needed for inherited navigation. Empty own-child inventories can have just the
-context vertex and no arrows. Such a formula is legal in DPGraph but cannot
-inhabit a valid `MCS.Formulas` bank under `req~clafer-mcs-formulas~1`.
-The existing `Formulas.no_zero_arrow` theorem in
-[MCS/Laws.lean](../Clafer/MCS/Laws.lean) proves that boundary.
+`objects_interpret` proves that a typed #50 relational configuration realizes each
+selected head fiber as containment at the same parent identity. `generated_group_iff`
+and `descended_group_iff` identify source/glued formula satisfaction with the
+selected bounds. `descended_model_iff` accounts for both declaration components;
+satisfying a group alone does not establish the remaining structural obligations.
+No user-expression interpreter is inferred from fresh predicate symbols.
 
-This is not solved by choosing nonminimal support: an accepted AST containing
-only Sing and a parentless, childless abstract xor A has **no map roles at all**.
-Both heads remain present under the accepted correction. Any arrow in a
-predicate arity would have to map to a nonexistent role. Nor can a dummy
-identity be bound: the role graph is a quiver without identity arrows. Requiring
-positive child support would exclude previously accepted input and would miss
-the requested empty cases.
+#50's checker and guarded comparison fragment remain unchanged. `direct_child_iff`
+relates inventories when strict ancestors have no children; effective-bound
+agreement is also necessary when comparing to its `Configuration.Groups` (and
+holds for `EffectiveCore.erase`). #50 does not depend on this extension.
+[#66](https://github.com/kbak/clafer-lean/issues/66) owns realization of inherited
+fields, nested child specialization and commuting map restrictions. Selecting an
+inherited head map does not prove those obligations or copy any object. Tests of
+an inherited abstract-child fiber are explicitly group-predicate tests under typed
+relations, not proofs of complete inherited-family realizability. The zero-arrow example
+uses only Sing; its empty-context case tests the group predicate vacuously and
+does not assert the separate root singleton obligation.
 
-**Recommended representation extension, requiring review:** retain the existing
-MCS formula bank and its total-args/key disciplines, and add an explicit component
-of generated vertex-only declarations to the Compile result. The complete source
-diagram is their union with the existing bank; gluing takes the exact image of
-that complete diagram. Every vertex-only declaration retains its owner, unique
-generated symbol and full binding. This changes the generated-output interface;
-it is not already allowed by the current MCS-only formula contract.
-An alternative is a reviewed extension of the MCS role vocabulary with genuine
-identity-support arrows and their semantics. Silently weakening total args,
-adding unrelated arrows, or rejecting empty groups is not proposed.
-
-## Proposed interface and proof obligations
-
-#65 owns a Clafer-specific signature extension, distinct from authored constraint
-occurrences and built-in predicates. A generated symbol identifies its owner
-occurrence, effective range and resolved support inventory. Its binding includes
-every support vertex/arrow; `owner = parent occurrence`. Unique occurrence
-symbols establish the literal bag key without replacing bag equality by ordered
-arguments. Built-in defaults remain in the source bank for FormalCD validity.
-
-#50 owns structural candidates, counting and representation lemmas and its
-checker; it must not depend on this extension. Reuse its actual API when supplied.
-The present baseline has no #50 implementation. The integration seam is a finite
-set of ambient child-head objects per parent, with explicit finite-count and
-structural correspondence proofs. #65 interprets its generated formula using
-that seam and proves the bound equivalence; it does not duplicate a checker.
-Existing [predicate lemmas](../DPGraph/Predicates/Meaning.lean)
-`distinctValuesEquiv`, `targetMultiplicity_distinct` and `inRange_iff` can relate
-an individual set-valued head-map fiber to its distinct child objects. They do
-not justify summing overlapping fibers or counting dereferenced targets.
-#66 supplies the inherited inventory and realization laws (including shared
-object identity and commuting parent maps). Direct-child selection is derivable
-now from resolved parent equality; it is not a substitute for that inventory.
-
-For each generated declaration, prove source-bank membership, exact glued-image
-membership, and satisfaction after gluing iff the same bounds hold after
-precomposition with labeling. Use B.5's formula translation law; do not infer
-whole-model reflection from reduct alone. Prove default completeness separately.
-
-Required interpreted compile/glue witnesses remain: xor with zero/one/two
-children while each child is individually optional; numeric 2..3; or/mux/opt;
-two bag heads sharing one target; overlapping inherited paths; abstract-context
-applicability; and empty inventories with both zero and positive lower bounds.
-One child declaration with two instances must count two. The choices above must
-be resolved before the affected witnesses are implemented or #24 reports group
-compilation complete. The affected existing requirement IDs listed in #65 retain
-their promises; new semantic requirements need actual implementation/proof
-coverage, not this proposal as a substitute.
+Named implementation/proof and acceptance artifacts are in
+[the Clafer trace](clafer-trace.md). #24's integration and #64's full Telematics
+model retain their separate acceptance criteria.

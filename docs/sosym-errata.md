@@ -37,10 +37,12 @@ and the separate synthetic-root exception.
 
 **Figure 21a and adjacent prose, p.17; Figure 8 line 9 and §4.2.3, p.8;
 Appendix F, p.34.** The intended condition is
-`display.version ≥ server.version`, guarded by the presence of a server.
-Equality passes, and a display without a server satisfies the condition
-vacuously. The adjacent p.17 prose reverses the inequality; Figure 8, its
-explanation and Appendix F support the corrected direction. Preserve Figure
+`display.version ≥ server.version`. In Figure 21a it is guarded by the
+presence of a server: equality passes, and a display without a server satisfies
+VC vacuously. Appendix F instead has a default 1..1 server and an unguarded
+comparison; its [operand-definedness contract](integer-extraction.md#appendix-f)
+derives existence from the selected structural semantics. The adjacent p.17 prose
+reverses the inequality; Figure 8, its explanation and Appendix F support the corrected direction. Preserve Figure
 21a's nonempty-server guard rather than requiring every display to have a server.
 [Decision and checked models](SOURCES.md#figure-21b-and-the-accepted-q7-correction);
 [implemented in #38](https://github.com/kbak/clafer-lean/pull/38).
@@ -149,6 +151,18 @@ although its displayed arithmetic conclusion shows only addition. These typing
 rules and notation do not by themselves supply constraint interpretation or
 primitive-value conversion.
 [Visual-source disposition and selected typing scope](SOURCES.md#appendix-d-rule-dispositions-q3).
+
+### Effective group inheritance and empty inventories
+
+**§4.2.1–2, §6.2.2, Appendix C and D.4.** Groups on abstract declarations supply
+inheritable bounds. Each concrete context enforces its effective bound over the
+union of own and inherited child heads; no separate abstract original-child
+invariant is added. This selected D6 interpretation follows the pinned compiler
+inheritance regressions. Ordinary explicit abstract-context constraints remain
+invariants. Empty inventories retain count zero, intentionally differing from
+the compiler's unconditional skip. A positive lower bound forces an empty context
+extent. [Source account, examples and representation boundary](group-compilation.md)
+explain the complete arities and separate component needed for vertex-only formulas.
 
 ## Formalization boundary
 

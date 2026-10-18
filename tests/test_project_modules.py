@@ -66,12 +66,25 @@ class PublicLibrariesTest(unittest.TestCase):
             "Clafer.MCS.Gluing", "Clafer.MCS.Gluing.Origins",
             "Clafer.MCS.Gluing.Examples", "Clafer.MCS.Gluing.Boundaries",
             "Clafer.Constraints.Support", "Clafer.Constraints.Typing",
-            "Clafer.Constraints.Examples",
+            "Clafer.Constraints.Examples", "Clafer.Constraints.Integer",
+            "Clafer.Constraints.IntegerNavigation", "Clafer.Constraints.IntegerExamples",
             "Clafer.Compile.Structure", "Clafer.Compile.Local",
             "Clafer.Compile.Binding", "Clafer.Compile.Basic", "Clafer.Compile.Examples",
+            "Clafer.Compile.GroupSupport", "Clafer.Compile.Groups",
+            "Clafer.Compile.GroupSemantics", "Clafer.Compile.GroupExamples",
+            "Clafer.Compile.GroupOverlapExamples", "Clafer.Compile.EmptyGroupExamples",
+            "Clafer.Semantics.EffectiveCore", "Clafer.Semantics.Structural",
+            "Clafer.Semantics.Interpretation", "Clafer.Semantics.Relational",
+            "Clafer.Semantics.Bridge", "Clafer.Semantics.Abstracts",
+            "Clafer.Semantics.Reachability", "Clafer.Semantics.Renaming",
+            "Clafer.Semantics.Normalization",
+            "Clafer.Verification.Finite", "Clafer.Verification.Protocol",
+            "Clafer.Verification.ProtocolProofs", "Clafer.Verification.Admission",
+            "Clafer.Verification.Representation", "Clafer.Verification.Examples",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
         self.assertIn(Path("tests/formalcd_imports.lean"), tests)
+        self.assertIn(Path("tests/structural_checker.lean"), tests)
 
     def test_project_artifact_cache_cannot_reuse_candidate_builds(self):
         config = (REPO / "lakefile.toml").read_text()

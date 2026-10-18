@@ -4,15 +4,16 @@
 
 The documentation/source audit for [#49](https://github.com/kbak/clafer-lean/issues/49)
 is delivered in [merged #55](https://github.com/kbak/clafer-lean/pull/55), under
-[#48](https://github.com/kbak/clafer-lean/issues/48). Its executable contract remains
-a proposal for a future
-comparison of finite structural candidates against resolved Clafer IR and its
-generated static Alloy. It supplies no importer, checker, solver integration or
-new theorem. “Proposed supported” below means a proposed comparison domain,
-conditional on the prerequisites; it does not mean compatibility has been proved.
-The [current intent exclusions](intent.md) and [layer policy](ARCHITECTURE.md)
-continue to apply. Delivery of this audit does not implement the proposed
-comparison or its prerequisite semantic interfaces.
+[#48](https://github.com/kbak/clafer-lean/issues/48). The effective-core boundary
+and guarded version-1 S fragment are accepted for
+[#50](https://github.com/kbak/clafer-lean/issues/50). Reusable whole-model semantics,
+finite candidates, representation bridges and the verified checker belong in
+this repository under `Clafer/Semantics/` and `Clafer/Verification/`.
+This authorization does not admit X/D language forms, change the selected paper
+semantics, or authorize production parsing, generation, optimization, expressions
+or solver integration. External comparison harness placement and executable
+Alloy policies remain deferred to #51–52. Compiler agreement remains a property
+to investigate, not the definition of structural satisfaction.
 
 Covers:
 - `req~resolved-ir-comparison-contract~1`
@@ -53,7 +54,7 @@ every compiler feature or a fresh visual audit of the whole paper.
 | C7: [ClaferArgs.hs][args], [CHANGES.md][changes] | Complete option inventory; 0.5 behavioral extension, 0.5.3 fixes and Alloy 6 migration |
 | C8: [set_and_bag_references.cfr][bag-fixture] and [Alloy regression][bag-regression] | Three reference-head objects; only the set version emits distinct-target uniqueness. Related `.js.reg`, `.html.reg`, `.dot.reg` are presentation/backend cross-checks, not semantics proofs. |
 
-## Proposed compatibility matrix
+## Guarded compatibility matrix
 
 Lean names in this table denote **current declarations**, except where explicitly
 called missing. `Clafer` names are in [Syntax](../Clafer/Syntax.lean),
@@ -63,30 +64,30 @@ called missing. `Clafer` names are in [Syntax](../Clafer/Syntax.lean),
 key correspondence in [FunctionalKey](../DPGraph/Predicates/FunctionalKey.lean).
 Generic satisfaction and reduct names are in [DPGraph.Semantics](../DPGraph/Semantics.lean).
 Their [trace artifacts](clafer-trace.md) distinguish syntax proofs from satisfaction.
-S = proposed supported subject to the stated guard; X = excluded from version 1;
+S = accepted structural support subject to the stated guard; X = excluded from version 1;
 D = awaiting a decision, rejected by the version-1 admission gate for now.
 
-| IR form / behavior | SoSyM locator | Current Lean anchor / missing interface | Compiler/version observation and proposed disposition |
+| IR form / behavior | SoSyM locator | Lean anchor / comparison boundary | Compiler/version observation and fragment disposition |
 | --- | --- | --- | --- |
 | Basic declarations, finite nesting, repeated display names | §5.3.1, §5.4 pp.13–14; §6.2.2 Fig.22 p.20 | `Declaration`, `Tree`, `AST`, `AST.WellFormed.unique_ids`, `parent_depth` | **S**: C2/C5 UIDs define identity; nesting agrees with `_parentUID`. Do not merge equal `_ident`. Reference cycles are permitted; containment/super cycles are rejected. |
 | Effective clafer intervals and unbounded upper limits | §5.2/Table 4 p.13; App.C/Fig.27 p.31; A.1 p.28 | `Multiplicity.effective`, `ValidRange`, `Range`, `TargetMultiplicity` | **S**: analyzed `_card`, upper `-1` only for infinity. Count head/link occurrences, not distinct dereferenced targets. `_glCard` is separate backend metadata (C3/C6). |
-| Effective group bounds on concrete parents | App.C p.31; §6.2.2 p.20 | `GroupMultiplicity.effective`; **whole-model group satisfaction missing** | **S** for own children without inheritance overlap. C3 `genGroupConst` counts the union of child-object sets, not present child declarations. Two bag heads pointing to one target count twice. It skips abstract parents and empty child inventories; inherited/overlapping groups and positive lower bounds with no declared children are **D**, D6. |
+| Effective group bounds on concrete parents | App.C p.31; §6.2.2 p.20 | `GroupMultiplicity.effective`; `Configuration.Groups` in [structural semantics](structural-checker.md) | **S** for own children without inheritance overlap. C3 `genGroupConst` counts the union of child-object sets, not present child declarations. Two bag heads pointing to one target count twice. It skips abstract parents and empty child inventories; inherited/overlapping groups and positive lower bounds with no declared children are **D**, D6. |
 | Authored/default group policy | App.C p.31 | `Defaults`, `GroupCard.childDefault`, `GroupMultiplicity.authored` | **D** as a source-default correspondence: C5 defaults concrete nested children of any non-`0..*` group to `0..1`; Lean makes only keyword-group children optional. C5 `opt` has `0..*`, so its concrete children default to `1..1`, unlike Lean. Use only effective values in S; D1 retains this disagreement. |
 | Top-level abstract basic, concrete subtypes | §5.3.4–5 p.14, §5.5 p.16; §6.2.3/Fig.23; App.E Table 7 | `Origin`, `AST.WellFormed.parentless_abstract`, `Roles.head`, `root_only_head`; `Cover`, `Disjoint` | **S** for leaf abstract basics with `_card = [0,-1]` or optimizer-forced `[0,0]`, no reference inherited by a basic subtype. Keep head, omit source/parent maps under the accepted correction. Abstract cover/disjointness still needs #50; Alloy uses `abstract sig`/`extends`. |
 | Top-level abstract multiplicity restrictions | Same, Table 4; no parent fiber at a parentless Shape | `Shape.declarations` applies multiplicity only where head/target maps exist | **D**, D3: C3 can emit global signature bounds for abstracts; these are not a local parent-fiber predicate. `[0,0]` is admissible only with a recorded unused-abstract condition making cover empty. |
 | Nested abstractness / children of abstract declarations | §5.3.4 p.14 | `Defaults` propagates abstractness; `AST.WellFormed.nested_abstract` | **D**, D2: C5 `desugarModifiers`/`resolveNClafer` retain the declared abstract flag; they do not implement Lean's containment propagation. Explicit nested abstract bodies, relocation and redefinition also require the #20/#23 disposition. |
 | Single inheritance of basics, including a concrete nested basic extending a top-level abstract leaf | §5.5 pp.14–16/Fig.18; App.E Table 6 p.33 | `Kind.CanExtend`, `inheritance_parent`, `inheritance_rank`, `Shape.Inclusions`; `Inclusion` | **S** with an abstract basic super, no inherited child/reference fields, no overlapping group roles. The same object inhabits subtype and supertype. C3 emits `extends`; cover/disjointness use accepted Q8. |
 | Nested-parent refinement, inherited references, target narrowing or kind refinement | §5.5 p.16; App.E Tables 5–8 | `inheritance_parent` requires equal parent IDs when the super is parented; `Shape.OptionalInclusions` is local only | **D**, D4: C4/C3 allow a child's parent to extend the super's parent, and generate parent/reference subrelations. C5 also relocates some abstracts. Set-over-bag is allowed by Lean kind checks but its whole-model bridge is missing. Bag-over-set/basic-over-reference fail the Lean kind restriction. |
-| Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated class identity: **D** whole-model obligation. Alloy top-level signatures are disjoint even without an explicit `extends`; do not silently impose that on the Lean candidate domain to obtain agreement. |
+| Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated class identity: permitted by the accepted Lean domain; comparison with Alloy remains **D**. Alloy top-level signatures are disjoint even without an explicit `extends`; do not silently impose that on the Lean candidate domain to obtain agreement. |
 | Direct class-target reference set/bag on a concrete declaration | §5.3.2–3/Table 4 pp.13–14; B.1 Defs.1–5/Thm.2 pp.28–29 | `Reference.set/bag`, `Roles.mode`, `Shape.keyBinding`, `Key`, `SetValued`, `TargetMultiplicity` | **S**: C2 `_isSet = true/false`; C3 has one target per reference head and emits uniqueness per parent for sets. Targets must be admitted user classes, not expressions or primitive domains. |
 | Top-level abstract set/bag references | §5.3.4 corrected by §6.2.3/Fig.23; Table 7 exception | `abstract_reference_no_key`, `Roles.no_parent_maps`; head, target and dereference remain | **D**, D3: C3 globally enforces distinct targets for abstract set heads when card permits repetition. Lean's accepted parentless Shape has no parent/deref pair key. Bag lacks this uniqueness but inherited reference identity still requires a bridge. Do not invent a root parent or silently add a unary key. |
 | Span multiplicity, set keys and map equality | B.1 Def.2/Thm.2; B.2.1–2; B.3 Table 3; A.1 | `Span.comp`, `Span.Iso`, `Key`, `BagEquiv`, `Commutation`, `key_total_singleValued_iff` | **S** interpretation target: retain links under accepted Q1, not endpoint reduction. Keys compare output bags; the derived tuple criterion requires total, single-valued projections. Its parent/deref specialization gives uniqueness of `(parent,target)` once those hypotheses are established. No ordinary-key replacement for the generic predicate. |
-| Whole-model satisfaction and compile/glue correspondence | §6.1.1–3 pp.17–20; §6.2.4–5 p.21; B.4 Defs.6–10/B.5 Thm.3 pp.29–30; App.E Tables 5–8 | `FormalCD.CD`, `DPGraph.Interpretation.Satisfies`, `IsModel`, `isModel_reduct`; **Clafer whole-model interpretation/bridge missing** | **D** prerequisite for every comparison: C3's facts are not themselves the selected Lean interpretation. #20/#22/#23 structural outputs and #50's interpretation/bridge must be connected; reduct alone is not reflection. |
+| Whole-model satisfaction and compile/glue correspondence | §6.1.1–3 pp.17–20; §6.2.4–5 p.21; B.4 Defs.6–10/B.5 Thm.3 pp.29–30; App.E Tables 5–8 | `FormalCD.CD`, `DPGraph.Interpretation.Satisfies`, `IsModel`; `structural_model_iff`, `compiled_bank_iff`, `finite_model_representable` in the [checker guide](structural-checker.md) | The selected compiled bank plus explicit global obligations has a both-direction bridge. C3's facts still need a separate comparison argument in #51–52; reduct alone is not reflection. |
 | Synthetic root, base and predefined classes | §5.3.5 p.14; §6.2.2/Fig.22; App.E Table 7 | `Origin.syntheticRoot`, `PrimitiveDomain`, `AST.WellFormed.root_shape` | **S** for the root convention below; compiler `clafer` is not a user class or Lean root. **X** for all runtime primitive values. C4 has `integer/int/string/double/real/boolean`; Lean has selected `int/string/bool` identities, not their value domains. No automatic alias/domain translation. |
 | User constraints, assertions, goals, expressions and temporal modifiers | App.D and post-2014 features | `ConstraintBoundary` plus the resolved typed core in [Constraints.Typing](../Clafer/Constraints/Typing.lean); constraint meanings remain unformalized | **X** for all `IEConstraint` (both `_isHard` values), `IEGoal`, and every expression except the allowed direct ID slots. C7 0.5.0 adds behavior; C1 may switch silently to `AlloyLtl` without this gate. |
 | Backend escapes, enums, initializers and scope inference | No version-1 semantic contract | No current correspondence | **X**: escapes bypass JSON; enums/initializers may disappear into desugared forms. A source feature receipt is required. C7 0.5.3 fixes group scope inference, abstract-parent navigation, retained referenced abstracts and redefinition; these release notes do not prove equivalence to 2014. |
 
-The initial **S** fragment combines ordinary nesting, effective multiplicities
+The accepted **S** fragment combines ordinary nesting, effective multiplicities
 and concrete group bounds, leaf abstract basic classes, single inheritance as
 guarded above, and direct class-target set/bag references. It intentionally does
 not claim closure under every combination of these features. Cases marked D
@@ -211,36 +212,29 @@ exist at the compiler pin; exporting this receipt is future harness work.
 
 ## Effective core and the provenance bridge
 
-Propose an `EffectiveCore` interface consisting of resolved IDs, display names,
+The accepted `EffectiveCore` interface consists of resolved IDs, display names,
 normalized root/parent edges, abstract flags, direct reference kind/target,
-optional super, and effective local/group intervals. This name is a proposed
-interface, not a Lean declaration. Compiler metadata remains in a separate
+optional super, and effective local/group intervals. The owning Lean declaration is `Clafer.Semantics.EffectiveCore`. Compiler metadata remains in a separate
 receipt. In particular it does not fabricate `Multiplicity.authored`,
 `GroupMultiplicity.authored`, `Declaration.authoredAbstract` or `Defaults` proofs.
 
 Existing `AST.WellFormed` is stronger than the serialized information and also
 selects a different default policy in D1. Creating an AST with all intervals
-marked authored would falsely assert provenance. Prefer a projection
-`erase : AST → EffectiveCore` and a standalone effective-core well-formedness
-predicate. For admitted cores require unique/resolved IDs, acyclic hierarchies,
+marked authored would falsely assert provenance. The projection `EffectiveCore.erase` takes an existing `Compile.Input`; a
+standalone effective-core well-formedness predicate admits effective data directly. For admitted cores require unique/resolved IDs, acyclic hierarchies,
 valid bounds, kind/parent/root restrictions and the chosen structural guards;
 do not include authored/default consistency in that predicate.
 
-#50 must specify and prove the following **proposed** bridge once structural
-semantics exists: for well-formed supported `a`, `erase a = e` implies that, for
-every finite candidate `C`, `SatisfiesAST(a,C) ↔ SatisfiesCore(e,C)`, with an
-explicit object/link-role correspondence. Further, any two such ASTs with equal
-erasure have equal structural satisfaction. The justification to investigate is
-that local Shapes read effective multiplicities/kind/parent and that group and
-inheritance interpretation can be made to read effective data only. It is not
-yet a theorem: current local Shapes omit whole-model group/abstract/containment
-obligations. The proof must cover those obligations too.
-
+`erasure_correspondence` proves `SatisfiesAST ↔ StructuralSatisfies` for an
+existing valid Compile input with explicit `ConstraintFree` and supported-erasure
+guards. `equal_erasure_satisfaction` proves equal packed erasures have equal
+structural satisfaction for configurations indexed by resolved IDs. Local role
+interpretation uses the canonical cojoining, effective bounds and shared heads;
+global root/abstract/group obligations are additional explicit clauses.
+See the [proof and representation APIs](structural-checker.md#meaning-and-interpretation).
 An imported core is checked directly; no claim that every core lifts to an
-authored/defaulted AST is necessary. If #50 instead needs an AST-only compiler,
-it must either provide a reviewed conservative effective interface or require a
-minimal faithful additional authored export. It cannot choose convenient authored
-values. No parser, name-resolution, default-elaboration, optimizer-preservation
+authored/defaulted AST is necessary.
+No parser, name-resolution, default-elaboration, optimizer-preservation
 or source-program equivalence theorem follows from either approach.
 
 ## Finite candidates, identity and counts
@@ -258,8 +252,9 @@ tuples. They may be empty or nonfunctional so that semantic violations can be
 tested: malformed serialization and ill-typed endpoints are rejected, while
 violations of required totality, bounds, cover or uniqueness are **false
 satisfaction**. General spans with parallel links in an ordinary set-valued map
-are outside this candidate encoding; #50 must justify that each satisfying
-structural model has a representative in this form, not simply assume it.
+are outside this candidate encoding; `SpanModel.normalize_satisfies` and `finite_model_representable` justify that
+each finite satisfying model in the declared whole-model domain has a representative
+in this form, deriving role isomorphisms from the local bank.
 
 For a parented declaration `d`, containment is `Q_d ⊆ H_parent × H_d` and parent
 is its converse, with tuple-indexed link tokens. A concrete top-level `d` has
@@ -282,14 +277,14 @@ condition. Top-level abstracts have no `Q_d` or synthetic-root parent; D3
 therefore prevents importing their compiler-wide set key as a local predicate.
 The existing `DPGraph.Predicates.key_total_singleValued_iff` supplies the generic
 tuple-injectivity criterion under explicit totality and single-valuedness.
-#50 still must connect the candidate's two projections and their hypotheses to
-the interpreted Shape key; the generic theorem alone supplies no such bridge.
+`Configuration.key_local_iff` connects the candidate's projections and their
+totality/single-valuedness hypotheses to the interpreted Shape key.
 
 Inheritance is subset inclusion **of the same ambient objects**, with identity
 inclusion spans. Abstract heads are the union of their direct subtype heads;
 distinct direct subtype images are disjoint, including the empty-family case
 (abstract leaf without subtypes is empty). This uses accepted Q8. No extra object
-is allocated for a supertype membership. The proposed S guard admits only
+is allocated for a supertype membership. The accepted S guard admits only
 abstract supers, so Alloy `extends` disjointness is compared with this obligation.
 Shared containment/reference maps and their commutation/subrelation constraints
 are additional obligations when D4 is opened; head inclusion alone is insufficient.
@@ -298,14 +293,16 @@ A concrete parent's group count is the number of distinct **child head objects**
 in the union of its effective child fibers. Do not count child declarations,
 dereferenced targets, or the same inherited object twice. For S, child fibers
 have no inheritance overlap. The generalized union, effective inherited child
-inventory and behavior of abstract groups are D6; they require source review
-and a whole-model interpretation before extending the domain.
+inventory and behavior of abstract groups follow the [accepted D6 group
+contract](group-compilation.md). #65 generates interpreted declarations; the
+comparison domain remains guarded until #66 supplies inherited-family realization
+and its whole-model bridge.
 
 User objects must occur in some user head; arbitrary unused ambient garbage is
 not part of a candidate. Satisfaction must enforce the selected root/reachability
 conditions through concrete containment; failing them is a semantic violation,
-not an admission filter. Whether reachability follows from the other chosen
-finite structural conditions is an obligation for #50. Similarly, keep potential
+not an admission filter. `structural_reaches` proves reachability from the other selected conditions
+and the well-formedness/support hypotheses. Similarly, keep potential
 overlap between unrelated head subsets available to the checker: Alloy's implicit
 top-level-signature disjointness needs an explicit source/interpretation disposition,
 not an assumed property of every Lean model. Renaming uses a bijection on used objects fixing `ρ`,
@@ -456,7 +453,7 @@ an exhaustive agreement result.
 ## Proposed comparison properties and their limits
 
 Let `D_B(e)` be the explicitly specified finite candidate domain under bounds B,
-and `L(e,C)` the missing whole-model Lean satisfaction predicate. Let
+and `L(e,C)` the independent `StructuralSatisfies e (realize C)` predicate. Let
 `P_A(e,C,B)` mean existence of a valid Alloy witness for the **same** pinned C,
 using the fixed options and adequate bitwidth. Before drawing semantic conclusions,
 #50 must connect its executable checker with `L`; the adapter must establish
@@ -518,8 +515,8 @@ commit. Static inspection establishes emitted structure only, not solver truth.
 
 ## Decisions, location proposal and prerequisites
 
-The following are review items for #49/#48 and the owning follow-ups. Recording
-alternatives here does not choose a new paper meaning. Existing Q1/Q8 and the
+The following dispositions distinguish accepted #50 interfaces from deferred
+language extensions and external comparison work. Existing Q1/Q8 and the
 top-level abstract correction remain accepted as documented in [SOURCES](SOURCES.md).
 New disagreements must be recorded on those issues before implementation; no
 compiler behavior overrides a current Lean requirement.
@@ -531,34 +528,27 @@ compiler behavior overrides a current Lean requirement.
 | D3 — parentless key and cards | Retain current corrected Shapes; reject abstract references and nontrivial abstract global cards until reviewed. Do not add a root parent/key to force compiler agreement. | #49/#50 with #20/#23; separate source correction if ever proposed. |
 | D4 — inheritance/refinement | Require selected parent/kind rules and the guarded S subset. Compiler parent-subtyping, redefinition, inherited ref fields and target narrowing are extensions requiring an explicit bridge. | #20/#22/#23/#50; preserve existing input requirement. |
 | D5 — hidden generation state | Same-generation minimal receipt and exact options; unsupported without it. Alternative broader state export needs a versioned schema. | #49; Alloy adapter follow-ups #51/#52 after review. |
-| D6 — group/global obligations | Own-child groups count head objects; inherited role union, abstract-group constraints and source/target sharing need a complete structural declaration inventory. C3 also suppresses a group fact with no declared children, even with a positive lower bound; retain this as a decision case. The [#65 proposal](group-compilation.md) presents source-cited alternatives and the total-args conflict; its recommendations remain open. | #20 enumerates source clauses; #50 interprets/checks them; #65 owns generated group predicates and their meaning, with inherited realization from #66. |
-| D7 — location and scope | Recommend companion harness described below; an in-project verification extension is the alternative requiring amended exclusions, requirements and CI policy. | #48/#49 review before any executable work. |
-| D8 — structural dependency cut | Keep roadmap #22's #21 dependency and #23 dependencies intact. A separately reviewed structural-only interface may omit expression bodies, not whole-model structural semantics. Account explicitly for unrelated-class overlap versus Alloy top-level disjointness in that interpretation. | #20/#22/#23 and #50 must record accepted interfaces/disposition before shortcut. |
+| D6 — group/global obligations | Accepted for #65: abstract groups are inheritable bounds; concrete contexts count the union of own and inherited child heads. Empty inventories count zero, intentionally differing from C3’s skip. The [group compilation contract](group-compilation.md) records the separate generated component and complete bindings. | #50 retains its guarded checker; #65 generates/interprets groups; #66 owns inherited realization and map restrictions. |
+| D7 — location and scope | Accepted: reusable semantics, candidates, bridges and checker stay in this repository. No `clafer-compare` repository is created for #50. External harness placement remains deferred. | #50 implements the in-project extension under unchanged full validation; #51–52 own later harness decisions. |
+| D8 — structural dependency cut | Accepted guarded S interface: dependencies #3/#16/#17/#20/#21/#22/#23/#49 are complete. Unrelated Lean class extents may overlap; Alloy top-level disjointness is not added. Whole-model interpretation and finite correctness bridges remain #50 deliverables. | #50 owns the complete global structural interpretation; expression evaluation and external comparison remain excluded. |
 
-**Location proposal (D7).** Put executable importer, finite candidate generator,
-Alloy adapter, scope/search driver and artifact schema in a separate proposed
-`clafer-compare` companion repository: `Comparison/EffectiveCore.lean`,
-`Comparison/Finite.lean`, `Comparison/Bridge.lean`, `harness/` and `schemas/`.
-It imports a pinned `clafer` package, never the reverse. This proposal creates
-no repository or dependency. General structural interpretation/compile/glue
-results needed by #20/#22/#23 remain in the owning `Clafer` layer; #50 owns
-identifying and delivering the missing whole-model interpretation and bridge,
-with reusable semantic declarations proposed under `Clafer/Semantics/` only
-after the implementing scope is approved. DPGraph/FormalCD stay reusable.
+**Accepted location (D7).** Whole-model structural semantics and effective-core,
+interpretation and representation bridges live under `Clafer/Semantics/`;
+finite candidate verification lives under `Clafer/Verification/`. Shared definitions
+remain in the owning Clafer layer. The repository retains one Lake package and
+`Clafer -> FormalCD -> DPGraph -> Mathlib`; DPGraph stays independently importable.
+The [intent](intent.md), [architecture](ARCHITECTURE.md) and
+[extension requirements](spec.md#effective-structural-core-and-supported-fragment)
+state this boundary. The existing full pinned validation policy is unchanged.
+The location and policies for an external importer, generator, Alloy adapter and
+search/reporting harness remain #51–52 decisions.
 
-This location preserves the main project's exclusions of instance generation,
-Alloy/SMT/SAT integration, runtime configurations and Claferize. Before work starts,
-review the companion's intent, implementing requirements, source/solver locks,
-finite-checker correctness target and validation policy, and this project's
-architecture links plus any new Clafer semantic requirement. If an in-project
-`Clafer/Verification/` and `tools/compare/` alternative is chosen, explicitly amend
-the main intent exclusions, requirements and independently selected validation
-scope first. This planning change amends none of those executable policies.
-
-**#50 prerequisite allocation.** Current `AST.WellFormed`, `Shape.diagram`,
+**Whole-model proof obligations.** Existing `AST.WellFormed`, `Shape.diagram`,
 `Shape.raw_wellFormed`, and expression typing from #21 are not a whole-model
 satisfaction predicate. Structural results from #22/#23 are also insufficient
-alone. Before comparison, #50 must deliver or explicitly depend on:
+alone. The [structural checker guide](structural-checker.md) and
+[trace artifacts](clafer-trace.md#effective-structural-core) identify the declarations
+covering these accepted obligations:
 
 1. A complete interpreted structural signature/declaration inventory, including
    root singleton, abstract cover/disjointness, containment ownership/reachability,
@@ -583,10 +573,11 @@ alone. Before comparison, #50 must deliver or explicitly depend on:
    interpretation; conversely unrelated deferred language features need not be
    finished if the exact structural slice and bridge are separately accepted.
 
-The #49 audit is delivered while these prerequisites remain open. #50–52 may begin
-their executable semantic comparisons only after relevant dispositions/slices
-are accepted. A review of this document is not evidence that those interfaces
-exist or are correct.
+The #49 audit is delivered and #50 implementation is authorized for the accepted
+boundary. These representation and correctness bridges are #50 deliverables,
+not additional prerequisite tickets. External #51–52 comparison still requires
+its own accepted executable policies and evidence. A review of this document
+alone is not evidence that the implementations or their semantic claims are correct.
 
 [compiler]: https://github.com/gsdlab/clafer/tree/15adb2216909421bcb5022174d2d84ef2b42307c
 [license]: https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/LICENSE

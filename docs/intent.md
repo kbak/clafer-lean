@@ -13,7 +13,7 @@ with reusable foundations supporting structural Clafer. The repository
 | --- | --- | --- |
 | DPGraph | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
 | FormalCD | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
-| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration and constraint meaning remain separate; Compile-to-gluing integration is on [#24](https://github.com/kbak/clafer-lean/issues/24) |
+| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration and general constraint meaning remain separate; the integer bridge proves selected Appendix F operand definedness; Compile-to-gluing integration is on [#24](https://github.com/kbak/clafer-lean/issues/24) |
 
 Preserve the accepted [paper corrections and clarifications](sosym-errata.md):
 composition retains links and agrees with relations after reduction;
@@ -28,9 +28,10 @@ uses equal referents under incidence/metadata consistency and preserves the exac
 translated declarations; FormalCD validity additionally requires complete effective
 defaults. Structural Compile derives MCS validity under its [resolved-input
 contract](compile.md). Neither transformation establishes full constraint-semantic
-preservation. Compile retains group metadata and derives direct-child head maps;
-the [group-compilation proposal](group-compilation.md) separates this data
-preservation from the remaining D6 decisions and interpreted group obligations.
+preservation. Augmented Compile generates effective group predicates over the union of own and
+inherited child heads at each concrete context, including empty inventories.
+The [group compilation contract](group-compilation.md) explains the separate
+declaration component, exact union gluing and conditional semantic correspondence.
 The [requirements](spec.md) state the precise promises, including
 ordinary-key correspondence under totality/single-valuedness and the bounded
 metamodel/primitive-conversion limits.
@@ -48,14 +49,19 @@ Ordinary signatures and precomposition reduct laws remain the delivered
 contract; stronger representations and dependency-enriched extensions require
 separate authorization. Planning later work does not authorize implementation.
 
-The [resolved-IR comparison contract](resolved-ir-comparison.md) proposes a
-bounded structural comparison with the pinned compiler's Alloy output. Its
-companion-harness location, effective-data bridge and missing whole-model
-interpretation obligations for #50 require review before executable work.
-It adds no solver integration or new semantic claim to the libraries.
+The [resolved-IR comparison contract](resolved-ir-comparison.md) fixes the
+accepted effective-core boundary and guarded version-1 structural fragment.
+Whole-model structural semantics and finite candidate verification belong in
+`Clafer/Semantics/` and `Clafer/Verification/` under
+[#50](https://github.com/kbak/clafer-lean/issues/50). Preserve resolved identities
+and effective bounds without reconstructing authored/default provenance. A supplied
+finite candidate may violate constraints; the checker must distinguish that result
+from malformed or unsupported input and prove agreement with the independent
+structural meaning. Reference occurrences retain identity even at repeated targets.
+The external comparison harness and its location remain deferred to #51–52.
 
-Exclude instance/object generation, Alloy/SMT/SAT integration, runtime
-configurations, Claferize, post-2014 extensions, a production parser and
+Exclude instance/object generation, Alloy/SMT/SAT integration, production runtime
+configuration management, Claferize, post-2014 extensions, a production parser and
 visualization. Keep the foundation reproducible and reviewable and the README brief.
 
 Needs: req
@@ -85,6 +91,7 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | [Source map](SOURCES.md) | Paper correspondence, immutable source citations, decisions and audit limits |
 | [Paper companion](sosym-errata.md) | Concise corrections and clarifications for SoSyM readers |
 | [DPGraph](dpgraph-trace.md), [FormalCD](formalcd-trace.md) and [Clafer](clafer-trace.md) traces | Named implementation/proof artifacts and actual Lean declarations |
+| [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix F navigation assumptions |
 | [MCS inventory](mcs-invariants.md) and [Compile contract](compile.md) | Detailed structural clauses and transformation assumptions |
 | [IR comparison contract](resolved-ir-comparison.md) | Proposed comparison domain, compiler audit and remaining prerequisites |
 | [Contributing](../CONTRIBUTING.md), [trace convention](traceability.md) and [maintenance](maintenance.md) | Setup/checks, evidence links and repository administration |
