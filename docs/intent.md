@@ -90,6 +90,13 @@ reduct laws remain the delivered contract; stronger semantic representations
 and dependency-enriched extensions require separate authorization.
 Planning the later increments does not authorize their semantic implementation.
 
+The [resolved-IR comparison audit](resolved-ir-comparison.md) specifies a proposed
+bounded structural comparison with the pinned compiler's generated Alloy. It
+records compatibility limits, an effective-data boundary and missing whole-model
+interpretation obligations for #50. Its companion-harness recommendation requires
+review before executable work; it adds no solver integration or new semantic
+claim to the delivered libraries.
+
 Exclude instance/object generation, Alloy/SMT/SAT integration, runtime
 configurations, Claferize, post-2014 extensions, a production parser and
 visualization. Keep the foundation reproducible and reviewable and the README
