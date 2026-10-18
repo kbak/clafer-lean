@@ -13,7 +13,7 @@ with reusable foundations supporting structural Clafer. The repository
 | --- | --- | --- |
 | DPGraph | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
 | FormalCD | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
-| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration and compiler preservation remain separate; explicit environments give core meanings and selected Appendix F operand definedness; the [representative integration](representative-models.md) checks Compile-to-gluing structure, with full-model satisfaction still separate |
+| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the complete Appendix F acceptance fixture remains separate |
 
 Preserve the accepted [paper corrections and clarifications](sosym-errata.md):
 composition retains links and agrees with relations after reduction;
@@ -27,8 +27,9 @@ Role identities, resolved referents and display names remain separate. Gluing
 uses equal referents under incidence/metadata consistency and preserves the exact
 translated declarations; FormalCD validity additionally requires complete effective
 defaults. Structural Compile derives MCS validity under its [resolved-input
-contract](compile.md). Neither transformation establishes full constraint-semantic
-preservation. Augmented Compile generates effective group predicates over the union of own and
+contract](compile.md). The [selected semantic extension](constraint-preservation.md) derives source predicate
+meanings and composes their exact binding/label transport with structural
+realization; it makes no universal source-text correctness claim. Augmented Compile generates effective group predicates over the union of own and
 inherited child heads at each concrete context, including empty inventories.
 The [group compilation contract](group-compilation.md) explains the separate
 declaration component, exact union gluing and conditional semantic correspondence.
@@ -68,7 +69,8 @@ The [representative models](representative-models.md) connect concrete compilati
 and gluing, generated xor boundary cases and the mandatory version attachment.
 The full constraint-bearing fixture and final selections remain #64; the
 [independent expression meaning](constraint-denotation.md) is supplied by #68,
-and its combined bridge remains #69.
+and [#69’s selected bridge](constraint-preservation.md) connects it to generated
+predicate satisfaction with explicit primitive and model assumptions.
 
 Exclude instance/object generation, Alloy/SMT/SAT integration, production runtime
 configuration management, Claferize, post-2014 extensions, a production parser and
@@ -101,6 +103,7 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | [Source map](SOURCES.md) | Paper correspondence, immutable source citations, decisions and audit limits |
 | [Paper companion](sosym-errata.md) | Concise corrections and clarifications for SoSyM readers |
 | [DPGraph](dpgraph-trace.md), [FormalCD](formalcd-trace.md) and [Clafer](clafer-trace.md) traces | Named implementation/proof artifacts and actual Lean declarations |
+| [Constraint preservation](constraint-preservation.md) | Derived predicate meanings, exact binding/label transport and selected whole-model correspondence |
 | [Constraint denotation](constraint-denotation.md) | Explicit environments, core equations and Appendix F elaboration |
 | [Representative models](representative-models.md) | Checked integration, source/feature coverage and explicit Appendix F omissions |
 | [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix F navigation assumptions |

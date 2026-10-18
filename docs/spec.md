@@ -1969,9 +1969,81 @@ relative/global/inherited navigation, no cache, server = parent and display-head
 counts. Preserve Q7's display >= server direction without Figure 21's guard.
 Exercise implication vacuity and actual operator combinations with positive and
 negative witnesses. Check the resolved supports against the complete inherited
-AST. General textual resolution and Compile/gluing preservation remain separate;
-the complete combined model result stays with #64/#69. See the
+AST. General textual resolution remains separate. The extension requirement
+for preservation, `req~clafer-constraint-preservation~1`, supplies the selected Compile/gluing bridge;
+the complete combined acceptance fixture stays with #64. See the
 [denotation contract](constraint-denotation.md).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Derived source-constraint predicate meanings
+`req~clafer-constraint-predicates~1`
+
+For the resolved typed core of Appendix D.4, derive each source occurrence's
+predicate meaning from its body, complete support graph, explicit external-binder
+domains and a fixed integer realization. Evaluate at every object of its context
+class. Introduce external binders in lexical order, checking each domain before
+its binder enters scope; do not choose a domain from a mere existence proof.
+Preserve empty-domain vacuity and distinguish undefined operations from defined
+false bodies. Require shared resolved class identity, coherent original map links,
+literal inheritance inclusions and actual integer-domain realization. Retain
+local finiteness and singleton extraction obligations. Callers must not supply
+arbitrary predicate meanings or assume the desired truth equivalence.
+
+Prove correspondence between this meaning and independent source denotation on
+admissible complete arity diagrams, including explicit closed-body specialization.
+See the [preservation contract](constraint-preservation.md).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Selected Compile and gluing constraint correspondence
+`req~clafer-constraint-preservation~1`
+
+Prove the full arity-binding and source/formula satisfaction correspondence for
+actual generated Compile bindings. Derive context ownership, repeated resolved
+class and map identities, and preservation of original links; retain isolated
+vertices and every support occurrence. A literal argument bag is not full binding
+identity. Derive inclusion admissibility from generated local declarations while
+keeping primitive-domain realization explicit.
+
+Transport the interpreted source formula along the actual labeling morphism and
+prove its membership in the exact declaration image. Compose with the generated
+local/group/inheritance/abstract bank and its selected shared-object realization
+to prove both directions of whole-model satisfaction correspondence. State
+selected-core, primitive, typing/root and canonical-candidate assumptions
+explicitly. Derive generation/completeness from actual construction; no client
+supplies a complete semantic bridge. Generic model reduct does not imply
+unrestricted reflection for arbitrary targets. Preserve effective-default
+completeness, the original MCS total-args/key proof and positive-map input contract.
+This extends the structural promises without reinterpreting them as earlier
+expression-preservation results or claiming textual compiler correctness.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Constraint preservation sensitivity and Appendix F support
+`req~clafer-constraint-preservation-witnesses~1`
+
+Audit all twelve Appendix F bodies against positive-map Compile support and
+preserve their complete resolved bindings. Check that each uses actual source
+navigation; do not add dummy maps or weaken total args. Retain the full integer
+domain and record any mismatch with finite primitive placeholders separately from
+the actual `1..1` version/server operand bounds. The complete selected-model
+fixture remains #64; this increment supplies its selected semantic correspondence.
+
+Provide predicate-satisfaction witnesses sensitive to version order, display-head
+count, server/parent navigation, context/binding identity and changes to interpreted
+bodies. Check explicit external domains and show that structural compilation
+success does not discharge source truth. Preserve scalar-conversion failures and
+the existing positive/negative core denotation examples.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2004,7 +2076,8 @@ assumption explicit. Reuse the selected partial comparison and its defined
 true/false and invalid-operand witnesses. Distinguish structural attachment,
 operand definedness, interpreted predicate satisfaction and whole-model
 satisfaction. Do not substitute Figure 21's optional guarded VC or assert general
-expression preservation; #68/#69 retain those remaining obligations.
+expression preservation as part of this structural promise. The separate
+denotation and preservation requirements state those semantic obligations.
 
 Covers:
 - `intent~formalization-foundation~1`

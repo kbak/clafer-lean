@@ -996,6 +996,92 @@ Covers:
 - `req~clafer-constraint-semantic-laws~1`
 - `req~clafer-appendix-f-expressions~1`
 
+## Derived source predicate meanings
+`impl~clafer-constraint-predicates~1`
+
+[Predicate.lean](../Clafer/Constraints/Predicate.lean) defines `Domains.close`,
+`Constraint.Holds` and `predicateInterpretation`. Each occurrence keeps its body,
+complete support and explicitly supplied domains; the integer realization is
+fixed independently of truth. The meaning's existential packages admissibility
+evidence for exactly the supplied graph map.
+
+Covers:
+- `req~clafer-constraint-predicates~1`
+
+`proof~clafer-constraint-predicates~1`
+
+`IntegerBinding.ext`, `predicate_meaning_iff` and `closed_constraint_iff` in
+[Predicate.lean](../Clafer/Constraints/Predicate.lean) prove that admissibility
+proof choices cannot change the interpretation and that the generated meaning
+agrees with independent body denotation at every applicable context object.
+
+Covers:
+- `req~clafer-constraint-predicates~1`
+
+## Selected semantic Compile correspondence
+`impl~clafer-constraint-preservation~1`
+
+[ConstraintMeaning.lean](../Clafer/Compile/ConstraintMeaning.lean) defines
+`Admissible`, `supportModel`, `authored`, `interpretation` and `SourceHolds`.
+It consumes the generated binding, preserves the source occurrence symbol and
+uses the body-derived interpretation in the existing generated realization bank.
+
+Covers:
+- `req~clafer-constraint-preservation~1`
+
+`proof~clafer-constraint-preservation~1`
+
+In [ConstraintMeaning.lean](../Clafer/Compile/ConstraintMeaning.lean),
+`vertex_same_id`, `boundArrow_same_id`, `vertex_integer`, `links_of_identity`,
+`support_coherent`, `arity_binding` and `context_binding` account for resolved
+identities and complete arity interpretation. `admissible_of_local` extracts
+inclusion meanings from generated local declarations. `constraint_iff`,
+`compiled_model_iff`, `glued_constraint_iff`, `glued_constraint_declared`, `authored_iff` and
+`whole_model` prove the selected satisfaction correspondence using the actual
+label and complete generated bank. The latter composes
+`Compile.Realization.whole_model` and retains its selected structural conditions;
+it does not infer reflection from generic model reduct.
+[VersionPreservation.lean](../Clafer/Examples/VersionPreservation.lean) specializes
+`generated_version_iff` and `generated_operands_defined` to the actual compiled
+and glued c02 attachment, deriving the interpreter’s scalar hypotheses from
+`VersionCompilation.versionModel` and emitted local declarations.
+
+Covers:
+- `req~clafer-constraint-preservation~1`
+
+## Constraint predicate acceptance boundaries
+`impl~clafer-constraint-preservation-witnesses~1`
+
+[ConstraintPredicates.lean](../Clafer/Examples/ConstraintPredicates.lean) constructs
+body-derived predicate interpretations and full identity arity bindings on the
+existing Appendix F graph environments. `liveDomain` and `emptyDomain` exercise
+external binders without an arbitrary interpretation parameter. The
+[support audit](constraint-preservation.md#appendix-f-support-audit) records real
+navigation and the finite-primitive/full-integer fixture boundary.
+
+Covers:
+- `req~clafer-constraint-preservation-witnesses~1`
+
+`proof~clafer-constraint-preservation-witnesses~1`
+
+In [ConstraintPredicates.lean](../Clafer/Examples/ConstraintPredicates.lean),
+`satisfies_iff`, `display_count_rejected`, `display_count_accepted`,
+`changed_count_body_accepted`, `server_parent_accepted`, `wrong_server_parent_rejected`,
+`version_value_at_every_display`, `version_predicate_iff`, `version_order_sensitive`,
+`external_domains_sensitive`, `wrong_context_rejected` and
+`wrong_context_body_rejected` check semantic sensitivity.
+`inventory_positive`, `inventory_total_args` and `inventory_observes_map` audit every body;
+`structural_success_does_not_discharge_constraints` separates MCS validity from
+interpreted truth. Existing integer/denotation witnesses retain extraction failure,
+repeated-occurrence and finite-cardinality boundaries.
+[ConstraintBinding.lean](../Clafer/Examples/ConstraintBinding.lean) proves
+`identical_arrow_arguments`, `complete_binding_accepted`, `wrong_binding_rejected`
+and `compiled_isolated_identity`: changing an isolated repeated class occurrence
+invalidates the predicate meaning despite preserving every arrow argument.
+
+Covers:
+- `req~clafer-constraint-preservation-witnesses~1`
+
 ## Representative model integration
 `impl~clafer-representative-integration~1`
 

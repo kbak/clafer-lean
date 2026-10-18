@@ -8,6 +8,7 @@ public import Clafer.Constraints.IntegerNavigation
 public import Clafer.Compile.Basic
 public import Clafer.Compile.GroupSemantics
 public import Clafer.Compile.Realization
+public import Clafer.Compile.ConstraintMeaning
 public import Clafer.Semantics.RealizationCompatibility
 public import Clafer.Semantics.Abstracts
 public import Clafer.Semantics.Reachability
@@ -28,6 +29,7 @@ individual Shapes over FormalCD and DPGraph, with the Figure 23 MCS structural
 disciplines, structural Compile, resolved-referent gluing and verified finite
 structural satisfaction for the guarded effective core. The resolved core has independent
 partial denotation, explicit model environments and Appendix F expansions;
-compiler preservation remains separate. See docs/ARCHITECTURE.md. Acceptance examples are
+selected predicate preservation connects these meanings to Compile and gluing.
+See docs/ARCHITECTURE.md. Acceptance examples are
 checked separately.
 -/

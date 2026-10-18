@@ -6,7 +6,8 @@ uses the scoped source inventory supplied by
 [#50 contract](resolved-ir-comparison.md), [Compile input](compile.md), and
 [#65 group policy](group-compilation.md). The complete resolved fixture and final
 satisfaction result remain #64. The [resolved expression denotation](constraint-denotation.md)
-supplies #68; its combined bridge remains #69, and representative structural
+supplies #68; the [selected semantic bridge](constraint-preservation.md) supplies
+#69, and representative structural
 integration remains #24.
 
 ## Source and accepted clarification
@@ -113,8 +114,8 @@ support proofs against the structural AST. Their independent equations, local
 definedness obligations and positive/negative witnesses are indexed in the
 [denotation contract](constraint-denotation.md) and [proof inventory](clafer-trace.md#manual-appendix-f-expression-implementation).
 Navigation arrows below select child heads unless explicitly marked widen,
-dereference or parent. Compile/gluing preservation and combined model satisfaction
-remain #69/#64.
+dereference or parent. The [selected preservation bridge](constraint-preservation.md) derives source
+predicate meanings; the combined acceptance fixture remains #64.
 
 | ID/context | Meaning and navigation |
 | --- | --- |
