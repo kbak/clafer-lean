@@ -381,17 +381,32 @@ exercise nonempty families, primitive domains, repeated names and guarded inclus
 Local formulas transport through `Roles.localDiagram`; [Compile](../Clafer/Compile/Basic.lean)
 generates the local/constraint bank. No semantic self-instantiation follows.
 
-## Proposed bounded structural comparison boundary
+## Finite structural verification boundary
 
-The [#49 contract and compiler matrix](resolved-ir-comparison.md) under #48
-propose a separate `clafer-compare` companion with a pinned `clafer` dependency.
-Its [location and prerequisites](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
-own the same-generation receipt, effective-core bridge, finite checker and
-whole-model interpretation obligations for #50, with explicit #20/#22/#23 interfaces.
-JSON alone loses provenance/backend state; existing syntax/Shape proofs do not
-establish satisfaction. Executable work, any structural-only dependency cut and
-alternative in-project extension need their own reviewed scope. Current exclusions,
-layer direction and validation policy remain in force.
+The accepted [#49 contract and compiler matrix](resolved-ir-comparison.md) under
+#48 selects a guarded structural fragment and an effective input boundary for #50.
+Whole-model semantics, representation and erasure bridges live under
+`Clafer/Semantics/`; finite candidates and the verified executable checker live
+under `Clafer/Verification/`. These remain in the single `clafer` package and
+add no reverse dependency or finite-carrier condition to DPGraph or FormalCD.
+The reusable local bank is the existing structural Compile bank. Global root,
+abstract-cover/disjointness and group obligations must be stated and interpreted
+in addition to that bank; local Shapes alone do not establish whole-model meaning.
+
+Finite ordinary relation tables retain head objects as occurrence identities.
+Derived reference-target spans retain composable links. Inheritance uses the same
+ambient objects, and group counts use the union of child head fibers. Unrelated
+classes may overlap; Alloy's implicit signature disjointness is not a Lean guard.
+The [structural checker guide](structural-checker.md) identifies the domain,
+compiled-bank and arbitrary-span normalization bridges, protocol and proof APIs.
+The theorem checks the executable algorithm against independent satisfaction;
+an ordinary native invocation supplies a verdict, not a fresh kernel proof.
+No per-instance proof-certificate or solver theorem is claimed.
+
+The #51–52 external harness location, importer, paired compiler receipts,
+solver/search policy and generation remain deferred. JSON alone does not recover
+authored/default provenance or backend state. Preserve the full pinned validation
+and independent review gates for this executable increment.
 
 ## Structural Compile
 

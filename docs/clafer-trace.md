@@ -509,3 +509,149 @@ claims, not model satisfaction or compiler correctness statements.
 
 Covers:
 - `req~clafer-gluing-examples~1`
+
+## Effective structural core
+`impl~clafer-effective-core~1`
+
+[EffectiveCore.lean](../Clafer/Semantics/EffectiveCore.lean): `EffectiveCore`,
+`WellFormed`, `Supported`, `erase`. [Admission.lean](../Clafer/Verification/Admission.lean):
+`CoreCertificate`, `coreChecks`, `supportChecks`. The
+[interface](structural-checker.md) explains effective fields and fragment guards.
+
+Covers:
+- `req~clafer-effective-core~1`
+
+## Effective-core correspondence proofs
+`proof~clafer-effective-core~1`
+
+[EffectiveCore.lean](../Clafer/Semantics/EffectiveCore.lean): `erase_wellFormed`,
+`erase_shape`. [Bridge.lean](../Clafer/Semantics/Bridge.lean): `ConstraintFree`,
+`compiled_bank_iff`, `erasure_correspondence`, `equal_erasure_satisfaction`.
+[Admission.lean](../Clafer/Verification/Admission.lean): `admitted_wellFormed`,
+`admitted_supported`, `certificate_exists`. Erasure uses the existing
+`Compile.Input` and its naming/default obligations; no authored AST is fabricated.
+
+Covers:
+- `req~clafer-effective-core~1`
+
+## Whole-model structural meaning
+`impl~clafer-structural-satisfaction~1`
+
+[Structural.lean](../Clafer/Semantics/Structural.lean): `Configuration`,
+`StructuralSatisfies`, `Typed`, `Rooted`, `Inherits`, `Abstracts`, `Parents`,
+`References`, `Keys`, `Multiplicities`, `Child`, `Groups`.
+[Interpretation.lean](../Clafer/Semantics/Interpretation.lean): `headMap`,
+`derefMap`, `targetMap`, `ordinaryMap`, `inclusionMap`, `interpret`.
+[Bridge.lean](../Clafer/Semantics/Bridge.lean): `LocalConditions`,
+`GlobalConditions`, `structuralInterpretation`, `SatisfiesAST`.
+
+Covers:
+- `req~clafer-structural-satisfaction~1`
+
+## Structural interpretation and representation proofs
+`proof~clafer-structural-satisfaction~1`
+
+[Bridge.lean](../Clafer/Semantics/Bridge.lean): `key_local_iff`, `local_model_iff`,
+`structural_model_iff` connect independent clauses to the exact local compiled
+bank plus explicit global obligations. [Abstracts.lean](../Clafer/Semantics/Abstracts.lean):
+`abstracts_iff` gives the existing Cover/Q8 Disjoint meaning.
+[Relational.lean](../Clafer/Semantics/Relational.lean): `inRange_one_iff`,
+`one_iff_total_single`, `compositeFiber`, `composite_multiplicity`, `two_key_iff`,
+`parent_one_iff`, `deref_one_iff`. [Interpretation.lean](../Clafer/Semantics/Interpretation.lean):
+`headFiberEquiv`, `head_multiplicity_iff`, `ordinary_representation`.
+[Normalization.lean](../Clafer/Semantics/Normalization.lean): `SpanModel.headIso`,
+`derefIso`, `parentIso`, `targetIso`, `inheritedIso`, `normalize_satisfies` extract
+simultaneous relational representatives from arbitrary local-bank models.
+[Representation.lean](../Clafer/Verification/Representation.lean): `realize_encode`,
+`representable`, `finite_model_representable` give finite completeness.
+[Renaming.lean](../Clafer/Semantics/Renaming.lean): `structural_rename`.
+[Reachability.lean](../Clafer/Semantics/Reachability.lean): `structural_reaches`,
+`concrete_descendant`, `unused_abstract_empty`.
+
+Covers:
+- `req~clafer-structural-satisfaction~1`
+- `req~predicate-key~1`
+- `req~predicate-key-functional~1`
+- `req~predicate-multiplicity~1`
+- `req~predicate-interpretation~1`
+
+## Finite structural checker
+`impl~clafer-finite-checker~1`
+
+[Finite.lean](../Clafer/Verification/Finite.lean): `Candidate`, `realize`,
+`CountInRange`, `multiplicityChecks`, `groupChecks`, `Checks`, `check`.
+[Protocol.lean](../Clafer/Verification/Protocol.lean): `RawCandidate`, `decode`,
+`InputError`, `Result`, `verify`. [Admission.lean](../Clafer/Verification/Admission.lean):
+`RunResult`, `run`. Ordinary tuples and reference-head occurrences retain distinct
+identities; [protocol documentation](structural-checker.md#executable-interface)
+states error priority and checked-certificate input requirements.
+
+Covers:
+- `req~clafer-finite-checker~1`
+
+## Checker and protocol correctness
+`proof~clafer-finite-checker~1`
+
+[Finite.lean](../Clafer/Verification/Finite.lean): `inRange_card`, `checks_iff`,
+`check_correct`, `malformed_rejected`. [ProtocolProofs.lean](../Clafer/Verification/ProtocolProofs.lean):
+`decode_root`, `decode_members`, `decode_containment`, `decode_references`,
+`objectLabels`, `member_row_preserved`, `link_row_indices`, `tuple_identity`,
+`verify_correct`, `verify_violation`, `illTyped_rejected`, `success_tablesValid`,
+`malformed_tables_rejected`, `run_correct`. [Protocol.lean](../Clafer/Verification/Protocol.lean):
+`duplicate_objects_rejected`, `missing_root_rejected`.
+[Admission.lean](../Clafer/Verification/Admission.lean): `unsupported_rejected`.
+These are kernel proofs; no claim of fresh per-instance proof certificates is made
+for native execution.
+
+Covers:
+- `req~clafer-finite-checker~1`
+
+## Structural checker fixtures and mutation controls
+`impl~clafer-checker-witnesses~1`
+
+[Examples.lean](../Clafer/Verification/Examples.lean), namespace
+`Clafer.Verification.Examples`: `refs`, `bag`, `collapsed`, `overlapping`,
+`rawBag`, `inheritance`, `nested`, `siblingOverlap`, `uncovered`, `emptyClasses`,
+`cyclic`, `cycle`, `noOccurrences`, `twoParents`, `sharedTarget`,
+`multipleParents`, `multipleTargets`, `unusedChain`, `onlyRoot`,
+`collapseMutant`, `upperBoundMutant`, `missingChild`, `relaxedGroup`, `executableTests`.
+
+Covers:
+- `req~clafer-checker-witnesses~1`
+
+## Structural checker kernel witnesses
+`proof~clafer-checker-witnesses~1`
+
+[Examples.lean](../Clafer/Verification/Examples.lean): `bag_satisfies`,
+`set_not_satisfies`, `set_rejects_repetition`, `exact_two_accepts`,
+`optional_rejects_two`, `zero_rejects_two`, `lower_three_rejects`,
+`unbounded_accepts`, `group_three_accepts`, `group_two_rejects`,
+`unrelated_overlap_and_union`, `missing_target_violates`, `missing_target_typed`,
+`nested_satisfies`, `nested_reachable`, `sibling_overlap_rejected`,
+`uncovered_abstract_rejected`, `empty_classes_accept`, `reference_cycle_accepts`,
+`zero_accepts_empty`, `optional_accepts_empty`, `optional_accepts_one`,
+`missing_child_group_rejected`, `missing_child_locally_valid`,
+`set_shared_target_accepts`, `multiple_parents_typed`, `multiple_parents_rejected`,
+`multiple_targets_typed`, `multiple_targets_rejected`, `unused_chain_satisfies`,
+`protocol_accepts`, `protocol_set_violates`, `duplicate_identity`,
+`duplicate_tuple`, `duplicate_membership`, `missing_root`, `dangling_identity`,
+`unknown_class`, `ill_typed_endpoint`, `empty_reference_table_violates`,
+`collapse_mutant_killed`, `upper_bound_mutant_killed`. Reduction-based witnesses
+exercise finite inputs without `native_decide` or new axioms.
+
+Covers:
+- `req~clafer-checker-witnesses~1`
+
+## Structural checker native regression execution
+`utest~clafer-structural-checker~1`
+
+[structural_checker.lean](../tests/structural_checker.lean) executes
+`Clafer.Verification.Examples.executableTests` from
+[Examples.lean](../Clafer/Verification/Examples.lean), including mutation controls
+on unchanged reference fixtures. `scripts/check.sh` discovers and runs this test
+and builds/audits/replays all library witness modules. Command-level evidence
+records the full command outcome, not a separate per-artifact certificate.
+
+Covers:
+- `req~clafer-finite-checker~1`
+- `req~clafer-checker-witnesses~1`
