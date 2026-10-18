@@ -168,19 +168,38 @@ def audit_source(repo, modules):
     return template.replace(AUDIT_MARKER, "\n".join(f"import all {m}" for m in modules))
 
 
+# [impl->req~lean-validation~1]
+def mathlib_imports(repo, modules, tests):
+    """Prefetch every direct Mathlib import; its cache follows transitive imports.
+
+    Include unimported helpers/examples and test-only dependencies. Reuse the
+    validated header parser so comments cannot masquerade as imports and an
+    unsupported test header cannot silently truncate the prefetch inventory.
+    """
+    return sorted({
+        dependency
+        for path in [*modules.values(), *tests]
+        for dependency in imports((repo / path).read_text())
+        if dependency.split(".")[0] == "Mathlib"
+    })
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, default=Path(__file__).resolve().parent.parent)
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
     modules, tests = validate(args.repo)
+    dependencies = mathlib_imports(args.repo, modules, tests)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     (args.output_dir / "modules.txt").write_text("".join(f"{m}\n" for m in modules))
     (args.output_dir / "tests.txt").write_text("".join(
         f"{p.as_posix()}\n" for p in tests if p != Path("tests/axiom_audit.lean")
     ))
     (args.output_dir / "axiom_audit.lean").write_text(audit_source(args.repo, modules))
+    (args.output_dir / "mathlib-imports.txt").write_text("".join(f"{m}\n" for m in dependencies))
     print(f"Dependency direction checked; {len(modules)} project modules: {', '.join(modules)}")
+    print(f"Mathlib prefetch roots ({len(dependencies)}): {', '.join(dependencies)}")
 
 
 if __name__ == "__main__":

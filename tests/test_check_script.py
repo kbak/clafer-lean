@@ -13,7 +13,7 @@ REPO = Path(__file__).resolve().parent.parent
 
 # [itest->req~lean-validation~1]
 class CheckScriptTest(unittest.TestCase):
-    def run_check(self, *, preflight=False, fail=""):
+    def run_check(self, *, preflight=False, fail="", dependencies="Mathlib.Data.Set.Defs\nMathlib.Tactic.FinCases\n"):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "scripts").mkdir()
@@ -27,6 +27,7 @@ if [[ "$1" == scripts/project_modules.py ]]; then
   mkdir -p .lake/validation
   printf 'DPGraph\\nDPGraph.Internal.New\\nFormalCD\\nClafer\\n' > .lake/validation/modules.txt
   printf 'tests/public_imports.lean\\n' > .lake/validation/tests.txt
+  printf '%s' "$PREFETCH_MODULES" > .lake/validation/mathlib-imports.txt
 fi
 if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
 '''
@@ -38,7 +39,7 @@ if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
                 ["bash", str(root / "scripts/check.sh")] + (["--preflight"] if preflight else []),
                 env=dict(os.environ, PATH=str(root / "bin") + os.pathsep + os.environ["PATH"],
                          FACTORY_TESTS=str(root / "profile"), CALLS=str(root / "calls"),
-                         FAIL_STEP=fail),
+                         FAIL_STEP=fail, PREFETCH_MODULES=dependencies),
                 capture_output=True, text=True, check=False,
             )
             return result, (root / "calls").read_text().splitlines()
@@ -73,6 +74,18 @@ if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
         for gate in ("axiom_audit.lean", "tests/public_imports.lean", "unittest discover -s tests -v"):
             self.assertLess(next(i for i, call in enumerate(calls) if gate in call), kernel)
         self.assertEqual(kernel, len(calls) - 1)
+
+    def test_prefetch_uses_inventory_and_empty_inventory_skips_download(self):
+        result, calls = self.run_check()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual([call for call in calls if "exe cache get" in call], [
+            "lake exe cache get Mathlib.Data.Set.Defs Mathlib.Tactic.FinCases",
+        ])
+        result, calls = self.run_check(dependencies="")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertFalse(any("exe cache get" in call for call in calls))
+        self.assertTrue(any(call.startswith("lake build") for call in calls))
+        self.assertTrue(any("leanchecker" in call for call in calls))
 
     def test_failed_kernel_check_preserves_prior_gates_and_reports_its_exit(self):
         result, calls = self.run_check(fail="env leanchecker --verbose DPGraph FormalCD Clafer")

@@ -35,8 +35,16 @@ This checks module discovery and its Python regressions without requiring Lean;
 it does not replace the full check. The full command runs this preflight before
 toolchain/dependency setup and prints elapsed seconds for each validation step.
 The project package disables Lake artifact caching so isolated checks compile the
-current candidate. A factory profile may enable native caching for pinned dependencies;
-keep that cache outside captured source and preserve the complete validation gates.
+current candidate. CI and factory profiles may enable native caching for pinned
+dependencies; keep that cache outside captured source and preserve the complete
+validation gates. CI saves Lake dependency artifacts and Mathlib downloads after
+successful checks, keyed by OS, architecture, toolchain and dependency manifest.
+The commit suffix allows the cache to grow when later changes introduce imports.
+`LAKE_CACHE_DIR` and `MATHLIB_CACHE_DIR` locate these caches outside the checkout
+so IntentBond's fresh snapshots inherit them. `LAKE_ARTIFACT_CACHE=true` enables
+dependency caching while the explicit project setting remains `false`;
+`LAKE_RESTORE_ARTIFACTS=true` restores dependency outputs to the paths Mathlib's
+tools expect. A warm cache still compiles and kernel-checks all project modules.
 
 An operator-configured factory may select documentation validation for changes
 confined to `README.md` and Markdown under `docs/`, using a complete file-and-mode
@@ -64,8 +72,11 @@ The audit permits only Lean's standard logical axioms (`propext`, `Quot.sound`,
 partial project declarations, including private/generated declarations selected
 by module origin. The audit rejects empty/missing DPGraph coverage; zero
 FormalCD/Clafer declarations mean scaffolding only. Mathlib is pinned in the Lake files. The check
-first tries Mathlib's normal cache for the targeted imports, falling back to
-source compilation if the cache is unavailable. Ordinary `lake build` also builds
+first tries Mathlib's normal cache for the imports discovered across every project
+module and Lean test, including helpers/examples outside the public entrypoints.
+Mathlib fetches their transitive dependencies; the generated inventory is
+`.lake/validation/mathlib-imports.txt`. An empty inventory skips prefetch, and an
+unavailable cache falls back to source compilation. Ordinary `lake build` also builds
 from source. Cache availability never waives the build or kernel check.
 
 The installed IntentBond skill is at `intentbond/skills/intentbond/SKILL.md`
