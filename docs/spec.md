@@ -112,6 +112,10 @@ structural discipline, structural Compile and resolved-referent gluing.
 It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
+Use its documentation map to identify the authoritative location for each kind
+of detail. Consolidate repeated explanations through links while retaining intent
+and artifact IDs, trace relationships, source citations and existing link
+destinations. Keep frozen change records unchanged under their retention policy.
 Follow the [documentation policy](../AGENTS.md#documentation): change comparisons
 belong in PR descriptions and acceptance/execution evidence in external factory
 artifacts. Retain controller-required historical snapshots and a concise current

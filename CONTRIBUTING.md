@@ -11,18 +11,13 @@ acceptance criteria before implementation. See [AGENTS.md](AGENTS.md).
 
 <!-- [impl->req~intentbond-workflow~1] -->
 
-Repository `kbak/clafer-lean` contains the single Lake package `clafer`, with
-sibling public libraries `DPGraph`, `FormalCD` and `Clafer`. Place modules beneath
-their owning root and preserve `Clafer -> FormalCD -> DPGraph -> Mathlib`.
-`import DPGraph` exposes the reusable foundation independently. `import FormalCD`
-adds class-diagram structure, name-preserving morphisms and the Figure 21c
-metamodel/discipline API, bounded syntactic self-description and the Figure 21b
-VC interpretation; its concrete examples are checked separately. Clafer supplies
-the resolved AST, typed core constraints, binder/context boundary, individual
-Shapes, Figure 23/Appendix E structural MCS discipline, structural Compile
-under its explicit input contract and resolved-referent gluing. Constraint interpretation
-and primitive singleton conversion remain separate. See
-[architecture](docs/ARCHITECTURE.md).
+Repository `kbak/clafer-lean` contains the single Lake package `clafer`.
+Place modules beneath their owning public root and preserve
+`Clafer -> FormalCD -> DPGraph -> Mathlib`; `import DPGraph` remains independent.
+The [product overview and documentation map](docs/intent.md) identify delivered
+scope and authoritative documents; [architecture](docs/ARCHITECTURE.md) explains
+module boundaries. Use those references when updating summaries, retaining
+artifact IDs, trace links, source citations and existing link destinations.
 
 Install Lean with [elan](https://lean-lang.org/install/), Python 3.11+, Git,
 Java 17+, and the [GitHub CLI](https://cli.github.com/). Then:
@@ -129,12 +124,11 @@ Use the [Lean trace-link convention](docs/traceability.md) for implementation an
 proof artifacts; the pinned OFT does not import inline `.lean` tags.
 Review must assess whether definitions match the intended semantics and whether
 proofs establish the stated results; trace coverage and a successful build alone
-do not establish that correspondence. The current slice includes spans, indexed
-mappings and their B.1–B.2 laws, DP-graph syntax, a fixed-signature category and abstract satisfaction/restriction
-laws. B.2.1 uses the adopted Q1 correction in [the source map](docs/SOURCES.md);
-selected Table 3/A.1 predicate interpretations use a bounded graph of subsets
-and spans, with the accepted Q8 correction. Unsupported predicates and an
-all-universes SetMap remain future work.
+do not establish that correspondence. The [source map](docs/SOURCES.md) owns exact
+paper correspondences, accepted corrections and audit limits; the
+[product overview](docs/intent.md) owns current scope. Keep focused contracts and
+trace indexes separate from those summaries, and preserve frozen change records
+under their retention policy.
 
 Contributions use the existing [MIT license](LICENSE). Preserve attribution and
 check licenses before incorporating upstream code or publication material.

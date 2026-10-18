@@ -4,8 +4,10 @@ For a concise reading companion, see [SoSyM paper corrections and clarifications
 
 The [roadmap/source audit (#2)](https://github.com/kbak/clafer-lean/issues/2)
 is delivered in [merged #40](https://github.com/kbak/clafer-lean/pull/40).
-[Research #41](https://github.com/kbak/clafer-lean/issues/41) owns
-the project-critical source and conditional sketch-extension assessment.
+[Research #41](https://github.com/kbak/clafer-lean/issues/41) records
+the bounded source and sketch-extension assessment delivered in
+[merged #43](https://github.com/kbak/clafer-lean/pull/43); further acquisition
+remains conditional on a necessary unsupported claim.
 The representation assessment for
 [design #13](https://github.com/kbak/clafer-lean/issues/13) is present in
 [merged #39](https://github.com/kbak/clafer-lean/pull/39); the bounded
@@ -369,7 +371,7 @@ Covers:
 
 ### Question dispositions and validation tasks
 
-Q1–Q8 name source questions; A1–A9 in the architecture name design areas.
+Q1–Q9 name source questions; A1–A9 in the architecture name design areas.
 An accepted correction is a bounded decision, not permission to fill unrelated
 source gaps. Keep the original issue discussions as the decision history.
 
@@ -387,7 +389,8 @@ source gaps. Keep the original issue discussions as the decision history.
 
 The roadmap can be accepted with deferred work explicitly assigned; it cannot
 claim that those tasks or missing-source research are completed. #40 delivers
-#2's source/design cross-check; #41 retains the unfinished research. The architecture records
+#2's source/design cross-check; #41's bounded assessment leaves the named source
+gaps unaudited and further acquisition conditional. The architecture records
 the existing #13 assessment and the separate proof-status boundaries.
 
 ### Appendix D rule dispositions (Q3)
@@ -716,9 +719,9 @@ semantics; its separately pinned compatibility audit is linked below.
 | §5.3.4–5/§5.4 (p.14), §6.2.2 (p.20) | `Origin`, `Declaration`, `Tree`, `AST.WellFormed`: distinguished root, selected int/string/bool domains, nested and top-level abstract declarations, deep containment |
 | §5.5 (pp.14–16), Figure 18 | `Kind.CanExtend`, `inheritance_kind`, `inheritance_parent`: no basic-over-reference or bag-over-set; equal parents when super is parented; local inclusion roles |
 | Appendix C/Figure 27 (pp.30–31) | `Multiplicity`, `GroupCard`, `GroupMultiplicity`, `Defaults`: authored/effective intervals, unbounded upper limit, xor/or/mux/opt, explicit child overrides, inherited group provenance |
-| §6.2.2/Figure 22 (p.20), D.2 boundary (p.31) | `ConstraintBoundary`, `Binder`: resolved context, repeated scope/domain occurrences and separate binder identities; full expressions deferred |
+| §6.2.2/Figure 22 (p.20), D.2 boundary (p.31) | `ConstraintBoundary`, `Binder`: resolved context, repeated scope/domain occurrences and separate binder identities; the [typed core](#appendix-d-rule-dispositions-q3) is supplied separately |
 | §5.2/Figure 16/Table 4 (pp.12–13), §6.2.3/Figure 23 (pp.20–21) | `Roles.Class`, `Roles.Arrow`, `Shape`, local `Shape.diagram`: typed optional roles, inverse/triangle/multiplicity/set/key declarations using FormalCD and DPGraph |
-| §5.5/Figure 18, Table 6's local inclusion endpoints (p.33) | `Shape.SharedClass`, `Shape.Inclusions`, `Shape.OptionalInclusions`: head inclusion and source/target inclusions where both endpoints exist; full cojoining deferred |
+| §5.5/Figure 18, Table 6's local inclusion endpoints (p.33) | `Shape.SharedClass`, `Shape.Inclusions`, `Shape.OptionalInclusions`: head inclusion and source/target inclusions where both endpoints exist; global cojoining belongs to the [MCS layer](mcs-invariants.md) |
 | §5.4 and §6.2.4 traversal (pp.14,21) | `Tree.fold`, `Tree.child_smaller`, `AST.every_entry_indexed`, `parent_wellFounded`: derived finite representation/termination basis; no compilation correctness claim |
 
 The resolved boundary accepts IDs, not textual resolution requests. `Defaults`
