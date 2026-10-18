@@ -26,8 +26,11 @@ validation stage fails. This includes the DP-graph definitions, proofs and examp
 Run module discovery and its Python regressions before toolchain/dependency setup;
 make that preflight available separately for development feedback. Report elapsed
 time for build, kernel-check and test stages, identifying every kernel-checked
-module in the output. Batch module builds and deduplicate overlapping kernel-check
-targets while retaining the complete discovered inventory. Preflight success does not satisfy
+module in the output. CI streams the retained validation log while the check
+runs and includes completed stage timings in its job summary, preserving the
+IntentBond exit status even if log streaming fails. Batch module builds and
+deduplicate overlapping kernel-check targets while retaining the complete
+discovered inventory. Preflight success does not satisfy
 the full validation requirement for Lean, build, validation or other executable changes.
 After building, run the declaration/axiom audit and Lean/Python regression tests
 before the more expensive kernel replay. Any failed gate stops later stages;
@@ -41,19 +44,27 @@ or uncertain classification require full validation. Preserve the baseline ident
 and selected check in evidence. This exception does not claim new Lean validation:
 IntentBond tracing, source matching and independent read-only semantic review
 remain required, including review of changed mathematical claims and requirements.
-Keep artifact caching disabled for the project package so each isolated check
-rebuilds candidate modules. CI and deployment-managed dependency caches may reuse
-pinned dependency artifacts without replacing any build, kernel or audit gate.
+CI may reuse unchanged compiled project modules through Lake's native artifact
+cache, keyed by source contents, compiler options and transitive import traces.
+Changed inputs must rebuild affected modules and their dependents; invalid source
+must fail even when an earlier valid build is cached. The project inherits the
+validation environment's cache setting, allowing `LAKE_ARTIFACT_CACHE=false` to
+force fresh compilation in isolated snapshots. The shared check defaults caching
+to disabled outside an explicitly enabled environment. Restore all artifacts to
+the snapshot build paths before running the complete fresh kernel replay, axiom
+audit and regression gates; cache hits never substitute for these checks.
+CI and deployment-managed caches may also reuse pinned dependency artifacts.
 Derive the optional Mathlib prefetch from imports in every discovered project
 module and Lean test, including unimported helpers/examples and the pushout-cocone
 dependency. Fetch their transitive dependencies through Mathlib's cache; an empty
 inventory must not trigger a whole-Mathlib download. Cache failure must retain
 the complete pinned source-build fallback. CI persists native Lake dependency
-artifacts and Mathlib downloads outside captured source, passing their paths into
-the isolated check. Separate caches by OS, architecture, toolchain and dependency
+and project artifacts and Mathlib downloads outside captured source, passing
+their paths into the isolated check. Separate caches by OS, architecture, toolchain and dependency
 manifest; save populated caches after successful validation and permit later
-commits with the same dependency identity to reuse them. Never restore candidate
-project build output from those caches.
+commits with the same dependency identity to reuse them. Always invoke the full
+discovered module build so Lake validates every module's inputs before reuse;
+never substitute an unchecked copy of a prior checkout's build directory.
 Audit declarations by their originating project modules, including private and
 generated declarations regardless of namespace, with complete `import all`
 coverage. Reject unsafe/partial definitions, new axioms and transitive axiom

@@ -34,17 +34,22 @@ For quick feedback while editing, run `bash scripts/check.sh --preflight`.
 This checks module discovery and its Python regressions without requiring Lean;
 it does not replace the full check. The full command runs this preflight before
 toolchain/dependency setup and prints elapsed seconds for each validation step.
-The project package disables Lake artifact caching so isolated checks compile the
-current candidate. CI and factory profiles may enable native caching for pinned
-dependencies; keep that cache outside captured source and preserve the complete
-validation gates. CI saves Lake dependency artifacts and Mathlib downloads after
+CI streams the retained test log during validation and includes stage timings in
+the job summary, so compilation and kernel replay progress are visible while running.
+The shared check defaults Lake artifact caching to disabled. CI and factory
+profiles may enable native caching for project modules and pinned dependencies;
+keep that cache outside captured source and preserve the complete validation
+gates. Lake checks source, compiler-option and transitive-import traces before
+reusing a module, rebuilding changed modules and their dependents. CI saves Lake
+artifacts and Mathlib downloads after
 successful checks, keyed by OS, architecture, toolchain and dependency manifest.
 The commit suffix allows the cache to grow when later changes introduce imports.
 `LAKE_CACHE_DIR` and `MATHLIB_CACHE_DIR` locate these caches outside the checkout
 so IntentBond's fresh snapshots inherit them. `LAKE_ARTIFACT_CACHE=true` enables
-dependency caching while the explicit project setting remains `false`;
-`LAKE_RESTORE_ARTIFACTS=true` restores dependency outputs to the paths Mathlib's
-tools expect. A warm cache still compiles and kernel-checks all project modules.
+incremental compilation; use `false` for fresh compilation in an isolated snapshot.
+The shared check sets `LAKE_RESTORE_ARTIFACTS=true` so all outputs are restored to
+the paths used by the audit, tests and kernel checker. A warm cache still runs
+the complete module build, fresh kernel replay, axiom audit and regression tests.
 
 An operator-configured factory may select documentation validation for changes
 confined to `README.md` and Markdown under `docs/`, using a complete file-and-mode
