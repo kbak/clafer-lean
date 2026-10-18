@@ -45,14 +45,19 @@ Ordinary signatures and precomposition reduct laws remain the delivered
 contract; stronger representations and dependency-enriched extensions require
 separate authorization. Planning later work does not authorize implementation.
 
-The [resolved-IR comparison contract](resolved-ir-comparison.md) proposes a
-bounded structural comparison with the pinned compiler's Alloy output. Its
-companion-harness location, effective-data bridge and missing whole-model
-interpretation obligations for #50 require review before executable work.
-It adds no solver integration or new semantic claim to the libraries.
+The [resolved-IR comparison contract](resolved-ir-comparison.md) fixes the
+accepted effective-core boundary and guarded version-1 structural fragment.
+Whole-model structural semantics and finite candidate verification belong in
+`Clafer/Semantics/` and `Clafer/Verification/` under
+[#50](https://github.com/kbak/clafer-lean/issues/50). Preserve resolved identities
+and effective bounds without reconstructing authored/default provenance. A supplied
+finite candidate may violate constraints; the checker must distinguish that result
+from malformed or unsupported input and prove agreement with the independent
+structural meaning. Reference occurrences retain identity even at repeated targets.
+The external comparison harness and its location remain deferred to #51–52.
 
-Exclude instance/object generation, Alloy/SMT/SAT integration, runtime
-configurations, Claferize, post-2014 extensions, a production parser and
+Exclude instance/object generation, Alloy/SMT/SAT integration, production runtime
+configuration management, Claferize, post-2014 extensions, a production parser and
 visualization. Keep the foundation reproducible and reviewable and the README brief.
 
 Needs: req

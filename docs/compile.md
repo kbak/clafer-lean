@@ -82,10 +82,14 @@ explicit primitive classification and rejection of reserved user names and
 zero-map Compile support. The output validity theorem quantifies over every
 accepted input, beyond these finite witnesses.
 
-The delivered typed-core limits remain in force. Constraint meanings, primitive
-singleton conversion, whole-model interpretation, group and abstract semantic
-translation and semantic preservation are separate work. A fresh constraint
-symbol does not establish any meaning for its body. The delivered
+The delivered typed-core limits remain in force. Constraint meanings and primitive
+singleton conversion remain separate work. A fresh constraint symbol does not
+establish any meaning for its body. The guarded constraint-free
+[structural checker](structural-checker.md) supplies a whole-model interpretation
+of the exact generated local bank plus explicit global root, abstract and group
+obligations. `compiled_bank_iff` and `erasure_correspondence` prove this selected
+structural connection; they do not assert source elaboration or user-expression
+preservation. The delivered
 [MCS gluing](ARCHITECTURE.md#mcs-gluing) provides a label morphism and conditional
 FormalCD validity under its explicit incidence, metadata and default-completeness
 hypotheses. Establishing those hypotheses for Compile output and integrating the

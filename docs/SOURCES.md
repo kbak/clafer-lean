@@ -876,3 +876,26 @@ MCS formula banks need not contain ordinary setValued or inclusion declarations.
 The exact image is never silently completed. Bag mode and source key/total-args
 semantics remain unchanged. No compiler integration, general constraint semantics,
 model-existence theorem or global pushout claim follows.
+
+
+## Finite structural candidate semantics
+
+The accepted [#50 boundary](resolved-ir-comparison.md) uses the same primary
+SoSyM preprint and the existing Q1/Q8, parentless-abstract and Appendix E
+corrections. Effective input retains identity and numeric bounds without
+reconstructing source/default provenance. The compiler pin remains comparison
+context only; its Alloy facts do not define the Lean relation.
+
+| Source | Structural obligation |
+| --- | --- |
+| §§5.3.1–3, 5.4; Table 4; A.1 | Finite supplied objects, containment/reference tables, exact parent/dereference multiplicity, local lower/upper bounds and set/bag reference occurrences |
+| §5.3.4–5, §5.5; Figure 18; Appendix E | Root and abstract membership, shared-object subtype inclusion, abstract cover and common-target sibling disjointness; finite acyclic hierarchies establish containment reachability |
+| Appendix C; §6.2.2 | Effective own-child group bounds count the union of child head objects; inherited/abstract group extensions remain unsupported |
+| B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 | Ordinary relation-tuple links and link-isomorphic representation; composite target spans preserve composable occurrences under Q1 |
+| §6.1–6.2, B.4 Definitions 6–10/B.5 | Interpretation into the existing bounded subset/span graph and explicit connection with the selected compiled structural declarations; global clauses supplement the local bank |
+
+Unrelated classes may overlap in the shared ambient carrier. No implicit Alloy
+signature partition, global unique parent across unrelated memberships, primitive
+value domain or authored/default theorem is introduced. The [requirements](spec.md#whole-model-structural-satisfaction-and-interpretation)
+and [trace map](clafer-trace.md) distinguish definitions, implementation proofs and
+whole-model boundary tests.
