@@ -13,7 +13,7 @@ with reusable foundations supporting structural Clafer. The repository
 | --- | --- | --- |
 | DPGraph | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
 | FormalCD | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
-| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the complete Appendix F acceptance fixture remains separate |
+| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the [complete Appendix F fixture](appendix-f.md) discharges those assumptions for one concrete selected model |
 
 Preserve the accepted [paper corrections and clarifications](sosym-errata.md):
 composition retains links and agrees with relations after reduction;
@@ -67,7 +67,7 @@ shared maps, and generated structural correspondence. Authored abstract types an
 fields made effectively abstract by containment retain different realization rules.
 The [representative models](representative-models.md) connect concrete compilation
 and gluing, generated xor boundary cases and the mandatory version attachment.
-The full constraint-bearing fixture and final selections remain #64; the
+The [full constraint-bearing fixture](appendix-f.md) combines all twelve bodies and final selections; the
 [independent expression meaning](constraint-denotation.md) is supplied by #68,
 and [#69’s selected bridge](constraint-preservation.md) connects it to generated
 predicate satisfaction with explicit primitive and model assumptions.

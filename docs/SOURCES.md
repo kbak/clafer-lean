@@ -965,7 +965,7 @@ Structural attachment and operand definedness do not establish general expressio
 preservation or full Appendix F satisfaction. The independent expression meanings
 are supplied by the [denotation contract](constraint-denotation.md); their compiled
 bridge is supplied by the [selected preservation contract](constraint-preservation.md),
-while the complete acceptance fixture remains #64.
+with the [complete fixture](appendix-f.md) supplying simultaneous satisfaction.
 
 
 ## Selected constraint preservation
@@ -988,3 +988,17 @@ an unrestricted primitive-head bound and actual root containment. The existing
 resolved contract already permits those explicit fields; ordinary version/server
 bounds and the guarded #50 checker are unchanged. No combined model is inferred
 by replacing only the primitive set in the old finite structural witness.
+
+
+## Complete Appendix F model
+
+[The complete model](appendix-f.md) reuses the reviewed d01–d26 and c01–c12
+inventory, including the manually checked p.34 indentation and final selections.
+It retains Q1–Q9, D2/D4/D6, reference-head counts, global plaECU extents, c07's
+implication vacuity and c02's unguarded display ≥ server comparison. The selected
+primitive correction gives int unrestricted bounds and actual root containment;
+it preserves mandatory version/server bounds and the mathematical Int domain.
+No additional source interpretation or supplementary compiler claim is introduced.
+The kernel-checked correspondence concerns this hand-authored resolved input;
+source parsing, name resolution, default insertion and coercion elaboration
+remain manually reviewed boundaries.

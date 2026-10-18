@@ -1971,7 +1971,8 @@ Exercise implication vacuity and actual operator combinations with positive and
 negative witnesses. Check the resolved supports against the complete inherited
 AST. General textual resolution remains separate. The extension requirement
 for preservation, `req~clafer-constraint-preservation~1`, supplies the selected Compile/gluing bridge;
-the complete combined acceptance fixture stays with #64. See the
+the complete combined fixture is specified separately by
+requirement `req~clafer-appendix-f-complete~1`. See the
 [denotation contract](constraint-denotation.md).
 
 Covers:
@@ -2036,8 +2037,8 @@ Audit all twelve Appendix F bodies against positive-map Compile support and
 preserve their complete resolved bindings. Check that each uses actual source
 navigation; do not add dummy maps or weaken total args. Retain the full integer
 domain and record any mismatch with finite primitive placeholders separately from
-the actual `1..1` version/server operand bounds. The complete selected-model
-fixture remains #64; this increment supplies its selected semantic correspondence.
+the actual `1..1` version/server operand bounds. The complete selected-model fixture is specified separately by
+requirement `req~clafer-appendix-f-complete~1`; this interface supplies its semantic correspondence.
 
 Provide predicate-satisfaction witnesses sensitive to version order, display-head
 count, server/parent navigation, context/binding identity and changes to interpreted
@@ -2098,7 +2099,7 @@ separate fixtures into an unsupported full-model claim.
 The structural projection includes all printed declarations; the separately
 compiled c02 fragment is a supported subset, not full Appendix F completion.
 Full interpretation of all printed constraints, final selections and a nonempty
-satisfying full model remain #64. #69 depends on this structural milestone and
+satisfying full model have the separate contract `req~clafer-appendix-f-complete~1`. #69 depends on this structural milestone and
 is not a prerequisite for its narrower result. Preserve independent public imports
 for DPGraph, FormalCD and Clafer under the existing layer checks. Keep #24 open
 until its deliverables are accepted and the implementing PR is merged.
@@ -2106,5 +2107,55 @@ until its deliverables are accepted and the implementing PR is merged.
 Covers:
 - `intent~formalization-foundation~1`
 - `intent~traceable-contributions~1`
+
+Needs: impl, proof
+
+## Complete resolved Appendix F integration
+`req~clafer-appendix-f-complete~1`
+
+Represent every printed declaration and c01–c12 conjunct of SoSyM Appendix F
+p.34 in one resolved/defaulted input, including the final dual, extraDisplay
+and large selections. Reconcile the visually checked source inventory with
+actual owner/position attachments, repeated size identities, all seven super
+edges, five abstract families and three xor groups. Reuse the accepted source
+elaboration and Q1–Q9/D2/D4/D6 decisions without replacing or omitting a body.
+Prove the input contract, real positive-map support, generated structural MCS
+validity, gluing incidence/metadata/default obligations and final FormalCD validity.
+Keep the structural MCS distinct from the augmented zero-arrow bank.
+
+Construct a concrete nonempty satisfying configuration with two ECUs and two
+displays per ECU, correct server/parent and master relationships, no cache and
+all final selections. Realize the primitive integer head as all mathematical
+integers with unrestricted 0..* bounds and actual root containment; retain
+mandatory 1..1 version/server fields and finite counted nonprimitive collections.
+Derive numeric definedness from actual navigation and bounds. Discharge all
+hypotheses of `Compile.ConstraintMeaning.whole_model` for this same configuration
+and its canonical descent into the exact generated/glued diagram. Neither a
+source-truth-only theorem nor an assumed correspondence meets this requirement.
+
+Document remaining elaboration assumptions and finite-evaluation boundaries
+in [the full-model contract](appendix-f.md). This requirement extends the selected
+interfaces above; it does not rename representative/subset proofs into full-model
+acceptance, claim a finite entire interpretation or broaden #50's checker.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl, proof
+
+## Complete Appendix F rejection witnesses
+`req~clafer-appendix-f-rejections~1`
+
+Supply focused negative witnesses for zero/two xor selections, wrong display
+count, forbidden cache, wrong server/parent relationship and lower display
+version. Identify the violated obligations of the complete resolved model and
+connect failures to actual attachments/generated predicates. Coupled failures
+are permitted; independent isolation requires its own proof. Preserve sensitive
+operator witnesses for c01/c05/c07/c08/c09, including implication vacuity even
+where the positive final selection makes a branch vacuous.
+
+Covers:
+- `intent~formalization-foundation~1`
 
 Needs: impl, proof

@@ -5,7 +5,7 @@ of SoSyM Appendix D.1–D.4/Figure 28 and the manual Appendix F expansions. The
 [product intent](intent.md), [source map](SOURCES.md#appendix-d-rule-dispositions-q3),
 [integer bridge](integer-extraction.md), and [inherited inventory](inherited-realization.md)
 remain authoritative for their respective boundaries. The [selected Compile/gluing bridge](constraint-preservation.md) derives predicate
-meanings from these equations; the combined full-model acceptance result belongs to #64.
+meanings from these equations; the [combined full-model result](appendix-f.md) applies them to one complete fixture.
 
 ## Values and environments
 

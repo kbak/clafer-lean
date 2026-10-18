@@ -280,7 +280,7 @@ Covers:
 | --- | --- | --- |
 | 1 — reusable DP-graphs | [#13](https://github.com/kbak/clafer-lean/issues/13) representation; [#14](https://github.com/kbak/clafer-lean/issues/14) → [#15](https://github.com/kbak/clafer-lean/issues/15), with derived [#28](https://github.com/kbak/clafer-lean/issues/28)/[#30](https://github.com/kbak/clafer-lean/issues/30); [#4](https://github.com/kbak/clafer-lean/issues/4) → [#16](https://github.com/kbak/clafer-lean/issues/16) | #14/#25, #15/#27, #28/#29, #4/#32, #30/#33 and #16/#34 delivered. #13's final representation/dependency assessment is in #39. Generic DPGraph remains independently importable. |
 | 2 — reusable formal CDs | #16 → [#17](https://github.com/kbak/clafer-lean/issues/17) → [#18](https://github.com/kbak/clafer-lean/issues/18) → [#19](https://github.com/kbak/clafer-lean/issues/19) | #17/#35, #18/#36 and #19/#38 delivered: structure, morphisms, compatible vocabulary, Figure 21c, bounded syntactic self-description and Figure 21b/VC. Semantic self-instantiation remains outside scope. |
-| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. The structural MCS disciplines are implemented for #20; #21 adds typed core expressions and graph support. Structural Compile is implemented for #22 under its explicit contract. The approved Q4 gluing is implemented for #23 with separate default-completeness hypotheses. The [representative integration](representative-models.md) checks concrete Compile/gluing structure, generated xor predicates and the selected version attachment; the [core denotation](constraint-denotation.md) and [selected preservation bridge](constraint-preservation.md) connect typed bodies to predicate satisfaction, while complete Appendix F acceptance remains #64. Planning tickets alone authorize no further implementations. |
+| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. The structural MCS disciplines are implemented for #20; #21 adds typed core expressions and graph support. Structural Compile is implemented for #22 under its explicit contract. The approved Q4 gluing is implemented for #23 with separate default-completeness hypotheses. The [representative integration](representative-models.md) checks concrete Compile/gluing structure, generated xor predicates and the selected version attachment; the [core denotation](constraint-denotation.md) and [selected preservation bridge](constraint-preservation.md) connect typed bodies to predicate satisfaction, and the [complete Appendix F fixture](appendix-f.md) supplies concrete simultaneous satisfaction. Planning tickets alone authorize no further implementations. |
 
 ### Nine architectural decision areas
 
@@ -478,7 +478,7 @@ separate. The [conversion contract](integer-extraction.md) owns detailed limits;
 the [core denotation](constraint-denotation.md) extends these equations to all
 supported constructors and the c01–c12 inherited paths. The
 [selected preservation bridge](constraint-preservation.md) connects those meanings
-to Compile and gluing; the combined acceptance fixture remains #64.
+to Compile and gluing; the [complete fixture](appendix-f.md) discharges its assumptions for one selected configuration.
 
 
 ## Selected inherited realization
@@ -505,3 +505,16 @@ to the delivered inherited structural carrier. The separate
 [constraint preservation extension](constraint-preservation.md) composes them with
 generated predicate meanings under explicit model assumptions. The guarded
 structural checker remains unchanged.
+
+
+## Complete Appendix F fixture
+
+The `Clafer.Examples.AppendixF*` full-model modules assemble the existing
+resolved declarations and bodies, prove the input and generated banks valid,
+and construct one configuration over finite nonprimitive objects plus all Int.
+The primitive head has unrestricted bounds and root containment. Every printed
+body and final selection is proved on the actual arity reduct of this same
+configuration. The selected whole-model theorem then establishes satisfaction
+of its canonical descent into the complete glued bank. The [full-model contract](appendix-f.md)
+owns the attachment map, proof boundaries and rejection witnesses. It neither
+extends the finite checker nor replaces the earlier subset fixtures.
