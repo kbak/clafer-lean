@@ -58,10 +58,14 @@ predicate translation remain separate from typing. Source
 names remain metadata separate from resolved IDs. Top-level abstract clafers keep
 their head class and omit parent-dependent roles under the accepted source
 correction in [SOURCES](SOURCES.md#resolved-2014-clafer-and-individual-shapes).
-Full MCS invariants, compilation, gluing and integration remain on
-issues #20/#22–24. The selected [typed constraint core](spec.md#resolved-core-constraint-typing)
+The MCS structural discipline covers Figure 23 and the expanded Appendix E
+inventory, using guarded Shape slots and the accepted map-role ownership
+correction. Role identities, resolved referents and strings remain distinct;
+full formula bindings retain separate total-args and literal bag-key obligations.
+The selected [typed constraint core](spec.md#resolved-core-constraint-typing)
 follows D.1–D.3 and the [Q3 disposition](SOURCES.md#appendix-d-rule-dispositions-q3);
-primitive conversion and constraint evaluation remain unformalized. An all-universes SetMap and the
+primitive conversion and constraint evaluation remain unformalized. Compilation,
+gluing and integration remain on issues #22–24. An all-universes SetMap and the
 unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),

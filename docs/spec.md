@@ -5,8 +5,9 @@ span operations, DP-graph category, abstract model reduct and concrete predicate
 semantics over a bounded graph of subsets and spans, plus FormalCD
 structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntactic
 self-description and the complete Figure 21b example with corrected VC. Structural
-Clafer now includes resolved deep syntax, typed core constraints and individual
-Shapes under the scoped requirements below. MCS, constraint interpretation, compilation, gluing and integration
+Clafer now includes resolved deep syntax, typed core constraints, individual
+Shapes and the MCS structural discipline under the scoped requirements below.
+Constraint interpretation, compilation, gluing and integration
 remain separate increments. The source-audit roadmap alone authorizes no semantic work.
 
 ## Reproducible Lean validation
@@ -105,8 +106,9 @@ B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
 graph, and the first FormalCD structure/name-preserving morphisms, from future
 predicates, all-universes SetMap, semantic self-instantiation and the remaining
-Clafer MCS/interpretation/compilation/gluing increments. It documents the delivered
-resolved AST, typed core constraints, constraint boundary and individual Shapes.
+Clafer interpretation/compilation/gluing increments. It documents the delivered
+resolved AST, typed core constraints, constraint boundary, individual Shapes and
+MCS structural discipline.
 It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
@@ -1249,6 +1251,68 @@ Reference IDs are not recursive children; cyclic references must not prevent
 finite traversal. Prove finite class/map-role carriers. This is a basis for
 future terminating compilation (#22), not a parser, compiler correctness or
 full MCS theorem. Preserve independent generic DPGraph imports.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+
+## MCS metamodel and ownership
+`req~clafer-mcs-metamodel~1`
+
+Encode SoSyM §6.2.3/Figure 23 with the existing graph/formula and FormalCD APIs:
+Role, ClassRole, MapRole, InclRole, String, PredefStr, Formula, Signature and the
+Clafer owner; the cover/disjoint partition; labels, endpoints, slots and formulas.
+Preserve the accepted correction from source `1` to `0..1` on the four ordinary-map
+and three inclusion-role associations, meaning unique ownership within each
+association's image. Shape guards require exactly the applicable slots. Retain
+literal head-class source `1` and formula source `1`. Distinguish local slots,
+role-graph identities, resolved class/map referents and displayed names. Do not
+identify parent/dref/isA arrows by repeated strings. Keep the head of every clafer,
+including top-level abstracts. Gluing congruence remains on #23.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Complete Appendix E structural discipline
+`req~clafer-mcs-disciplines~1`
+
+Implement the complete applicable Tables 5–8 inventory and accepted Q2 expansion
+in [the MCS inventory](mcs-invariants.md). Use typed incidence and exact existing
+Shape presence guards; express cojoining at role-graph vertex identity. Include
+both endpoints of all four ordinary roles and three guarded super roles, root,
+every supported primitive domain, basic/set/bag and parentless abstract cases.
+Missing source/target endpoints forbid the corresponding inclusion slot. Enforce
+head/parent/dref/target and inclusion naming, both directions of Sing and all
+primitive naming equivalences, and the target-name equation derived via the head
+map. Bundle each discipline once as a proposition, without inconsistent duplicate
+invariant fields. Preserve resolved hierarchy/kind restrictions at the structural
+family boundary. Supply nonempty composed shapes with proved obligations,
+including inherited roles, absent roles and distinct same-name arrows.
+This is a structural MCS representation, not an AST compiler or model-existence
+claim; #22 owns conversion from the already resolved AST and formula generation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## MCS formula bindings and literal constraints
+`req~clafer-mcs-formulas~1`
+
+Formula objects have one owner, a symbol and a complete well-typed graph binding,
+retaining isolated vertices and repeated argument occurrences. Preserve the
+literal bag key on `(args,pred)` separately from full binding identity and from
+total args. Bag equality may permute occurrences; it is not indexed equality.
+Zero-arrow arities remain legal in the generic formula API but cannot occur in
+an MCS formula bank satisfying the printed total-args condition. Demonstrate
+accepted repeated occurrences and rejection of duplicate-key formula objects.
+Expose a DP-graph declaration set and transport existing local Shape declarations
+without inventing a constraint language or asserting compiler completeness.
+Keep those later obligations separate from structural validity.
 
 Covers:
 - `intent~formalization-foundation~1`

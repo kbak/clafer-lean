@@ -61,6 +61,8 @@ class PublicLibrariesTest(unittest.TestCase):
             "FormalCD.Telematics.VC", "FormalCD.Telematics.Examples",
             "Clafer.Context", "Clafer.Syntax", "Clafer.Shape",
             "Clafer.Shape.Diagram", "Clafer.Examples",
+            "Clafer.MCS.Basic", "Clafer.MCS.Laws", "Clafer.MCS.Metamodel",
+            "Clafer.MCS.Examples",
             "Clafer.Constraints.Support", "Clafer.Constraints.Typing",
             "Clafer.Constraints.Examples",
         })
