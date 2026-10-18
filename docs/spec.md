@@ -122,6 +122,30 @@ Covers:
 
 Needs: impl
 
+## SoSyM reader companion
+`req~sosym-reader-companion~1`
+
+Maintain [corrections and clarifications](sosym-errata.md) as a concise companion
+for readers of the pinned 34-page SoSyM author preprint. Give exact section,
+figure, table or definition locators and preprint page numbers. Explain each
+corrected reading and its reason, linking the accepted decision or source analysis
+and relevant delivered proof/implementation evidence.
+
+Cover the accepted composition, common-target disjointness, guarded version
+constraint, top-level abstract-head and seven-association ownership corrections.
+Clarify link/bag multiplicity, full formula bindings versus literal key and total
+args, bounded self-description, guarded Appendix E clauses, gluing identity and
+defaults, and Appendix D notation. Distinguish accepted corrections, clarifications,
+explicit formalization choices and unresolved proposals. Do not present these as
+publisher-issued errata or add new semantic claims. Link the companion from the
+README, canonical intent and source map. Review its claims against paper passages,
+issue decisions, merged history and the actual referenced Lean declarations.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl
+
 ## Source audit and three-layer roadmap
 `req~formalization-roadmap~1`
 

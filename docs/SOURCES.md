@@ -1,5 +1,7 @@
 # Sources and open decisions
 
+For a concise reading companion, see [SoSyM paper corrections and clarifications](sosym-errata.md).
+
 The [roadmap/source audit (#2)](https://github.com/kbak/clafer-lean/issues/2)
 is delivered in [merged #40](https://github.com/kbak/clafer-lean/pull/40).
 [Research #41](https://github.com/kbak/clafer-lean/issues/41) owns
