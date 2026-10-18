@@ -393,6 +393,35 @@ mapping and owner context. [Local](../Clafer/Compile/Local.lean):
 Covers:
 - `req~clafer-compile-formulas~1`
 
+## Compile group metadata and direct-child inventory
+`impl~clafer-compile-group-data~1`
+
+[MCS/Basic.lean](../Clafer/MCS/Basic.lean) adds `Family.group` as metadata;
+the existing MCS structural disciplines do not interpret it.
+[Compile/Structure.lean](../Clafer/Compile/Structure.lean) carries the complete
+group record in `family`. `DirectChild` selects exactly declarations whose
+resolved parent is the owner; `directChildHead` constructs their typed head maps.
+These declarations do not generate group predicates or select inherited paths.
+
+Covers:
+- `req~clafer-compile-group-data~1`
+
+## Compile group data preservation proofs
+`proof~clafer-compile-group-data~1`
+
+In [Structure](../Clafer/Compile/Structure.lean), `group_preserved` retains the
+whole metadata record, `group_bounds_valid` derives valid effective bounds,
+`directChild_iff` relates the inventory to source IDs, and
+`directChildHead_owner`/`directChildHead_injective` retain distinct child map
+identities. `directChildren_finite` derives finiteness from AST occurrences.
+[Examples](../Clafer/Compile/Examples.lean) checks
+`empty_xor_metadata_preserved`, `nested_has_no_direct_children`,
+`nested_child_head_incidence` and `reference_child_head_not_target`.
+The empty xor witness is accepted input, not a claim that its bound is enforced.
+
+Covers:
+- `req~clafer-compile-group-data~1`
+
 ## MCS gluing representation
 `impl~clafer-gluing-identity~1`
 

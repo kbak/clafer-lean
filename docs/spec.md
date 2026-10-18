@@ -1502,6 +1502,31 @@ Covers:
 
 Needs: impl, proof
 
+## Compile group data and direct-child maps
+`req~clafer-compile-group-data~1`
+
+Preserve each resolved declaration's complete `GroupMultiplicity` in the
+compiled family, including authored/effective values and keyword provenance
+(Appendix C p.31). Derive validity of its effective bounds from the accepted
+AST; do not run default elaboration again or change keyword child defaults.
+Derive the direct-child inventory exactly from resolved parent identity. Each
+entry supplies the typed head map from that parent's head to the child's head,
+including reference children; different child entries retain different map
+identities. This inventory is finite because the accepted AST is finite.
+
+Retain empty inventories and abstract declarations as structural input. Check
+preservation of an empty xor group's metadata and reference-child head incidence.
+These guarantees do not assert group satisfaction. The generated predicate,
+inherited inventory, abstract applicability and empty-support integration must
+follow the [D6 proposal and its decisions](group-compilation.md) before semantic
+generation is added; the full acceptance criteria of
+[#65](https://github.com/kbak/clafer-lean/issues/65) remain outstanding.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
 ## MCS gluing identity and incidence
 `req~clafer-gluing-identity~1`
 

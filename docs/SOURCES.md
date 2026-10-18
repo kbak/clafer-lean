@@ -815,6 +815,15 @@ interpretation. Generated local predicates are exactly the existing individual
 Shape inventory plus guarded inclusion predicates; group/abstract semantic
 translation and full constraint preservation remain outside this increment.
 
+Group metadata now survives `Compile.family`, with a derived direct-child head
+map inventory. This is the settled data interface of
+[#65](https://github.com/kbak/clafer-lean/issues/65), not group enforcement.
+The [D6 proposal](group-compilation.md) records the primary-source evidence,
+abstract-invariant versus concrete-template alternatives, inherited inventory
+interface with #66/#50, and the empty-support conflict with MCS total args.
+Its recommendations remain pending decisions and do not amend accepted paper
+corrections or D1's Appendix C default policy.
+
 ## MCS gluing and the approved Q4 rule
 
 Primary source: SoSyM §6.2.5 (p.21) describes labeling from class/map roles to

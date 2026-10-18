@@ -38,6 +38,9 @@ structure Family (C : Type) where
   name : C → String
   multiplicity : C → DPGraph.Predicates.Range
   root : C
+  /-- Appendix C group metadata. Interpretation and formula generation are
+  separate from the existing structural MCS disciplines. -/
+  group : C → GroupMultiplicity := fun _ => {}
 
 def Family.shape {C : Type} (f : Family C) (c : C) : Shape :=
   ⟨(f.reference c).kind, (f.parent c).isSome, f.name c, f.multiplicity c⟩

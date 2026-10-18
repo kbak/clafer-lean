@@ -28,7 +28,10 @@ uses equal referents under incidence/metadata consistency and preserves the exac
 translated declarations; FormalCD validity additionally requires complete effective
 defaults. Structural Compile derives MCS validity under its [resolved-input
 contract](compile.md). Neither transformation establishes full constraint-semantic
-preservation. The [requirements](spec.md) state the precise promises, including
+preservation. Compile retains group metadata and derives direct-child head maps;
+the [group-compilation proposal](group-compilation.md) separates this data
+preservation from the remaining D6 decisions and interpreted group obligations.
+The [requirements](spec.md) state the precise promises, including
 ordinary-key correspondence under totality/single-valuedness and the bounded
 metamodel/primitive-conversion limits.
 

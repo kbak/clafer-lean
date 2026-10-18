@@ -34,6 +34,14 @@ source and target slots cojoin at the resolved parent's and target's heads.
 Ordinary map identities pair the owner position with the exact map role.
 Inclusions retain their owner, selected super and shared class role.
 
+The family retains the complete authored/effective group record without another
+defaulting pass; `group_bounds_valid` derives effective interval validity from
+the AST. `DirectChild` derives the finite own-child inventory from resolved
+parent identity, and `directChildHead` supplies each child's typed head map,
+including reference children. These are data guarantees. Group predicates and
+their inherited/abstract/empty cases remain subject to the
+[D6 proposal](group-compilation.md); preserving xor metadata does not enforce xor.
+
 Allocation is deterministic for the same ordered AST. Equal display names do
 not coalesce identities. Repeated references to one uniquely declared `DeclId`
 share its class, while reference heads and dereference maps remain distinct.
