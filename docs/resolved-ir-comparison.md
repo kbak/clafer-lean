@@ -2,15 +2,17 @@
 
 `impl~resolved-ir-comparison-contract~1`
 
-This is the review proposal for [#49](https://github.com/kbak/clafer-lean/issues/49),
-under [#48](https://github.com/kbak/clafer-lean/issues/48). It specifies a future
+The documentation/source audit for [#49](https://github.com/kbak/clafer-lean/issues/49)
+is delivered in [merged #55](https://github.com/kbak/clafer-lean/pull/55), under
+[#48](https://github.com/kbak/clafer-lean/issues/48). Its executable contract remains
+a proposal for a future
 comparison of finite structural candidates against resolved Clafer IR and its
 generated static Alloy. It supplies no importer, checker, solver integration or
 new theorem. “Proposed supported” below means a proposed comparison domain,
 conditional on the prerequisites; it does not mean compatibility has been proved.
 The [current intent exclusions](intent.md) and [layer policy](ARCHITECTURE.md)
-continue to apply. Acceptance requires contract review and the documentation PR's
-acceptance/merge; this document alone does not close the issue.
+continue to apply. Delivery of this audit does not implement the proposed
+comparison or its prerequisite semantic interfaces.
 
 Covers:
 - `req~resolved-ir-comparison-contract~1`
@@ -581,7 +583,7 @@ alone. Before comparison, #50 must deliver or explicitly depend on:
    interpretation; conversely unrelated deferred language features need not be
    finished if the exact structural slice and bridge are separately accepted.
 
-#49's audit can proceed while these prerequisites remain open. #50–52 may begin
+The #49 audit is delivered while these prerequisites remain open. #50–52 may begin
 their executable semantic comparisons only after relevant dispositions/slices
 are accepted. A review of this document is not evidence that those interfaces
 exist or are correct.

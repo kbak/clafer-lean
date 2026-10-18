@@ -114,7 +114,7 @@ the complete module inventory and generates every `import all` in the audit.
 [scripts/check.sh](../scripts/check.sh) builds the complete inventory in one Lake
 invocation and passes the three public roots to one verbose `leanchecker`, which
 enumerates their compiled descendants without repeated overlapping targets.
-It executes the audit after kernel checking,
+It executes the audit after the module build and before kernel replay,
 with warnings treated as errors. This is a validation test, not a theorem
 about the intended semantics.
 
