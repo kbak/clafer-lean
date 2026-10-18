@@ -116,10 +116,13 @@ class PublicLibrariesTest(unittest.TestCase):
             "Clafer.Verification.Finite", "Clafer.Verification.Protocol",
             "Clafer.Verification.ProtocolProofs", "Clafer.Verification.Admission",
             "Clafer.Verification.Representation", "Clafer.Verification.Examples",
+            "Clafer.Verification.Import", "Clafer.Verification.ImportProofs",
+            "Clafer.Verification.ImportMain", "Clafer.Verification.ImportExamples",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
         self.assertIn(Path("tests/formalcd_imports.lean"), tests)
         self.assertIn(Path("tests/structural_checker.lean"), tests)
+        self.assertIn(Path("tests/resolved_import.lean"), tests)
 
     def test_project_artifact_cache_preserves_environment_control(self):
         config = (REPO / "lakefile.toml").read_text()

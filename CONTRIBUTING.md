@@ -20,7 +20,9 @@ module boundaries. Use those references when updating summaries, retaining
 artifact IDs, trace links, source citations and existing link destinations.
 
 Install Lean with [elan](https://lean-lang.org/install/), Python 3.11+, Git,
-Java 17+, and the [GitHub CLI](https://cli.github.com/). Then:
+Java 17+, and the [GitHub CLI](https://cli.github.com/). Prepare the
+[pinned importer prerequisites](#pinned-import-validation-prerequisites) for full
+validation. Then:
 
 ```sh
 python3 -m venv .venv
@@ -148,3 +150,15 @@ under their retention policy.
 
 Contributions use the existing [MIT license](LICENSE). Preserve attribution and
 check licenses before incorporating upstream code or publication material.
+
+## Pinned import validation prerequisites
+
+The importer tests execute the pinned Haskell exporter as well as Lean. Build it
+in external scratch and set `CLAFER_CAPTURE` and `CLAFER_CAPTURE_BUILD` as described
+in [the import guide](docs/resolved-import.md#build-and-replay) before full validation.
+Keep source archives, GHC/Stack caches, binaries and evidence outside the repository.
+The required live-export tests fail when that prerequisite is absent; saved JSON
+fixtures do not substitute for compiler execution. `bash scripts/check.sh` retains
+all existing module, kernel, axiom, layer and independent-import checks.
+CI builds the same exporter from verified source/Stack archives before the check,
+retaining its build identities and log with the validation evidence.

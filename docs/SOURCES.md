@@ -937,3 +937,28 @@ mandatory, unguarded c02 comparison and connects its navigation hypotheses to
 emitted local declarations under an explicit integer-domain interpretation.
 Structural attachment and operand definedness do not establish general expression
 preservation or full Appendix F satisfaction; #68/#69/#64 retain those obligations.
+
+## Pinned resolved importer (#51)
+
+[The import protocol](resolved-import.md) implements the accepted effective-core
+boundary from SoSyM §§5.3–5.5 and §6.2.2/Figure 22, with #50's selected structural
+interpretation. Appendix C explains the authored/default metadata gap; imported
+effective values do not establish historical provenance or default correctness.
+
+Compiler evidence is pinned to
+[`gsdlab/clafer@15adb2216909421bcb5022174d2d84ef2b42307c`](https://github.com/gsdlab/clafer/tree/15adb2216909421bcb5022174d2d84ef2b42307c).
+`Intermediate/Intclafer.hs` owns the serialized types; `Language/Clafer.hs`
+`analyze`/`generate` fixes the paired boundary. `Common.createUidIClaferMap`,
+`Optimizer.optimizeModule`/`optimizeClafer`/`makeZeroUnusedAbs`, and
+`Generator/Alloy.hs` `genModule`, `genRelations`, `genOptCard`, `genParentConst`,
+`genGroupConst` and `genSetUniquenessConstraint` identify the retained hidden-state
+and backend-processing obligations. `Front/AbsClafer.hs` and `LexClafer.x` supply
+the pre-desugaring constructor/token audit. The original lts-22.44 resolver uses
+`nikomi/json-builder@fef4700b53da502f8d70d2106c9f4b65e1a69b3f` and
+`gsdlab/StringMap@2ce0adb947adaa5581d347ce8555ec76db44d815`.
+
+The compiler archive hash and extraction trust boundary are in the import guide.
+The exact copied upstream fixture retains [MIT attribution](../tests/fixtures/importer/LICENSE-upstream).
+The external observational generator copy retains its upstream license header.
+Kernel-checked importer representation is separate from upstream parser/type/
+optimization correctness and from any future Alloy comparison result.
