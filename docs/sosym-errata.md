@@ -173,3 +173,16 @@ Clafer expressions. The compiler-comparison audit's remaining
 are proposals or compatibility limits, not additional accepted paper corrections.
 The [source map](SOURCES.md) retains detailed citations and the
 [product overview](intent.md) records the delivered scope.
+
+### Inherited ordinary fields and explicit abstract types
+
+**§5.3.4–5, §5.5, Appendix F.** The selected D2/D4 clarification distinguishes
+authored explicit abstract types from ordinary fields whose effective abstractness
+comes from containment. Fields such as comp.version have the same occurrences
+at the same realized parent across its super chain. Context views restrict the
+existing containment/dereference links. They do not add declaration-level
+unequal-parent inheritance. Explicit abstract coverage/disjointness remains a
+separate obligation, including when a covering head is itself an inherited field.
+See the [scoped inventory and combination policy](inherited-realization.md).
+Realized options.size enforces its effective xor through the existing D6 union
+policy. This fills a specification gap; it is not attributed as a printed theorem.
