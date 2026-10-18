@@ -69,8 +69,13 @@ These conditional structural-semantic results are consumed by the
 [general core denotation](constraint-denotation.md). Its full resolved Appendix F
 inventory includes inherited navigation, `server = parent` and the other c01–c12
 bodies, using the [inherited structure contract](inherited-realization.md).
-The link from compiled diagrams to these meanings remains #69 and combined
-whole-model acceptance remains #64. No parser, string/Boolean conversion, automatic
+[VersionCompilation](../Clafer/Examples/VersionCompilation.lean) attaches the selected
+typed version comparison, compiles/glues it, and derives its navigation hypotheses
+from emitted local formulas, with the integer-domain assumption explicit. The
+[coverage matrix](representative-models.md) separates that conditional result
+from full Appendix F satisfaction. The general link from compiled diagrams to
+expression meanings remains #69 and combined whole-model acceptance remains #64.
+No parser, string/Boolean conversion, automatic
 coercion insertion or finite-bitwidth arithmetic is supplied. Finite structural
 objects in the examples coexist with the full integer domain; they do not bound
 arithmetic.

@@ -995,3 +995,72 @@ is separate from #64's final full-model acceptance theorem.
 Covers:
 - `req~clafer-constraint-semantic-laws~1`
 - `req~clafer-appendix-f-expressions~1`
+
+## Representative model integration
+`impl~clafer-representative-integration~1`
+
+[Integration.lean](../Clafer/Examples/Integration.lean) defines `Small.glued`,
+`Small.label` and the concrete inclusion slot `Small.inheritedHead`, reusing
+`Compile.Examples.input`, `Compile.GroupExamples.input` and `Examples.Inherited.input`.
+[VersionCompilation.lean](../Clafer/Examples/VersionCompilation.lean) defines
+`ast`, `input`, `q`, `glued`, `navigation`, `LocalHolds` and `versionModel` for the
+mandatory Appendix F comparison. These examples use the existing Compile/group
+and inherited realization interfaces without changing their contracts.
+
+Covers:
+- `req~clafer-representative-integration~1`
+
+`proof~clafer-representative-integration~1`
+
+In [Integration.lean](../Clafer/Examples/Integration.lean),
+`Small.compilation_gluing_valid`, `exact_declarations`, `nested_names_and_identity`,
+`nesting_incidence`, `shared_target_distinct_maps`, `inheritance_declared`,
+`typed_attachments` and `repeated_binding_after_gluing` prove the concrete
+structural connections. `Xor.declarations` proves emitted membership on both sides.
+`Xor.optional_declarations` checks the actual emitted
+optional multiplicities at zero/one/two objects; `Xor.boundaries` proves one
+passes and zero/two fail separately before and after gluing. `AppendixF.source_ids`,
+`exact_declarations`, `structural_model` and `version_and_server` account for the
+inherited declaration projection and its nonempty structural model.
+
+In [VersionCompilation.lean](../Clafer/Examples/VersionCompilation.lean),
+`wf`, `support_resolved`, `constraint_typed`, `output_valid`, `attachment`, `full_binding` and
+`mandatory_bounds` check resolved typed attachment and preservation.
+`local_of_model` extracts the actual generated local predicates from an interpreted
+glued model; `versionModel` derives the four multiplicities and inclusions from
+those predicates. `operands_defined` and `comparison_defined` apply the delivered
+integer-navigation results, with primitive domain equality explicit. They do
+not assume or prove c02's truth or a general expression interpreter.
+
+Covers:
+- `req~clafer-representative-integration~1`
+
+`impl~clafer-representative-coverage~1`
+
+The [coverage matrix](representative-models.md) accounts for features, source
+locators, all d01–d26 declarations and c01–c12 conjuncts, assumptions and remaining
+obligations on #64/#68/#69. It links the authoritative inventory rather than
+redefining source semantics. The full structural projection and separate c02
+fragment retain distinct representation and satisfaction boundaries.
+
+Covers:
+- `req~clafer-representative-coverage~1`
+
+`proof~clafer-representative-coverage~1`
+
+The integration proofs above and the existing
+[Inherited.lean](../Clafer/Examples/Inherited.lean) `source_order`, `satisfies`,
+`compiled_glued_model`, `inherited_version`, `inherited_options_and_displays`,
+`realized_xor_generated` and `realized_xor_glued` substantiate the structural rows.
+[IntegerExamples.lean](../Clafer/Constraints/IntegerExamples.lean)
+`comparison_value`, `greater`, `equal`, `lower`, `empty_server`, `multiple_server`
+and `wrong_domain_server` substantiate the partial-comparison row.
+[FormalCD examples](../FormalCD/Telematics/Examples.lean) `model_iff` and
+[SelfDescription.lean](../FormalCD/SelfDescription.lean) `bounded_self_description`
+remain separate Figure 21 results. Public import tests and the discovered-module
+build/audit cover the layer boundary. The coverage table itself is a reviewable
+accounting document, not a Lean theorem of source completeness or a substitute
+for the omitted constraints' proofs.
+
+Covers:
+- `req~clafer-representative-coverage~1`

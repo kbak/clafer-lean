@@ -7,8 +7,8 @@ structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntacti
 self-description and the complete Figure 21b example with corrected VC. Structural
 Clafer now includes resolved deep syntax, typed core constraints, individual
 Shapes, the MCS structural discipline, structural Compile and resolved-referent
-gluing under the scoped requirements below. Constraint interpretation and integration
-remain separate increments. The source-audit roadmap alone authorizes no semantic work.
+gluing and representative integration under the scoped requirements below. General
+constraint interpretation and full Appendix F satisfaction remain separate increments. The source-audit roadmap alone authorizes no semantic work.
 
 ## Reproducible Lean validation
 `req~lean-validation~1`
@@ -26,8 +26,11 @@ validation stage fails. This includes the DP-graph definitions, proofs and examp
 Run module discovery and its Python regressions before toolchain/dependency setup;
 make that preflight available separately for development feedback. Report elapsed
 time for build, kernel-check and test stages, identifying every kernel-checked
-module in the output. Batch module builds and deduplicate overlapping kernel-check
-targets while retaining the complete discovered inventory. Preflight success does not satisfy
+module in the output. CI streams the retained validation log while the check
+runs and includes completed stage timings in its job summary, preserving the
+IntentBond exit status even if log streaming fails. Batch module builds and
+deduplicate overlapping kernel-check targets while retaining the complete
+discovered inventory. Preflight success does not satisfy
 the full validation requirement for Lean, build, validation or other executable changes.
 After building, run the declaration/axiom audit and Lean/Python regression tests
 before the more expensive kernel replay. Any failed gate stops later stages;
@@ -41,19 +44,27 @@ or uncertain classification require full validation. Preserve the baseline ident
 and selected check in evidence. This exception does not claim new Lean validation:
 IntentBond tracing, source matching and independent read-only semantic review
 remain required, including review of changed mathematical claims and requirements.
-Keep artifact caching disabled for the project package so each isolated check
-rebuilds candidate modules. CI and deployment-managed dependency caches may reuse
-pinned dependency artifacts without replacing any build, kernel or audit gate.
+CI may reuse unchanged compiled project modules through Lake's native artifact
+cache, keyed by source contents, compiler options and transitive import traces.
+Changed inputs must rebuild affected modules and their dependents; invalid source
+must fail even when an earlier valid build is cached. The project inherits the
+validation environment's cache setting, allowing `LAKE_ARTIFACT_CACHE=false` to
+force fresh compilation in isolated snapshots. The shared check defaults caching
+to disabled outside an explicitly enabled environment. Restore all artifacts to
+the snapshot build paths before running the complete fresh kernel replay, axiom
+audit and regression gates; cache hits never substitute for these checks.
+CI and deployment-managed caches may also reuse pinned dependency artifacts.
 Derive the optional Mathlib prefetch from imports in every discovered project
 module and Lean test, including unimported helpers/examples and the pushout-cocone
 dependency. Fetch their transitive dependencies through Mathlib's cache; an empty
 inventory must not trigger a whole-Mathlib download. Cache failure must retain
 the complete pinned source-build fallback. CI persists native Lake dependency
-artifacts and Mathlib downloads outside captured source, passing their paths into
-the isolated check. Separate caches by OS, architecture, toolchain and dependency
+and project artifacts and Mathlib downloads outside captured source, passing
+their paths into the isolated check. Separate caches by OS, architecture, toolchain and dependency
 manifest; save populated caches after successful validation and permit later
-commits with the same dependency identity to reuse them. Never restore candidate
-project build output from those caches.
+commits with the same dependency identity to reuse them. Always invoke the full
+discovered module build so Lake validates every module's inputs before reuse;
+never substitute an unchecked copy of a prior checkout's build directory.
 Audit declarations by their originating project modules, including private and
 generated declarations regardless of namespace, with complete `import all`
 coverage. Reject unsafe/partial definitions, new axioms and transitive axiom
@@ -1899,7 +1910,6 @@ Covers:
 
 Needs: impl, proof
 
-
 ## Explicit constraint model environments
 `req~clafer-constraint-environments~1`
 
@@ -1965,5 +1975,63 @@ the complete combined model result stays with #64/#69. See the
 
 Covers:
 - `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Representative compilation and gluing
+`req~clafer-representative-integration~1`
+
+Apply the delivered Compile/gluing correctness interfaces to concrete resolved
+models (SoSyM §6.2.4–5, selected Figures 16, 18, 21–23 and Appendix F), proving
+expected nesting, inheritance, shared-reference identity, multiplicity and typed
+constraint-attachment relationships. Establish MCS validity, FormalCD validity
+with complete effective defaults, and exact translated declaration preservation
+for the selected concrete banks. Keep role identities, referents and names
+separate; retain full support bindings and repeated constraint occurrences.
+
+Check actual generated group predicates after both compilation and gluing. A
+compiled/glued xor must accept one selected child object and reject zero and two,
+with all individual optional child-head multiplicity formulas satisfied in each
+case. Reuse the delivered group/structural semantics, including inherited fields;
+AST group metadata alone does not meet this obligation. Reuse the complete
+Appendix F declaration projection and its nonempty structural realization.
+
+Compile and glue the selected Appendix F c02 typed attachment, preserving the
+mandatory server and unguarded display-version >= server-version direction.
+Derive the delivered integer-navigation bound/inclusion hypotheses from the
+actual emitted local predicates under interpretation; keep the integer-domain
+assumption explicit. Reuse the selected partial comparison and its defined
+true/false and invalid-operand witnesses. Distinguish structural attachment,
+operand definedness, interpreted predicate satisfaction and whole-model
+satisfaction. Do not substitute Figure 21's optional guarded VC or assert general
+expression preservation; #68/#69 retain those remaining obligations.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Representative paper coverage accounting
+`req~clafer-representative-coverage~1`
+
+Maintain a concise [feature/source and completion matrix](representative-models.md)
+linking every advertised feature to a checked example and actual theorem. Account
+for all Appendix F d01–d26 declarations and c01–c12 conjuncts from the accepted
+[inventory](inherited-realization.md), including every omission from each selected
+fixture. Separate required results, proved statements, assumptions and unfinished
+questions. Preserve the distinct source IDs of each representation; do not combine
+separate fixtures into an unsupported full-model claim.
+
+The structural projection includes all printed declarations; the separately
+compiled c02 fragment is a supported subset, not full Appendix F completion.
+Full interpretation of all printed constraints, final selections and a nonempty
+satisfying full model remain #64. #69 depends on this structural milestone and
+is not a prerequisite for its narrower result. Preserve independent public imports
+for DPGraph, FormalCD and Clafer under the existing layer checks. Keep #24 open
+until its deliverables are accepted and the implementing PR is merged.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
 
 Needs: impl, proof

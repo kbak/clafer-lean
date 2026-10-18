@@ -948,3 +948,18 @@ realization and partial singleton extraction therefore remain #67's contract.
 The expression environments reuse #66's nonprimitive carrier; a complete
 structural/primitive/compiler bridge remains #69. No supplementary compiler
 claim or third-party implementation is introduced by these equations.
+
+## Representative compilation and gluing
+
+The [coverage matrix](representative-models.md) connects §6.2.4–5, selected
+Figures 16, 18, 21–23 and Appendix F p.34 to concrete checked examples. It reuses
+the pinned preprint and the [d01–d26/c01–c12 inventory](inherited-realization.md),
+without adding source interpretations or copying third-party material.
+`Examples.Integration` applies Compile/gluing correctness and generated xor
+predicates to concrete witnesses. `Examples.VersionCompilation` retains the
+mandatory, unguarded c02 comparison and connects its navigation hypotheses to
+emitted local declarations under an explicit integer-domain interpretation.
+Structural attachment and operand definedness do not establish general expression
+preservation or full Appendix F satisfaction. The independent expression meanings
+are supplied by the [denotation contract](constraint-denotation.md); their compiled
+bridge and full-model acceptance remain #69/#64.
