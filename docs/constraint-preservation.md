@@ -92,8 +92,9 @@ its value domain. A complete integer-bearing fixture must give that primitive
 head an explicit unrestricted bound and the corresponding root containment,
 both already admitted by the resolved-input contract. This does not change
 version/server `1..1` bounds, finite counted nonprimitive collections, or #50's
-guarded checker. The complete constraint-bearing fixture and its positive final
-selection remain the #64 application of this conditional bridge.
+guarded checker. The [complete constraint-bearing fixture](appendix-f.md) applies this conditional
+bridge with the unrestricted primitive bound, actual root containment, two
+displays per ECU and all twelve bodies proved simultaneously.
 
 The [predicate examples](../Clafer/Examples/ConstraintPredicates.lean) distinguish
 version order, display counts, wrong server/parent navigation, external domains

@@ -70,25 +70,25 @@ all twelve printed conjuncts and their exact navigation. The structural fixture
 has **no authored expression bodies**. Only c02 has a separate compiled typed
 attachment here; the following omissions remain visible.
 
-| ID | Selected status | Remaining obligation |
+| ID | Representative fixture | Complete fixture |
 | --- | --- | --- |
-| c01 | Omitted: small size/cache implies fixed | Full-fixture attachment and simultaneous satisfaction (#64) |
-| c02 | Typed unguarded `not (displayVersion < serverVersion)` attached and glued; operand definedness derived from local formulas plus integer domain | Selected predicate correspondence is supplied by [the bridge](constraint-preservation.md); complete-fixture satisfaction remains #64 |
-| c03 | Omitted: no inherited cache | Full-fixture attachment and simultaneous satisfaction |
-| c04 | Omitted: server = parent at ECU | Full-fixture attachment and simultaneous satisfaction; current server navigation is not this equality proof |
-| c05 | Omitted: dual iff ECU2 | Full-fixture attachment and simultaneous satisfaction |
-| c06 | Omitted: extraDisplay iff two ECU1 displays | Full-fixture attachment and simultaneous satisfaction |
-| c07 | Omitted: extraDisplay iff (ECU2 implies two ECU2 displays) | Full-fixture attachment and simultaneous satisfaction, retaining the checked implication/absent-ECU2 vacuity |
-| c08 | Omitted: large iff no small options on all plaECU displays | Full-fixture attachment and simultaneous satisfaction |
-| c09 | Omitted: small iff no large options on all plaECU displays | Full-fixture attachment and simultaneous satisfaction |
-| c10 | Omitted: final dual selection | Full-model selection and satisfaction (#64) |
-| c11 | Omitted: final extraDisplay selection | Full-model selection and satisfaction (#64) |
-| c12 | Omitted: final large selection | Full-model selection and satisfaction (#64) |
+| c01 | Omitted: small size/cache implies fixed | `AppendixF.Meaning.c01_all`; full attachment and `AppendixF.source_holds` |
+| c02 | Typed unguarded `not (displayVersion < serverVersion)` attached and glued; operand definedness derived from local formulas plus integer domain | `AppendixF.Meaning.c02_all / c02_defined`; full attachment and `AppendixF.source_holds` |
+| c03 | Omitted: no inherited cache | `AppendixF.Meaning.c03_all`; full attachment and `AppendixF.source_holds` |
+| c04 | Omitted: server = parent at ECU | `AppendixF.Meaning.c04_all`; full attachment and `AppendixF.source_holds` |
+| c05 | Omitted: dual iff ECU2 | `AppendixF.Meaning.c05_holds`; full attachment and `AppendixF.source_holds` |
+| c06 | Omitted: extraDisplay iff two ECU1 displays | `AppendixF.Meaning.c06_holds`; full attachment and `AppendixF.source_holds` |
+| c07 | Omitted: extraDisplay iff (ECU2 implies two ECU2 displays) | `AppendixF.Meaning.c07_holds`; full attachment and `AppendixF.source_holds` |
+| c08 | Omitted: large iff no small options on all plaECU displays | `AppendixF.Meaning.c08_holds`; full attachment and `AppendixF.source_holds` |
+| c09 | Omitted: small iff no large options on all plaECU displays | `AppendixF.Meaning.c09_holds`; full attachment and `AppendixF.source_holds` |
+| c10 | Omitted: final dual selection | `AppendixF.Meaning.c10_holds`; full attachment and `AppendixF.source_holds` |
+| c11 | Omitted: final extraDisplay selection | `AppendixF.Meaning.c11_holds`; full attachment and `AppendixF.source_holds` |
+| c12 | Omitted: final large selection | `AppendixF.Meaning.c12_holds`; full attachment and `AppendixF.source_holds` |
 
 The structural configuration has one plaDisplay per ECU. Its displayed choices
-must not be read as satisfaction of c06/c07 or the printed final model. Full
-Appendix F completion requires all twelve conjuncts together and a nonempty
-satisfying interpretation under #64.
+must not be read as satisfaction of c06/c07 or the printed final model. The [complete fixture](appendix-f.md) separately proves all twelve conjuncts
+together on a configuration with two displays per ECU and all integers, then
+applies the selected semantic bridge to its actual generated/glued diagram.
 
 ## Assumptions and completion boundary
 
@@ -111,5 +111,6 @@ satisfying interpretation under #64.
 * #68 supplies general expression meaning; [#69’s selected bridge](constraint-preservation.md)
   connects body-derived predicates to exact Compile/gluing bindings and
   depends on this structural milestone. #64 owns full Appendix F satisfaction.
-  This integration does not close those obligations or claim that all of Clafer
-  or all paper figures are complete. #24 remains open until acceptance and merge.
+  The full-model result has its own [requirements and proof artifacts](appendix-f.md);
+  the representative integration keeps its narrower contract. Neither result
+  claims that all of Clafer or all paper figures are complete.

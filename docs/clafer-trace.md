@@ -1150,3 +1150,73 @@ for the omitted constraints' proofs.
 
 Covers:
 - `req~clafer-representative-coverage~1`
+
+## Complete Appendix F resolved model
+`impl~clafer-appendix-f-complete~1`
+
+[AppendixF](../Clafer/Examples/AppendixF.lean) defines `decl`, `attachments`,
+`ast`, `input`, `occurrence`, `core` and the unrestricted primitive head.
+[AppendixFConfiguration](../Clafer/Examples/AppendixFConfiguration.lean) defines
+`integers`, `heads`, `ownership`, `targets` and `config` for the complete selected
+model. [AppendixFCompiled](../Clafer/Examples/AppendixFCompiled.lean) fixes
+`domains`, `compiledSupport` and the body-derived `interpretation` of the actual
+compiled/glued bank. [The source contract](appendix-f.md) distinguishes this
+fixture from earlier structural and expression subsets.
+
+Covers:
+- `req~clafer-appendix-f-complete~1`
+
+## Complete Appendix F model proofs
+`proof~clafer-appendix-f-complete~1`
+
+[AppendixF](../Clafer/Examples/AppendixF.lean): `wf`, `inventory_input`,
+`sourceIndex_occurrence`, `occurrence_sourceIndex`, `occurrence_body`,
+`occurrence_owner`, `mcs_valid`, `gluing_compatible`, `effective_defaults`,
+`formalcd_valid`, `exact_declarations` and `selected`.
+[AppendixFConfiguration](../Clafer/Examples/AppendixFConfiguration.lean):
+`integer_extent`, `primitive_root_containment`, `nonprimitive_finite`,
+`typed`, `rooted`, `inherits`, `parents_hold`, `references_hold`, `keys`,
+`multiplicities`, `abstracts`, `groups` and `structural_satisfaction`.
+[AppendixFSatisfaction](../Clafer/Examples/AppendixFSatisfaction.lean):
+`c01_all`, `c02_all`, `c02_defined`, `c03_all`, `c04_all`,
+`c05_holds` through `c12_holds`.
+[AppendixFCompiled](../Clafer/Examples/AppendixFCompiled.lean): `admissible`,
+`compiled_objects`, `compiled_relations`, `source_holds`,
+`compiled_glued_model` and `nonempty_configuration`.
+The final concrete theorem discharges every hypothesis of the selected semantic
+bridge for this exact input/configuration and its canonical descent. Manual
+source elaboration remains a review boundary.
+
+Covers:
+- `req~clafer-appendix-f-complete~1`
+
+## Complete Appendix F rejection candidates
+`impl~clafer-appendix-f-rejections~1`
+
+[AppendixFRejections](../Clafer/Examples/AppendixFRejections.lean) reuses the
+existing count, version and wrong-owner environments for the actual full input's
+attached symbols. `Probe.model` supplies finite navigation witnesses for cache,
+fixed and the product-line equivalences. `xorConfig` supplies zero/one/two child
+candidates for the full model's actual channel group. These are focused negative
+candidates and may violate several obligations simultaneously.
+
+Covers:
+- `req~clafer-appendix-f-rejections~1`
+
+## Complete Appendix F negative sensitivity
+`proof~clafer-appendix-f-rejections~1`
+
+[AppendixFRejections](../Clafer/Examples/AppendixFRejections.lean):
+`symbol_rejected` and `generated_rejected` identify the exact attached symbol
+and transport its failure through a matching complete arity reduct.
+`wrong_display_count`, `forbidden_cache`, `wrong_server_parent` and
+`lower_display_version` reject the required full-model body obligations.
+`missing_fixed`, `missing_dual`, `conflicting_small_options`,
+`conflicting_large_options`, `c07_wrong_display_count` and `c07_vacuity`
+preserve operator sensitivity. `xor_counts`, `xor_generated_rejected`,
+`xor_glued_rejected` and `xor_declared` connect both xor boundaries to the
+actual generated/glued channel group. No independent isolation of coupled
+failures is asserted.
+
+Covers:
+- `req~clafer-appendix-f-rejections~1`

@@ -4,8 +4,8 @@ The selected extension on [#66](https://github.com/kbak/clafer-lean/issues/66)
 uses the scoped source inventory supplied by
 [#64](https://github.com/kbak/clafer-lean/issues/64). It preserves the guarded
 [#50 contract](resolved-ir-comparison.md), [Compile input](compile.md), and
-[#65 group policy](group-compilation.md). The complete resolved fixture and final
-satisfaction result remain #64. The [resolved expression denotation](constraint-denotation.md)
+[#65 group policy](group-compilation.md). The [complete resolved fixture and final satisfaction result](appendix-f.md)
+combine this structural contract with all twelve bodies. The [resolved expression denotation](constraint-denotation.md)
 supplies #68; the [selected semantic bridge](constraint-preservation.md) supplies
 #69, and representative structural
 integration remains #24.
@@ -64,6 +64,9 @@ IDs d01–d26 identify distinct declarations, not names or semantic equality.
 `root` is synthetic basic concrete Sing, parentless, with no super; `int` is the
 implicit basic concrete integer domain parented by root, with no super. Source
 `integer` resolves to int. No other declarations are implicit.
+The complete fixture gives int explicit unrestricted 0..* bounds and contains
+every represented integer under root. The older structural projection retains
+its finite 1..1 placeholder and is not the complete interpretation.
 `A/E` means authored/effective abstractness. Unmarked groups are 0..*.
 Parentless abstract bounds are N/A (the unauthored storage default 1..1 has no
 local predicate). Other unmarked parented bounds default to 1..1; optional and
@@ -115,7 +118,7 @@ definedness obligations and positive/negative witnesses are indexed in the
 [denotation contract](constraint-denotation.md) and [proof inventory](clafer-trace.md#manual-appendix-f-expression-implementation).
 Navigation arrows below select child heads unless explicitly marked widen,
 dereference or parent. The [selected preservation bridge](constraint-preservation.md) derives source
-predicate meanings; the combined acceptance fixture remains #64.
+predicate meanings; the [combined acceptance fixture](appendix-f.md) applies it to all twelve bodies.
 
 | ID/context | Meaning and navigation |
 | --- | --- |
@@ -177,5 +180,5 @@ expression bodies and does not claim the printed final selections or the complet
 model result. In particular its one plaDisplay per ECU exercises 1..2 realization,
 while the separate expression witnesses reject its c06/c07 counts. A modified
 typed candidate accepts the two-display c06 condition and rejects a wrong owner
-in c04; it is not claimed as a whole structural model. Combining all structural
-and authored constraints with the final selections remains #64.
+in c04; it is not claimed as a whole structural model. The [complete fixture](appendix-f.md) combines all structural and authored
+constraints with the final selections using a separate configuration.
