@@ -66,10 +66,15 @@ server navigation therefore gives `none` in this partial comparison, not vacuous
 truth. It cannot arise for a display satisfying the selected Appendix F bounds.
 
 These are conditional structural-semantic results for the selected fragment,
-not a whole Appendix F model or a general expression interpreter. Inherited
-structures beyond the fragment, `server = parent`, other product-line constraints,
-and the link from compiled diagrams to these semantic assumptions remain separate
-obligations for #50/#66/#68. No parser, string/Boolean conversion, automatic
+not a whole Appendix F model or a general expression interpreter. The
+[inherited realization extension](inherited-realization.md) supplies the selected
+structural fields. `server = parent`, other product-line constraints and general
+expression denotation remain separate obligations for #68/#69/#64.
+[VersionCompilation](../Clafer/Examples/VersionCompilation.lean) attaches this exact
+typed comparison, compiles/glues it, and derives the selected navigation hypotheses
+from emitted local formulas, with the integer-domain assumption explicit. The
+[coverage matrix](representative-models.md) separates that conditional result
+from full Appendix F satisfaction. No parser, string/Boolean conversion, automatic
 coercion insertion or finite-bitwidth arithmetic is supplied. Finite structural
 objects in the examples coexist with the full integer domain; they do not bound
 arithmetic.

@@ -112,6 +112,7 @@ class PublicLibrariesTest(unittest.TestCase):
             "Clafer.Semantics.Realization", "Clafer.Semantics.RealizationLocal",
             "Clafer.Semantics.RealizationCompatibility", "Clafer.Compile.Realization",
             "Clafer.Examples.Inherited", "Clafer.Examples.InheritedRejections",
+            "Clafer.Examples.Integration", "Clafer.Examples.VersionCompilation",
             "Clafer.Verification.Finite", "Clafer.Verification.Protocol",
             "Clafer.Verification.ProtocolProofs", "Clafer.Verification.Admission",
             "Clafer.Verification.Representation", "Clafer.Verification.Examples",
