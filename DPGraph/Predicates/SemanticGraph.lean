@@ -19,7 +19,9 @@ universe u w
 
 namespace DPGraph.Predicates
 
-def semanticGraph (U : Type u) : CategoryTheory.Quiv.{max u w + 1, u} :=
+/-- Keep the concrete vertex/arrow carriers visible to elaboration of model
+environments. This is the same bounded quiver of subsets and spans. -/
+abbrev semanticGraph (U : Type u) : CategoryTheory.Quiv.{max u w + 1, u} :=
   @CategoryTheory.Quiv.of (Set U) ⟨fun A B => Span.{u, u, max u w} A B⟩
 
 end DPGraph.Predicates

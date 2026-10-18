@@ -5,8 +5,9 @@ uses the scoped source inventory supplied by
 [#64](https://github.com/kbak/clafer-lean/issues/64). It preserves the guarded
 [#50 contract](resolved-ir-comparison.md), [Compile input](compile.md), and
 [#65 group policy](group-compilation.md). The complete resolved fixture and final
-satisfaction result remain #64; expression denotation is #68, its combined bridge
-#69, and representative structural integration #24.
+satisfaction result remain #64. The [resolved expression denotation](constraint-denotation.md)
+supplies #68; its combined bridge remains #69, and representative structural
+integration remains #24.
 
 ## Source and accepted clarification
 
@@ -106,9 +107,14 @@ the three names size (d02/d06/d24) remain distinct.
 
 ## Constraint scope handoff
 
-These twelve explicit conjuncts remain obligations for #68/#69/#64. Navigation
-arrows below select child heads unless explicitly marked widen, dereference or
-parent. This inventory is not a claim of expression interpretation.
+These twelve explicit conjuncts are manually elaborated as `c01`–`c12` in
+[AppendixFConstraints](../Clafer/Examples/AppendixFConstraints.lean), with resolved
+support proofs against the structural AST. Their independent equations, local
+definedness obligations and positive/negative witnesses are indexed in the
+[denotation contract](constraint-denotation.md) and [proof inventory](clafer-trace.md#manual-appendix-f-expression-implementation).
+Navigation arrows below select child heads unless explicitly marked widen,
+dereference or parent. Compile/gluing preservation and combined model satisfaction
+remain #69/#64.
 
 | ID/context | Meaning and navigation |
 | --- | --- |
@@ -168,4 +174,7 @@ Preorder positions are separate and recorded by `source_order`. The witness is a
 structural projection of Appendix F, including all declarations; it has no source
 expression bodies and does not claim the printed final selections or the complete
 model result. In particular its one plaDisplay per ECU exercises 1..2 realization,
-while c06/c07 and final selections remain in the recorded #64 handoff.
+while the separate expression witnesses reject its c06/c07 counts. A modified
+typed candidate accepts the two-display c06 condition and rejects a wrong owner
+in c04; it is not claimed as a whole structural model. Combining all structural
+and authored constraints with the final selections remains #64.

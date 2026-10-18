@@ -1249,8 +1249,8 @@ references in different positions; context is recorded separately. Provide
 separate binder IDs, display names and resolved domain occurrences as the input
 interface for #21, validating known IDs and unique binder IDs per boundary.
 Constraint bodies and expression typing are supplied by the separate core
-constraint module below. Name resolution and Appendix D semantic equations
-remain unformalized. The context module must not depend on the expression
+constraint module below. Name resolution remains an upstream obligation; the separate
+[denotation extension](constraint-denotation.md) supplies Appendix D equations. The context module must not depend on the expression
 implementation. Check repeated-occurrence and dangling-reference examples.
 
 Covers:
@@ -1405,7 +1405,7 @@ Needs: impl, proof
 Keep source names, resolved declaration/binder IDs and occurrence positions
 separate. Universal quantification has a unary collection domain and a Boolean
 body under a fresh binder ID; a variable has its domain's element class and is
-intended to denote a singleton in the future interpretation. Check the domain
+interpreted as a singleton by the separate denotation extension. Check the domain
 outside the new binder's scope. Preserve nested name shadowing and reject
 out-of-scope variables, repeated active IDs, relation domains and non-Boolean
 bodies. Prove that a typed variable indexes an existing local of the stated class.
@@ -1437,9 +1437,9 @@ whose predicate arities are these complete support graphs, and accept full graph
 bindings for later formula construction. Check endpoint rejection and preservation
 of repeated occurrences and full bindings.
 
-Document the missing meanings: general environments/object diagrams, cardinality
-of finite interpretations, relational treatment of bag links throughout the core,
-and source-to-predicate translation. Integer singleton conversion is supplied by
+Keep source-to-predicate translation separate from the new independent
+[denotation extension](constraint-denotation.md), which supplies environments,
+finite cardinality and explicit relational reduction of spans. Integer singleton conversion is supplied by
 the separate extension below; this structural requirement does not assert it.
 An abstract symbol/arity is not a proof of any constraint's meaning. Neither
 expression satisfaction nor compilation preservation is asserted; independent semantic review remains necessary.
@@ -1474,7 +1474,7 @@ changing the underlying link-sensitive multiplicity predicates.
 Supply named proofs of correspondence, successful extraction, rejection boundaries,
 resolved-ID rejection and inheritance preservation. Preserve arbitrary negative
 and positive integers without overflow or finite-bitwidth arithmetic. Document
-that this is an operation interface for the later expression interpreter (#68),
+that this is an operation interface consumed by the independent expression denotation (#68),
 not a general primitive-domain framework, parser or a reuse of VC as an evaluator.
 See [the conversion contract](integer-extraction.md).
 
@@ -1501,9 +1501,9 @@ boundaries. Appendix F has a mandatory server and an unguarded comparison;
 Figure 21's 0..1 server and nonempty-server guard remain a distinct contract.
 The theorem is conditional on the selected structural semantics, not a proof
 that structural Compile establishes those semantics or a whole Appendix F model.
-The [inherited realization extension](inherited-realization.md) supplies the selected
-structural fields; the other constraints (including `server = parent`) and their
-combined interpretation remain #68/#69/#64 obligations. Document Q3 limits and
+The separate inherited realization and constraint denotation extensions supply
+inherited structures and other expressions (including `server = parent`);
+this fragment requirement does not assert their combined model result. Document Q3 limits and
 the full mathematical integer realization separately from finite object examples.
 
 Covers:
@@ -1904,6 +1904,74 @@ inappropriate duplicate occurrences. Reject an xor violation at realized
 options.size. Retain the source-ID mapping and the separate twelve-conjunct scope
 inventory; these structural witnesses do not claim #64's full expression-bearing
 fixture or complete satisfaction result.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Explicit constraint model environments
+`req~clafer-constraint-environments~1`
+
+Interpret the resolved typed core over explicit shared-object model environments
+(Appendix D.1–D.4). Record `this`, resolved maps, singleton bound variables and
+lexical scope. Preserve actual inheritance inclusions and shared object identity;
+repeated resolved map occurrences preserve link identities and endpoints. Global
+navigation can select parentless abstract extents. Keep local finiteness
+obligations separate from the complete integer domain. Preserve the guarded #50
+checker and the #66 inherited realization interface.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Independent core denotation
+`req~clafer-constraint-denotation~1`
+
+Give independent mathematical meanings and constructor equations for all supported
+Boolean, integer, unary-set and binary-relation constructors, both joins,
+quantification, cardinality and no/one/lone/some helpers. Apply Q3 ordinary
+intersection. Make span reduction explicit; retain original links and count
+reference heads separately from dereferenced targets. Integrate #67's partial
+singleton bridge, deriving Appendix F numeric operand definedness from structural
+map bounds, reference functionality and inheritance. Undefined is distinct from
+false. Do not define truth by evaluator success or silently assume final operand
+singletons. No executable evaluator is required; one would require a separate
+agreement proof on its stated finite domain.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Constraint invariance and boundary witnesses
+`req~clafer-constraint-semantic-laws~1`
+
+Prove constructor equations and relevant environment, renaming and support
+invariance. Exercise empty domains, nested shadowing, repeated map occurrences,
+set versus link/reference-head counts, finite-cardinality boundaries and integer
+extraction failure. Positive and negative witnesses must distinguish incorrect
+intersection, join, comparison and quantifier interpretations. Keep original
+span identities and all source typing/binding obligations.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Appendix F resolved expression inventory
+`req~clafer-appendix-f-expressions~1`
+
+Supply all manual c01–c12 expansions from the accepted inherited inventory,
+retaining implicit some, implication/equivalence, >=, repeated names,
+relative/global/inherited navigation, no cache, server = parent and display-head
+counts. Preserve Q7's display >= server direction without Figure 21's guard.
+Exercise implication vacuity and actual operator combinations with positive and
+negative witnesses. Check the resolved supports against the complete inherited
+AST. General textual resolution and Compile/gluing preservation remain separate;
+the complete combined model result stays with #64/#69. See the
+[denotation contract](constraint-denotation.md).
 
 Covers:
 - `intent~formalization-foundation~1`

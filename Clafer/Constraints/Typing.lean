@@ -69,6 +69,9 @@ inductive Expr (s : Support) : List (Local s) → Ty s → Type where
   | boolean {Γ} (value : Bool) : Expr s Γ .boolean
   | integer {Γ} (value : Int) : Expr s Γ .integer
   | this {Γ} : Expr s Γ (.collection (.objects s.context))
+  /-- Resolved global class extent, including parentless abstract families.
+  Appendix F's global plaECU navigation cannot be a synthetic-root child. -/
+  | extent {Γ} (x : s.Vertex) : Expr s Γ (.collection (.objects x))
   | var {Γ x} : Var Γ x → Expr s Γ (.collection (.objects x))
   | map {Γ} (e : s.Edge) : Expr s Γ
       (.collection (.relation (s.mapRef e).source (s.mapRef e).target))
@@ -110,6 +113,15 @@ def Expr.one {s Γ k} (e : Expr s Γ (.collection k)) : Expr s Γ .boolean :=
 
 def Expr.lone {s Γ k} (e : Expr s Γ (.collection k)) : Expr s Γ .boolean :=
   .less (.cardinality e) (.integer 2)
+
+def Expr.implies {s Γ} (p q : Expr s Γ .boolean) : Expr s Γ .boolean :=
+  .not (.and p (.not q))
+
+def Expr.iff {s Γ} (p q : Expr s Γ .boolean) : Expr s Γ .boolean :=
+  .and (p.implies q) (q.implies p)
+
+def Expr.ge {s Γ} (p q : Expr s Γ .integer) : Expr s Γ .boolean :=
+  .not (.less p q)
 
 /-- Each step adds a resolved map whose source is the previous endpoint. -/
 inductive Path (s : Support) : s.Vertex → s.Vertex → Type where

@@ -35,7 +35,7 @@ and spans. Equal resolved IDs have equal object sets, inclusion edges satisfy
 literal inclusion, and annotated integer vertices denote the realization's
 complete domain. `widen_subset` proves that every allowed widening preserves
 ambient objects. A typed result supplies domain membership but can still be empty
-or contain multiple objects. These are runtime obligations of the later interpreter.
+or contain multiple objects. These remain explicit obligations of the [constraint denotation](constraint-denotation.md).
 
 `navigationImage` existentially follows actual span links and returns a set of
 ambient target objects. Duplicate links with an equal target contribute one set
@@ -65,16 +65,17 @@ guard. Appendix F's server is mandatory and its comparison is unguarded. An empt
 server navigation therefore gives `none` in this partial comparison, not vacuous
 truth. It cannot arise for a display satisfying the selected Appendix F bounds.
 
-These are conditional structural-semantic results for the selected fragment,
-not a whole Appendix F model or a general expression interpreter. The
-[inherited realization extension](inherited-realization.md) supplies the selected
-structural fields. `server = parent`, other product-line constraints and general
-expression denotation remain separate obligations for #68/#69/#64.
-[VersionCompilation](../Clafer/Examples/VersionCompilation.lean) attaches this exact
-typed comparison, compiles/glues it, and derives the selected navigation hypotheses
+These conditional structural-semantic results are consumed by the
+[general core denotation](constraint-denotation.md). Its full resolved Appendix F
+inventory includes inherited navigation, `server = parent` and the other c01–c12
+bodies, using the [inherited structure contract](inherited-realization.md).
+[VersionCompilation](../Clafer/Examples/VersionCompilation.lean) attaches the selected
+typed version comparison, compiles/glues it, and derives its navigation hypotheses
 from emitted local formulas, with the integer-domain assumption explicit. The
 [coverage matrix](representative-models.md) separates that conditional result
-from full Appendix F satisfaction. No parser, string/Boolean conversion, automatic
+from full Appendix F satisfaction. The general link from compiled diagrams to
+expression meanings remains #69 and combined whole-model acceptance remains #64.
+No parser, string/Boolean conversion, automatic
 coercion insertion or finite-bitwidth arithmetic is supplied. Finite structural
 objects in the examples coexist with the full integer domain; they do not bound
 arithmetic.

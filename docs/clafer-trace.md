@@ -887,6 +887,115 @@ and `realized_xor_glued`.
 Covers:
 - `req~clafer-inherited-witnesses~1`
 
+
+## Resolved constraint denotation
+`impl~clafer-constraint-denotation~1`
+
+[Denotation.lean](../Clafer/Constraints/Denotation.lean) supplies `Environment`,
+`Environment.Admissible`, `Expr.denote`, `Expr.Defined`, `Expr.Holds`,
+`ambientRelation`, `relationalImage`, `relationalJoin`, `finiteCard` and
+`universal`. `Expr.extent`, `Expr.implies`, `Expr.iff` and `Expr.ge` in
+[Typing.lean](../Clafer/Constraints/Typing.lean) supply the resolved expansions.
+[DenotationInvariance.lean](../Clafer/Constraints/DenotationInvariance.lean)
+adds `LinkEquivalence` and `IntegerBinding.Coherent` for repeated resolved maps.
+
+Covers:
+- `req~clafer-constraint-environments~1`
+- `req~clafer-constraint-denotation~1`
+- `req~clafer-constraint-semantic-laws~1`
+
+## Constructor and environment meaning proofs
+`proof~clafer-constraint-denotation-laws~1`
+
+[Denotation.lean](../Clafer/Constraints/Denotation.lean) proves
+`Environment.push_admissible`, `image_span` and `join_span`.
+[CollectionMeaning.lean](../Clafer/Constraints/CollectionMeaning.lean) proves
+`Expr.collection_meaning`, `Expr.cardinality_objects_defined`,
+`Expr.cardinality_relation_defined`, `Expr.integerOf_singleton_defined` and
+`Expr.all_defined`;
+these derive class membership and local cardinality/domain obligations.
+[DenotationLaws.lean](../Clafer/Constraints/DenotationLaws.lean) names every
+constructor equation (`denote_boolean` through `denote_all`), finite/infinite
+cardinality cases, `universal_empty`, `universal_defined`, `universal_undefined`, and the
+`denotes_some`, `denotes_no`, `denotes_one`, `denotes_lone`, `denotes_implies`,
+`denotes_iff` and `denotes_ge` equations.
+[DenotationInvariance.lean](../Clafer/Constraints/DenotationInvariance.lean)
+proves `ambientRelation_iso`, `LinkEquivalence.reduction`,
+`repeated_map_denotation`, `Expr.denote_congr`, `Expr.environment_congr` and
+`widening_path_irrelevant`.
+[DenotationSupport.lean](../Clafer/Constraints/DenotationSupport.lean) defines
+`Expr.extents` and `Expr.maps` and proves `Expr.denote_support_congr`: unused
+extents and maps cannot affect the denotation. These observations do not
+replace the full graph binding.
+[DenotationRenaming.lean](../Clafer/Constraints/DenotationRenaming.lean)
+proves `Expr.denote_rename` for arbitrary binder-display-name changes.
+[DenotationDefined.lean](../Clafer/Constraints/DenotationDefined.lean)
+proves `VersionNavigation.denotation_defined` and `comparison_agrees`, using
+actual structural head/dereference bounds through `Model.operands_defined`.
+
+Covers:
+- `req~clafer-constraint-environments~1`
+- `req~clafer-constraint-denotation~1`
+- `req~clafer-constraint-semantic-laws~1`
+
+## Manual Appendix F expression implementation
+`impl~clafer-appendix-f-expressions~1`
+
+[AppendixFConstraints.lean](../Clafer/Examples/AppendixFConstraints.lean)
+defines `c01`–`c12`, `inventory`, all explicit head/dereference/parent paths and
+inheritance widenings. `support_resolved` and `inventory_resolved` check the
+source IDs against `Inherited.ast`.
+[AppendixFModel.lean](../Clafer/Examples/AppendixFModel.lean) supplies `position`,
+`objects`, `links`, `graphMap` and `model`, with the full integer realization
+and the shared nonprimitive objects of #66. `shared_extent`, `model_coherent`,
+`objects_finite`, `closed_admissible` and `example_contexts` retain the identity, finite-extent and
+environment obligations.
+[AppendixFDefined.lean](../Clafer/Examples/AppendixFDefined.lean) defines
+`FiniteStructural`, projects the original version spans via `versionGraph` and
+`versionModel`, and proves `c01_defined`–`c12_defined`. The c02 proof uses the
+four actual version/server multiplicity obligations from #67; the other bodies
+use admissible environments and local finite structural extents.
+
+Covers:
+- `req~clafer-appendix-f-expressions~1`
+
+## Constraint semantic witnesses
+`proof~clafer-constraint-semantic-witnesses~1`
+
+[DenotationExamples.lean](../Clafer/Constraints/DenotationExamples.lean)
+checks `intersection_common`, `difference_other`,
+`intersection_is_not_difference`, `no_empty`, `some_empty_fails`,
+`joined_server`, `joined_server_not_reference_head`,
+`universal_detects_counterexample`, `empty_universal`, `nested_shadowing`,
+`shadow_does_not_capture`, `arithmetic_negative`, `greater_version`,
+`equal_version`, `lower_version_fails`, `repeated_map_union`,
+`infinite_integer_cardinality`, `head_count`, `reduced_target_count`,
+`occurrence_links_distinct`, `occurrence_fiber_count`, `empty_extraction`,
+`comparison_undefined`, `nonempty_undefined_quantifier` and
+`empty_undefined_quantifier`.
+These assertions inspect actual typed expressions and distinguish false from
+undefined results.
+[RepeatedDenotation.lean](../Clafer/Constraints/RepeatedDenotation.lean) checks
+`distinct_occurrences`, `same_resolved_identity`, `same_links`,
+`repeated_meaning` and `repeated_union` for different support edges denoting the
+same original server-head span.
+[AppendixFConstraintExamples.lean](../Clafer/Examples/AppendixFConstraintExamples.lean)
+checks `actual_c01`, `actual_c02_value`, greater/equal/lower numeric cases,
+`no_cache`, `actual_c04`, `actual_c05`, `actual_c06_rejects_one_display`,
+`actual_c07_rejects_one_display`, `actual_c08`–`actual_c12`, and the intermediate
+relative/global/inherited paths.
+[AppendixFDefined.lean](../Clafer/Examples/AppendixFDefined.lean) proves
+`c07_vacuity` on an absent ECU2 extent.
+[AppendixFMutations.lean](../Clafer/Examples/AppendixFMutations.lean) proves
+`c06_accepts_two` and `c04_rejects_wrong_owner` on a typed moved-display
+candidate. Its deliberately violated ECU2 bound is documented; no whole-model
+satisfaction is inferred from those expression tests. The expression inventory
+is separate from #64's final full-model acceptance theorem.
+
+Covers:
+- `req~clafer-constraint-semantic-laws~1`
+- `req~clafer-appendix-f-expressions~1`
+
 ## Representative model integration
 `impl~clafer-representative-integration~1`
 
