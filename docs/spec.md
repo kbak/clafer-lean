@@ -42,10 +42,18 @@ and selected check in evidence. This exception does not claim new Lean validatio
 IntentBond tracing, source matching and independent read-only semantic review
 remain required, including review of changed mathematical claims and requirements.
 Keep artifact caching disabled for the project package so each isolated check
-rebuilds candidate modules. Deployment-managed dependency caches may reuse pinned
-dependency artifacts without replacing any build, kernel or audit gate.
-Include the pushout-cocone dependency in the optional Mathlib cache prefetch;
-cache failure must retain the complete pinned source-build fallback.
+rebuilds candidate modules. CI and deployment-managed dependency caches may reuse
+pinned dependency artifacts without replacing any build, kernel or audit gate.
+Derive the optional Mathlib prefetch from imports in every discovered project
+module and Lean test, including unimported helpers/examples and the pushout-cocone
+dependency. Fetch their transitive dependencies through Mathlib's cache; an empty
+inventory must not trigger a whole-Mathlib download. Cache failure must retain
+the complete pinned source-build fallback. CI persists native Lake dependency
+artifacts and Mathlib downloads outside captured source, passing their paths into
+the isolated check. Separate caches by OS, architecture, toolchain and dependency
+manifest; save populated caches after successful validation and permit later
+commits with the same dependency identity to reuse them. Never restore candidate
+project build output from those caches.
 Audit declarations by their originating project modules, including private and
 generated declarations regardless of namespace, with complete `import all`
 coverage. Reject unsafe/partial definitions, new axioms and transitive axiom

@@ -37,9 +37,12 @@ if [[ -n "${FACTORY_TESTS:-}" && -f "$FACTORY_TESTS/lean-env.sh" ]]; then
 fi
 
 # Dependency provisioning is optional; the build and kernel checks always run.
-if ! run_step 'Mathlib cache' lake exe cache get Mathlib.CategoryTheory.Category.Quiv \
-    Mathlib.Data.Fintype.Basic Mathlib.CategoryTheory.Limits.Shapes.Pullback.PullbackCone; then
-  echo 'Mathlib cache unavailable; building the pinned dependencies from source.' >&2
+mapfile -t mathlib_imports < "$validation_dir/mathlib-imports.txt"
+# An empty argument list would download all of Mathlib, not an empty set.
+if (( ${#mathlib_imports[@]} )); then
+  if ! run_step 'Mathlib cache' lake exe cache get "${mathlib_imports[@]}"; then
+    echo 'Mathlib cache unavailable; building the pinned dependencies from source.' >&2
+  fi
 fi
 # Use the discovered inventory at every stage, including modules not reachable
 # from an entrypoint (notably examples and future internal helpers).

@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from scripts.project_modules import audit_source, imports, validate
+from scripts.project_modules import audit_source, imports, mathlib_imports, validate
 
 
 REPO = Path(__file__).resolve().parent.parent
@@ -36,6 +36,37 @@ class PublicLibrariesTest(unittest.TestCase):
         source = audit_source(self.repo, modules)
         for module in modules:
             self.assertIn(f"import all {module}\n", source)
+
+    # [itest->req~lean-validation~1]
+    def test_prefetch_includes_unimported_modules_and_test_only_dependencies(self):
+        self.write("FormalCD/Internal/New.lean", "module\npublic import Mathlib.Data.Finset.Max\n")
+        self.write("tests/extra.lean", "module\n/- import Mathlib.Unused /- nested -/ -/\n"
+                   "meta import all Mathlib.Tactic.FinCases -- test-only dependency\n"
+                   "import Mathlib.Data.Set.Defs\nimport Lean\n")
+        modules, tests = validate(self.repo)
+        self.assertEqual(mathlib_imports(self.repo, modules, tests), [
+            "Mathlib.Data.Finset.Max", "Mathlib.Data.Set.Defs", "Mathlib.Tactic.FinCases",
+        ])
+        # An existing import changing must change the prefetch, without hand edits.
+        self.write("FormalCD/Internal/New.lean", "module\nimport Mathlib.Data.Fintype.Card\n")
+        self.assertIn("Mathlib.Data.Fintype.Card", mathlib_imports(self.repo, modules, tests))
+        self.assertNotIn("Mathlib.Data.Finset.Max", mathlib_imports(self.repo, modules, tests))
+
+    def test_prefetch_empty_inventory_and_explicit_whole_mathlib_import(self):
+        self.write("DPGraph/Core.lean", "module\n")
+        modules, tests = validate(self.repo)
+        self.assertEqual(mathlib_imports(self.repo, modules, tests), [])
+        self.write("tests/extra.lean", "import Mathlib\n")
+        modules, tests = validate(self.repo)
+        self.assertEqual(mathlib_imports(self.repo, modules, tests), ["Mathlib"])
+
+    def test_prefetch_rejects_unsupported_test_import_headers(self):
+        for source in ["import Mathlib.Data.Set.Defs Mathlib.Data.Finset.Max\n",
+                       "import\n Mathlib.Data.Set.Defs\n"]:
+            self.write("tests/extra.lean", source)
+            modules, tests = validate(self.repo)
+            with self.assertRaisesRegex(ValueError, "unsupported import header"):
+                mathlib_imports(self.repo, modules, tests)
 
     def test_repository_includes_every_delivered_module_and_examples(self):
         modules, tests = validate(REPO)
