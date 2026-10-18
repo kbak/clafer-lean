@@ -75,6 +75,9 @@ predicate satisfaction with explicit primitive and model assumptions.
 Exclude instance/object generation, Alloy/SMT/SAT integration, production runtime
 configuration management, Claferize, post-2014 extensions, a production parser and
 visualization. Keep the foundation reproducible and reviewable and the README brief.
+Give new readers enough context to understand Clafer, the purpose and maturity of
+the formalization, and how to build it, explore a checked example and contribute.
+Use the README as that entry point, with this document owning the detailed scope.
 
 Needs: req
 

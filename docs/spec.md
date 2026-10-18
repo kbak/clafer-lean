@@ -117,6 +117,12 @@ Needs: impl, utest
 The repository keeps its MIT license and provides contribution and
 private security-reporting guidance, issue/PR templates, a brief README, and links
 to the SoSyM publication, free preprint, and maintained Haskell implementation.
+The README explains Clafer and the formalization's purpose for new readers,
+states its research maturity and delivered-scope limits, and provides clone/build
+instructions, a command for checking an existing example, and clear routes to
+documentation, contribution guidance, issue tracking and security reporting.
+Keep detailed mathematical inventories in the canonical documentation rather
+than requiring familiarity with paper section numbers at the entry point.
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.1 Definitions 1–5,
