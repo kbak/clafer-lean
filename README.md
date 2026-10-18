@@ -11,6 +11,7 @@ constraint and checked concrete models.
 Structural 2014 Clafer adds resolved syntax, individual Shapes and the structural
 MCS discipline from Figure 23 and Appendix E, with structural Compile and gluing; start with
 the [product overview](docs/intent.md).
+Readers of the paper can consult the [corrections and clarifications](docs/sosym-errata.md).
 
 Install [Lean via elan](https://lean-lang.org/install/), then run:
 

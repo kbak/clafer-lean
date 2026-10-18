@@ -3,6 +3,9 @@
 ## A maintainable foundation for formal semantics
 `intent~formalization-foundation~1`
 
+Maintain a concise [paper companion](sosym-errata.md) collecting accepted SoSyM
+corrections and clarifications, with precise source locations and decision links.
+
 Develop a Lean 4 formalization grounded in the 2014 SoSyM paper. The repository
 `kbak/clafer-lean` contains one Lake package, `clafer`, with sibling public roots
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
