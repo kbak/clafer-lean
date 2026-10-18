@@ -65,6 +65,8 @@ class PublicLibrariesTest(unittest.TestCase):
             "Clafer.MCS.Examples",
             "Clafer.Constraints.Support", "Clafer.Constraints.Typing",
             "Clafer.Constraints.Examples",
+            "Clafer.Compile.Structure", "Clafer.Compile.Local",
+            "Clafer.Compile.Binding", "Clafer.Compile.Basic", "Clafer.Compile.Examples",
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
         self.assertIn(Path("tests/formalcd_imports.lean"), tests)

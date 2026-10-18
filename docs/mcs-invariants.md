@@ -7,8 +7,8 @@ records the accepted Q2 expansion and Q4 representation boundary for
 [existing Shape contract](spec.md#individual-clafer-shapes) controls exact presence.
 The [MCS modules](../Clafer/MCS/Basic.lean) implement this structural inventory.
 The [source correction](#figure-23-source-multiplicity-correction) applies to
-seven associations. Compiler formula generation, gluing congruence and semantic
-model existence remain separate obligations.
+seven associations. [Structural Compile](compile.md) supplies formula generation. Gluing congruence
+and semantic model existence remain separate obligations.
 
 ## Appendix E inventory
 
@@ -147,8 +147,8 @@ bank. `Examples.sample_valid` proves its complete structural obligations.
 `.repeated_inclusion_names` retain distinct identities despite equal strings.
 The sample bank contains inclusion declarations and unrestricted ordinary-arrow
 bounds. Local inverse/triangle/key/default formulas can be transported by
-`Roles.localDiagram`; generating the complete compiler output and proving its
-formula-bank obligations belong to #22. Structural validity neither assumes that
+`Roles.localDiagram`; [Compile](compile.md) generates them and proves its
+formula-bank obligations separately. Structural validity neither assumes that
 compilation theorem nor proves satisfaction of the declared constraints.
 
 The canonical requirements and named proof artifacts are in

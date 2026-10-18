@@ -361,7 +361,7 @@ Covers:
 | Syntax and individual Shapes: §5.2 Figure 16, §6.2.2 Figure 22, Appendix C | Resolved deep AST and individual Shapes; IDs, containment, inheritance, references, abstractness, root/domains and finite traversal | [#3](https://github.com/kbak/clafer-lean/issues/3), [implementation and proofs](clafer-trace.md) |
 | MCS: §6.2.3 Figure 23, Appendix E Tables 5–8 | Accepted guarded incidence/naming and analogous expansion, preserving exact Shape presence rules and distinct identity levels; see the [inventory](mcs-invariants.md). The accepted Q9 correction applies source `0..1` to the four ordinary-map and three inclusion-role associations, retaining exact Shape presence. | [#20](https://github.com/kbak/clafer-lean/issues/20), Q2/Q9 resolved; Q4 representation selected, gluing deferred |
 | Constraints: Appendix D.1–D.4 | Resolved typed core, lexical binders, both joins, explicit inheritance widening and finite graph support; meaning remains distinct from syntax | [#21](https://github.com/kbak/clafer-lean/issues/21), Q3 disposition below |
-| Compile: §6.2.4 | Proposed finite resolved-AST-to-MCS transformation; termination, freshness, incidence, cojoining, kind/name preservation under explicit input well-formedness | [#22](https://github.com/kbak/clafer-lean/issues/22), depends on #3/#20/#21 |
+| Compile: §6.2.4 | [Structural Compile](compile.md): finite resolved-AST-to-MCS construction; derived termination, freshness, incidence, cojoining and kind/name preservation under explicit input well-formedness | [#22](https://github.com/kbak/clafer-lean/issues/22), depends on #3/#20/#21 |
 | Gluing: §6.2.5 | Proposed role-label graph map and declaration image; endpoint congruence, label DP-morphism, then separate CD well-formedness | [#23](https://github.com/kbak/clafer-lean/issues/23), Q4 pending; generic pushout results alone do not prove this |
 | Integration: Appendix F and selected earlier figures | Proposed finite AST/MCS/CD examples exercising compile/glue statements; enumerate unsupported constructs | [#24](https://github.com/kbak/clafer-lean/issues/24), after #22/#23 |
 
@@ -787,3 +787,24 @@ not additional accepted source corrections. Follow the contract's decision table
 and example inventory before extending the supported fragment. In particular,
 local Shapes and the B.5 reduct do not establish whole-model comparison;
 #50 owns the missing interpretation and bridge obligations.
+
+## Structural Compile contract
+
+[Compile](compile.md) implements the preorder traversal and unique-identifier
+construction of SoSyM §6.2.4 (p.21), with the existing Figure 23/Appendix E
+Tables 5–8 disciplines (pp.20–21,33). It uses the accepted Q2/Q4 representation
+and Q9 presence/ownership corrections without selecting a gluing quotient.
+Repeated references to one uniquely declared `DeclId` share its resolved class;
+separate declaration heads retain fresh identities even when names coincide.
+This is the accepted [#22](https://github.com/kbak/clafer-lean/issues/22) sharing
+contract, consistent with §6.2.5's one class in multiple roles. The inspected
+2000 p.354 passage supports the name/semantic-marker distinction but does not
+settle general Q4 gluing.
+
+The accepted Compile-specific precondition `0 < support.mapCount` excludes
+zero-map constraints from this transformation, preserving generic constraint
+input and DPGraph arities and the existing MCS total-args promise. Constraint
+symbols use the delivered occurrence-indexed signature, with no expression
+interpretation. Generated local predicates are exactly the existing individual
+Shape inventory plus guarded inclusion predicates; group/abstract semantic
+translation and full constraint preservation remain outside this increment.

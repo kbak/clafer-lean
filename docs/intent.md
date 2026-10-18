@@ -64,8 +64,11 @@ correction. Role identities, resolved referents and strings remain distinct;
 full formula bindings retain separate total-args and literal bag-key obligations.
 The selected [typed constraint core](spec.md#resolved-core-constraint-typing)
 follows D.1–D.3 and the [Q3 disposition](SOURCES.md#appendix-d-rule-dispositions-q3);
-primitive conversion and constraint evaluation remain unformalized. Compilation,
-gluing and integration remain on issues #22–24. An all-universes SetMap and the
+primitive conversion and constraint evaluation remain unformalized.
+[Structural Compile](compile.md) constructs well-formed MCS values from the
+explicit resolved-input contract, preserving names separately from generated
+identities and attaching complete constraint bindings. Gluing and integration
+remain on issues #23–24. An all-universes SetMap and the
 unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),

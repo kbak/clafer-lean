@@ -22,7 +22,7 @@ Its public libraries and module roots are siblings: `DPGraph`, `FormalCD`,
 | --- | --- | --- |
 | DPGraph | Spans, indexed mappings, graphs, typed predicates, a fixed-signature category and abstract/concrete interpretation; Mathlib only | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 with the Q1 correction, B.4 Definitions 6–10 and the abstract B.5 reduct and selected Table 3/A.1 meanings in [DPGraph](../DPGraph.lean) |
 | FormalCD | Class diagrams, naming/default obligations and name-preserving morphisms; builds on DPGraph | [Core API](../FormalCD.lean) delivered; Figure 21c and disciplines, bounded syntactic self-description, and Figure 21b/VC delivered |
-| Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, eventually Compile/gluing | [Resolved syntax, typed core constraints and individual Shapes](../Clafer.lean) delivered; Figure 23/Appendix E structural MCS delivered; name resolution and constraint meaning remain separate |
+| Clafer | Structural 2014 Clafer application over the foundations: resolved syntax, Shapes/MCS, structural Compile and eventual gluing | [Resolved syntax, typed core constraints and individual Shapes](../Clafer.lean) delivered; Figure 23/Appendix E structural MCS delivered; structural Compile derives MCS validity from its explicit input contract; name resolution and constraint meaning remain separate |
 
 [Signature.lean](../DPGraph/Signature.lean) uses
 `CategoryTheory.Quiv.{arrowUniverse, vertexUniverse}` for arity graphs;
@@ -440,7 +440,7 @@ Covers:
 | --- | --- | --- |
 | 1 — reusable DP-graphs | [#13](https://github.com/kbak/clafer-lean/issues/13) representation; [#14](https://github.com/kbak/clafer-lean/issues/14) → [#15](https://github.com/kbak/clafer-lean/issues/15), with derived [#28](https://github.com/kbak/clafer-lean/issues/28)/[#30](https://github.com/kbak/clafer-lean/issues/30); [#4](https://github.com/kbak/clafer-lean/issues/4) → [#16](https://github.com/kbak/clafer-lean/issues/16) | #14/#25, #15/#27, #28/#29, #4/#32, #30/#33 and #16/#34 delivered. #13's final representation/dependency assessment is in #39. Generic DPGraph remains independently importable. |
 | 2 — reusable formal CDs | #16 → [#17](https://github.com/kbak/clafer-lean/issues/17) → [#18](https://github.com/kbak/clafer-lean/issues/18) → [#19](https://github.com/kbak/clafer-lean/issues/19) | #17/#35, #18/#36 and #19/#38 delivered: structure, morphisms, compatible vocabulary, Figure 21c, bounded syntactic self-description and Figure 21b/VC. Semantic self-instantiation remains outside scope. |
-| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. The structural MCS disciplines are implemented for #20; #21 adds typed core expressions and graph support. The gluing congruence remains on #23; integration requires Compile and gluing. Planning tickets alone authorize no further implementations. |
+| 3 — structural 2014 Clafer | [#3](https://github.com/kbak/clafer-lean/issues/3) → [#20](https://github.com/kbak/clafer-lean/issues/20) and [#21](https://github.com/kbak/clafer-lean/issues/21) → [#22](https://github.com/kbak/clafer-lean/issues/22)/[#23](https://github.com/kbak/clafer-lean/issues/23) → [#24](https://github.com/kbak/clafer-lean/issues/24) | Resolved syntax, the binder/context boundary and individual Shapes are implemented for #3. The structural MCS disciplines are implemented for #20; #21 adds typed core expressions and graph support. Structural Compile is implemented for #22 under its explicit contract. The gluing congruence remains on #23; integration requires gluing. Planning tickets alone authorize no further implementations. |
 
 ### Nine architectural decision areas
 
@@ -457,7 +457,7 @@ questions Q1–Q8 in [SOURCES](SOURCES.md#question-dispositions-and-validation-t
 | A4 — spans, identities and universes | Retain explicit links/fiber indices and pullback composition. Relations discard multiplicity; a graph of all Lean types needs an unjustified size principle. Use independent universes and explicit bounded ambient objects. | #4/#32 proves roundtrips, units/associativity up to isomorphism and corrected Q1; #16/#34 checks shared-object inclusion and bag counts. #20/#23 must preserve these identities across role encodings without resizing or collapsing links. |
 | A5 — predicate syntax and meaning | Separate symbols/arities from interpretations and model maps. Generic syntax imposes no default set-valuedness; FormalCD supplies effective defaults. Primitive domains and VC require explicit interpretations. | #15/#27 proves reduct by precomposition; #16/#34 interprets the selected vocabulary and Q8; #19/#38 handles VC separately. #21 must distinguish typing from satisfaction, resolve Q3 before semantic equations and state each domain/interpretation assumption. |
 | A6 — formal-CD metamodel and self-description | Reuse `CDOver` with explicit vocabulary/registry, nd/ad meanings and full-binding correspondence. Reject a Lean universe fixpoint and an inference from syntactic well-formedness to semantic self-instantiation. | #18/#36 and #19/#38 deliver the bounded result and Figure 21 example. Ordered/isolated bindings expose bag-key and total-args restrictions. Stronger realizability/self-instantiation is deferred and would require new accepted hypotheses and examples. |
-| A7 — Clafer syntax, MCS and finiteness | Deep resolved AST and typed individual role graphs, with raw data plus explicit well-formedness propositions. A shallow Lean encoding would obscure source syntax/compilation; globally finite DPGraphs would restrict reusable semantics. Use finite data only at the executable boundary. | #3 accounts for Figure 16/22, Appendix C and the accepted top-level abstract correction in the [Clafer source map](SOURCES.md#resolved-2014-clafer-and-individual-shapes); #20 has an [accepted guarded inventory](mcs-invariants.md) of Appendix E clauses (Q2), with exact presence still enforced by Shape. Figure 23's accepted source-multiplicity correction (Q9) makes the seven map/inclusion associations uniquely owned on their images; nonempty examples validate this boundary. Validate finite presentations against the generic graph API with positive/malformed role examples before promising a compiler. |
+| A7 — Clafer syntax, MCS and finiteness | Deep resolved AST and typed individual role graphs, with raw data plus explicit well-formedness propositions. A shallow Lean encoding would obscure source syntax/compilation; globally finite DPGraphs would restrict reusable semantics. Use finite data only at the executable boundary. | #3 accounts for Figure 16/22, Appendix C and the accepted top-level abstract correction in the [Clafer source map](SOURCES.md#resolved-2014-clafer-and-individual-shapes); #20 has an [accepted guarded inventory](mcs-invariants.md) of Appendix E clauses (Q2), with exact presence still enforced by Shape. Figure 23's accepted source-multiplicity correction (Q9) makes the seven map/inclusion associations uniquely owned on their images; nonempty examples validate this boundary. Compile validates these finite presentations through its input contract and derived structural proofs. |
 | A8 — names, generated identity, Compile and gluing | Accepted #20 separation of role identities, resolved class/map referents and displayed names. Repeated parent/dref/isA strings do not identify arrows. Preserve the information needed for intended gluing; the endpoint-compatible congruence and declaration image remain on #23. | #20 states the level of cojoining equality and covers repeated names. #22 owns generated identities, freshness and termination; #23 owns intended identifications and incidence/declaration preservation. Review the congruence before defining its quotient/map. A DP-morphism proof and a CD-well-formedness proof are separate targets. |
 | A9 — constraints and end-to-end claims | Resolved typed core expressions with explicit inheritance widening and graph support; semantic translation remains separate. Neither a production parser nor the current Haskell compiler defines the 2014 meaning. Structural Compile/glue correctness is distinct from full constraint-semantic preservation. | #21 resolves Appendix D discrepancies (Q3) and checks binders/navigation/types; #22/#23 state explicit well-formed-input assumptions; #24 enumerates supported Appendix F examples and unsupported constructs. Full constraint preservation remains deferred until both source and target meanings are specified. |
 
@@ -475,7 +475,7 @@ link to the actual declarations; the statements below bound what may be inferred
 | A supplied carrier pushout lifts to a DP pushout; its models correspond to compatible component models. | Derived and proved as `Pushout.isColimit`/`modelEquiv` (#30/#33). The equivalence fixes semantic and carrier universes together; no global existence or concrete Clafer gluing theorem. |
 | Span reduction commutes with composition; isomorphism to the relational composite requires injective composite endpoint pairing. | Proved corrected Q1 statement (#4/#32), with counterexamples to the unqualified source assertion. |
 | The metamodel has a bounded syntactic CD representation; guarded VC agrees with the selected integer comparison and the example models. | Proved as `bounded_self_description`, `satisfies_vc_iff_guarded` and `Examples.model_iff` (#19/#38); preserve their vocabulary/registry, integer-domain, inclusion and version hypotheses. No semantic self-instantiation. |
-| A well-formed resolved AST compiles to an MCS satisfying the explicitly enumerated invariants. | Proposed #22 target, after #3/#20/#21 establish input typing and Q2/Q3/Q4 dispositions. Termination and freshness are additional obligations; no implementation yet. |
+| A well-formed resolved AST compiles to an MCS satisfying the explicitly enumerated invariants. | Derived by `Compile.compile`/`wellFormed` under `Compile.Input`, including canonical naming and positive constraint support. Finite traversal/lookup and owner-role identities establish termination and freshness; see [the contract](compile.md). |
 | The role-label map is a DP morphism, and the glued structure is a well-formed formal CD. | Proposed separate #23 targets after label congruence/incidence is settled. Neither follows solely from declaration-image construction. |
 | Compilation/gluing preserves all constraint meanings, or every CD semantically instantiates its metamodel. | Deferred; no accepted general statement or proof. Source resolution and explicit realizability/semantic hypotheses would be needed first. |
 
@@ -498,7 +498,8 @@ finite lists of children; `Forest.ofList` constructs the mutual forest. Both fol
 and traversal use primitive structural recursors. They are kernel-reducible;
 `noncomputable` suppresses native code generation for these recursors, avoiding
 compiler-generated partial helpers. This supplies a mathematical termination
-basis, with native compilation remaining on #22. No choice or termination axiom
+basis used by structural Compile. The transformation is kernel-reducible;
+this delivery does not provide a native compiler executable. No choice or termination axiom
 is added. Strings are metadata and may repeat.
 A rank witness in `AST.WellFormed` excludes inheritance cycles, while containment
 has structural recursion and a depth measure. No finite-carrier restriction is
@@ -547,8 +548,8 @@ all shared class roles when a super is selected. The [MCS module](../Clafer/MCS/
 [Local diagrams](../Clafer/Shape/Diagram.lean) instantiate the delivered predicate
 vocabulary: inverse head/parent, triangle commutation, multiplicities, ordinary
 set-valued defaults and the set-reference key. Source/target names in this local
-CD are role labels. MCS checks global naming and cojoining; compilation and
-gluing remain on #22/#23. These are syntactically well-formed CDs, with no assertion of a model.
+CD are role labels. MCS checks global naming and cojoining; structural Compile generates these
+declarations, while gluing remains on #23. These are syntactically well-formed CDs, with no assertion of a model.
 The [accepted source correction](SOURCES.md#resolved-2014-clafer-and-individual-shapes)
 keeps the head of every top-level abstract and removes its parent-dependent roles.
 The [Clafer trace artifacts](clafer-trace.md) link these boundaries to checked
@@ -580,8 +581,8 @@ nd/ad context is represented by typed bindings and the separate disciplines;
 this is not a semantic self-instantiation theorem. The nonempty
 [examples](../Clafer/MCS/Examples.lean) check complete structural validity with
 all primitive domains, repeated arrow labels and guarded inclusions. Local Shape
-formulas transport through `Roles.localDiagram`; generation and completeness of
-Compile's declarations remain #22 obligations.
+formulas transport through `Roles.localDiagram`; the [Compile modules](../Clafer/Compile/Basic.lean) generate the local and
+constraint formula bank and prove its structural completeness.
 
 ## Proposed bounded structural comparison boundary
 
@@ -603,3 +604,21 @@ identifies the companion paths, possible reusable `Clafer/Semantics/` additions
 and the alternative in-project verification extension. Each requires its
 implementing requirements and architecture review first. This proposal leaves
 the current intent exclusions, public layers and validation policy in force.
+
+## Structural Compile
+
+[Compile/Structure.lean](../Clafer/Compile/Structure.lean) traverses the resolved
+AST through `AST.entries`, allocates preorder class IDs, and resolves finite edges
+with the kernel-reducible `find` (native helper generation is suppressed).
+`family_wellFormed` derives hierarchy/kind/rank/bounds obligations;
+`naming` derives the naming discipline from canonical origins and reserved-name
+rejection. The existing canonical roles perform cojoining.
+
+[Compile/Binding.lean](../Clafer/Compile/Binding.lean) builds each constraint's
+full graph binding from its resolved support. [Compile/Local.lean](../Clafer/Compile/Local.lean)
+generates the existing Shape predicates and inclusion declarations and proves
+the literal bag key using role identities. [Compile/Basic.lean](../Clafer/Compile/Basic.lean)
+combines these with occurrence-indexed typed constraint symbols and bundles all
+MCS validity proofs. The [contract and limits](compile.md) distinguish structural
+compilation from interpretation and gluing; no semantic-preservation theorem
+follows from `Compile.wellFormed`.

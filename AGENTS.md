@@ -20,6 +20,8 @@ delivers resolved deep syntax, typed core constraints with graph support and
 explicit inheritance widening, a binder/context boundary, individual Shapes and
 the Figure 23/Appendix E structural MCS discipline, including the accepted
 top-level abstract head and seven-association source-multiplicity corrections.
+Structural Compile derives well-formed MCS values under its explicit resolved-input
+contract (docs/compile.md), including positive map support for constraints.
 Role identities, resolved referents and names remain separate; gluing is deferred.
 Read the remaining layer boundaries in
 [architecture](docs/ARCHITECTURE.md), the [requirements](docs/spec.md) and

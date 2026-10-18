@@ -6,8 +6,9 @@ semantics over a bounded graph of subsets and spans, plus FormalCD
 structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntactic
 self-description and the complete Figure 21b example with corrected VC. Structural
 Clafer now includes resolved deep syntax, typed core constraints, individual
-Shapes and the MCS structural discipline under the scoped requirements below.
-Constraint interpretation, compilation, gluing and integration
+Shapes, the MCS structural discipline and structural Compile under the scoped
+requirements below.
+Constraint interpretation, gluing and integration
 remain separate increments. The source-audit roadmap alone authorizes no semantic work.
 
 ## Reproducible Lean validation
@@ -106,9 +107,9 @@ B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
 graph, and the first FormalCD structure/name-preserving morphisms, from future
 predicates, all-universes SetMap, semantic self-instantiation and the remaining
-Clafer interpretation/compilation/gluing increments. It documents the delivered
-resolved AST, typed core constraints, constraint boundary, individual Shapes and
-MCS structural discipline.
+Clafer interpretation/gluing increments. It documents the delivered resolved
+AST, typed core constraints, constraint boundary, individual Shapes, MCS
+structural discipline and structural Compile.
 It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
@@ -1249,8 +1250,8 @@ indexing of all traversed declarations and a structural fold on containment,
 with a decreasing child measure and well-founded resolved parent traversal.
 Reference IDs are not recursive children; cyclic references must not prevent
 finite traversal. Prove finite class/map-role carriers. This is a basis for
-future terminating compilation (#22), not a parser, compiler correctness or
-full MCS theorem. Preserve independent generic DPGraph imports.
+the terminating structural Compile below; this traversal requirement alone
+does not assert compiler correctness or a full MCS theorem. Preserve independent generic DPGraph imports.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1392,6 +1393,81 @@ conversion, cardinality of finite interpretations, relational treatment of bag
 links, and source-to-predicate translation. An abstract symbol/arity is not a proof
 of any constraint's meaning. Neither expression satisfaction nor compilation
 preservation is asserted; independent semantic review remains necessary.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Structural Compile input contract
+`req~clafer-compile-contract~1`
+
+Define Compile on the finite resolved AST of §6.2.4 with an explicit input
+contract. Require `AST.WellFormed`, canonical `Sing` naming, and rejection of
+registry-reserved user names; primitive origins retain their canonical names.
+Require a typed constraint body satisfying the existing `Constraint.Input`
+interface for every attached boundary occurrence. Occurrences are indexed by
+owner and position, so repeated boundary numbers or equal bodies do not omit
+attachments. Require `0 < support.mapCount` for accepted constraints, solely
+at the Compile boundary. Keep generic `Constraint.Input` and DPGraph formulas
+unchanged, including their zero-arrow cases.
+
+Resolution, default elaboration, binder environments, explicit inheritance
+widening and nonminimal support remain caller obligations. Compile must not
+assume an output MCS, output validity or a supplied graph binding. Unsupported
+surface/primitive forms remain those of the typed core; this increment adds no
+expression interpretation, group/abstract semantic translation, gluing quotient
+or full semantic-preservation claim. Follow the [Compile contract](compile.md).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Structural Compile construction and preservation
+`req~clafer-compile-structure~1`
+
+Implement a total Lean transformation from accepted resolved ASTs to MCS values,
+following §6.2.4 and Appendix E Tables 5–8 with the accepted presence/ownership
+corrections. Traverse finite containment and resolve edges by terminating finite
+lookup; never recursively follow reference edges. Allocate class identities by
+preorder occurrence and map identities by owner and role. Allocation must be
+deterministic for the same ordered input and independent of display-name equality;
+no stability across insertion or reordering is promised.
+
+Derive all structural MCS obligations from the input contract: exact guarded
+roles, incidence, parent/child and target cojoining, inheritance, effective bounds,
+root/domain classification and naming. Preserve source DeclId referents separately
+from generated identities and display names. Shared identity means repeated
+references to one uniquely declared DeclId; no distinct-head aliasing is inferred.
+Prove freshness and naming preservation. Check nested repeated names, inherited
+and cyclic/repeated reference inputs, shared targets with distinct heads/dref
+maps, and explicit predefined classification with reserved-user-name rejection.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Compile formula generation and full bindings
+`req~clafer-compile-formulas~1`
+
+Generate every existing local Shape declaration and every guarded inclusion
+predicate, preserving the built-in signature via its existing disjoint-extension
+interface. Attach every typed source constraint through the established
+occurrence-indexed syntax-only signature. Construct its complete graph binding
+from resolved class/map incidence, preserving isolated vertices and repeated
+support occurrences. Prove context/owner and incidence preservation, local and
+source declaration completeness, and well-formedness of the resulting MCS bank.
+
+Prove positive argument support and the literal bag key, allowing occurrence
+permutations rather than replacing bag equality with indexed equality. Local
+formula identity is determined by its generating role and predicate; constraint
+symbols retain their attached source occurrence, consistent with the existing
+constraint signature. Check repeated occurrences of one resolved map and equal
+source boundaries at distinct positions. These declarations provide syntax and
+structural validity; neither typed bodies nor fresh predicate symbols establish
+constraint meanings or semantic preservation.
 
 Covers:
 - `intent~formalization-foundation~1`
