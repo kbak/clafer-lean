@@ -510,6 +510,69 @@ claims, not model satisfaction or compiler correctness statements.
 Covers:
 - `req~clafer-gluing-examples~1`
 
+## Integer extraction interface
+`impl~clafer-integer-extraction~1`
+
+[Support.lean](../Clafer/Constraints/Support.lean): `Support.integer` and
+`Support.Resolved.integers` preserve primitive resolved IDs.
+[Typing.lean](../Clafer/Constraints/Typing.lean): `Expr.integerOf` accepts an
+annotated unary integer collection in the existing lexical context.
+[Integer.lean](../Clafer/Constraints/Integer.lean): `IntegerRealization.Extracts`,
+`WellDefined`, `extract`, `objectEquiv`, `IntegerBinding` and `navigationImage`
+supply the partial meaning and explicit object/value binding. The realization
+is reused from FormalCD; the special VC meaning is not used as an interpreter.
+
+Covers:
+- `req~clafer-integer-extraction~1`
+
+## Integer extraction correspondence and boundaries
+`proof~clafer-integer-extraction~1`
+
+[Integer.lean](../Clafer/Constraints/Integer.lean): `extracts_unique`,
+`wellDefined_iff`, `extract_eq_some_iff`, `extract_none_iff`, `encode_decode`,
+`objectEquiv`, `extract_encoded`, `extract_empty`, `extract_multiple`,
+`extract_wrong_domain`, `IntegerBinding.widen_subset`, `singleton_defined`,
+`navigationImage_empty`, `navigationImage_subset`, `navigationImage_singleton`, `navigationImage_one`
+and `function_one` establish the domain, uniqueness and navigation hypotheses.
+[IntegerExamples.lean](../Clafer/Constraints/IntegerExamples.lean): `empty`,
+`empty_navigation`, `multiple`, `wrong_domain`, `negative_unbounded`, `wrong_sort_rejected` and
+`forged_primitive_rejected` check the actual extraction/typing/resolution boundary.
+`potentiallyEmpty` is a well-typed operand without a runtime singleton guarantee.
+
+Covers:
+- `req~clafer-integer-extraction~1`
+
+## Appendix F selected version navigation
+`impl~clafer-version-navigation~1`
+
+[IntegerNavigation.lean](../Clafer/Constraints/IntegerNavigation.lean), namespace
+`VersionNavigation`: `fragment`, `support`, `displayWiden`, `ecuWiden`, `version`,
+`displayVersion`, `serverVersion`, `comparison`, `constraint`, `Model`,
+`Model.versionObjects`, `Model.serverObjects` and `compareVersions` retain the
+selected actual declaration/reference paths and partial comparison. `Model`
+assumes the selected semantic link bounds, not the resulting singleton operands.
+
+Covers:
+- `req~clafer-version-navigation~1`
+
+## Appendix F operand definedness and comparisons
+`proof~clafer-version-navigation~1`
+
+[IntegerNavigation.lean](../Clafer/Constraints/IntegerNavigation.lean):
+`fragment_wellFormed`, `support_resolved`, `default_multiplicities`,
+`constraint_input`, `Model.version_singleton`, `Model.server_singleton`,
+`Model.operands_defined`, `Model.comparison_defined`, `compareVersions_encoded`,
+`compareVersions_not_less`.
+[IntegerExamples.lean](../Clafer/Constraints/IntegerExamples.lean): `model`,
+`display_objects`, `server_objects`, `server_version_objects`, `comparison_value`,
+`greater`, `equal`, `lower`, `empty_server`, `multiple_server` and
+`wrong_domain_server` exercise concrete reference-object navigation and the
+accepted direction. The example domain contains all integers. These are selected
+fragment claims, not whole Appendix F model satisfaction or Figure 21's guarded VC.
+
+Covers:
+- `req~clafer-version-navigation~1`
+
 ## Effective structural core
 `impl~clafer-effective-core~1`
 

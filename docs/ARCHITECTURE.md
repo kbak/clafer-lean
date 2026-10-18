@@ -295,7 +295,7 @@ questions Q1–Q9 in [SOURCES](SOURCES.md#question-dispositions-and-validation-t
 | A2 — signatures, arities and declarations | Graph-valued arities and full dependent bindings, with declaration sets. Untyped arrow lists lose incidence/isolated vertices; injective bindings lose repetitions. Dependency-enriched sketches are a separate extension. | #14/#25 proves translation and declaration preservation; #18/#36 checks full-binding/argument-projection limits. [#41](https://github.com/kbak/clafer-lean/issues/41) owns the [bounded library/closure/reduct assessment](SOURCES.md#generalized-sketches-and-model-reduct-coherence) against Diskin & Wolter §4.1–3. A future dependency-enriched extension needs its own scope and compatibility evidence. |
 | A3 — morphisms and categorical structure | Fixed-signature DP category; preservation permits identification and extra target declarations. Requiring embeddings or reflection would change Definition 10. FormalCD specializes this with metadata preservation. | #15/#27 and #17/#35 supply category/morphism laws; #28/#29 and #30/#33 are conditional derived results. #23 proves the concrete label map preserves declarations and separately establishes CD well-formedness under explicit defaults; generic pushout existence or arbitrary-model reflection does not follow. |
 | A4 — spans, identities and universes | Retain explicit links/fiber indices and pullback composition. Relations discard multiplicity; a graph of all Lean types needs an unjustified size principle. Use independent universes and explicit bounded ambient objects. | #4/#32 proves roundtrips, units/associativity up to isomorphism and corrected Q1; #16/#34 checks shared-object inclusion and bag counts. #20/#23 preserve these identities across role encodings without resizing or collapsing links. |
-| A5 — predicate syntax and meaning | Separate symbols/arities from interpretations and model maps. Generic syntax imposes no default set-valuedness; FormalCD supplies effective defaults. Primitive domains and VC require explicit interpretations. | #15/#27 proves reduct by precomposition; #16/#34 interprets the selected vocabulary and Q8; #19/#38 handles VC separately. #21 resolves Q3 for the selected typed core and distinguishes typing from satisfaction; evaluation and primitive conversion remain deferred. |
+| A5 — predicate syntax and meaning | Separate symbols/arities from interpretations and model maps. Generic syntax imposes no default set-valuedness; FormalCD supplies effective defaults. Primitive domains and VC require explicit interpretations. | #15/#27 proves reduct by precomposition; #16/#34 interprets the selected vocabulary and Q8; #19/#38 handles VC separately. #21 resolves Q3 for the selected typed core and distinguishes typing from satisfaction; general evaluation remains deferred; #67 supplies the separate integer-extraction interface. |
 | A6 — formal-CD metamodel and self-description | Reuse `CDOver` with explicit vocabulary/registry, nd/ad meanings and full-binding correspondence. Reject a Lean universe fixpoint and an inference from syntactic well-formedness to semantic self-instantiation. | #18/#36 and #19/#38 deliver the bounded result and Figure 21 example. Ordered/isolated bindings expose bag-key and total-args restrictions. Stronger realizability/self-instantiation is deferred and would require new accepted hypotheses and examples. |
 | A7 — Clafer syntax, MCS and finiteness | Deep resolved AST and typed individual role graphs, with raw data plus explicit well-formedness propositions. A shallow Lean encoding would obscure source syntax/compilation; globally finite DPGraphs would restrict reusable semantics. Use finite data only at the executable boundary. | #3 accounts for Figure 16/22, Appendix C and the accepted top-level abstract correction in the [Clafer source map](SOURCES.md#resolved-2014-clafer-and-individual-shapes); #20 has an [accepted guarded inventory](mcs-invariants.md) of Appendix E clauses (Q2), with exact presence still enforced by Shape. Figure 23's accepted source-multiplicity correction (Q9) makes the seven map/inclusion associations uniquely owned on their images; nonempty examples validate this boundary. Compile validates these finite presentations through its input contract and derived structural proofs. |
 | A8 — names, generated identity, Compile and gluing | Accepted #20 separation of role identities, resolved class/map referents and displayed names. Repeated parent/dref/isA strings do not identify arrows. Preserve the information needed for intended gluing; the approved Q4 congruence uses exactly resolved-referent equality and an exact declaration image. | #20 states the level of cojoining equality and covers repeated names. #22 implements generated identities, freshness and termination; #23 owns intended identifications and incidence/declaration preservation. The approved congruence is implemented in the used-referent graph. A DP-morphism proof and a CD-well-formedness proof are separate targets. |
@@ -353,7 +353,9 @@ endpoint-checked joins and explicit inheritance paths for widening.
 graphs retaining isolated/repeated identities, used as constraint arities by
 Compile. The [typing requirement](spec.md#resolved-core-constraint-typing) and
 [Q3 disposition](SOURCES.md#appendix-d-rule-dispositions-q3) distinguish this
-interface from resolution, evaluation, primitive conversion and preservation.
+interface from resolution, general evaluation and preservation. The
+[integer-extraction extension](#integer-extraction-boundary) supplies its separate
+partial primitive bridge.
 
 [Clafer.Shape](../Clafer/Shape.lean) uses finite role subtypes with both endpoint
 equations in arrow types. Kind and parent presence determine availability;
@@ -443,3 +445,23 @@ formula collisions, defaults and full-binding transport; the
 [trace map](clafer-trace.md#mcs-gluing-representation) gives exact declarations.
 DP preservation, CD validity and model satisfaction are distinct. Compiler
 integration and global pushout existence are separate obligations.
+
+## Integer extraction boundary
+
+[Constraints/Integer.lean](../Clafer/Constraints/Integer.lean) assigns the partial
+meaning of `Expr.integerOf`: exact singleton equality with an encoded mathematical
+integer. `Support.integer` marks the operand class; `Support.Resolved.integers`
+checks its resolved primitive origin. `IntegerBinding` supplies the integer domain,
+equal-ID correspondence and inheritance inclusions. Typing does not certify
+runtime uniqueness. The operation returns `none` for invalid collections.
+
+[IntegerNavigation.lean](../Clafer/Constraints/IntegerNavigation.lean) supplies
+the selected Appendix F resolved fragment, typed comparison and conditional
+operand-definedness theorem. Head and dereference maps remain distinct;
+1..1 version/server heads and functional dereferences derive singleton images.
+The accompanying examples evaluate the actual navigation and comparison for
+arbitrary integer versions. This extension reuses the explicit Figure 21 integer
+realization, while its VC predicate and guarded optional-server semantics remain
+separate. The [conversion contract](integer-extraction.md) owns detailed limits;
+full expression interpretation, Compile semantic preservation and all inherited
+whole-model constraints remain future work.

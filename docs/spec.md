@@ -1367,9 +1367,11 @@ classes or either relation endpoint to a chosen common type. Widening must follo
 equal resolved IDs or actual super edges; arbitrary unrelated type coercions are
 not permitted. Name resolution and selection/insertion of coercions remain caller
 obligations. Integer operations are the implemented primitive fragment; other
-primitive operations, scalar extraction from navigation, higher-arity relations,
-tuple quantification and full surface syntax remain implementation limits, not
-restrictions attributed to the paper. No evaluator, solver or substitution is required.
+primitive operations, higher-arity relations, tuple quantification and full
+surface syntax remain implementation limits, not restrictions attributed to the
+paper. The separate integer-extraction extension below supplies the partial
+primitive bridge; it is not an evaluator for this core. No solver or substitution
+is required.
 Include accepted/rejected operand and join examples, including successful inherited
 navigation, composition and a relation union with an inherited endpoint.
 
@@ -1416,11 +1418,73 @@ whose predicate arities are these complete support graphs, and accept full graph
 bindings for later formula construction. Check endpoint rejection and preservation
 of repeated occurrences and full bindings.
 
-Document the missing meanings: environments/object diagrams, primitive singleton
-conversion, cardinality of finite interpretations, relational treatment of bag
-links, and source-to-predicate translation. An abstract symbol/arity is not a proof
-of any constraint's meaning. Neither expression satisfaction nor compilation
-preservation is asserted; independent semantic review remains necessary.
+Document the missing meanings: general environments/object diagrams, cardinality
+of finite interpretations, relational treatment of bag links throughout the core,
+and source-to-predicate translation. Integer singleton conversion is supplied by
+the separate extension below; this structural requirement does not assert it.
+An abstract symbol/arity is not a proof of any constraint's meaning. Neither
+expression satisfaction nor compilation preservation is asserted; independent semantic review remains necessary.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Integer extraction from primitive navigation
+`req~clafer-integer-extraction~1`
+
+Provide the selected D.3–D.4 unary collection-to-integer bridge as an explicitly
+typed operation. A support annotation identifies an integer vertex, and resolved
+input checks that its exact declaration ID has primitive integer origin. Names,
+reference object classes and inheritance widening do not substitute for this
+check. Preserve the complete graph support, binder context and existing widening.
+A semantic binding respects equal resolved IDs and actual inclusion edges, and
+identifies the annotated object's domain with an explicit integer realization.
+
+Reuse `FormalCD.Telematics.IntegerRealization`: its injective encoding and
+left-inverse decoder give a correspondence between its domain and all mathematical
+`Int` values. The partial extraction result is `some n` exactly when the navigation
+set is the singleton containing the encoded `n`. Prove unique results and the
+necessary and sufficient hypotheses: one object, and that object belongs to the
+integer domain. Empty, multiple-object and noninteger results return `none`;
+never select an arbitrary object or use the decoder's off-domain value. Typing
+alone gives no runtime singleton guarantee. Relational navigation results are
+sets of objects; equal targets of multiple links denote one set element, without
+changing the underlying link-sensitive multiplicity predicates.
+
+Supply named proofs of correspondence, successful extraction, rejection boundaries,
+resolved-ID rejection and inheritance preservation. Preserve arbitrary negative
+and positive integers without overflow or finite-bitwidth arithmetic. Document
+that this is an operation interface for the later expression interpreter (#68),
+not a general primitive-domain framework, parser or a reuse of VC as an evaluator.
+See [the conversion contract](integer-extraction.md).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Appendix F version operand well-definedness
+`req~clafer-version-navigation~1`
+
+Represent the actual Appendix F p.34 fragment's `version >= server.version` in
+the typed core, following comp inheritance, version/server reference objects,
+head maps and dereferences to the resolved integer class. Retain accepted Q7's
+display >= server direction. Derive both operands' singleton/domain hypotheses
+from the selected default 1..1 version/server multiplicities, functional total
+dereferences, and actual inheritance inclusions. Do not assume the final operands
+are singletons or that the comparison holds. Supply a resolved well-formed AST
+fragment and a complete typed constraint input witness.
+
+Give a partial interpretation of this selected comparison and concrete navigation
+examples for greater, equal and lower values, plus empty/multiple/wrong-domain
+boundaries. Appendix F has a mandatory server and an unguarded comparison;
+Figure 21's 0..1 server and nonempty-server guard remain a distinct contract.
+The theorem is conditional on the selected structural semantics, not a proof
+that structural Compile establishes those semantics or a whole Appendix F model.
+The inherited structures and other constraints (including `server = parent`)
+remain obligations for #50/#66 and the later interpreter. Document Q3 limits and
+the full mathematical integer realization separately from finite object examples.
 
 Covers:
 - `intent~formalization-foundation~1`

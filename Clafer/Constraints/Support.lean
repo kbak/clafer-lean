@@ -33,6 +33,8 @@ structure Support where
   classId : Fin classCount → DeclId
   mapRef : Fin mapCount → MapRef classCount
   context : Fin classCount
+  /-- Explicit primitive annotation, checked against the resolved AST. -/
+  integer : Fin classCount → Bool := fun _ => false
 
 abbrev Support.Vertex (s : Support) := Fin s.classCount
 abbrev Support.Edge (s : Support) := Fin s.mapCount
@@ -69,6 +71,9 @@ def Support.MapResolved (s : Support) (a : AST) (e : s.Edge) : Prop :=
 structure Support.Resolved (s : Support) (a : AST) : Prop where
   classes : ∀ v, a.Known (s.classId v)
   maps : ∀ e, s.MapResolved a e
+  integers : ∀ v, s.integer v = true →
+    ∃ d ∈ a.entries, d.declaration.id = s.classId v ∧
+      d.declaration.origin = .primitive .int
 
 /-- A direct super edge, with its declaration occurrence retained. -/
 def DirectSuper (a : AST) (sub sup : DeclId) : Prop :=
