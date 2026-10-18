@@ -19,7 +19,8 @@ adds class-diagram structure, name-preserving morphisms and the Figure 21c
 metamodel/discipline API, bounded syntactic self-description and the Figure 21b
 VC interpretation; its concrete examples are checked separately. Clafer supplies
 the resolved AST, typed core constraints, binder/context boundary, individual
-Shapes and Figure 23/Appendix E structural MCS discipline. Constraint interpretation
+Shapes, Figure 23/Appendix E structural MCS discipline, structural Compile
+under its explicit input contract and resolved-referent gluing. Constraint interpretation
 and primitive singleton conversion remain separate. See
 [architecture](docs/ARCHITECTURE.md).
 

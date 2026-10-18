@@ -7,8 +7,9 @@ records the accepted Q2 expansion and Q4 representation boundary for
 [existing Shape contract](spec.md#individual-clafer-shapes) controls exact presence.
 The [MCS modules](../Clafer/MCS/Basic.lean) implement this structural inventory.
 The [source correction](#figure-23-source-multiplicity-correction) applies to
-seven associations. Compiler formula generation, gluing congruence and semantic
-model existence remain separate obligations.
+seven associations. [Structural Compile](compile.md) supplies formula generation.
+[Resolved-referent gluing](#gluing-boundary) has separate input hypotheses;
+semantic model existence remains a separate obligation.
 
 ## Appendix E inventory
 
@@ -68,9 +69,9 @@ Keep local role slots, graph role identities, resolved class/map referents, and
 displayed strings distinguishable. Cojoining equalities must explicitly state
 which identity level they compare. Equality of displayed `parent`, `dref` or
 `isA` strings must not by itself identify arrows. Preserve endpoints and the
-information needed for later intended identifications; #23 owns the gluing
-congruence and its graph/DP-morphism proof. The accepted #20 representation
-choice does not complete that policy.
+information needed for intended identifications. The approved #23 gluing
+congruence and its graph/DP-morphism proof use the explicit resolved-referent
+contract described below; the #20 representation alone does not select that policy.
 
 Figure 23 also includes Role, ClassRole, MapRole, InclRole, String, PredefStr,
 Formula and Signature, with the ClassRole/MapRole cover/disjoint partition,
@@ -147,8 +148,8 @@ bank. `Examples.sample_valid` proves its complete structural obligations.
 `.repeated_inclusion_names` retain distinct identities despite equal strings.
 The sample bank contains inclusion declarations and unrestricted ordinary-arrow
 bounds. Local inverse/triangle/key/default formulas can be transported by
-`Roles.localDiagram`; generating the complete compiler output and proving its
-formula-bank obligations belong to #22. Structural validity neither assumes that
+`Roles.localDiagram`; [Compile](compile.md) generates them and proves its
+formula-bank obligations separately. Structural validity neither assumes that
 compilation theorem nor proves satisfaction of the declared constraints.
 
 The canonical requirements and named proof artifacts are in

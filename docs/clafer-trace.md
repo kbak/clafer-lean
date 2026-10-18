@@ -329,6 +329,69 @@ None of these declarations asserts satisfaction of a constraint predicate.
 Covers:
 - `req~clafer-core-support~1`
 
+## Compile input and finite identity allocation
+`impl~clafer-compile-structure~1`
+
+[Compile/Structure.lean](../Clafer/Compile/Structure.lean) defines `Compile.Input`,
+`ConstraintId`, `find`, `resolve`, `family`, `roles` and `labels`.
+[Compile/Basic.lean](../Clafer/Compile/Basic.lean) defines `compile` as the actual
+MCS construction. The [contract](compile.md) states its assumptions and limits.
+
+Covers:
+- `req~clafer-compile-contract~1`
+- `req~clafer-compile-structure~1`
+
+## Compile structural preservation
+`proof~clafer-compile-structure~1`
+
+In [Structure](../Clafer/Compile/Structure.lean), `find_spec`, `sourceId_injective`,
+`resolve_sourceId`, `parent_ids`, `super_ids`, `target_ids`, `shape_preserved`,
+`family_wellFormed`, `naming`, `heads_bijective`, `names_preserved` and `referents_preserved` prove
+finite resolution and structural preservation. In
+[Basic](../Clafer/Compile/Basic.lean), `wellFormed`, `fresh_heads`, `fresh_maps`,
+`shared_target` and `maps_finite` establish output validity, freshness, resolved
+sharing and finite generated map carriers.
+[Examples](../Clafer/Compile/Examples.lean) checks `output_valid`,
+`nested_repeated_names`, `shared_reference_target`,
+`shared_target_distinct_dereferences`, `inheritance_preserved`,
+`primitive_identity`, `reserved_user_rejected`, `zero_map_rejected`,
+`zero_generic_input` and `zero_not_compile_support`.
+These are structural theorems; no expression interpretation is assumed.
+
+Covers:
+- `req~clafer-compile-contract~1`
+- `req~clafer-compile-structure~1`
+
+## Compile declarations and occurrence bindings
+`impl~clafer-compile-formulas~1`
+
+[Binding](../Clafer/Compile/Binding.lean) constructs `vertex`, `mapOwner`,
+`boundArrow` and `binding` from resolved support.
+[Local](../Clafer/Compile/Local.lean) defines `LocalId`, `LocalId.formula` and
+`localFormulas`. [Basic](../Clafer/Compile/Basic.lean) combines these with typed
+constraints using `vocabulary`, `FormulaId`, `formula` and `formulas`.
+
+Covers:
+- `req~clafer-compile-formulas~1`
+
+## Compile formula validity and completeness
+`proof~clafer-compile-formulas~1`
+
+[Binding](../Clafer/Compile/Binding.lean): `map_spec`, `binding_vertices`,
+`binding_maps` and `binding_context` establish incidence, complete support
+mapping and owner context. [Local](../Clafer/Compile/Local.lean):
+`LocalId.argument_owner`, `LocalId.key_unique`, `localFormulas_wellFormed` and
+`local_complete` derive the local bag key and generation completeness.
+[Basic](../Clafer/Compile/Basic.lean): `formulas_wellFormed`, `shape_declared`,
+`inclusion_declared`, `constraint_declared`, `constraint_owner` and
+`constraint_binding` establish the combined bank contract.
+[Examples](../Clafer/Compile/Examples.lean): `repeated_support_maps`,
+`repeated_support_vertices`, `isolated_vertex_retained`,
+`repeated_constraint_boundaries` and
+`compiled_constraint_present` exercise occurrence preservation in actual output.
+
+Covers:
+- `req~clafer-compile-formulas~1`
 
 ## MCS gluing representation
 `impl~clafer-gluing-identity~1`
