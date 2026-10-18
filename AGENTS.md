@@ -20,7 +20,9 @@ delivers resolved deep syntax, typed core constraints with graph support and
 explicit inheritance widening, a binder/context boundary, individual Shapes and
 the Figure 23/Appendix E structural MCS discipline, including the accepted
 top-level abstract head and seven-association source-multiplicity corrections.
-Role identities, resolved referents and names remain separate; gluing is deferred.
+Role identities, resolved referents and names remain separate. Gluing uses equal
+resolved referents with explicit incidence/metadata consistency; FormalCD validity
+additionally requires complete effective defaults in the source bank.
 Read the remaining layer boundaries in
 [architecture](docs/ARCHITECTURE.md), the [requirements](docs/spec.md) and
 [roadmap #2](https://github.com/kbak/clafer-lean/issues/2)/

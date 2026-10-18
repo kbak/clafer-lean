@@ -62,10 +62,14 @@ The MCS structural discipline covers Figure 23 and the expanded Appendix E
 inventory, using guarded Shape slots and the accepted map-role ownership
 correction. Role identities, resolved referents and strings remain distinct;
 full formula bindings retain separate total-args and literal bag-key obligations.
+Resolved-referent gluing identifies precisely equal class/map referents under
+explicit incidence and metadata consistency. Labeling preserves the exact
+translated declarations; FormalCD validity additionally requires effective
+default completeness. Predefined annotations come from semantic origins.
 The selected [typed constraint core](spec.md#resolved-core-constraint-typing)
 follows D.1–D.3 and the [Q3 disposition](SOURCES.md#appendix-d-rule-dispositions-q3);
-primitive conversion and constraint evaluation remain unformalized. Compilation,
-gluing and integration remain on issues #22–24. An all-universes SetMap and the
+primitive conversion and constraint evaluation remain unformalized. Compilation
+and integration remain on issues #22 and #24. An all-universes SetMap and the
 unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),
