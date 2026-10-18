@@ -155,7 +155,6 @@ noncomputable def versionModel (m : glued.carrier ⥤q semanticGraph U)
   integer_domain := by
     intro v hv
     fin_cases v <;> simp_all [VersionNavigation.support]
-    rfl
   version_head := hm (.multiplicity 3 ⟨.head, rfl⟩)
   version_dref := hm (.multiplicity 3 ⟨.dereference, rfl⟩)
   server_head := hm (.multiplicity 6 ⟨.head, rfl⟩)

@@ -465,7 +465,7 @@ existing namespaces.
 ## Bounded semantic graph: implementation
 `impl~setmap-semantic-graph~1`
 
-[SemanticGraph.lean](../DPGraph/Predicates/SemanticGraph.lean): `Predicates.semanticGraph` uses subsets of U as vertices and existing spans on subtype carriers as arrows, with link universe `max u w` and arrow universe `max u w + 1`.
+[SemanticGraph.lean](../DPGraph/Predicates/SemanticGraph.lean): `Predicates.semanticGraph` is a transparent abbreviation exposing subsets of U as vertices and existing spans on subtype carriers as arrows, with link universe `max u w` and arrow universe `max u w + 1`.
 
 Covers:
 - `req~setmap-semantic-graph~1`
