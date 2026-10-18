@@ -24,9 +24,12 @@ Locators below use its printed page numbers. Compiler observations use only
 `clafer.cabal` says 0.5.3. The comparison with existing Lean declarations starts
 from planning baseline `kbak/clafer-lean` at
 `e920d72281a9fd5a8c684a5c759083471f48feea` and is cross-checked against
-`1d6567433e1d20af9a457b008ef8a50644412018`. The cited Clafer syntax and Shapes
-are unchanged between these revisions; the latter also supplies the derived
-functional-key correspondence identified below.
+`1d6567433e1d20af9a457b008ef8a50644412018` and
+`64ebec9817c048019c744330a9a6609ba722b90c`. The cited Clafer syntax and Shapes
+are unchanged across these revisions; the first cross-check also supplies the
+derived functional-key correspondence identified below, and the second supplies
+the typed constraint extension. Constraint meanings remain unformalized and user
+constraints remain excluded from this comparison fragment.
 Later revisions require a new matrix audit, even if a version string is unchanged.
 
 The compiler is supplementary implementation evidence. Its [MIT license][license]
@@ -78,7 +81,7 @@ D = awaiting a decision, rejected by the version-1 admission gate for now.
 | Span multiplicity, set keys and map equality | B.1 Def.2/Thm.2; B.2.1–2; B.3 Table 3; A.1 | `Span.comp`, `Span.Iso`, `Key`, `BagEquiv`, `Commutation`, `key_total_singleValued_iff` | **S** interpretation target: retain links under accepted Q1, not endpoint reduction. Keys compare output bags; the derived tuple criterion requires total, single-valued projections. Its parent/deref specialization gives uniqueness of `(parent,target)` once those hypotheses are established. No ordinary-key replacement for the generic predicate. |
 | Whole-model satisfaction and compile/glue correspondence | §6.1.1–3 pp.17–20; §6.2.4–5 p.21; B.4 Defs.6–10/B.5 Thm.3 pp.29–30; App.E Tables 5–8 | `FormalCD.CD`, `DPGraph.Interpretation.Satisfies`, `IsModel`, `isModel_reduct`; **Clafer whole-model interpretation/bridge missing** | **D** prerequisite for every comparison: C3's facts are not themselves the selected Lean interpretation. #20/#22/#23 structural outputs and #50's interpretation/bridge must be connected; reduct alone is not reflection. |
 | Synthetic root, base and predefined classes | §5.3.5 p.14; §6.2.2/Fig.22; App.E Table 7 | `Origin.syntheticRoot`, `PrimitiveDomain`, `AST.WellFormed.root_shape` | **S** for the root convention below; compiler `clafer` is not a user class or Lean root. **X** for all runtime primitive values. C4 has `integer/int/string/double/real/boolean`; Lean has selected `int/string/bool` identities, not their value domains. No automatic alias/domain translation. |
-| User constraints, assertions, goals, expressions and temporal modifiers | App.D and post-2014 features | `ConstraintBoundary` only; #21 is deferred | **X** for all `IEConstraint` (both `_isHard` values), `IEGoal`, and every expression except the allowed direct ID slots. C7 0.5.0 adds behavior; C1 may switch silently to `AlloyLtl` without this gate. |
+| User constraints, assertions, goals, expressions and temporal modifiers | App.D and post-2014 features | `ConstraintBoundary` plus the resolved typed core in [Constraints.Typing](../Clafer/Constraints/Typing.lean); constraint meanings remain unformalized | **X** for all `IEConstraint` (both `_isHard` values), `IEGoal`, and every expression except the allowed direct ID slots. C7 0.5.0 adds behavior; C1 may switch silently to `AlloyLtl` without this gate. |
 | Backend escapes, enums, initializers and scope inference | No version-1 semantic contract | No current correspondence | **X**: escapes bypass JSON; enums/initializers may disappear into desugared forms. A source feature receipt is required. C7 0.5.3 fixes group scope inference, abstract-parent navigation, retained referenced abstracts and redefinition; these release notes do not prove equivalence to 2014. |
 
 The initial **S** fragment combines ordinary nesting, effective multiplicities

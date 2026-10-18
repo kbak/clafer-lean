@@ -52,12 +52,16 @@ statement reuses that metamodel in CDOver. The complete Figure 21b diagram has
 twelve effective declarations and an explicit integer/span interpretation of the
 corrected guarded VC, with nonempty whole-model and boundary witnesses. These
 results do not assert semantic self-instantiation. Clafer supplies finite resolved
-deep syntax, a binder/constraint context boundary and individual Shapes. Source
+deep syntax, typed core constraints with lexical binders, graph support and
+explicit inheritance widening, and individual Shapes. Constraint meaning and
+predicate translation remain separate from typing. Source
 names remain metadata separate from resolved IDs. Top-level abstract clafers keep
 their head class and omit parent-dependent roles under the accepted source
 correction in [SOURCES](SOURCES.md#resolved-2014-clafer-and-individual-shapes).
-Full MCS invariants, expressions, compilation, gluing and integration remain on
-issues #20–24. An all-universes SetMap and the
+Full MCS invariants, compilation, gluing and integration remain on
+issues #20/#22–24. The selected [typed constraint core](spec.md#resolved-core-constraint-typing)
+follows D.1–D.3 and the [Q3 disposition](SOURCES.md#appendix-d-rule-dispositions-q3);
+primitive conversion and constraint evaluation remain unformalized. An all-universes SetMap and the
 unsupported predicates listed in the [source map](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction)
 remain outside the delivered slice. The [architecture](ARCHITECTURE.md)
 explains the mathematics and future layer boundaries; [requirements](spec.md),

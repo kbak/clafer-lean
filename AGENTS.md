@@ -16,7 +16,8 @@ Self-description does not assert semantic self-instantiation. VC remains a
 FormalCD extension, separate from the generic built-in vocabulary.
 Preserve full graph bindings separately from the literal bag key and total-args
 conditions; see the source map before extending metamodel representation. Clafer
-delivers resolved deep syntax, a binder/context boundary and individual Shapes,
+delivers resolved deep syntax, typed core constraints with graph support and
+explicit inheritance widening, a binder/context boundary and individual Shapes,
 including the accepted top-level abstract head correction. Read the remaining layer boundaries in
 [architecture](docs/ARCHITECTURE.md), the [requirements](docs/spec.md) and
 [roadmap #2](https://github.com/kbak/clafer-lean/issues/2)/
