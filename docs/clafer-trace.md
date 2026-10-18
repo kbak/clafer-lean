@@ -392,3 +392,120 @@ mapping and owner context. [Local](../Clafer/Compile/Local.lean):
 
 Covers:
 - `req~clafer-compile-formulas~1`
+
+## MCS gluing representation
+`impl~clafer-gluing-identity~1`
+
+[Gluing.lean](../Clafer/MCS/Gluing.lean), namespace `Clafer.MCS.Gluing`:
+`Class`, `Map`, `classLabel`, `mapLabel`, `Incidence`, `source`, `target`,
+`Arrow`, `graph`, `label`, `labeledArrow`, `Compatible`. Used referents determine
+identity; representative choice only defines functions on already chosen fibers.
+Compatibility checks incidence, names, registry annotations and modes.
+
+Covers:
+- `req~clafer-gluing-identity~1`
+- `req~clafer-mcs-metamodel~1`
+- `req~clafer-mcs-disciplines~1`
+
+## MCS gluing identification proofs
+`proof~clafer-gluing-identity~1`
+
+[Gluing.lean](../Clafer/MCS/Gluing.lean): `classLabel_eq_iff`, `mapLabel_eq_iff`,
+`classRepresentative_spec`, `mapRepresentative_spec`, `source_label`,
+`target_label`, `arrowData_ext`, `labeledArrow_eq_iff`, `label_obj_surjective`.
+The total-arrow equality theorem includes endpoint agreement and ensures
+that different map referents cannot collapse even at equal endpoints/names.
+
+Covers:
+- `req~clafer-gluing-identity~1`
+
+## Exact declaration image
+`impl~clafer-gluing-declarations~1`
+
+[Gluing.lean](../Clafer/MCS/Gluing.lean): `diagram`, `labelHom`. Declarations
+are a set image of complete translated formulas; the source bank's indexed
+identity and key are not asserted for the target image.
+
+Covers:
+- `req~clafer-gluing-declarations~1`
+- `req~clafer-mcs-formulas~1`
+- `req~dpgraph-morphisms~1`
+
+## Declaration and binding preservation
+`proof~clafer-gluing-declarations~1`
+
+[Gluing.lean](../Clafer/MCS/Gluing.lean): `declared_iff`, the `preserves` proof
+in `labelHom`, `translated_vertex`, `translated_arrow`. `label` is the actual
+incidence-checked Prefunctor used by every formula translation.
+
+Covers:
+- `req~clafer-gluing-declarations~1`
+
+## Glued CD metadata and assumptions
+`impl~clafer-gluing-formalcd~1`
+
+[Gluing.lean](../Clafer/MCS/Gluing.lean): `raw`, `Naming`, `Defaults`, `cd`.
+[Origins.lean](../Clafer/MCS/Gluing/Origins.lean): `Predefined`, `registry`,
+`originAnnotation`, `annotations`, `ofValid`. Names are metadata; semantic
+origins select registry identities and kinds. Defaults are source-bank
+membership hypotheses over the compatible vocabulary embedding.
+
+Covers:
+- `req~clafer-gluing-formalcd~1`
+- `req~formalcd-structure~1`
+- `req~formalcd-naming~1`
+- `req~formalcd-declarations~1`
+- `req~formalcd-morphisms~1`
+
+## Separate FormalCD well-formedness
+`proof~clafer-gluing-formalcd~1`
+
+[Gluing.lean](../Clafer/MCS/Gluing.lean): `className_label`, `mapName_label`,
+`predefined_label`, `kind_label`, `mode_label`, `raw_wellFormed`.
+[Origins.lean](../Clafer/MCS/Gluing/Origins.lean): `annotations_head`,
+`naming_of_valid`. The latter derives naming and predefined uniqueness from
+`MCS.Valid`, but neither it nor `labelHom` assumes effective-default completeness.
+`raw_wellFormed` explicitly requires that separate hypothesis.
+
+Covers:
+- `req~clafer-gluing-formalcd~1`
+
+## MCS gluing acceptance fixtures
+`impl~clafer-gluing-examples~1`
+
+[Examples.lean](../Clafer/MCS/Gluing/Examples.lean), namespace
+`Clafer.MCS.Gluing.Examples`: `family`, `labels`, `predef`, `formulas`, `glued`,
+`emptyBank`, `badEndpoints`, `badClassNames`, `badMapNames`, `badAnnotation`.
+[Boundaries.lean](../Clafer/MCS/Gluing/Boundaries.lean), namespace
+`Clafer.MCS.Gluing.Boundaries`: the existing eleven-owner MCS fixture,
+`modeConflict`, `completeBank`, `completeCD`, `Isolated.binding`, `Isolated.bank`.
+
+Covers:
+- `req~clafer-gluing-examples~1`
+
+## MCS gluing acceptance proofs
+`proof~clafer-gluing-examples~1`
+
+[Examples.lean](../Clafer/MCS/Gluing/Examples.lean): `compatible`, `valid`,
+`defaults`, `intentional_class_merge`, `intentional_map_merge`,
+`parallel_maps_distinct`, `translated_formulas_not_injective`,
+`canonical_name_preserved`, `registry_kind_preserved`, `empty_valid`,
+`empty_defaults_rejected`, `empty_cd_rejected`, `source_conflict_rejected`,
+`target_conflict_rejected`, `class_name_conflict_rejected`,
+`map_name_conflict_rejected`, `annotation_and_kind_conflict_rejected`.
+The nonempty source bank satisfies the literal bag key even though its
+translated formulas are not injective. `glued` carries the separate CD proof.
+
+[Boundaries.lean](../Clafer/MCS/Gluing/Boundaries.lean):
+`repeated_parent_not_identified`, `repeated_isA_not_identified`,
+`bag_mode_preserved`, `bag_has_no_added_setValued`, `missing_default_rejected`,
+`mode_conflict_rejected`, `spelling_does_not_create_marker`,
+`reserved_spelling_rejected`, `primitive_identity_preserved`,
+`complete_valid`, `complete_defaults`, `inclusion_default_preserved`,
+`repeated_arguments_retained`,
+`Isolated.bank_valid`, `Isolated.isolated_vertex_retained`,
+`Isolated.isolated_declaration_preserved`. These are kernel-checked structural
+claims, not model satisfaction or compiler correctness statements.
+
+Covers:
+- `req~clafer-gluing-examples~1`

@@ -1,0 +1,103 @@
+module
+
+public import Clafer.MCS.Gluing
+
+/-! # Canonical MCS predefined annotations (SoSyM §6.1 and Appendix E Table 8)
+
+The semantic origins select registry entries. A string is never used to classify
+a vertex. MCS naming then proves the registry's canonical naming discipline.
+-/
+
+@[expose] public section
+namespace Clafer.MCS.Gluing
+open CategoryTheory
+
+inductive Predefined where
+  | sing | primitive (domain : PrimitiveDomain)
+  deriving DecidableEq
+
+def registry : FormalCD.Registry where
+  Id := Predefined
+  name | .sing => "Sing" | .primitive d => d.name
+  kind | .sing => .singleton | .primitive _ => .primitive
+
+def originAnnotation : Origin → Option registry.Id
+  | .syntheticRoot => some .sing
+  | .primitive d => some (.primitive d)
+  | .user => none
+
+variable {C V : Type} {f : Family C} {r : Roles C V f} {l : Labels (V := V) f}
+
+/-- Cojoining's head bijection identifies the semantic owner of each class role. -/
+noncomputable def annotations (hc : r.Cojoining) (v : V) : Option registry.Id :=
+  originAnnotation (f.origin ((Equiv.ofBijective r.head hc.head_bijective).symm v))
+
+@[simp] theorem annotations_head (hc : r.Cojoining) (c : C) :
+    annotations hc (r.head c) = originAnnotation (f.origin c) := by
+  change originAnnotation (f.origin ((Equiv.ofBijective r.head hc.head_bijective).symm
+    ((Equiv.ofBijective r.head hc.head_bijective) c))) = _
+  rw [Equiv.symm_apply_apply]
+
+/-- Canonical naming and predefined uniqueness follow from the source disciplines;
+default completeness is still a separate hypothesis. -/
+theorem naming_of_valid {σ : DPGraph.Signature.{0,0,0}} {d : Formulas r σ}
+    (hv : Valid l d) : Naming l (annotations hv.cojoining) where
+  predefined_name := by
+    intro v i hi
+    obtain ⟨c, rfl⟩ := hv.cojoining.head_bijective.2 v
+    rw [annotations_head] at hi
+    cases ho : f.origin c with
+    | user => simp [ho, originAnnotation, registry] at hi
+    | syntheticRoot =>
+      have he : i = .sing := Option.some.inj (by simpa only [ho, originAnnotation] using hi.symm)
+      subst i
+      exact (hv.naming.sing_iff c).mp ho
+    | primitive dom =>
+      have he : i = .primitive dom := Option.some.inj (by simpa only [ho, originAnnotation] using hi.symm)
+      subst i
+      exact (hv.naming.primitive_iff c dom).mp ho
+  user_name := by
+    intro v hi
+    obtain ⟨c, rfl⟩ := hv.cojoining.head_bijective.2 v
+    rw [annotations_head] at hi
+    have ho : f.origin c = .user := by
+      cases he : f.origin c <;> simp_all [originAnnotation, registry]
+    rintro ⟨i, he⟩
+    cases i with
+    | sing => exact (reserved_names_exclude_users hv.naming ho).1 he.symm
+    | primitive dom => exact (reserved_names_exclude_users hv.naming ho).2 dom he.symm
+  unique_predefined := by
+    intro v w i hv' hw'
+    obtain ⟨c, rfl⟩ := hv.cojoining.head_bijective.2 v
+    obtain ⟨c', rfl⟩ := hv.cojoining.head_bijective.2 w
+    rw [annotations_head] at hv' hw'
+    have hc : c = c' := by
+      cases i with
+      | sing =>
+        have h₁ : f.origin c = .syntheticRoot := by
+          cases he : f.origin c <;> simp_all [originAnnotation, registry]
+        have h₂ : f.origin c' = .syntheticRoot := by
+          cases he : f.origin c' <;> simp_all [originAnnotation, registry]
+        exact ((hv.family.root_origin c).mp h₁).trans ((hv.family.root_origin c').mp h₂).symm
+      | primitive dom =>
+        have h₁ : f.origin c = .primitive dom := by
+          cases he : f.origin c <;> simp_all [originAnnotation, registry]
+        have h₂ : f.origin c' = .primitive dom := by
+          cases he : f.origin c' <;> simp_all [originAnnotation, registry]
+        exact hv.family.unique_primitive c c' dom h₁ h₂
+    subst c'
+    rfl
+  inclusion_name := by
+    intro m hm
+    cases m with
+    | inclusion i => exact hv.naming.inclusion_name i
+    | ordinary c m =>
+      simp only [Family.MapId.mode, Clafer.Roles.mode] at hm
+      split at hm <;> contradiction
+
+noncomputable def ofValid {W : FormalCD.Vocabulary.{0,0,0}}
+    {d : Formulas r W.signature} (hv : Valid l d)
+    (h : Compatible r l (annotations hv.cojoining)) (hd : Defaults r d) :
+    FormalCD.CDOver W registry := cd h d (naming_of_valid hv) hd
+
+end Clafer.MCS.Gluing

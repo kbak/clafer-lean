@@ -122,7 +122,7 @@ structure Roles.Cojoining {C V : Type} {f : Family C} (r : Roles C V f) : Prop w
     r.vertex c (Shape.targetClass (f.shape c) h) = r.head t
 
 /-- Resolved referent identities are not role identities or display strings.
-Endpoint-compatible gluing of these referents is a separate #23 obligation. -/
+Endpoint-compatible gluing of these referents is defined in `MCS.Gluing`. -/
 structure Labels {C V : Type} (f : Family C) where
   ClassRef : Type
   MapRef : Type

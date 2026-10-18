@@ -7,8 +7,9 @@ records the accepted Q2 expansion and Q4 representation boundary for
 [existing Shape contract](spec.md#individual-clafer-shapes) controls exact presence.
 The [MCS modules](../Clafer/MCS/Basic.lean) implement this structural inventory.
 The [source correction](#figure-23-source-multiplicity-correction) applies to
-seven associations. [Structural Compile](compile.md) supplies formula generation. Gluing congruence
-and semantic model existence remain separate obligations.
+seven associations. [Structural Compile](compile.md) supplies formula generation.
+[Resolved-referent gluing](#gluing-boundary) has separate input hypotheses;
+semantic model existence remains a separate obligation.
 
 ## Appendix E inventory
 
@@ -68,9 +69,9 @@ Keep local role slots, graph role identities, resolved class/map referents, and
 displayed strings distinguishable. Cojoining equalities must explicitly state
 which identity level they compare. Equality of displayed `parent`, `dref` or
 `isA` strings must not by itself identify arrows. Preserve endpoints and the
-information needed for later intended identifications; #23 owns the gluing
-congruence and its graph/DP-morphism proof. The accepted #20 representation
-choice does not complete that policy.
+information needed for intended identifications. The approved #23 gluing
+congruence and its graph/DP-morphism proof use the explicit resolved-referent
+contract described below; the #20 representation alone does not select that policy.
 
 Figure 23 also includes Role, ClassRole, MapRole, InclRole, String, PredefStr,
 Formula and Signature, with the ClassRole/MapRole cover/disjoint partition,
@@ -153,3 +154,30 @@ compilation theorem nor proves satisfaction of the declared constraints.
 
 The canonical requirements and named proof artifacts are in
 [spec](spec.md#mcs-metamodel-and-ownership) and [Clafer trace](clafer-trace.md#mcs-metamodel).
+
+
+## Gluing boundary
+
+The approved Q4 rule in [#23](https://github.com/kbak/clafer-lean/issues/23)
+identifies equal resolved class/map referents only. `Gluing.Incidence` requires
+equal map referents to have equal endpoint class referents. `Gluing.Compatible`
+also requires equal class/map names, predefined annotations and map modes on
+identified fibers. The registry determines kind from identity. Neither name
+matching nor endpoint matching supplies a referent equality.
+
+[Gluing.lean](../Clafer/MCS/Gluing.lean) proves graph incidence and exact
+identification before constructing the translated declaration image and DP map.
+These obligations are additional to `Valid`; role-level ownership/cojoining,
+Q2/Q9 and the source total-args/literal-key disciplines remain unchanged.
+`Gluing.Naming` and `Gluing.Defaults` are separate prerequisites of the FormalCD
+validity theorem. [Origins.lean](../Clafer/MCS/Gluing/Origins.lean) derives naming
+from valid MCS origins, while effective-default completeness must still be
+supplied. The existing nonempty `Examples.formulas` has ordinary multiplicity
+formulas without setValued defaults: `Gluing.Boundaries.missing_default_rejected`
+shows why DP preservation alone does not establish CD validity.
+
+The positive gluing fixture proves `Gluing.Examples.valid`, `defaults` and
+constructs `glued`, merging two user classes and two head maps but preserving
+parallel parent maps. Its source key holds while translated formulas collide.
+The repeated-name, isolated-vertex and repeated-argument witnesses are linked
+in [Clafer trace](clafer-trace.md#mcs-gluing-acceptance-proofs).

@@ -6,9 +6,8 @@ semantics over a bounded graph of subsets and spans, plus FormalCD
 structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntactic
 self-description and the complete Figure 21b example with corrected VC. Structural
 Clafer now includes resolved deep syntax, typed core constraints, individual
-Shapes, the MCS structural discipline and structural Compile under the scoped
-requirements below.
-Constraint interpretation, gluing and integration
+Shapes, the MCS structural discipline, structural Compile and resolved-referent
+gluing under the scoped requirements below. Constraint interpretation and integration
 remain separate increments. The source-audit roadmap alone authorizes no semantic work.
 
 ## Reproducible Lean validation
@@ -107,9 +106,9 @@ B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
 graph, and the first FormalCD structure/name-preserving morphisms, from future
 predicates, all-universes SetMap, semantic self-instantiation and the remaining
-Clafer interpretation/gluing increments. It documents the delivered resolved
+Clafer interpretation/integration increments. It documents the delivered resolved
 AST, typed core constraints, constraint boundary, individual Shapes, MCS
-structural discipline and structural Compile.
+structural discipline, structural Compile and resolved-referent gluing.
 It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
@@ -1271,7 +1270,8 @@ association's image. Shape guards require exactly the applicable slots. Retain
 literal head-class source `1` and formula source `1`. Distinguish local slots,
 role-graph identities, resolved class/map referents and displayed names. Do not
 identify parent/dref/isA arrows by repeated strings. Keep the head of every clafer,
-including top-level abstracts. Gluing congruence remains on #23.
+including top-level abstracts. The gluing requirements below use resolved
+referent equality without changing role-level cojoining or ownership.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1468,6 +1468,89 @@ constraint signature. Check repeated occurrences of one resolved map and equal
 source boundaries at distinct positions. These declarations provide syntax and
 structural validity; neither typed bodies nor fresh predicate symbols establish
 constraint meanings or semantic preservation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## MCS gluing identity and incidence
+`req~clafer-gluing-identity~1`
+
+Construct the graph of used class/map referents from the delivered MCS roles
+and labels (SoSyM §6.2.5), with the approved Q4 rule from
+[#23](https://github.com/kbak/clafer-lean/issues/23). Identify class roles if and
+only if their classReferent values agree, and map roles if and only if their
+mapReferent values agree. Equal map referents must have equal source and target
+class referents. Require class/map names, optional predefined registry identities
+(and hence kinds), and map modes to agree on identified roles. Conflicts are
+invalid input; neither strings nor common endpoints generate identifications.
+Prove incidence before transporting declarations. Preserve parallel maps with
+different referents and allow intentional noninjective class/map labeling.
+Use the existing Quiv/Prefunctor API and small MCS universes; no global pushout
+existence or universal property is required.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Exact gluing declarations and DP labeling
+`req~clafer-gluing-declarations~1`
+
+The glued declaration set is exactly the image of the source formula bank under
+postcomposition with labeling, at the same signature. Prove label is a graph
+morphism and a declaration-preserving DPGraph.Hom (B.4 Definition 10). Preserve
+the complete typed binding, including isolated vertices and repeated argument
+occurrences. Do not add target defaults to this exact image. The source literal
+bag key and total-args obligations remain separate: a valid source bank does not
+imply that translated formulas are injective or that a target formula bank
+satisfies that key. No constraint interpretation or compiler generation theorem
+is asserted.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## FormalCD validity after gluing
+`req~clafer-gluing-formalcd~1`
+
+Descend class/map names, predefined annotations and map modes to used referents
+with preservation theorems. Derive predefined classification from semantic
+origins through a shared registry, using the existing Sing/int/string/bool names
+and singleton/primitive kinds; spelling alone must not create a registry identity.
+Prove FormalCD.RawOver.WellFormed separately from DP preservation, with explicit
+naming, registry uniqueness, metadata consistency and effective-default
+completeness hypotheses. For valid MCS values, derive canonical naming and
+registry uniqueness from the structural disciplines and origin annotations.
+Ordinary setValued and inclusion defaults must already be supplied by the source
+bank under the vocabulary embedding. Bag mode imposes no additional default.
+MCS.Valid alone is insufficient for this completeness condition. Support the
+existing small compatible vocabularies, without a new interpretation or claim
+of semantic satisfaction, model existence or metamodel self-instantiation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Gluing acceptance witnesses
+`req~clafer-gluing-examples~1`
+
+Kernel check a nonempty valid MCS with distinct class and map roles intentionally
+merged, plus parallel same-name maps with different referents that remain
+distinct after gluing. Repeated parent and isA names at unrelated endpoints must
+not identify maps. Reject source/target, class/map name, predefined identity/kind
+and mode conflicts. Exercise canonical predefined naming and bag behavior,
+complete binding transport with repeated arguments and isolated vertices, and
+failure of translated-formula injectivity despite the source literal key.
+Exhibit DP preservation together with failure of FormalCD validity when defaults
+are missing, including a nonempty valid source bank; also prove a positive
+FormalCD validity result with sufficient defaults. Keep examples separate from
+public imports and preserve Q2/Q9, the existing validation gates and OFT IDs.
+Compile-to-gluing integration (#24) and general constraint semantics remain
+separate.
 
 Covers:
 - `intent~formalization-foundation~1`

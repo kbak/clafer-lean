@@ -63,6 +63,8 @@ class PublicLibrariesTest(unittest.TestCase):
             "Clafer.Shape.Diagram", "Clafer.Examples",
             "Clafer.MCS.Basic", "Clafer.MCS.Laws", "Clafer.MCS.Metamodel",
             "Clafer.MCS.Examples",
+            "Clafer.MCS.Gluing", "Clafer.MCS.Gluing.Origins",
+            "Clafer.MCS.Gluing.Examples", "Clafer.MCS.Gluing.Boundaries",
             "Clafer.Constraints.Support", "Clafer.Constraints.Typing",
             "Clafer.Constraints.Examples",
             "Clafer.Compile.Structure", "Clafer.Compile.Local",

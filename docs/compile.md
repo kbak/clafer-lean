@@ -84,7 +84,9 @@ accepted input, beyond these finite witnesses.
 
 The delivered typed-core limits remain in force. Constraint meanings, primitive
 singleton conversion, whole-model interpretation, group and abstract semantic
-translation, gluing and semantic preservation are separate work. A fresh
-constraint symbol does not establish any meaning for its body. No FormalCD
-label morphism or well-formed glued CD is claimed here; those require #23's
-endpoint-compatible identification contract.
+translation and semantic preservation are separate work. A fresh constraint
+symbol does not establish any meaning for its body. The delivered
+[MCS gluing](ARCHITECTURE.md#mcs-gluing) provides a label morphism and conditional
+FormalCD validity under its explicit incidence, metadata and default-completeness
+hypotheses. Establishing those hypotheses for Compile output and integrating the
+two constructions remain separate work on #24.

@@ -9,7 +9,7 @@ and the Figure 21c metamodel with explicit name/arity disciplines and bounded
 syntactic self-description. Figure 21b includes the corrected guarded version
 constraint and checked concrete models.
 Structural 2014 Clafer adds resolved syntax, individual Shapes and the structural
-MCS discipline from Figure 23 and Appendix E, with structural Compile; start with
+MCS discipline from Figure 23 and Appendix E, with structural Compile and gluing; start with
 the [product overview](docs/intent.md).
 
 Install [Lean via elan](https://lean-lang.org/install/), then run:
@@ -23,7 +23,7 @@ The repository is `kbak/clafer-lean`; its single Lake package is `clafer`.
 Use `import DPGraph` for this foundation and its bounded semantic graph of
 subsets and spans. See the overview for supported predicates and future scope.
 The sibling public roots follow `Clafer -> FormalCD -> DPGraph -> Mathlib`.
-Use `import FormalCD` for class diagrams and `import Clafer` for resolved syntax, Shapes, MCS and Compile.
+Use `import FormalCD` for class diagrams and `import Clafer` for resolved syntax, Shapes, MCS, Compile and gluing.
 The toolchain is pinned in `lean-toolchain`.
 Contributions, including agent work, use [IntentBond](https://github.com/kbak/intentbond);
 see [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
