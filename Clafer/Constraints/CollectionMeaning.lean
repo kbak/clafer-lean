@@ -106,7 +106,7 @@ theorem Expr.cardinality_relation_defined {s : Support} {U : Type u}
 
 /-- Typed membership supplies the primitive-domain half of singleton extraction.
 The singleton obligation is still substantive, and is derived from the source
-map bounds for Appendix F by VersionNavigation.denotation_defined. -/
+map bounds for Appendix 6 by VersionNavigation.denotation_defined. -/
 theorem Expr.integerOf_singleton_defined {s : Support} {U : Type u}
     (m : IntegerBinding.{u,w} s U) {Γ x}
     (e : Expr s Γ (.collection (.objects x))) (primitive : s.integer x = true)

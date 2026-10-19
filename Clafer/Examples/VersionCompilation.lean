@@ -4,9 +4,9 @@ public import Clafer.Compile.Groups
 public import Clafer.Constraints.IntegerExamples
 
 /-!
-# Appendix F's mandatory version comparison through Compile and gluing
+# Appendix 6's mandatory version comparison through Compile and gluing
 
-SoSyM Appendix F p.34 (c02 in docs/inherited-realization.md), §6.2.4–5.
+SoSyM Appendix 6 PDF p.34 (c02 in docs/inherited-realization.md), §6.2.4–5.
 The six-declaration fragment retains comp/version, ECU, display/server and int.
 Its comparison is attached to display and uses integer extraction after actual
 head/dereference navigation. Generated local predicates establish operand

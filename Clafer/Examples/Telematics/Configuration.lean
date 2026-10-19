@@ -1,17 +1,17 @@
 module
 
-public import Clafer.Examples.AppendixF
+public import Clafer.Examples.Telematics.Input
 
 /-!
-# Concrete Appendix F configuration
+# Concrete telematics configuration
 
-SoSyM Appendix F p.34. Two ECUs each own two displays; versions are 2 for
+SoSyM Appendix 6 PDF p.34. Two ECUs each own two displays; versions are 2 for
 ECUs and 3 for displays. Every represented mathematical integer is contained
 by the actual root. Finite nonprimitive heads remain separate from that domain.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixF
+namespace Clafer.Examples.Telematics
 open CategoryTheory MCS Compile DPGraph DPGraph.Predicates Semantics Constraints
 
 set_option maxHeartbeats 2000000
@@ -79,9 +79,9 @@ theorem typed : config.Typed core.toEffectiveCore := by
     | inr p => simp [config]
     | inl p =>
       cases x with
-      | inr x => fin_cases d <;> simp [config, parents_eq, Inherited.parents, heads]
+      | inr x => fin_cases d <;> simp [config, parents_eq, Telematics.Structural.parents, heads]
       | inl x =>
-        fin_cases d <;> simp [config, heads, ownership, parents_eq, Inherited.parents]
+        fin_cases d <;> simp [config, heads, ownership, parents_eq, Telematics.Structural.parents]
         all_goals aesop
   · intro d x t
     cases x with
@@ -89,17 +89,17 @@ theorem typed : config.Typed core.toEffectiveCore := by
     | inl x =>
       cases t with
       | inr t =>
-        fin_cases d <;> simp [config, references_eq, Inherited.references, ReferenceTo.target]
+        fin_cases d <;> simp [config, references_eq, Telematics.Structural.references, ReferenceTo.target]
         intro h _; exact h
       | inl t =>
         fin_cases d <;> simp [config, heads, targets, references_eq,
-          Inherited.references, ReferenceTo.target]
+          Telematics.Structural.references, ReferenceTo.target]
         all_goals aesop
 
 theorem inherits : config.Inherits core.toEffectiveCore := by
   intro d c hc x hx
   rw [supers_eq] at hc
-  fin_cases d <;> simp [Inherited.supers] at hc
+  fin_cases d <;> simp [Telematics.Structural.supers] at hc
   all_goals subst c; cases x <;> simp_all [config, heads]
   all_goals aesop
 
@@ -114,7 +114,7 @@ theorem parents_hold : config.Parents core.toEffectiveCore := by
     intro y hy
     cases y <;> simp_all [config]
   | inl x =>
-    fin_cases d <;> simp [Inherited.parents] at hp
+    fin_cases d <;> simp [Telematics.Structural.parents] at hp
     all_goals simp [config, heads] at hx
     all_goals rcases hx with rfl | rfl | rfl | rfl | rfl | rfl
     all_goals simp [config, ownership, ExistsUnique, Sum.forall]
@@ -122,7 +122,7 @@ theorem parents_hold : config.Parents core.toEffectiveCore := by
 theorem references_hold : config.References core.toEffectiveCore := by
   intro d t ht x hx
   rw [references_eq] at ht
-  fin_cases d <;> simp [Inherited.references, ReferenceTo.target] at ht
+  fin_cases d <;> simp [Telematics.Structural.references, ReferenceTo.target] at ht
   all_goals cases x
   all_goals simp [config, heads] at hx
   all_goals rcases hx with rfl | rfl | rfl | rfl | rfl | rfl
@@ -131,7 +131,7 @@ theorem references_hold : config.References core.toEffectiveCore := by
 theorem keys : config.Keys core.toEffectiveCore := by
   intro d hd
   rw [references_eq] at hd
-  fin_cases d <;> simp [Inherited.references, ReferenceTo.kind] at hd
+  fin_cases d <;> simp [Telematics.Structural.references, ReferenceTo.kind] at hd
   all_goals intro p t x y
   all_goals cases p <;> cases t <;> cases x <;> cases y
   all_goals simp [config, ownership, targets, heads]
@@ -140,7 +140,7 @@ theorem keys : config.Keys core.toEffectiveCore := by
 theorem abstracts : Semantics.Realization.Abstracts core config := by
   intro d hd
   rw [explicit_eq] at hd
-  fin_cases d <;> simp [Inherited.explicit] at hd
+  fin_cases d <;> simp [Telematics.Structural.explicit] at hd
   all_goals simp only [supers_eq]
   all_goals simp [config, Sum.forall]
   all_goals decide
@@ -186,30 +186,30 @@ theorem multiplicities : config.Multiplicities core.toEffectiveCore := by
     | inr v =>
       have he : p = 12 := hx
       subst p
-      fin_cases d <;> simp [Inherited.parents] at hp
+      fin_cases d <;> simp [Telematics.Structural.parents] at hp
     | inl x =>
       apply (inRange_iff _ (finiteFiber d hd x)).mpr
       rw [Verification.inRange_card]
       fin_cases d <;> try { exact (hd rfl).elim }
-      all_goals simp [Inherited.parents] at hp
+      all_goals simp [Telematics.Structural.parents] at hp
       all_goals subst p
       all_goals simp [config, heads] at hx
       all_goals rcases hx with rfl | rfl | rfl | rfl | rfl | rfl
       all_goals decide
 
 theorem ancestor_iff (p a : Fin 28) : Compile.Groups.Ancestor core.family p a ↔
-    a ∈ Inherited.ancestorTable p := by
-  have he : core.family.super = Inherited.core.family.super := by
-    funext d; rw [supers_eq, Inherited.supers_eq]
-  simpa only [Compile.Groups.Ancestor, he] using Inherited.ancestor_iff p a
+    a ∈ Telematics.Structural.ancestorTable p := by
+  have he : core.family.super = Telematics.Structural.core.family.super := by
+    funext d; rw [supers_eq, Telematics.Structural.supers_eq]
+  simpa only [Compile.Groups.Ancestor, he] using Telematics.Structural.ancestor_iff p a
 
-theorem channel_children (c : Fin 28) : Inherited.parents c = some 5 ↔ c = 6 ∨ c = 7 := by
+theorem channel_children (c : Fin 28) : Telematics.Structural.parents c = some 5 ↔ c = 6 ∨ c = 7 := by
   fin_cases c <;> decide
 
-theorem telematics_size_children (c : Fin 28) : Inherited.parents c = some 9 ↔ c = 10 ∨ c = 11 := by
+theorem telematics_size_children (c : Fin 28) : Telematics.Structural.parents c = some 9 ↔ c = 10 ∨ c = 11 := by
   fin_cases c <;> decide
 
-theorem options_size_children (c : Fin 28) : Inherited.parents c = some 14 ↔ c = 15 ∨ c = 16 := by
+theorem options_size_children (c : Fin 28) : Telematics.Structural.parents c = some 14 ↔ c = 15 ∨ c = 16 := by
   fin_cases c <;> decide
 
 theorem range_one_of_unique (P : U → Prop) (h : ∃! x, P x) : InRange one {x // P x} := by
@@ -237,10 +237,10 @@ theorem groups : Semantics.Realization.Groups core config := by
         change InRange one _
         apply range_one_of_unique
         simp [ExistsUnique, Compile.Groups.ChildObjects, ancestor_iff,
-          Inherited.ancestorTable, parents_eq, channel_children, telematics_size_children,
+          Telematics.Structural.ancestorTable, parents_eq, channel_children, telematics_size_children,
           options_size_children, config, ownership, Sum.forall]
-  · have hb : Inherited.groupBounds d = unrestricted := by
-      fin_cases d <;> simp_all [Inherited.groupBounds]
+  · have hb : Telematics.Structural.groupBounds d = unrestricted := by
+      fin_cases d <;> simp_all [Telematics.Structural.groupBounds]
     rw [hb]
     exact unrestricted_range _
 
@@ -264,4 +264,4 @@ theorem structural_satisfaction : Semantics.Realization.Satisfies core config :=
   ⟨typed, rooted, ⟨inherits, parents_hold, references_hold, keys, multiplicities⟩,
     abstracts, groups, declaration_disjoint⟩
 
-end Clafer.Examples.AppendixF
+end Clafer.Examples.Telematics

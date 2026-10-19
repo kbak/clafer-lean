@@ -6,7 +6,7 @@ public import FormalCD.Telematics.VC
 /-!
 # Integer operands from navigation
 
-SoSyM D.3–D.4 and Appendix F, p.34. This supplies the partial meaning of
+SoSyM D.3–D.4 and Appendix 6, PDF p.34. This supplies the partial meaning of
 `Expr.integerOf`, for the relational set result of navigation. It does not
 interpret other expressions or use the special Figure 21 VC predicate.
 The realization embeds all mathematical integers; no bit width is imposed.

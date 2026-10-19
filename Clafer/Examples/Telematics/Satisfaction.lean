@@ -1,10 +1,12 @@
 module
 
-public import Clafer.Examples.AppendixFConfiguration
-public import Clafer.Examples.AppendixFDefined
+public import Clafer.Examples.Telematics.Configuration
+public import Clafer.Examples.Telematics.Definedness
 public import Clafer.Constraints.DenotationInvariance
 
-/-! # Satisfaction of all twelve Appendix F conjuncts
+/-! # Satisfaction of all twelve telematics conjuncts
+
+SoSyM Appendix 6 (PDF p.34).
 
 The support environment below is derived from the same shared configuration
 used for structural satisfaction. All numeric counts are on finite nonprimitive
@@ -12,8 +14,8 @@ heads. The primitive extent is the complete integer domain.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixF.Meaning
-open CategoryTheory DPGraph DPGraph.Predicates Constraints AppendixFConstraints
+namespace Clafer.Examples.Telematics.Meaning
+open CategoryTheory DPGraph DPGraph.Predicates Constraints Telematics.Expressions
 
 set_option maxHeartbeats 2000000
 set_option maxRecDepth 4096
@@ -89,7 +91,7 @@ theorem image_reduced (c : Fin 28) (i : Fin 34) (S : Set U) :
   · rintro ⟨x,hx,ha,hb,h⟩
     exact ⟨x,hx,⟨(⟨x,ha⟩,⟨y,hb⟩),h⟩,rfl,rfl⟩
 
-theorem nonprimitive (c : Fin 28) : AppendixFDefined.FiniteStructural (model c) := by
+theorem nonprimitive (c : Fin 28) : Telematics.Definedness.FiniteStructural (model c) := by
   intro x hx
   apply nonprimitive_finite
   fin_cases x <;> simp_all [position]
@@ -317,7 +319,7 @@ theorem c02_all (x : U) (hx : x ∈ objects 11) : c02.Holds (model 11) (.closed 
   simpa [Expr.Holds,c02] using denotes_ge _ _ _ _ _ _ hd hs
 
 theorem c02_defined (x : Subtype (objects 11)) : c02.Defined (model 11) (.closed x.val) := by
-  apply AppendixFDefined.c02_defined
+  apply Telematics.Definedness.c02_defined
   · exact (config.head_multiplicity_iff core.toEffectiveCore typed 21 20 rfl).mpr
       (multiplicities 21 20 rfl)
   · exact (config.deref_one_iff core.toEffectiveCore typed 21 12 rfl).mpr
@@ -339,4 +341,4 @@ theorem c04_all (x : U) (hx : x ∈ objects 15) : c04.Holds (model 15) (.closed 
     all_goals simp [objects,maps,position,links,owner,config,heads,ownership,targets,
       Environment.closed,Set.ext_iff,Sum.exists,Sum.forall]
 
-end Clafer.Examples.AppendixF.Meaning
+end Clafer.Examples.Telematics.Meaning

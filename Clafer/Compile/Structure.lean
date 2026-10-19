@@ -6,7 +6,7 @@ public import Clafer.Constraints.Typing
 /-!
 # Structural compilation of resolved declarations
 
-SoSyM §6.2.4 and Appendix E Tables 5–8. Containment is traversed in preorder;
+SoSyM §6.2.4 and Tables 5–8 (see Appendix 5). Containment is traversed in preorder;
 lookup scans that finite traversal and never recursively follows references.
 Names are metadata. Generated class IDs are traversal positions and map IDs are
 owner/role pairs. This is a kernel-reducible construction, not a choice of an MCS.
@@ -137,7 +137,7 @@ noncomputable def family (i : Input a) : Family a.Occurrence where
   root := resolve a a.root i.ast.root_exists
   group c := (a.at c).declaration.group
 
-/-- Appendix C provenance and effective bounds are carried without defaulting
+/-- Appendix 3 provenance and effective bounds are carried without defaulting
 again. This is data preservation, not a group satisfaction theorem. -/
 @[simp] theorem group_preserved (i : Input a) (c) :
     (family i).group c = (a.at c).declaration.group := rfl
@@ -161,7 +161,7 @@ theorem group_bounds_valid (i : Input a) (c) :
     (family i).super c = some s ↔ (a.at c).declaration.super = some (sourceId a s) :=
   resolveOption_eq_some i.ast _ _ _
 
-/-- The direct-child inventory of §6.2.2. Inherited-family realization is a
+/-- The direct-child inventory of §6.2.2. Telematics.Structural-family realization is a
 separate interface: this type neither copies children nor selects super paths. -/
 abbrev DirectChild (i : Input a) (p : a.Occurrence) :=
   {c : a.Occurrence // (family i).parent c = some p}
@@ -255,7 +255,7 @@ noncomputable def labels (i : Input a) : Labels (V := a.Occurrence) (family i) w
       | .target => (family i).name c ++ "*"
     | .inclusion _ => "isA"
 
-/-- The canonical primitive names in Appendix E Table 8 distinguish domains. -/
+/-- The canonical primitive names in Table 8 (see Appendix 5) distinguish domains. -/
 private theorem primitive_name_injective : Function.Injective PrimitiveDomain.name := by
   intro d e h
   cases d <;> cases e <;> simp_all [PrimitiveDomain.name]

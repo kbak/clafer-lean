@@ -3,9 +3,9 @@ module
 public import Clafer.Semantics.RealizationLocal
 
 /-!
-# Inherited realization declarations and gluing
+# Telematics.Structural realization declarations and gluing
 
-SoSyM §5.5, §6.2.3–5, B.4–B.5, Appendix E/F; selected D2/D4/D6.
+SoSyM §5.5, §6.2.3–5, B.4–B.5, Appendices 5–6; selected D2/D4/D6.
 Explicit families generate actual built-in cover/disjoint predicates. Realized
 ordinary fields add the group declarations suppressed by effective abstractness.
 The complete #65 bank, including authored constraints and defaults, is retained.

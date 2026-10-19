@@ -6,7 +6,7 @@ public import FormalCD.Telematics.Basic
 # Corrected, guarded VC interpretation
 
 SoSyM Figure 8 line 9, its §4.2.3 discussion (and §4.3 configuration context),
-Figure 21a–b / §6.1.2 and Appendix F.
+Figure 21a–b / §6.1.2 and Appendix 6.
 The accepted Q7 direction is display.version ≥ server.version; the adjacent
 reversed prose is not adopted. The comparison is guarded by the presence of a
 server link, as in Figure 21a. An absent server satisfies the comparison vacuously.

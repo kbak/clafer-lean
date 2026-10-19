@@ -1,15 +1,17 @@
 module
 
-public import Clafer.Examples.Inherited
+public import Clafer.Examples.Telematics.Structural
 
-/-! # Rejected inherited realizations (Appendix F, selected D2/D4/D6)
+/-! # Rejected inherited realizations (telematics, selected D2/D4/D6)
+
+SoSyM Appendix 6 (PDF p.34).
 
 These mutations exercise the actual shared-object obligations and generated
 realized-field group predicate. They are not a full expression countermodel.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.Inherited
+namespace Clafer.Examples.Telematics.Structural
 open CategoryTheory MCS Compile DPGraph DPGraph.Predicates Semantics
 
 /-- A competing context may not move ECU1's version to ECU2. -/
@@ -177,4 +179,4 @@ theorem glued_xor_rejects_two :
   erw [Compile.Realization.descend_reduct input twoOptions] at hh
   exact generated_xor_rejects_two hh
 
-end Clafer.Examples.Inherited
+end Clafer.Examples.Telematics.Structural

@@ -1,19 +1,19 @@
 module
 
-public import Clafer.Examples.Inherited
+public import Clafer.Examples.Telematics.Structural
 public import Clafer.Constraints.DenotationLaws
 
 /-!
-# Manual resolved Appendix F expressions
+# Manual resolved telematics expressions
 
-SoSyM Appendix F p.34 and D.1–D.4, accepted Q3/Q7. Source IDs and
+SoSyM Appendix 6 PDF p.34 and D.1–D.4, accepted Q3/Q7. Source IDs and
 contexts are exactly c01–c12 in docs/inherited-realization.md. This extends
 that structural projection with separately typed bodies, without asserting
 Compile/gluing preservation or correctness of a textual resolver.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixFConstraints
+namespace Clafer.Examples.Telematics.Expressions
 open Clafer.Constraints CategoryTheory
 
 def maps : Fin 34 → MapRef 28 := ![⟨⟨2⟩, .head, 1, 2, "head"⟩,
@@ -60,12 +60,12 @@ abbrev support (context : Fin 28) : Support where
   integer := fun v => v == 27
 
 set_option maxHeartbeats 2000000 in
-theorem support_resolved (c : Fin 28) : (support c).Resolved Inherited.ast := by
+theorem support_resolved (c : Fin 28) : (support c).Resolved Telematics.Structural.ast := by
   constructor
-  · intro v; fin_cases v <;> simp [AST.Known, Inherited.entries, Inherited.decl]
+  · intro v; fin_cases v <;> simp [AST.Known, Telematics.Structural.entries, Telematics.Structural.decl]
   · intro e; fin_cases e <;> simp [Support.MapResolved, support, maps,
-      Inherited.entries, Inherited.decl, Reference.target]
-  · intro v h; fin_cases v <;> simp_all [support, Inherited.entries, Inherited.decl]
+      Telematics.Structural.entries, Telematics.Structural.decl, Reference.target]
+  · intro v h; fin_cases v <;> simp_all [support, Telematics.Structural.entries, Telematics.Structural.decl]
 
 def head2 {c Γ} (x : Expr (support c) Γ (.collection (.objects 1))) :
     Expr (support c) Γ (.collection (.objects 2)) := .image x (.map 0)
@@ -191,7 +191,7 @@ def inventory : Fin 12 → Constraint :=
     ⟨support 0, [], c11⟩, ⟨support 0, [], c12⟩]
 
 theorem inventory_resolved (i : Fin 12) :
-    (inventory i).support.Resolved Inherited.ast := by
+    (inventory i).support.Resolved Telematics.Structural.ast := by
   fin_cases i <;> exact support_resolved _
 
-end Clafer.Examples.AppendixFConstraints
+end Clafer.Examples.Telematics.Expressions

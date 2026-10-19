@@ -7,7 +7,7 @@ public import DPGraph.Predicates.FunctionalKey
 /-!
 # Whole-model structural satisfaction
 
-SoSyM §5.3–5.5, §6.1–6.2, Table 3/A.1 and Appendix E, with Q1/Q8.
+SoSyM §5.3–5.5, §6.1–6.2, Table 3/A.1 and Appendix 5, with Q1/Q8.
 This relation is over mathematical sets and relations, independently of the
 finite checker. Objects in two classes are the same ambient object. Ordinary
 maps have relation-tuple links; composite reference maps retain both links.
@@ -44,7 +44,7 @@ def Rooted : Prop :=
 def Inherits : Prop :=
   ∀ d c, m.family.super d = some c → ∀ x, (x ∈ s.head d) → (x ∈ s.head c)
 
-/-- Maintainer-adopted #87 clarification of §5.5/Appendix E: shared head
+/-- Maintainer-adopted #87 clarification of §5.5/Appendix 5: shared head
 membership requires comparability through super edges. Equality is reflexive;
 containment, names and reference targets do not create ancestry. Context views
 are restrictions of these declarations, not additional heads. -/

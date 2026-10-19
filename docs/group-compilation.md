@@ -8,16 +8,16 @@ preserves that exact union and derives `FormalCD` naming/default validity.
 
 ## Source and selected meaning
 
-The [primary preprint](sources.md#primary-source), SHA-256
-`56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`, supplies:
+The [published article](sources.md#primary-source), SHA-256
+`653fc7868637680c44b6176d8ff643ec20149534fe1681ea4fc4ce636db76f2d`, supplies:
 
 | Locator | Meaning and boundary |
 | --- | --- |
-| §4.2.1 p.7; §6.2.2 p.20 | Group bounds constrain child instances per parent object. |
-| §4.2.2 p.8; Appendix D.4 p.32 | Explicit constraints hold for every object of their context, including subtype objects. |
-| §4.2.3 p.8; §5.5 pp.14–16; Appendix F p.34 | Inheritance shares objects and structure; map commutation/realization requires separate obligations. |
-| Appendix C p.31 | xor = 1..1, or = 1..*, mux = 0..1, opt = 0..*. Effective bounds/defaults are supplied by resolved input. |
-| B.4 Definitions 8–10 p.30; §6.2.3–5 pp.20–21 | Formulas retain full graph bindings; gluing translates declarations. Figure 23 total args is a separate MCS restriction. |
+| §4.2.1 PDF p.9; §6.2.2 PDF p.21 | Group bounds constrain child instances per parent object. |
+| §4.2.2 PDF p.9; Appendix D.4 PDF pp.33–34 | Explicit constraints hold for every object of their context, including subtype objects. |
+| §4.2.3 PDF p.10; §5.5 PDF p.17; Appendix 6 PDF p.34 | Inheritance shares objects and structure; map commutation/realization requires separate obligations. |
+| Appendix 3 PDF p.32 | xor = 1..1, or = 1..*, mux = 0..1, opt = 0..*. Effective bounds/defaults are supplied by resolved input. |
+| B.4 Definitions 8–10 PDF p.31; §6.2.3–5 PDF pp.22–23 | Formulas retain full graph bindings; gluing translates declarations. Figure 23 total args is a separate MCS restriction. |
 
 The selected group-inheritance behavior follows compiler commit
 `15adb2216909421bcb5022174d2d84ef2b42307c`:
@@ -41,7 +41,7 @@ a B object with only z passes. An effective opt override on B can admit two
 children. This special treatment of groups refines the paper's context-constraint
 account; ordinary explicit constraints on abstracts retain that account unchanged.
 
-Appendix C authored/effective provenance, override rules and child defaults are
+Appendix 3 authored/effective provenance, override rules and child defaults are
 preserved. The comparison audit treats [authored defaults (D1)](resolved-ir-comparison.md#decision-d1) and
 [group semantics (D6)](resolved-ir-comparison.md#decision-d6)
 as separate decisions.
@@ -109,10 +109,10 @@ selected inherited-field realization and commuting map restrictions. Selecting a
 inherited head map does not prove those obligations or copy any object. Tests of
 an inherited abstract-child fiber are explicitly group-predicate tests under typed
 relations, not proofs of complete inherited-family realizability; the separate
-[Appendix F witnesses](../Clafer/Examples/Inherited.lean) exercise the realization extension. The zero-arrow example
+[Appendix 6 witnesses](../Clafer/Examples/Telematics/Structural.lean) exercise the realization extension. The zero-arrow example
 uses only Sing; its empty-context case tests the group predicate vacuously and
 does not assert the separate root singleton obligation.
 
 Named implementation/proof and acceptance artifacts are in
 [the Clafer trace](clafer-trace.md). [Representative integration](representative-models.md)
-and the [complete Telematics model](appendix-f.md) have separate acceptance criteria.
+and the [complete Telematics model](telematics.md) have separate acceptance criteria.

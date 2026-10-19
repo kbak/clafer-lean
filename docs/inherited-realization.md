@@ -1,27 +1,29 @@
-# Appendix F inherited realization
+<a id="appendix-f-inherited-realization"></a>
 
-This contract explains how Appendix F's ordinary fields and explicit abstract
+# Appendix 6 inherited realization
+
+This contract explains how Appendix 6's ordinary fields and explicit abstract
 types are realized, including inherited views of the same objects and links.
 It preserves the guarded [structural checker contract](resolved-ir-comparison.md),
 [Compile input](compile.md), and [group policy](group-compilation.md).
-The [complete fixture](appendix-f.md) combines it with all twelve constraint
+The [complete fixture](telematics.md) combines it with all twelve constraint
 bodies and the selected semantic bridge. The accepted clarification is recorded
 in the [inherited-realization issue](https://github.com/kbak/clafer-lean/issues/66).
 
 ## Source and accepted clarification
 
-Primary: the 34-page 2014 SoSyM author preprint, SHA-256
-`56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`,
-[Appendix F p.34](https://gsd.uwaterloo.ca/sites/default/files/2014-Bak-Clafer-Unifying-Class-Feature-Modeling%28SOSYM%29.pdf).
+Primary: the 37-page publisher e-offprint, SHA-256
+`653fc7868637680c44b6176d8ff643ec20149534fe1681ea4fc4ce636db76f2d`,
+[Appendix 6, PDF p.34](sources.md#primary-source).
 The supplied inventory includes a visual indentation check. Relevant text:
-§4.2.2–3, §5.3.4–5, §5.5/Figures 18–19, §6.2.3–5, Appendices C–E.
+§4.2.2–3, §5.3.4–5, §5.5/Figures 18–19, §6.2.3–5, Appendices 3–5.
 The paper's abstract-default and explicit-subtype rules do not completely specify
 inherited-field realization. The following is the accepted selected clarification,
 not a theorem attributed to the paper.
 
 The labels [D2](resolved-ir-comparison.md#decision-d2), [D4](resolved-ir-comparison.md#decision-d4) and [D6](resolved-ir-comparison.md#decision-d6) below identify the comparison audit's
 [nested-abstractness, inheritance/refinement and group decisions](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites).
-They are project decision IDs, not sections of the paper's Appendix D.
+They are project decision IDs, not sections of the paper's Appendix 4.
 
 * **Nested abstractness ([D2](resolved-ir-comparison.md#decision-d2)):** authored explicit abstract types and ordinary
   field templates made effectively abstract by containment have different realization rules. Preserve both flags in
@@ -117,13 +119,13 @@ the three names size (d02/d06/d24) remain distinct.
 ## Constraint inventory
 
 These twelve explicit conjuncts are manually elaborated as `c01`–`c12` in
-[AppendixFConstraints](../Clafer/Examples/AppendixFConstraints.lean), with resolved
+[Expressions](../Clafer/Examples/Telematics/Expressions.lean), with resolved
 support proofs against the structural AST. Their independent equations, local
 definedness obligations and positive/negative witnesses are indexed in the
 [denotation contract](constraint-denotation.md) and [proof inventory](clafer-trace.md#manual-appendix-f-expression-implementation).
 Navigation arrows below select child heads unless explicitly marked widen,
 dereference or parent. The [selected preservation bridge](constraint-preservation.md) derives source
-predicate meanings; the [combined acceptance fixture](appendix-f.md) applies it to all twelve bodies.
+predicate meanings; the [combined acceptance fixture](telematics.md) applies it to all twelve bodies.
 
 | ID/context | Meaning and navigation |
 | --- | --- |
@@ -180,12 +182,12 @@ therefore preserving the supported checker's existing correctness result.
 
 The witness IDs use source `DeclId` numbers 1–26, root=0 and int=27, injectively.
 Preorder positions are separate and recorded by `source_order`. The witness is a
-structural projection of Appendix F, including all declarations; it has no source
+structural projection of Appendix 6, including all declarations; it has no source
 expression bodies and does not claim the printed final selections or the complete
 model result. In particular its one plaDisplay per ECU exercises 1..2 realization,
 while the separate expression witnesses reject its c06/c07 counts. A modified
 typed candidate accepts the two-display c06 condition and rejects a wrong owner
-in c04; it is not claimed as a whole structural model. The [complete fixture](appendix-f.md) combines all structural and authored
+in c04; it is not claimed as a whole structural model. The [complete fixture](telematics.md) combines all structural and authored
 constraints with the final selections using a separate configuration.
 
 ## Declaration identity and whole-model disjointness
@@ -201,5 +203,5 @@ objects along super chains and the complete integer-domain fixture.
 declaration disjointness alongside typedness and root conditions on the model
 side. The generated bank retains its actual abstract-family and group formulas;
 it does not generate the additional global partition. The concrete inherited and
-full Appendix F configurations each prove `declaration_disjoint` independently.
+full Appendix 6 configurations each prove `declaration_disjoint` independently.
 The guarded compatibility theorem includes the same condition on both sides.

@@ -65,7 +65,7 @@ agent instructions and `scope.json`.
 
 The documentation path checks module inventory, Python regressions for inventory
 and selection, topic filenames, and local document links and heading anchors. It does not run Lean
-examples, including Appendix F, or provision Haskell and Alloy. Frozen change
+examples, including Appendix 6, or provision Haskell and Alloy. Frozen change
 records remain under their retention policy; document-link checks cover living
 docs. IntentBond coverage, source matching and independent read-only review still
 apply, including review of mathematical claims. Evidence records the selected path

@@ -1,10 +1,12 @@
 module
 
-public import Clafer.Examples.AppendixFConstraints
+public import Clafer.Examples.Telematics.Expressions
 public import Clafer.Constraints.DenotationInvariance
 
 /-!
 # Expression environments on the inherited structural fixture
+
+SoSyM Appendix 6 (PDF p.34).
 
 The nonprimitive objects and links are the shared identities of #66's
 structural projection. Its finite primitive placeholder is replaced by the
@@ -13,8 +15,8 @@ an expression environment, not a new whole-model Compile correspondence (#69).
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixFModel
-open Clafer.Constraints AppendixFConstraints CategoryTheory DPGraph.Predicates
+namespace Clafer.Examples.Telematics.ExpressionEnvironment
+open Clafer.Constraints Telematics.Expressions CategoryTheory DPGraph.Predicates
 
 abbrev U := Sum (Fin 25) Int
 abbrev atom (n : Fin 25) : U := Sum.inl n
@@ -29,11 +31,11 @@ def position : Fin 28 → Fin 28 :=
   ![0,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,1,2,3,4,5,6,7,8,9,10,11,12]
 
 theorem position_id (d : Fin 28) :
-    Inherited.core.id (position d) = ⟨d.val⟩ := by
+    Telematics.Structural.core.id (position d) = ⟨d.val⟩ := by
   fin_cases d <;> rfl
 
 def objects (d : Fin 28) : Set U :=
-  if d = 27 then integers.domain else Sum.inl '' Inherited.config.head (position d)
+  if d = 27 then integers.domain else Sum.inl '' Telematics.Structural.config.head (position d)
 
 /-- Integer operands may vary without changing the finite nonprimitive carrier.
 Version heads 8/9 belong to displays and 6/7 belong to ECUs. -/
@@ -41,10 +43,10 @@ def links (ecuVersion displayVersion : Int) (i : Fin 34) (x y : U) : Prop :=
   match (maps i).kind with
   | .inclusion => x = y
   | .head => ∃ a b, x = atom a ∧ y = atom b ∧
-      Inherited.config.contains (position ⟨(maps i).owner.value, by
+      Telematics.Structural.config.contains (position ⟨(maps i).owner.value, by
         fin_cases i <;> decide⟩) a b
   | .parent => ∃ a b, x = atom a ∧ y = atom b ∧
-      Inherited.config.contains (position ⟨(maps i).owner.value, by
+      Telematics.Structural.config.contains (position ⟨(maps i).owner.value, by
         fin_cases i <;> decide⟩) b a
   | .dereference =>
       if (maps i).owner = ⟨9⟩ then
@@ -52,7 +54,7 @@ def links (ecuVersion displayVersion : Int) (i : Fin 34) (x y : U) : Prop :=
           (if a = 8 ∨ a = 9 then displayVersion else ecuVersion)
       else if (maps i).owner = ⟨6⟩ then False
       else ∃ a b, x = atom a ∧ y = atom b ∧
-        Inherited.config.deref (position ⟨(maps i).owner.value, by
+        Telematics.Structural.config.deref (position ⟨(maps i).owner.value, by
           fin_cases i <;> decide⟩) a b
   | .target => False
 
@@ -70,7 +72,7 @@ def graphMap (c : Fin 28) (e d : Int) : (support c).graph ⥤q semanticGraph U w
 theorem inclusion_subset (i : Fin 34) (h : (maps i).kind = .inclusion) :
     objects (maps i).source ⊆ objects (maps i).target := by
   fin_cases i <;> try { cases h }
-  all_goals simp [objects,maps,position,Inherited.config,Inherited.heads,
+  all_goals simp [objects,maps,position,Telematics.Structural.config,Telematics.Structural.heads,
     Set.subset_def]
 
 def model (c : Fin 28) (e d : Int) : IntegerBinding (support c) U where
@@ -100,7 +102,7 @@ def model (c : Fin 28) (e d : Int) : IntegerBinding (support c) U where
 
 /-- Every nonprimitive object extent comes from the delivered inherited model. -/
 theorem shared_extent (c : Fin 28) (e d : Int) (x : Fin 28) (hx : x ≠ 27) :
-    (model c e d).model.obj x = Sum.inl '' Inherited.config.head (position x) := by
+    (model c e d).model.obj x = Sum.inl '' Telematics.Structural.config.head (position x) := by
   simp [model,graphMap,objects,hx]
 
 theorem reduced_map (c : Fin 28) (e d : Int) (i : Fin 34) :
@@ -141,6 +143,6 @@ theorem example_contexts (e d : Int) (i : Fin 5) :
     (Environment.closed ((![atom 12,atom 4,atom 4,atom 19,atom 0] : Fin 5 → U) i)).Admissible
       (model ((![1,11,15,19,0] : Fin 5 → Fin 28) i) e d) := by
   apply closed_admissible
-  fin_cases i <;> simp [objects,position,Inherited.config,Inherited.heads]
+  fin_cases i <;> simp [objects,position,Telematics.Structural.config,Telematics.Structural.heads]
 
-end Clafer.Examples.AppendixFModel
+end Clafer.Examples.Telematics.ExpressionEnvironment

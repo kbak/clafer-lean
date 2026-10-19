@@ -5,7 +5,7 @@ public import DPGraph.Signature
 /-!
 # Typed predicate vocabulary
 
-SoSyM Table 3 (p.12), A.1 (p.28), §6.1.1–2/Figure 21 (pp.17–18).
+SoSyM Table 3 (PDF p.13), A.1 (PDF p.28), §6.1.1–2/Figure 21 (PDF pp.18–20).
 Disjointness uses the accepted Q8 common-target correction. These declarations
 carry no meanings or implicit set-valuedness constraints. Finite family arities
 retain their central vertex at n = 0; graph-map bindings may repeat arguments.

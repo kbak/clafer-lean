@@ -2,9 +2,9 @@ module
 
 public import Clafer.Constraints.IntegerNavigation
 
-/-! # Integer extraction and Appendix F navigation witnesses
+/-! # Integer extraction and Appendix 6 navigation witnesses
 
-SoSyM Appendix F p.34; these realize the selected navigation fragment, not all
+SoSyM Appendix 6 PDF p.34; these realize the selected navigation fragment, not all
 constraints of the telematics product line. Five structural objects coexist with
 all Int values. Versions and arithmetic are never restricted to a finite range.
 -/

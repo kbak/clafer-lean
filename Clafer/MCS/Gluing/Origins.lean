@@ -2,7 +2,7 @@ module
 
 public import Clafer.MCS.Gluing
 
-/-! # Canonical MCS predefined annotations (SoSyM §6.1 and Appendix E Table 8)
+/-! # Canonical MCS predefined annotations (SoSyM §6.1 and Table 8 (see Appendix 5))
 
 The semantic origins select registry entries. A string is never used to classify
 a vertex. MCS naming then proves the registry's canonical naming discipline.

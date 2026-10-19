@@ -1,12 +1,12 @@
 # Resolved constraint denotation
 
 The constraint denotation interprets the typed core
-of SoSyM Appendix D.1–D.4/Figure 28 and the manual Appendix F expansions, as specified
+of SoSyM Appendix D.1–D.4/Figure 28 and the manual Appendix 6 expansions, as specified
 in the [constraint-meaning issue](https://github.com/kbak/clafer-lean/issues/68). The
 [product intent](intent.md), [source map](sources.md#appendix-d-rule-dispositions-q3),
 [integer bridge](integer-extraction.md), and [inherited inventory](inherited-realization.md)
 remain authoritative for their respective boundaries. The [selected Compile/gluing bridge](constraint-preservation.md) derives predicate
-meanings from these equations; the [combined full-model result](appendix-f.md) applies them to one complete fixture.
+meanings from these equations; the [combined full-model result](telematics.md) applies them to one complete fixture.
 
 ## Values and environments
 
@@ -57,7 +57,7 @@ search evaluator or solver in this extension.
 
 Partial operations propagate undefined operands. On admissible finite operands,
 implication is `not (p and not q)`, equivalence is both implications, and `a >= b`
-is `not (a < b)`. These equations preserve implication vacuity. Appendix F c02
+is `not (a < b)`. These equations preserve implication vacuity. Appendix 6 c02
 has mandatory server/version navigation and receives no Figure 21 guard.
 Its singleton obligations follow from the actual head bounds, functional
 references and inherited class membership, independently of whether the
@@ -73,7 +73,7 @@ link carrier. The structural `headFiberEquiv` and `compositeFiber` results retai
 head/composite link counts under ownership and functional reference assumptions.
 
 The expression inventory uses the source IDs d01–d26, root=0 and int=27 from
-[inherited realization](inherited-realization.md). `AppendixFConstraints.inventory_resolved` checks each support against its
+[inherited realization](inherited-realization.md). `Telematics.Expressions.inventory_resolved` checks each support against its
 actual AST. The twelve bodies retain the contexts and navigation spelled out in
 the [constraint scope handoff](inherited-realization.md#constraint-scope-handoff).
 In particular, c01 visits fixed through the cache.size head before integer

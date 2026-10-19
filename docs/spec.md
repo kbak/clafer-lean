@@ -3,7 +3,7 @@
 These requirements state the repository's infrastructure and mathematical
 obligations. The [canonical intent](intent.md) summarizes delivered scope and
 links the focused contracts, including constraint denotation, finite structural
-verification and the complete Appendix F model. The [documentation map](intent.md#documentation-map)
+verification and the complete Appendix 6 model. The [documentation map](intent.md#documentation-map)
 also defines the project decision labels used below. A research or planning
 requirement alone does not authorize semantic implementation.
 
@@ -196,16 +196,19 @@ Needs: impl
 `req~sosym-reader-companion~1`
 
 Maintain [corrections and clarifications](sosym-errata.md) as a concise companion
-for readers of the pinned 34-page SoSyM author preprint. Give exact section,
-figure, table or definition locators and preprint page numbers. Explain each
+for readers of the hash-pinned publisher e-offprint. Give exact section,
+figure, table or definition locators and one-based PDF pages including its two
+cover sheets. Use published Appendix 1–6 numbering; retain explicit mappings for
+legacy subsection aliases and source-to-code correspondences; preserve existing
+heading anchors and update maintained links when modules move. Explain each
 corrected reading and its reason, linking the accepted decision or source analysis
 and relevant delivered proof/implementation evidence.
 
 Cover the accepted composition, common-target disjointness, guarded version
 constraint, top-level abstract-head and seven-association ownership corrections.
 Clarify link/bag multiplicity, full formula bindings versus literal key and total
-args, bounded self-description, guarded Appendix E clauses, gluing identity and
-defaults, and Appendix D notation. Distinguish accepted corrections, clarifications,
+args, bounded self-description, guarded Appendix 5 clauses, gluing identity and
+defaults, and Appendix 4 notation. Distinguish accepted corrections, clarifications,
 explicit formalization choices and unresolved proposals. Do not present these as
 publisher-issued errata or add new semantic claims. Link the companion from the
 README, canonical intent and source map. Review its claims against paper passages,
@@ -224,7 +227,11 @@ Maintain the three reusable layers and explicit exclusions in [intent](intent.md
 the source-to-construct mapping in the [source map](sources.md), and representation
 alternatives, dependencies and validation tasks in [architecture](architecture.md).
 SoSyM is the primary semantic authority; identify exact sections/definitions/figures,
-the inspected preprint hash and Mathlib commit. Distinguish inspected full texts
+the inspected publisher e-offprint hash, edition/page convention and Mathlib commit.
+Retain the preprint identity for historical provenance and free access.
+Compare edition differences before changing a source-based semantic claim; do not
+rewrite frozen records or versioned comparison manifests as if they used a later
+source. Distinguish inspected full texts
 and recovered-page subsets from abstracts, snippets and unavailable sources.
 Record disagreements before selecting meanings; the compiler is supplementary
 context and any use as evidence requires an immutable revision and a license check.
@@ -1252,7 +1259,7 @@ Register Int as a primitive with canonical name Int; do not require Sing or
 other optional predefined entries. Preserve existing naming and map modes.
 Use the compatible vocabulary extension for VC and full graph bindings.
 
-The effective declaration set has exactly the twelve distinct formulas on p.19:
+The effective declaration set has exactly the twelve distinct formulas on PDF p.21:
 disjoint(i1,i2), cover(i1,i2), inverse(server,display), inclusion(i1), inclusion(i2),
 0..5(display), 1..1(version), 0..1(server), VC(server,i1,i2,version), and
 setValued(version), setValued(server), setValued(display). Multiplicities count
@@ -1272,8 +1279,8 @@ Needs: impl, proof
 
 Adopt [Q7](sources.md#figure-21b-and-the-accepted-q7-correction): display.version ≥ server.version, with equality allowed and an absent
 server satisfying VC vacuously. Sources: Figure 8 line 9 and its accompanying
-§4.2.3 discussion (p.8; §4.3 supplies configuration context on p.9), Figure 21a
-OCL / §6.1.2, and Appendix F; retain the discrepancy with the adjacent reversed
+§4.2.3 discussion (PDF p.10; §4.3 supplies configuration context on PDF pp.10–11), Figure 21a
+OCL / §6.1.2, and Appendix 6; retain the discrepancy with the adjacent reversed
 prose in the source map.
 
 VC's arity has exactly the
@@ -1315,7 +1322,7 @@ Needs: impl, proof
 `req~clafer-resolved-syntax~1`
 
 Implement directly constructible deep containment syntax for the selected 2014
-constructs in §5.3.1–5, §5.4–5, §6.2.2/Figure 22 and Appendix C/Figure 27.
+constructs in §5.3.1–5, §5.4–5, §6.2.2/Figure 22 and Appendix 3/Figure 27.
 Keep resolved declaration IDs separate from source/display names, preserving
 identity when names repeat. Distinguish the synthetic root, selected predefined
 primitive-domain declarations (int, string, bool), and user declarations. Include
@@ -1365,7 +1372,7 @@ separate binder IDs, display names and resolved domain occurrences as the input
 interface for [core constraint typing](spec.md#resolved-core-constraint-typing), validating known IDs and unique binder IDs per boundary.
 Constraint bodies and expression typing are supplied by the separate core
 constraint module below. Name resolution remains an upstream obligation; the separate
-[denotation extension](constraint-denotation.md) supplies Appendix D equations. The context module must not depend on the expression
+[denotation extension](constraint-denotation.md) supplies Appendix 4 equations. The context module must not depend on the expression
 implementation. Check repeated-occurrence and dangling-reference examples.
 
 Covers:
@@ -1386,8 +1393,8 @@ kind-indexed role inventories and incidence proofs. When a super is selected,
 head inclusion is required and source/target inclusions exist exactly for shared
 endpoints; absent supers supply no inclusion family.
 
-Apply the accepted [top-level abstract correction](sources.md#resolved-2014-clafer-and-individual-shapes): §5.3.4 (p.14) incorrectly excludes the
-head of a top-level abstract clafer, contrary to §6.2.3 (p.20) and Figure 23's
+Apply the accepted [top-level abstract correction](sources.md#resolved-2014-clafer-and-individual-shapes): §5.3.4 (PDF p.15) incorrectly excludes the
+head of a top-level abstract clafer, contrary to §6.2.3 (PDF p.22) and Figure 23's
 total head role. Retain the head and omit source/parent-dependent maps. An
 abstract reference retains target and dereference. Read Table 7's basic-source
 statement with this exception. Preserve publication and historical snapshots.
@@ -1442,7 +1449,9 @@ Covers:
 
 Needs: impl, proof
 
-## Complete Appendix E structural discipline
+<a id="complete-appendix-e-structural-discipline"></a>
+
+## Complete Appendix 5 structural discipline
 
 `req~clafer-mcs-disciplines~1`
 
@@ -1608,11 +1617,13 @@ Covers:
 
 Needs: impl, proof
 
-## Appendix F version operand well-definedness
+<a id="appendix-f-version-operand-well-definedness"></a>
+
+## Appendix 6 version operand well-definedness
 
 `req~clafer-version-navigation~1`
 
-Represent the actual Appendix F p.34 fragment's `version >= server.version` in
+Represent the actual Appendix 6 PDF p.34 fragment's `version >= server.version` in
 the typed core, following comp inheritance, version/server reference objects,
 head maps and dereferences to the resolved integer class. Retain accepted [Q7](sources.md#figure-21b-and-the-accepted-q7-correction)'s
 display >= server direction. Derive both operands' singleton/domain hypotheses
@@ -1623,10 +1634,10 @@ fragment and a complete typed constraint input witness.
 
 Give a partial interpretation of this selected comparison and concrete navigation
 examples for greater, equal and lower values, plus empty/multiple/wrong-domain
-boundaries. Appendix F has a mandatory server and an unguarded comparison;
+boundaries. Appendix 6 has a mandatory server and an unguarded comparison;
 Figure 21's 0..1 server and nonempty-server guard remain a distinct contract.
 The theorem is conditional on the selected structural semantics, not a proof
-that structural Compile establishes those semantics or a whole Appendix F model.
+that structural Compile establishes those semantics or a whole Appendix 6 model.
 The separate inherited realization and constraint denotation extensions supply
 inherited structures and other expressions (including `server = parent`);
 this fragment requirement does not assert their combined model result. Document [Q3](sources.md#appendix-d-rule-dispositions-q3) limits and
@@ -1669,7 +1680,7 @@ Needs: impl, proof
 `req~clafer-compile-structure~1`
 
 Implement a total Lean transformation from accepted resolved ASTs to MCS values,
-following §6.2.4 and Appendix E Tables 5–8 with the accepted presence/ownership
+following §6.2.4 and Tables 5–8 (see Appendix 5) with the accepted presence/ownership
 corrections. Traverse finite containment and resolve edges by terminating finite
 lookup; never recursively follow reference edges. Allocate class identities by
 preorder occurrence and map identities by owner and role. Allocation must be
@@ -1722,7 +1733,7 @@ Needs: impl, proof
 
 Preserve each resolved declaration's complete `GroupMultiplicity` in the
 compiled family, including authored/effective values and keyword provenance
-(Appendix C p.31). Derive validity of its effective bounds from the accepted
+(Appendix 3 PDF p.32). Derive validity of its effective bounds from the accepted
 AST; do not run default elaboration again or change keyword child defaults.
 Derive the direct-child inventory exactly from resolved parent identity. Each
 entry supplies the typed head map from that parent's head to the child's head,
@@ -1746,7 +1757,7 @@ Needs: impl, proof
 Generate one interpreted group declaration for every concrete context using its
 resolved effective bound and the union of own and super-hierarchy child heads.
 Abstract groups supply inheritable bounds without a separate original-child
-invariant. Preserve Appendix C provenance/defaults/overrides and ordinary explicit
+invariant. Preserve Appendix 3 provenance/defaults/overrides and ordinary explicit
 constraints on abstract contexts. Follow the accepted [group-inheritance contract](group-compilation.md)
 and its pinned source citations, including the explicit discrepancy with the
 compiler's empty-inventory skip.
@@ -1861,7 +1872,7 @@ failure of translated-formula injectivity despite the source literal key.
 Exhibit DP preservation together with failure of `FormalCD` validity when defaults
 are missing, including a nonempty valid source bank; also prove a positive
 `FormalCD` validity result with sufficient defaults. Keep examples separate from
-public imports and preserve [guarded Appendix E clauses (Q2)](mcs-invariants.md#appendix-e-inventory) and [source ownership bounds (Q9)](mcs-invariants.md#figure-23-source-multiplicity-correction), the existing validation gates and OFT IDs.
+public imports and preserve [guarded Appendix 5 clauses (Q2)](mcs-invariants.md#appendix-e-inventory) and [source ownership bounds (Q9)](mcs-invariants.md#figure-23-source-multiplicity-correction), the existing validation gates and OFT IDs.
 [Compile-to-gluing integration](representative-models.md) and general constraint semantics remain
 separate.
 
@@ -1901,7 +1912,7 @@ Needs: impl, proof
 `req~clafer-structural-satisfaction~1`
 
 Define independent global structural satisfaction for the accepted fragment from
-SoSyM §§5.3–5.5, 6.1–6.2, B.1–B.5, Table 3/A.1 and Appendix E. Cover singleton
+SoSyM §§5.3–5.5, 6.1–6.2, B.1–B.5, Table 3/A.1 and Appendix 5. Cover singleton
 fresh root, used-object coverage and containment reachability, per-declaration
 parent ownership, shared-object inheritance, abstract cover and common-target
 sibling disjointness, reference totality, set keys, local multiplicities and
@@ -1985,7 +1996,7 @@ Needs: impl, proof, utest
 
 `req~clafer-inherited-realization~1`
 
-Extend the Clafer whole-model interpretation for the accepted Appendix F
+Extend the Clafer whole-model interpretation for the accepted Appendix 6
 nested-abstractness, inheritance and group combinations in
 [the scoped source contract](inherited-realization.md).
 Preserve the [finite checker](structural-checker.md)'s guarded fragment; enforce
@@ -2054,7 +2065,9 @@ Covers:
 
 Needs: impl, proof
 
-## Appendix F inherited structural witnesses
+<a id="appendix-f-inherited-structural-witnesses"></a>
+
+## Appendix 6 inherited structural witnesses
 
 `req~clafer-inherited-witnesses~1`
 
@@ -2067,7 +2080,7 @@ explicit sibling overlap and inheritance-incomparable declaration overlap, share
 owned occurrences at distinct parents and inappropriate duplicate occurrences. Reject an xor violation at realized
 options.size. Retain the source-ID mapping and the separate twelve-conjunct scope
 inventory; these structural witnesses do not establish the
-[complete expression-bearing fixture or its satisfaction theorem](appendix-f.md).
+[complete expression-bearing fixture or its satisfaction theorem](telematics.md).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2100,7 +2113,7 @@ Boolean, integer, unary-set and binary-relation constructors, both joins,
 quantification, cardinality and no/one/lone/some helpers. Apply [Q3](sources.md#appendix-d-rule-dispositions-q3) ordinary
 intersection. Make span reduction explicit; retain original links and count
 reference heads separately from dereferenced targets. Integrate the [partial singleton
-extraction bridge](integer-extraction.md), deriving Appendix F numeric operand definedness from structural
+extraction bridge](integer-extraction.md), deriving Appendix 6 numeric operand definedness from structural
 map bounds, reference functionality and inheritance. Undefined is distinct from
 false. Do not define truth by evaluator success or silently assume final operand
 singletons. No executable evaluator is required; one would require a separate
@@ -2127,7 +2140,9 @@ Covers:
 
 Needs: impl, proof
 
-## Appendix F resolved expression inventory
+<a id="appendix-f-resolved-expression-inventory"></a>
+
+## Appendix 6 resolved expression inventory
 
 `req~clafer-appendix-f-expressions~1`
 
@@ -2201,11 +2216,13 @@ Covers:
 
 Needs: impl, proof
 
-## Constraint preservation sensitivity and Appendix F support
+<a id="constraint-preservation-sensitivity-and-appendix-f-support"></a>
+
+## Constraint preservation sensitivity and Appendix 6 support
 
 `req~clafer-constraint-preservation-witnesses~1`
 
-Audit all twelve Appendix F bodies against positive-map Compile support and
+Audit all twelve Appendix 6 bodies against positive-map Compile support and
 preserve their complete resolved bindings. Check that each uses actual source
 navigation; do not add dummy maps or weaken total args. Retain the full integer
 domain and record any mismatch with finite primitive placeholders separately from
@@ -2228,7 +2245,7 @@ Needs: impl, proof
 `req~clafer-representative-integration~1`
 
 Apply the delivered Compile/gluing correctness interfaces to concrete resolved
-models (SoSyM §6.2.4–5, selected Figures 16, 18, 21–23 and Appendix F), proving
+models (SoSyM §6.2.4–5, selected Figures 16, 18, 21–23 and Appendix 6), proving
 expected nesting, inheritance, shared-reference identity, multiplicity and typed
 constraint-attachment relationships. Establish MCS validity, `FormalCD` validity
 with complete effective defaults, and exact translated declaration preservation
@@ -2240,9 +2257,9 @@ compiled/glued xor must accept one selected child object and reject zero and two
 with all individual optional child-head multiplicity formulas satisfied in each
 case. Reuse the delivered group/structural semantics, including inherited fields;
 AST group metadata alone does not meet this obligation. Reuse the complete
-Appendix F declaration projection and its nonempty structural realization.
+Appendix 6 declaration projection and its nonempty structural realization.
 
-Compile and glue the selected Appendix F c02 typed attachment, preserving the
+Compile and glue the selected Appendix 6 c02 typed attachment, preserving the
 mandatory server and unguarded display-version >= server-version direction.
 Derive the delivered integer-navigation bound/inclusion hypotheses from the
 actual emitted local predicates under interpretation; keep the integer-domain
@@ -2264,14 +2281,14 @@ Needs: impl, proof
 
 Maintain a concise [feature/source and completion matrix](representative-models.md)
 linking every advertised feature to a checked example and actual theorem. Account
-for all Appendix F d01–d26 declarations and c01–c12 conjuncts from the accepted
+for all Appendix 6 d01–d26 declarations and c01–c12 conjuncts from the accepted
 [inventory](inherited-realization.md), including every omission from each selected
 fixture. Separate required results, proved statements, assumptions and unfinished
 questions. Preserve the distinct source IDs of each representation; do not combine
 separate fixtures into an unsupported full-model claim.
 
 The structural projection includes all printed declarations; the separately
-compiled c02 fragment is a supported subset, not full Appendix F completion.
+compiled c02 fragment is a supported subset, not full Appendix 6 completion.
 Full interpretation of all printed constraints, final selections and a nonempty
 satisfying full model have the separate contract `req~clafer-appendix-f-complete~1`. [Constraint preservation](constraint-preservation.md) depends on this structural milestone and
 is not a prerequisite for its narrower result. Preserve independent public imports
@@ -2449,13 +2466,19 @@ Covers:
 
 Needs: impl, utest
 
-## Complete resolved Appendix F integration
+<a id="complete-resolved-appendix-f-integration"></a>
+
+## Complete resolved Appendix 6 integration
 
 `req~clafer-appendix-f-complete~1`
 
-Represent every printed declaration and c01–c12 conjunct of SoSyM Appendix F
-p.34 in one resolved/defaulted input, including the final dual, extraDisplay
-and large selections. Reconcile the visually checked source inventory with
+Represent every printed declaration and c01–c12 conjunct of SoSyM Appendix 6
+PDF p.34 in one resolved/defaulted input, including the final dual, extraDisplay
+and large selections. Organize the case study under `Clafer.Examples.Telematics`
+with module names describing their roles. Distinguish the full model from its
+structural projection, expression environments and `FormalCD.Telematics`'s
+Figure 21 model; appendix numbering belongs in source citations.
+Reconcile the visually checked source inventory with
 actual owner/position attachments, repeated size identities, all seven super
 edges, five abstract families and three xor groups. Reuse the accepted source
 elaboration, accepted source corrections and inherited-field/group decisions
@@ -2475,7 +2498,7 @@ and its canonical descent into the exact generated/glued diagram. Neither a
 source-truth-only theorem nor an assumed correspondence meets this requirement.
 
 Document remaining elaboration assumptions and finite-evaluation boundaries
-in [the full-model contract](appendix-f.md). This requirement extends the selected
+in [the full-model contract](telematics.md). This requirement extends the selected
 interfaces above; it does not rename representative/subset proofs into full-model
 acceptance, claim a finite entire interpretation or broaden the [finite structural checker](structural-checker.md).
 
@@ -2485,7 +2508,9 @@ Covers:
 
 Needs: impl, proof
 
-## Complete Appendix F rejection witnesses
+<a id="complete-appendix-f-rejection-witnesses"></a>
+
+## Complete Appendix 6 rejection witnesses
 
 `req~clafer-appendix-f-rejections~1`
 

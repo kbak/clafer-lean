@@ -1,10 +1,12 @@
 module
 
-public import Clafer.Examples.AppendixFModel
+public import Clafer.Examples.Telematics.ExpressionEnvironment
 public import Clafer.Constraints.DenotationDefined
 public import Clafer.Constraints.CollectionMeaning
 
-/-! # Appendix F operator-combination witnesses
+/-! # Telematics operator-combination witnesses
+
+SoSyM Appendix 6 (PDF p.34).
 
 These check the actual c01–c12 bodies on the inherited fixture. The supplied
 structural projection has one display per ECU and extraDisplay present, so its
@@ -13,8 +15,8 @@ is a separate #64 integration obligation.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixFConstraintExamples
-open Clafer.Constraints AppendixFConstraints AppendixFModel
+namespace Clafer.Examples.Telematics.ExpressionExamples
+open Clafer.Constraints Telematics.Expressions Telematics.ExpressionEnvironment
 
 set_option maxHeartbeats 2000000
 set_option maxRecDepth 4096
@@ -35,7 +37,7 @@ theorem inherited_cache_empty :
   simp only [inheritedCache,head5,head13,Expr.denote,lift₂,Option.bind_some,Option.map_some,
     Environment.closed]
   rw [image_reduced, image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem no_cache : c03.Holds (model 15 2 3) (.closed (atom 4)) := by
   unfold c03 Expr.Holds
@@ -47,14 +49,14 @@ theorem displays1_value (c : Fin 28) (e d : Int) (ρ : Environment (support c) U
     displays1.denote (model c e d) ρ = some {atom 4} := by
   simp only [displays1,head15,Expr.denote,lift₂,Option.bind_some,Option.map_some]
   rw [image_reduced, model_objects]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
     Set.ext_iff]
 
 theorem displays2_value (c : Fin 28) (e d : Int) (ρ : Environment (support c) U []) :
     displays2.denote (model c e d) ρ = some {atom 5} := by
   simp only [displays2,head15,Expr.denote,lift₂,Option.bind_some,Option.map_some]
   rw [image_reduced, model_objects]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
     Set.ext_iff]
 
 theorem extra_value (e d : Int) :
@@ -62,7 +64,7 @@ theorem extra_value (e d : Int) :
       (.closed (atom 19)) = some {atom 22} := by
   simp only [head23,Expr.denote,lift₂,Option.bind_some,Option.map_some]
   rw [image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
     Environment.closed]
 
 theorem dual_value (e d : Int) :
@@ -70,12 +72,12 @@ theorem dual_value (e d : Int) :
       (.closed (atom 19)) = some {atom 21} := by
   simp only [head22,head20,Expr.denote,lift₂,Option.bind_some,Option.map_some]
   simp only [image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
     Environment.closed]
 
 theorem ecu2_value (c : Fin 28) (e d : Int) (ρ : Environment (support c) U []) :
     (Expr.extent 17).denote (model c e d) ρ = some {atom 3} := by
-  simp [Expr.denote,objects,position,Inherited.config,Inherited.heads]
+  simp [Expr.denote,objects,position,Telematics.Structural.config,Telematics.Structural.heads]
 
 theorem actual_c05 : c05.Holds (model 19 2 3) (.closed (atom 19)) := by
   unfold c05 Expr.Holds
@@ -109,19 +111,19 @@ theorem small_options_empty :
     (head3 (head2 (.this : Expr (support 1) [] _))).denote (model 1 2 3)
       (.closed (atom 12)) = some ∅ := by
   simp only [head3,head2,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem cache_empty :
     (head5 (.this : Expr (support 1) [] _)).denote (model 1 2 3)
       (.closed (atom 12)) = some ∅ := by
   simp only [head5,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem fixed_empty :
     (head7 (head6 (head5 (.this : Expr (support 1) [] _)))).denote (model 1 2 3)
       (.closed (atom 12)) = some ∅ := by
   simp only [head7,head6,head5,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem actual_c01 : c01.Holds (model 1 2 3) (.closed (atom 12)) := by
   have hs := denotes_some _ _ _ _ small_options_empty Set.finite_empty
@@ -138,14 +140,14 @@ theorem server_value :
     (dereference12 (head12 (.widenObjects inclusion15 (Expr.this : Expr (support 15) [] _)))).denote
       (model 15 2 3) (.closed (atom 4)) = some {atom 2} := by
   simp only [dereference12,head12,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
-    Inherited.targets,Environment.closed,Set.ext_iff]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
+    Telematics.Structural.targets,Environment.closed,Set.ext_iff]
 
 theorem parent_value :
     (Expr.widenObjects inclusion14 (parent15 (Expr.this : Expr (support 15) [] _))).denote
       (model 15 2 3) (.closed (atom 4)) = some {atom 2} := by
   simp only [parent15,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
     Environment.closed,Set.ext_iff]
 
 theorem actual_c04 : c04.Holds (model 15 2 3) (.closed (atom 4)) := by
@@ -161,21 +163,21 @@ theorem large_local :
     (head26 (head24 (Expr.this : Expr (support 19) [] _))).denote
       (model 19 2 3) (.closed (atom 19)) = some {atom 24} := by
   simp only [head26,head24,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
     Environment.closed]
 
 theorem small_local :
     (head25 (head24 (Expr.this : Expr (support 19) [] _))).denote
       (model 19 2 3) (.closed (atom 19)) = some ∅ := by
   simp only [head25,head24,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem all_small :
     (head3 (allSizes : Expr (support 19) [] _)).denote
       (model 19 2 3) (.closed (atom 19)) = some ∅ := by
   simp only [allSizes,head3,head2,head13,head15,Expr.denote,lift₂,
     Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem all_large :
     (head4 (allSizes : Expr (support 19) [] _)).denote
@@ -183,7 +185,7 @@ theorem all_large :
   simp only [allSizes,head4,head2,head13,head15,Expr.denote,lift₂,
     Option.bind_some,Option.map_some]
   rw [image_reduced, image_reduced, image_reduced, image_reduced, model_objects]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
     Set.ext_iff]
   aesop
 
@@ -211,7 +213,7 @@ theorem global_dual :
   rw [image_reduced]
   rw [image_reduced]
   rw [model_objects]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem global_extra :
     (head23 (Expr.extent 19 : Expr (support 0) [] _)).denote
@@ -219,7 +221,7 @@ theorem global_extra :
   simp only [head23,Expr.denote,lift₂,Option.bind_some,Option.map_some]
   rw [image_reduced]
   rw [model_objects]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem global_large :
     (head26 (head24 (Expr.extent 19 : Expr (support 0) [] _))).denote
@@ -228,7 +230,7 @@ theorem global_large :
   rw [image_reduced]
   rw [image_reduced]
   rw [model_objects]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership]
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership]
 
 theorem actual_c10 : c10.Holds (model 0 2 3) (.closed (atom 0)) := by
   have h := denotes_some _ _ _ _ global_dual (Set.finite_singleton _)
@@ -246,7 +248,7 @@ theorem display_values (e d : Int) :
     (dereference9 (head9 (.widenObjects inclusion11 (Expr.this : Expr (support 11) [] _)))).denote
       (model 11 e d) (.closed (atom 4)) = some {integers.encode d} := by
   simp only [dereference9,head9,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
     Environment.closed,FormalCD.Telematics.IntegerRealization.domain,integers,Set.ext_iff]
 
 theorem server_version_values (e d : Int) :
@@ -255,8 +257,8 @@ theorem server_version_values (e d : Int) :
       (model 11 e d) (.closed (atom 4)) = some {integers.encode e} := by
   simp only [dereference9,head9,dereference12,head12,Expr.denote,lift₂,
     Option.bind_some,Option.map_some,image_reduced]
-  simp [objects,maps,position,links,Inherited.config,Inherited.heads,Inherited.ownership,
-    Inherited.targets,Environment.closed,FormalCD.Telematics.IntegerRealization.domain,
+  simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
+    Telematics.Structural.targets,Environment.closed,FormalCD.Telematics.IntegerRealization.domain,
     integers,Set.ext_iff]
 
 theorem actual_c02_value (e d : Int) :
@@ -276,4 +278,4 @@ theorem actual_c02_equal : c02.Holds (model 11 2 2) (.closed (atom 4)) := by
 theorem actual_c02_lower : ¬ c02.Holds (model 11 3 2) (.closed (atom 4)) := by
   simp [Expr.Holds,actual_c02_value]
 
-end Clafer.Examples.AppendixFConstraintExamples
+end Clafer.Examples.Telematics.ExpressionExamples

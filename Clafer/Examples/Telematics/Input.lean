@@ -1,19 +1,19 @@
 module
 
-public import Clafer.Examples.AppendixFConstraints
+public import Clafer.Examples.Telematics.Expressions
 public import Clafer.Compile.ConstraintMeaning
 
 /-!
-# Complete resolved Appendix F input
+# Complete resolved telematics input
 
-SoSyM Appendix F p.34, Appendix C and §6.2.4–5. The source map is manual:
+SoSyM Appendix 6 PDF p.34, Appendix 3 and §6.2.4–5. The source map is manual:
 all d01–d26 declarations reuse the reviewed inherited projection; all c01–c12
 bodies reuse the reviewed expression inventory. The implicit integer head has
 unrestricted bounds, as required for the complete mathematical integer domain.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixF
+namespace Clafer.Examples.Telematics
 open CategoryTheory MCS Compile DPGraph DPGraph.Predicates Semantics Constraints
 
 set_option maxHeartbeats 2000000
@@ -36,10 +36,10 @@ def attachments : Nat → List ConstraintBoundary
   | _ => []
 
 def decl (n : Nat) : Declaration :=
-  { Inherited.decl n with
+  { Telematics.Structural.decl n with
     constraints := attachments n
     multiplicity := if n = 27 then ⟨some unrestricted, unrestricted⟩
-      else (Inherited.decl n).multiplicity }
+      else (Telematics.Structural.decl n).multiplicity }
 
 def ast : AST := ⟨⟨0⟩, [.branch (decl 0) [.branch (decl 16) [], .branch (decl 17) [.branch (decl 18) []], .branch (decl 19) [.branch (decl 20) [.branch (decl 21) [], .branch (decl 22) []], .branch (decl 23) [], .branch (decl 24) [.branch (decl 25) [], .branch (decl 26) []]], .branch (decl 27) []], .branch (decl 1) [.branch (decl 2) [.branch (decl 3) [], .branch (decl 4) []], .branch (decl 5) [.branch (decl 6) [.branch (decl 7) []]]], .branch (decl 8) [.branch (decl 9) []], .branch (decl 10) [], .branch (decl 11) [.branch (decl 12) [], .branch (decl 13) []], .branch (decl 14) [.branch (decl 15) []]]⟩
 
@@ -204,17 +204,17 @@ theorem defaults_valid (d : Located) (hd : d ∈ ast.entries)
 set_option maxHeartbeats 1000000 in
 theorem wf : ast.WellFormed where
   unique_ids := by decide
-  root_exists := by simp [AST.Known, entries, decl, Inherited.decl]
+  root_exists := by simp [AST.Known, entries, decl, Telematics.Structural.decl]
   root_origin := by decide
   root_shape := by decide
-  parent_exists := by simp [entries, decl, Inherited.decl, AST.Known]
+  parent_exists := by simp [entries, decl, Telematics.Structural.decl, AST.Known]
   parent_depth := by decide
   parentless_abstract := by decide
   nested_abstract := by decide
-  primitive_shape := by simp [entries, decl, Inherited.decl, PrimitiveDomain.name]
-  unique_domains := by simp [entries, decl, Inherited.decl]
-  targets_resolved := by simp [entries, decl, Inherited.decl, Reference.target, AST.Known]
-  supers_resolved := by simp [entries, decl, Inherited.decl, AST.Known]
+  primitive_shape := by simp [entries, decl, Telematics.Structural.decl, PrimitiveDomain.name]
+  unique_domains := by simp [entries, decl, Telematics.Structural.decl]
+  targets_resolved := by simp [entries, decl, Telematics.Structural.decl, Reference.target, AST.Known]
+  supers_resolved := by simp [entries, decl, Telematics.Structural.decl, AST.Known]
   inheritance_kind := by
     unfold Kind.CanExtend
     decide
@@ -223,25 +223,25 @@ theorem wf : ast.WellFormed where
     refine ⟨fun id => if id = ⟨16⟩ ∨ id = ⟨17⟩ then 3 else
         if id = ⟨14⟩ ∨ id = ⟨15⟩ then 2 else
         if id = ⟨10⟩ ∨ id = ⟨11⟩ ∨ id = ⟨13⟩ then 1 else 0, ?_⟩
-    simp [entries, decl, Inherited.decl]
+    simp [entries, decl, Telematics.Structural.decl]
   valid_bounds := by decide
   defaults := defaults_valid
   constraints_resolved := by
-    simp [entries, decl, Inherited.decl, attachments, sourceBoundary, contexts,
+    simp [entries, decl, Telematics.Structural.decl, attachments, sourceBoundary, contexts,
       ConstraintBoundary.Resolved, AST.Known]
 
 
-theorem support_resolved (c : Fin 28) : (AppendixFConstraints.support c).Resolved ast := by
+theorem support_resolved (c : Fin 28) : (Telematics.Expressions.support c).Resolved ast := by
   constructor
-  · intro v; fin_cases v <;> simp [AST.Known, entries, decl, Inherited.decl]
-  · intro e; fin_cases e <;> simp [Support.MapResolved, AppendixFConstraints.support,
-      AppendixFConstraints.maps, entries, decl, Inherited.decl, Reference.target]
-  · intro v h; fin_cases v <;> simp_all [AppendixFConstraints.support,
-      entries, decl, Inherited.decl]
+  · intro v; fin_cases v <;> simp [AST.Known, entries, decl, Telematics.Structural.decl]
+  · intro e; fin_cases e <;> simp [Support.MapResolved, Telematics.Expressions.support,
+      Telematics.Expressions.maps, entries, decl, Telematics.Structural.decl, Reference.target]
+  · intro v h; fin_cases v <;> simp_all [Telematics.Expressions.support,
+      entries, decl, Telematics.Structural.decl]
 
 theorem boundary_resolved (c : Fin 12) : (sourceBoundary c).Resolved ast.Known := by
   fin_cases c <;> simp [sourceBoundary, contexts, ConstraintBoundary.Resolved,
-    AST.Known, entries, decl, Inherited.decl]
+    AST.Known, entries, decl, Telematics.Structural.decl]
 
 noncomputable def sourceIndex (q : ConstraintId ast) : Fin 12 :=
   ⟨(boundary ast q).id - 1, by
@@ -256,7 +256,7 @@ theorem attached_boundary (q : ConstraintId ast) :
   fin_cases c <;> fin_cases k <;> rfl
 
 theorem inventory_input (c : Fin 12) :
-    (AppendixFConstraints.inventory c).Input ast (sourceBoundary c) := by
+    (Telematics.Expressions.inventory c).Input ast (sourceBoundary c) := by
   fin_cases c
   all_goals refine ⟨wf, support_resolved _, boundary_resolved _, ⟨?_⟩, rfl, ⟨.nil⟩⟩
   all_goals exact {
@@ -272,14 +272,14 @@ noncomputable def input : Input ast where
     intro d hd
     simp only [entries, List.mem_cons, List.not_mem_nil, or_false] at hd
     rcases hd with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals simp [decl, Inherited.decl]
+    all_goals simp [decl, Telematics.Structural.decl]
   user_names := by
     intro d hd
     simp only [entries, List.mem_cons, List.not_mem_nil, or_false] at hd
     rcases hd with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals simp [decl, Inherited.decl, predefinedStrings]
+    all_goals simp [decl, Telematics.Structural.decl, predefinedStrings]
     all_goals intro dom; cases dom <;> decide
-  constraint q := AppendixFConstraints.inventory (sourceIndex q)
+  constraint q := Telematics.Expressions.inventory (sourceIndex q)
   typed q := by rw [attached_boundary]; exact inventory_input _
   positive_support q := by
     generalize sourceIndex q = c
@@ -292,30 +292,30 @@ theorem mcs_valid : MCS.Valid result.labels result.formulas := wellFormed input
 
 noncomputable def core : Semantics.Realization.Core 28 := Semantics.Realization.Core.ofInput input
 
-def bounds (d : Fin 28) : Range := if d = 12 then unrestricted else Inherited.bounds d
+def bounds (d : Fin 28) : Range := if d = 12 then unrestricted else Telematics.Structural.bounds d
 
-theorem parents_eq (d : Fin 28) : core.family.parent d = Inherited.parents d := by
+theorem parents_eq (d : Fin 28) : core.family.parent d = Telematics.Structural.parents d := by
   fin_cases d <;> rfl
 
-theorem supers_eq (d : Fin 28) : core.family.super d = Inherited.supers d := by
+theorem supers_eq (d : Fin 28) : core.family.super d = Telematics.Structural.supers d := by
   fin_cases d <;> rfl
 
-theorem references_eq (d : Fin 28) : core.family.reference d = Inherited.references d := by
+theorem references_eq (d : Fin 28) : core.family.reference d = Telematics.Structural.references d := by
   fin_cases d <;> rfl
 
-theorem explicit_eq (d : Fin 28) : core.explicitAbstract d = Inherited.explicit d := by
+theorem explicit_eq (d : Fin 28) : core.explicitAbstract d = Telematics.Structural.explicit d := by
   fin_cases d <;> rfl
 
-theorem effective_eq (d : Fin 28) : core.family.isAbstract d = Inherited.effective d := by
+theorem effective_eq (d : Fin 28) : core.family.isAbstract d = Telematics.Structural.effective d := by
   fin_cases d <;> rfl
 
 theorem bounds_eq (d : Fin 28) : core.family.multiplicity d = bounds d := by
   fin_cases d <;> rfl
 
-theorem groupBounds_eq (d : Fin 28) : core.group d = Inherited.groupBounds d := by
+theorem groupBounds_eq (d : Fin 28) : core.group d = Telematics.Structural.groupBounds d := by
   fin_cases d <;> rfl
 
-theorem family_groups (d : Fin 28) : (core.family.group d).effective.range = Inherited.groupBounds d := by
+theorem family_groups (d : Fin 28) : (core.family.group d).effective.range = Telematics.Structural.groupBounds d := by
   fin_cases d <;> rfl
 
 theorem selected : core.Selected := by
@@ -323,7 +323,7 @@ theorem selected : core.Selected := by
   simp only [parents_eq, supers_eq, references_eq, explicit_eq, effective_eq]
   refine ⟨by decide, by decide, ?_, by decide, ?_⟩
   · intro d c hc
-    fin_cases d <;> simp [Inherited.supers] at hc
+    fin_cases d <;> simp [Telematics.Structural.supers] at hc
     all_goals subst c; exact ⟨rfl,rfl⟩
   · refine ⟨![0,1,1,2,1,2,3,3,2,2,3,3,1,8,9,10,10,9,10,11,7,8,3,6,7,7,2,5], ?_, ?_⟩
     · decide
@@ -345,8 +345,8 @@ theorem occurrence_sourceIndex (q : ConstraintId ast) : occurrence (sourceIndex 
   change Fin 28 at c
   fin_cases c <;> fin_cases k <;> rfl
 
-theorem occurrence_body (c : Fin 12) : input.constraint (occurrence c) = AppendixFConstraints.inventory c := by
-  change AppendixFConstraints.inventory (sourceIndex (occurrence c)) = _
+theorem occurrence_body (c : Fin 12) : input.constraint (occurrence c) = Telematics.Expressions.inventory c := by
+  change Telematics.Expressions.inventory (sourceIndex (occurrence c)) = _
   rw [sourceIndex_occurrence]
 
 theorem occurrence_owner (c : Fin 12) :
@@ -366,4 +366,4 @@ theorem exact_declarations (φ) : φ ∈ (Compile.Realization.glued input).decla
     ∃ q, ((Compile.Realization.bank input).formula q).translate (groupLabel input) = φ :=
   Compile.Realization.glued_declarations input φ
 
-end Clafer.Examples.AppendixF
+end Clafer.Examples.Telematics

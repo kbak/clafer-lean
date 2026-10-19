@@ -6,8 +6,8 @@ public import FormalCD.Basic
 /-!
 # Finite, resolved 2014 syntax
 
-SoSyM §5.3.1–5, §5.4–5 (pp.13–16), §6.2.2/Figure 22 (p.20),
-Appendix C/Figure 27 (pp.30–31). Input is already resolved and defaulted.
+SoSyM §5.3.1–5, §5.4–5 (PDF pp.14–17), §6.2.2/Figure 22 (PDF p.21),
+Appendix 3/Figure 27 (PDF pp.31–32). Input is already resolved and defaulted.
 Containment is deep syntax; references and inheritance are identifier edges.
 -/
 
@@ -52,7 +52,7 @@ def GroupCard.range : GroupCard → Range
   | .bounds r => r | .xor => one | .or => ⟨1, .unbounded⟩
   | .mux => optional | .opt => unrestricted
 
-/-- Appendix C: keyword groups make children optional by default. -/
+/-- Appendix 3: keyword groups make children optional by default. -/
 def GroupCard.childDefault : GroupCard → Range
   | .bounds _ => one | .xor | .or | .mux | .opt => optional
 
@@ -168,7 +168,7 @@ theorem AST.every_entry_indexed (a : AST) (d : Located) (h : d ∈ a.entries) :
   obtain ⟨i, hi, he⟩ := List.getElem_of_mem h
   exact ⟨⟨i, hi⟩, he⟩
 
-/-- Appendix C consistency for already defaulted input. An omitted group takes
+/-- Appendix 3 consistency for already defaulted input. An omitted group takes
 the super's effective group (including keyword provenance), or 0..* otherwise.
 Explicit child bounds override the parent's keyword default. -/
 def Defaults (d : Declaration) (parent super : Option Declaration) : Prop :=

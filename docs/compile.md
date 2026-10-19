@@ -1,7 +1,7 @@
 # Structural Compile
 
-`Clafer.Compile.compile` implements SoSyM §6.2.4 (p.21), producing the
-[Figure 23/Appendix E MCS](mcs-invariants.md) under `Compile.Input`.
+`Clafer.Compile.compile` implements SoSyM §6.2.4 (PDF p.23), producing the
+[Figure 23/Appendix 5 MCS](mcs-invariants.md) under `Compile.Input`.
 See the [product intent](intent.md), [requirements](spec.md#structural-compile-input-contract)
 and [source decisions](sources.md#structural-compile-contract).
 
@@ -127,7 +127,7 @@ correspondence under explicit admissibility assumptions.
 
 ## Selected inherited realization extension
 
-[The Appendix F contract](inherited-realization.md) adds
+[The Appendix 6 contract](inherited-realization.md) adds
 `Compile.Realization.compileRealized`, retaining `compileAugmented` exactly.
 The additional bank generates actual built-in cover/disjoint predicates for every
 explicit abstract and group predicates for ordinary fields made effectively

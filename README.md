@@ -7,7 +7,7 @@
 **A [Lean 4](https://lean-lang.org/) formalization of Clafer's modeling semantics.**
 [Clafer](https://www.clafer.org/) combines class modeling, feature modeling, and
 constraints in one language for describing families of systems and their valid
-configurations. This project turns the definitions in the 2014 Clafer paper into
+configurations. This project turns the definitions in the published Clafer paper into
 precise mathematical objects and machine-checked proofs.
 
 Use it to study the semantics, inspect worked models, or build on reusable graph
@@ -31,7 +31,7 @@ Dependencies flow `Clafer → FormalCD → DPGraph → Mathlib`; `DPGraph` is in
 importable. The [architecture](docs/architecture.md) explains these boundaries.
 
 **Status: active research, with no stable API or supported releases.** The
-[Appendix F case study](docs/appendix-f.md) connects a complete, manually resolved
+[Telematics case study](docs/telematics.md) connects a complete, manually resolved
 telematics model to compilation and a concrete satisfying interpretation,
 including all twelve constraint bodies. Its proof establishes that particular
 model under the documented formalization choices. General source-text compiler
@@ -64,7 +64,7 @@ lake env lean DPGraph/Span/Examples.lean
 
 Then explore [class diagrams](FormalCD/Examples.lean),
 [compilation and gluing](docs/representative-models.md), or the
-[complete telematics model](docs/appendix-f.md). The
+[complete telematics model](docs/telematics.md). The
 [documentation map](docs/intent.md#documentation-map) leads to detailed contracts,
 source citations, and proof indexes.
 
@@ -91,9 +91,10 @@ For sensitive reports, follow the [security policy](SECURITY.md).
 
 The primary semantic reference is:
 
-- *Clafer: unifying class and feature modeling*, Software and Systems Modeling,
+- *Clafer: unifying class and feature modeling*, Software & Systems Modeling
+  **15, 811–845 (2016)**; published online in 2014,
   [DOI: 10.1007/s10270-014-0441-1](https://doi.org/10.1007/s10270-014-0441-1)
-  ([free preprint](https://gsd.uwaterloo.ca/sites/default/files/2014-Bak-Clafer-Unifying-Class-Feature-Modeling%28SOSYM%29.pdf)).
+  ([author preprint for free access](https://gsd.uwaterloo.ca/sites/default/files/2014-Bak-Clafer-Unifying-Class-Feature-Modeling%28SOSYM%29.pdf)).
 
 Read the [paper corrections and clarifications](docs/sosym-errata.md) alongside it;
 the [source map](docs/sources.md) records exact correspondences and accepted choices.

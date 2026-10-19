@@ -6,7 +6,7 @@ public import Clafer.Semantics.Interpretation
 /-!
 # Group arities and meanings
 
-SoSyM §4.2.1, §6.2.2, B.4 Definition 8 and Appendix C; D6 as recorded in
+SoSyM §4.2.1, §6.2.2, B.4 Definition 8 and Appendix 3; D6 as recorded in
 docs/group-compilation.md. Abstract groups supply effective bounds at concrete
 contexts. Child objects retain ambient identity across inherited head maps.
 -/

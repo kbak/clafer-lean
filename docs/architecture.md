@@ -283,7 +283,7 @@ Covers:
 | --- | --- | --- |
 | Reusable DP-graphs | [Graph representation](https://github.com/kbak/clafer-lean/issues/13) → [typed declarations and maps](https://github.com/kbak/clafer-lean/issues/14) → [category and model restriction](https://github.com/kbak/clafer-lean/issues/15), with [split restriction laws](https://github.com/kbak/clafer-lean/issues/28) and [conditional pushouts](https://github.com/kbak/clafer-lean/issues/30). Separately, [link-preserving spans](https://github.com/kbak/clafer-lean/issues/4) support [concrete predicate meanings](https://github.com/kbak/clafer-lean/issues/16). | The [DPGraph proof inventory](dpgraph-trace.md) covers these results. The library remains independently importable; pushout and amalgamation results require a supplied carrier pushout. |
 | Formal class diagrams | Concrete predicates → [CD structure and morphisms](https://github.com/kbak/clafer-lean/issues/17) → [metamodel vocabulary and disciplines](https://github.com/kbak/clafer-lean/issues/18) → [bounded self-description and telematics](https://github.com/kbak/clafer-lean/issues/19). | The [FormalCD proof inventory](formalcd-trace.md) covers metadata, compatible vocabulary, Figure 21c and guarded Figure 21b models. Bounded syntactic self-description does not establish semantic self-instantiation. |
-| Structural Clafer | [Resolved syntax and Shapes](https://github.com/kbak/clafer-lean/issues/3) support [MCS disciplines](https://github.com/kbak/clafer-lean/issues/20) and [typed constraints](https://github.com/kbak/clafer-lean/issues/21), then [Compile](https://github.com/kbak/clafer-lean/issues/22), [resolved-referent gluing](https://github.com/kbak/clafer-lean/issues/23) and [representative integration](https://github.com/kbak/clafer-lean/issues/24). | [Compile](compile.md) and gluing retain their input and default-completeness assumptions. [Representative models](representative-models.md) check structure, xor groups and version attachment. [Core denotation](constraint-denotation.md) and [selected preservation](constraint-preservation.md) connect typed bodies to predicate satisfaction; the [complete Appendix F model](appendix-f.md) supplies simultaneous satisfaction for one concrete model. Textual elaboration and unrestricted compiler correctness remain outside these results. |
+| Structural Clafer | [Resolved syntax and Shapes](https://github.com/kbak/clafer-lean/issues/3) support [MCS disciplines](https://github.com/kbak/clafer-lean/issues/20) and [typed constraints](https://github.com/kbak/clafer-lean/issues/21), then [Compile](https://github.com/kbak/clafer-lean/issues/22), [resolved-referent gluing](https://github.com/kbak/clafer-lean/issues/23) and [representative integration](https://github.com/kbak/clafer-lean/issues/24). | [Compile](compile.md) and gluing retain their input and default-completeness assumptions. [Representative models](representative-models.md) check structure, xor groups and version attachment. [Core denotation](constraint-denotation.md) and [selected preservation](constraint-preservation.md) connect typed bodies to predicate satisfaction; the [complete Appendix 6 model](telematics.md) supplies simultaneous satisfaction for one concrete model. Textual elaboration and unrestricted compiler correctness remain outside these results. |
 
 ### Nine architectural decision areas
 
@@ -302,7 +302,7 @@ Deferred alternatives need their own scope and validation before implementation.
 | <a id="design-a4"></a>A4 — spans, identities and universes | Retain explicit links and pullback composition in independent universes. Relations discard multiplicity; a graph of all Lean types would need an additional size principle. | [Span roundtrips and composition](dpgraph-trace.md#span-representation) and the [corrected relational-reduction law](sources.md#span-composition-q1-research-for-4) preserve link identity. Concrete predicates count links and share ambient objects. MCS and gluing preserve these distinctions across role encodings. |
 | <a id="design-a5"></a>A5 — predicate syntax and meaning | Separate symbols/arities from interpretations and model maps. Generic syntax imposes no set-valued default; `FormalCD` supplies effective defaults. Primitive domains and version comparison require explicit interpretations. | [Model restriction](dpgraph-trace.md#model-restriction-proofs) follows from precomposition. [Concrete predicates](#concrete-predicates) use [common-target disjointness (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction); [telematics](#bounded-self-description-and-figure-21b) supplies guarded version comparison. [Core denotation](constraint-denotation.md) and [integer extraction](integer-extraction.md) supply expression meaning and partial scalar conversion separately from typing. |
 | <a id="design-a6"></a>A6 — formal-CD metamodel and self-description | Reuse `CDOver` with an explicit vocabulary/registry, node/arrow discipline meanings and full-binding correspondence. Syntactic well-formedness does not imply semantic self-instantiation or a Lean universe fixpoint. | [Bounded self-description](formalcd-trace.md#bounded-syntactic-self-description-proof) and [Figure 21b witnesses](formalcd-trace.md#figure-21b-satisfaction-and-counterexamples) establish the selected results. Ordered and isolated bindings expose bag-key and argument-totality limits. Stronger realizability claims need new hypotheses and examples. |
-| <a id="design-a7"></a>A7 — Clafer syntax, MCS and finiteness | Use a deep resolved AST and typed role graphs, with raw data and explicit well-formedness propositions. A shallow Lean encoding would obscure source syntax and compilation; global finiteness would restrict reusable DP-graph semantics. Finite data belongs at the executable boundary. | The [syntax source map](sources.md#resolved-2014-clafer-and-individual-shapes) covers Figures 16/22 and the top-level abstract correction. The [MCS inventory](mcs-invariants.md) records guarded Appendix E clauses and corrected ownership bounds; Shapes still enforce exact role presence. Nonempty examples and Compile's derived structural proofs validate the finite presentations. |
+| <a id="design-a7"></a>A7 — Clafer syntax, MCS and finiteness | Use a deep resolved AST and typed role graphs, with raw data and explicit well-formedness propositions. A shallow Lean encoding would obscure source syntax and compilation; global finiteness would restrict reusable DP-graph semantics. Finite data belongs at the executable boundary. | The [syntax source map](sources.md#resolved-2014-clafer-and-individual-shapes) covers Figures 16/22 and the top-level abstract correction. The [MCS inventory](mcs-invariants.md) records guarded Appendix 5 clauses and corrected ownership bounds; Shapes still enforce exact role presence. Nonempty examples and Compile's derived structural proofs validate the finite presentations. |
 | <a id="design-a8"></a>A8 — names, generated identity, Compile and gluing | Keep role identities, resolved class/map referents and display names separate. Repeated parent/dref/isA strings do not identify arrows. Gluing identifies exactly equal resolved referents and retains the exact declaration image. | [MCS disciplines](mcs-invariants.md) state the equality used by cojoining and cover repeated names. [Compile](compile.md) establishes generated identities, freshness and termination. [Gluing](#mcs-gluing) proves incidence/declaration preservation under referent consistency, with a separate CD-validity proof under effective defaults. |
 | <a id="design-a9"></a>A9 — constraints and end-to-end claims | Use resolved typed expressions with explicit inheritance widening and graph support. Typing and structural Compile/gluing correctness do not establish constraint preservation. Neither a production parser nor the Haskell compiler defines the selected 2014 meaning. | [Core typing](#resolved-syntax-and-individual-shapes) checks binders, navigation and types. [Representative coverage](representative-models.md) states supported examples and omissions. The [preservation bridge](constraint-preservation.md) combines [denotation](constraint-denotation.md), exact binding/label transport and [inherited realization](inherited-realization.md). Textual elaboration and unrestricted preservation remain outside this claim. |
 
@@ -344,7 +344,7 @@ partial native helpers rather than introducing choice or termination axioms.
 No native compiler executable or finite-carrier restriction on lower layers follows.
 
 Authored/effective multiplicities and abstractness remain inspectable. `Defaults`
-validates supplied Appendix C data, including inherited keyword provenance and
+validates supplied Appendix 3 data, including inherited keyword provenance and
 explicit overrides; it does not elaborate defaults or realize primitive values.
 The [syntax/source correspondence](sources.md#resolved-2014-clafer-and-individual-shapes)
 records the supported forms, traversal measures and accepted parentless-head rule.
@@ -357,7 +357,7 @@ endpoint-checked joins and explicit inheritance paths for widening.
 [Constraints.Support](../Clafer/Constraints/Support.lean) gives finite occurrence
 graphs retaining isolated/repeated identities, used as constraint arities by
 Compile. The [typing requirement](spec.md#resolved-core-constraint-typing) and
-[Appendix D notation decisions](sources.md#appendix-d-rule-dispositions-q3) distinguish this
+[Appendix 4 notation decisions](sources.md#appendix-d-rule-dispositions-q3) distinguish this
 interface from resolution, general evaluation and preservation. The
 [integer-extraction extension](#integer-extraction-boundary) supplies its separate
 partial primitive bridge.
@@ -378,7 +378,7 @@ family with Shape-presence guards. Shared class-role vertices and distinct ordin
 inclusion slot occurrences make cojoining and ownership inspectable.
 `Family.canonicalRoles` constructs cojoining from resolved edges; it is not the
 AST compiler. `Family.WellFormed`/`Labels.WellFormed` enforce the
-[Appendix E inventory](mcs-invariants.md), and `Model` bundles those proofs.
+[Appendix 5 inventory](mcs-invariants.md), and `Model` bundles those proofs.
 
 `Formulas` retains the owner and full graph binding of every formula, with separate
 literal-key and total-args obligations. [MCS/Metamodel.lean](../Clafer/MCS/Metamodel.lean)
@@ -488,7 +488,7 @@ equal-ID correspondence and inheritance inclusions. Typing does not certify
 runtime uniqueness. The operation returns `none` for invalid collections.
 
 [IntegerNavigation.lean](../Clafer/Constraints/IntegerNavigation.lean) supplies
-the selected Appendix F resolved fragment, typed comparison and conditional
+the selected Appendix 6 resolved fragment, typed comparison and conditional
 operand-definedness theorem. Head and dereference maps remain distinct;
 1..1 version/server heads and functional dereferences derive singleton images.
 The accompanying examples evaluate the actual navigation and comparison for
@@ -498,12 +498,12 @@ separate. The [conversion contract](integer-extraction.md) owns detailed limits;
 the [core denotation](constraint-denotation.md) extends these equations to all
 supported constructors and the c01–c12 inherited paths. The
 [selected preservation bridge](constraint-preservation.md) connects those meanings
-to Compile and gluing; the [complete fixture](appendix-f.md) discharges its assumptions for one selected configuration.
+to Compile and gluing; the [complete fixture](telematics.md) discharges its assumptions for one selected configuration.
 
 ## Selected inherited realization
 
 `Clafer.Semantics.Realization` retains AST authored flags alongside the effective
-core and defines Appendix F contextual fields as subsets of existing owned
+core and defines Appendix 6 contextual fields as subsets of existing owned
 objects. `Clafer.Compile.Realization` preserves the [generated group bank](group-compilation.md) and adds explicit
 abstract families and realized-field groups, with exact gluing and structural
 correspondence. See the [source/combination contract](inherited-realization.md)
@@ -519,20 +519,22 @@ sets have partial meanings only where singleton conversion or finite cardinality
 requires an obligation. Constructor laws, invariance and structural numeric
 well-definedness live in adjacent modules. The [denotation contract](constraint-denotation.md)
 explains local finiteness, span reduction, global abstract extents and the manual
-Appendix F inventory. `Clafer/Examples/AppendixF*.lean` connects those expressions
+Appendix 6 inventory. `Clafer/Examples/Telematics/*.lean` connects those expressions
 to the delivered inherited structural carrier. The separate
 [constraint preservation extension](constraint-preservation.md) composes them with
 generated predicate meanings under explicit model assumptions. The guarded
 structural checker remains unchanged.
 
-## Complete Appendix F fixture
+<a id="complete-appendix-f-fixture"></a>
 
-The `Clafer.Examples.AppendixF*` full-model modules assemble the existing
+## Complete Appendix 6 fixture
+
+The `Clafer.Examples.Telematics` full-model modules assemble the existing
 resolved declarations and bodies, prove the input and generated banks valid,
 and construct one configuration over finite nonprimitive objects plus all Int.
 The primitive head has unrestricted bounds and root containment. Every printed
 body and final selection is proved on the actual arity reduct of this same
 configuration. The selected whole-model theorem then establishes satisfaction
-of its canonical descent into the complete glued bank. The [full-model contract](appendix-f.md)
+of its canonical descent into the complete glued bank. The [full-model contract](telematics.md)
 owns the attachment map, proof boundaries and rejection witnesses. It neither
 extends the finite checker nor replaces the earlier subset fixtures.

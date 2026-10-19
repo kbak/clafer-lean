@@ -70,7 +70,7 @@ inductive Expr (s : Support) : List (Local s) → Ty s → Type where
   | integer {Γ} (value : Int) : Expr s Γ .integer
   | this {Γ} : Expr s Γ (.collection (.objects s.context))
   /-- Resolved global class extent, including parentless abstract families.
-  Appendix F's global plaECU navigation cannot be a synthetic-root child. -/
+  Appendix 6's global plaECU navigation cannot be a synthetic-root child. -/
   | extent {Γ} (x : s.Vertex) : Expr s Γ (.collection (.objects x))
   | var {Γ x} : Var Γ x → Expr s Γ (.collection (.objects x))
   | map {Γ} (e : s.Edge) : Expr s Γ

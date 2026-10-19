@@ -2,13 +2,13 @@ module
 
 public import Clafer.Compile.Examples
 public import Clafer.Compile.GroupExamples
-public import Clafer.Examples.Inherited
+public import Clafer.Examples.Telematics.Structural
 
 /-!
 # Representative compilation/gluing integration
 
-SoSyM §6.2.4–5, Figures 16, 22–23 and Appendix F. These witnesses apply the
-Compile and gluing contracts to concrete inputs. The Appendix F configuration
+SoSyM §6.2.4–5, Figures 16, 22–23 and Appendix 6. These witnesses apply the
+Compile and gluing contracts to concrete inputs. The Appendix 6 configuration
 is the inherited structural projection, without the twelve printed constraints.
 -/
 
@@ -150,8 +150,8 @@ theorem boundaries :
 
 end Xor
 
-namespace AppendixF
-open Clafer.Examples.Inherited
+namespace TelematicsStructural
+open Clafer.Examples.Telematics.Structural
 
 /-- All 26 printed declaration IDs, plus root/int, survive the compiled label.
 This does not claim that the printed constraint bodies occur in this fixture. -/
@@ -178,5 +178,5 @@ theorem version_and_server :
     core.family.parent 24 = some 23 ∧ core.family.multiplicity 24 = one ∧
     core.family.reference 24 = .set 22 := ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
-end AppendixF
+end TelematicsStructural
 end Clafer.Examples.Integration

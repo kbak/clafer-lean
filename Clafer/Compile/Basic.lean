@@ -9,7 +9,7 @@ public import Mathlib.Basic.Finite.Sum
 /-!
 # Compile: resolved AST to a well-formed MCS
 
-SoSyM §6.2.4, Figure 23 and Appendix E Tables 5–8. The disjoint signature
+SoSyM §6.2.4, Figure 23 and Tables 5–8 (see Appendix 5). The disjoint signature
 extension retains built-in predicates and uses the established syntax-only
 constraint signature. It does not interpret expression bodies or assert
 semantic preservation. The input supplies typed bodies for every AST boundary.

@@ -2,13 +2,13 @@ module
 
 public import Clafer.Constraints.Predicate
 public import Clafer.Constraints.DenotationSupport
-public import Clafer.Examples.AppendixFMutations
+public import Clafer.Examples.Telematics.Mutations
 public import Clafer.Examples.VersionCompilation
 
 /-!
 # Truth-sensitive source predicate examples
 
-SoSyM Appendix F c02/c04/c06, D.4 and B.5. These exercise predicate
+SoSyM Appendix 6 c02/c04/c06, D.4 and B.5. These exercise predicate
 satisfaction on the complete support diagrams, not only body evaluation.
 Structural compilation success is a separate assertion.
 -/
@@ -16,7 +16,7 @@ Structural compilation success is a separate assertion.
 @[expose] public section
 namespace Clafer.Examples.ConstraintPredicates
 open CategoryTheory DPGraph DPGraph.Predicates Clafer.Constraints
-open AppendixFConstraints AppendixFModel AppendixFConstraintExamples AppendixFMutations
+open Telematics.Expressions Telematics.ExpressionEnvironment Telematics.ExpressionExamples Telematics.Mutations
 
 set_option maxHeartbeats 2000000
 set_option maxRecDepth 4096
@@ -54,7 +54,7 @@ theorem display_count_rejected :
   intro h
   exact actual_c06_rejects_one_display (h (atom 19) (by
     change atom 19 ∈ objects 19
-    simp [objects, position, Inherited.config, Inherited.heads]))
+    simp [objects, position, Telematics.Structural.config, Telematics.Structural.heads]))
 
 theorem display_count_accepted :
     (interpreted (support 19) c06).Satisfies (movedModel 19).model
@@ -63,7 +63,7 @@ theorem display_count_accepted :
   intro x hx
   have he : x = atom 19 := by
     change x ∈ objects 19 at hx
-    simpa [objects, position, Inherited.config, Inherited.heads] using hx
+    simpa [objects, position, Telematics.Structural.config, Telematics.Structural.heads] using hx
   subst x
   exact c06_accepts_two
 
@@ -76,7 +76,7 @@ theorem changed_count_body_accepted :
   intro x hx
   have he : x = atom 19 := by
     change x ∈ objects 19 at hx
-    simpa [objects, position, Inherited.config, Inherited.heads] using hx
+    simpa [objects, position, Telematics.Structural.config, Telematics.Structural.heads] using hx
   subst x
   have he := denotes_some _ _ _ _ (extra_value 2 3) (Set.finite_singleton _)
   have hc : (exactlyTwo displays1).denote (model 19 2 3) (.closed (atom 19)) = some ⟨False⟩ := by
@@ -93,7 +93,7 @@ theorem wrong_server_parent_rejected :
   intro h
   exact c04_rejects_wrong_owner (h (atom 5) (by
     change atom 5 ∈ objects 15
-    simp [objects, position, Inherited.config, Inherited.heads]))
+    simp [objects, position, Telematics.Structural.config, Telematics.Structural.heads]))
 
 theorem server_parent_accepted :
     (interpreted (support 15) c04).Satisfies (model 15 2 3).model
@@ -102,13 +102,13 @@ theorem server_parent_accepted :
   intro x hx
   have hh : x = atom 4 ∨ x = atom 5 := by
     change x ∈ objects 15 at hx
-    simpa [objects, position, Inherited.config, Inherited.heads] using hx
+    simpa [objects, position, Telematics.Structural.config, Telematics.Structural.heads] using hx
   rcases hh with rfl | rfl
   · exact actual_c04
   · simp only [c04, parent15, dereference12, head12, Expr.Holds, Expr.denote,
       lift₂, Option.bind_some, Option.map_some, image_reduced]
-    simp [links, maps, objects, position, Inherited.config, Inherited.heads,
-      Inherited.ownership, Inherited.targets, Environment.closed]
+    simp [links, maps, objects, position, Telematics.Structural.config, Telematics.Structural.heads,
+      Telematics.Structural.ownership, Telematics.Structural.targets, Environment.closed]
 
 /-- Source version direction is preserved; the offending display alone is
 enough to refute universal satisfaction. -/
@@ -119,12 +119,12 @@ theorem lower_version_rejected :
   intro h
   exact actual_c02_lower (h (atom 4) (by
     change atom 4 ∈ objects 11
-    simp [objects, position, Inherited.config, Inherited.heads]))
+    simp [objects, position, Telematics.Structural.config, Telematics.Structural.heads]))
 
 theorem version_value_at_every_display (e d : Int) (x : U) (hx : x ∈ objects 11) :
     c02.denote (model 11 e d) (.closed x) = some ⟨e ≤ d⟩ := by
   have hh : x = atom 4 ∨ x = atom 5 := by
-    simpa [objects, position, Inherited.config, Inherited.heads] using hx
+    simpa [objects, position, Telematics.Structural.config, Telematics.Structural.heads] using hx
   rcases hh with rfl | rfl
   · exact actual_c02_value e d
   · apply denotes_ge
@@ -133,8 +133,8 @@ theorem version_value_at_every_display (e d : Int) (x : U) (hx : x ∈ objects 1
           (.closed (atom 5)) = some {integers.encode d} := by
         simp only [dereference9, head9, Expr.denote, lift₂, Option.bind_some,
           Option.map_some, image_reduced]
-        simp [objects, maps, position, links, Inherited.config, Inherited.heads,
-          Inherited.ownership, Environment.closed,
+        simp [objects, maps, position, links, Telematics.Structural.config, Telematics.Structural.heads,
+          Telematics.Structural.ownership, Environment.closed,
           FormalCD.Telematics.IntegerRealization.domain, integers, Set.ext_iff]
       simp only [version, denote_integerOf, hv, Option.bind_some]
       exact congrArg (Option.map ULift.up) (integers.extract_encoded d)
@@ -143,8 +143,8 @@ theorem version_value_at_every_display (e d : Int) (x : U) (hx : x ∈ objects 1
           (model 11 e d) (.closed (atom 5)) = some {integers.encode e} := by
         simp only [dereference9, head9, dereference12, head12, Expr.denote,
           lift₂, Option.bind_some, Option.map_some, image_reduced]
-        simp [objects, maps, position, links, Inherited.config, Inherited.heads,
-          Inherited.ownership, Inherited.targets, Environment.closed,
+        simp [objects, maps, position, links, Telematics.Structural.config, Telematics.Structural.heads,
+          Telematics.Structural.ownership, Telematics.Structural.targets, Environment.closed,
           FormalCD.Telematics.IntegerRealization.domain, integers, Set.ext_iff]
       simp only [version, denote_integerOf, hv, Option.bind_some]
       exact congrArg (Option.map ULift.up) (integers.extract_encoded e)
@@ -157,7 +157,7 @@ theorem version_predicate_iff (e d : Int) :
   · intro h
     have hv := h (atom 4) (by
       change atom 4 ∈ objects 11
-      simp [objects, position, Inherited.config, Inherited.heads])
+      simp [objects, position, Telematics.Structural.config, Telematics.Structural.heads])
     simpa [Expr.Holds, actual_c02_value] using hv
   · intro h x hx
     simp [Expr.Holds, version_value_at_every_display e d x hx, h]
@@ -190,9 +190,9 @@ theorem external_domains_sensitive :
   · intro h
     have hh := h (atom 19) (by
       change atom 19 ∈ objects 19
-      simp [objects, position, Inherited.config, Inherited.heads])
+      simp [objects, position, Telematics.Structural.config, Telematics.Structural.heads])
     simp [externallyBound, liveDomain, Domains.close, Expr.Holds, Expr.denote,
-      universal, model, graphMap, objects, position, Inherited.config, Inherited.heads] at hh
+      universal, model, graphMap, objects, position, Telematics.Structural.config, Telematics.Structural.heads] at hh
 
 /-- A context object cannot be substituted merely because the body is well
 typed: c02's context is display, while an ECU is outside that class. -/
@@ -201,7 +201,7 @@ theorem wrong_context_rejected :
   intro h
   have hc := h.1
   change atom 2 ∈ objects 11 at hc
-  simp [objects, position, Inherited.config, Inherited.heads, atom] at hc
+  simp [objects, position, Telematics.Structural.config, Telematics.Structural.heads, atom] at hc
 
 /-- Even a true version predicate at all displays cannot license evaluation
 at an ECU object: the display-to-server path is then empty. -/
@@ -209,15 +209,15 @@ theorem wrong_context_body_rejected :
     ¬ c02.Holds (model 11 2 3) (.closed (atom 2)) := by
   simp only [c02, Expr.ge, version, dereference9, head9, dereference12, head12,
     Expr.Holds, Expr.denote, lift₂, Option.bind_some, Option.map_some, image_reduced]
-  simp [objects, maps, position, links, Inherited.config, Inherited.heads,
-    Inherited.ownership, Inherited.targets, Environment.closed, atom]
+  simp [objects, maps, position, links, Telematics.Structural.config, Telematics.Structural.heads,
+    Telematics.Structural.ownership, Telematics.Structural.targets, Environment.closed, atom]
 
 /-- Every inventory body has actual source navigation. Positive support is not
 obtained by inventing a dummy edge for an otherwise vertex-only constraint. -/
 theorem inventory_positive (q : Fin 12) : 0 < (inventory q).support.mapCount := by
   fin_cases q <;> decide
 
-/-- The exact arity carries an arrow argument for every Appendix F occurrence,
+/-- The exact arity carries an arrow argument for every Appendix 6 occurrence,
 which is the source-side witness used by Compile's total-args proof. -/
 theorem inventory_total_args (q : Fin 12) :
     Nonempty (FormalCD.Metamodel.ArrowData (inventory q).support.graph) := by

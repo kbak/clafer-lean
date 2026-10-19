@@ -7,7 +7,7 @@ public import Mathlib.Data.Nat.Find
 /-!
 # Declaration ancestry
 
-SoSyM §5.5 and Appendix E supply identity-preserving super edges. The global
+SoSyM §5.5 and Appendix 5 supply identity-preserving super edges. The global
 disjointness clarification adopted in #87 uses their reflexive transitive
 closure, independently of names, containment and reference targets.
 -/

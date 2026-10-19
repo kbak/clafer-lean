@@ -3,8 +3,11 @@
 <!-- [impl->req~sosym-reader-companion~1] -->
 
 A reading companion to *Clafer: unifying class and feature modeling*, using the
-[34-page 2014 author preprint](sources.md#primary-source). Page numbers refer to
-that preprint. The corrections below are adopted by Clafer Lean; they are not
+[published SoSyM article](sources.md#primary-source). PDF pages count from the
+first cover sheet of the 37-page personal e-offprint; the article starts on PDF
+page 3. The [edition crosswalk](sources.md#published-locators-and-legacy-aliases)
+maps the preprint’s appendices and pages to the publication. All corrections below
+remain necessary in the published text. They are adopted by Clafer Lean, not
 publisher-issued errata. Clarifications distinguish source explanations from
 explicit choices made in the formalization.
 
@@ -12,7 +15,7 @@ explicit choices made in the formalization.
 
 ### Disjointness uses a common target
 
-**Table 3, p.12; §6.1.2 and Figure 21, pp.17–18.** Read disjointness for mappings
+**Table 3, PDF p.13; §6.1.2 and Figure 21, PDF pp.19–20.** Read disjointness for mappings
 `fᵢ : Aᵢ ↛ B` into a common target: different family members must have disjoint
 images in `B`. Table 3's common-source shape and source-inequality condition are
 incorrect. Two inclusions containing the same ambient object overlap even when
@@ -23,7 +26,7 @@ disjointness. This agrees with the class partitions in Figure 21.
 
 ### Top-level abstracts retain their head class
 
-**§5.3.4, p.14; §6.2.3 and Figure 23, pp.20–21; Appendix E Table 7, p.33.**
+**§5.3.4, PDF p.15; §6.2.3 and Figure 23, PDF p.22; Table 7, PDF p.23.**
 Replace the exclusion of the head class in §5.3.4 with exclusion of the
 **source** class and parent-dependent maps. The head always exists, as §6.2.3
 and Figure 23 require. A top-level abstract reference retains its head, target
@@ -35,21 +38,21 @@ and the separate synthetic-root exception.
 
 ### The version constraint compares display to server
 
-**Figure 21a and adjacent prose, p.17; Figure 8 line 9 and §4.2.3, p.8;
-Appendix F, p.34.** The intended condition is
+**Figure 21a, PDF p.19; §6.1 prose, PDF p.18; Figure 8 line 9 and §4.2.3, PDF p.10;
+Appendix 6, PDF p.34.** The intended condition is
 `display.version ≥ server.version`. In Figure 21a it is guarded by the
 presence of a server: equality passes, and a display without a server satisfies
-VC vacuously. Appendix F instead has a default 1..1 server and an unguarded
+VC vacuously. Appendix 6 instead has a default 1..1 server and an unguarded
 comparison; its [operand-definedness contract](integer-extraction.md#appendix-f)
-derives existence from the selected structural semantics. The adjacent p.17 prose
-reverses the inequality; Figure 8, its explanation and Appendix F support the corrected direction. Preserve Figure
+derives existence from the selected structural semantics. The adjacent PDF p.18 prose
+reverses the inequality; Figure 8, its explanation and Appendix 6 support the corrected direction. Preserve Figure
 21a's nonempty-server guard rather than requiring every display to have a server.
 [Decision and checked models](sources.md#figure-21b-and-the-accepted-q7-correction);
 [self-description and telematics implementation PR](https://github.com/kbak/clafer-lean/pull/38).
 
 ### Seven Figure 23 associations need optional source multiplicities
 
-**Figure 23, p.21; Appendix E Table 8, p.33.** Change source multiplicity `1`
+**Figure 23, PDF p.22; Table 8, PDF p.23.** Change source multiplicity `1`
 to `0..1` on the four ordinary-map associations (`head_map`, `parent_map`,
 `dref_map`, `target_map`) and three super-inclusion associations (`super_s`,
 `super_h`, `super_t`). Each role then has at most one owner within each
@@ -62,7 +65,7 @@ apply. Keep source `1` for head-class and formula ownership.
 
 ### Span composition agrees with relations after reduction
 
-**Appendix B.2.1, p.29.** Relational inputs do not make pullback span composition
+**Appendix 2, “(Sequential) Mapping composition”, PDF p.30.** Relational inputs do not make pullback span composition
 isomorphic to relational composition. Two paths `a → b₁ → c` and `a → b₂ → c`
 produce two composite links, while the relational composite contains one pair
 `(a,c)`. The correct general law is
@@ -78,7 +81,7 @@ insufficient for arbitrary spans.
 
 ### Incomparable Clafer declaration heads are disjoint
 
-**§5.3–5.5, §6.1–6.2 and Appendices E–F.** The adopted disjointness rule requires
+**§5.3–5.5, §6.1–6.2 and Appendices 5–6.** The adopted disjointness rule requires
 super-edge comparability for two declaration heads to share an object. It covers
 nested declarations and separate inheritance trees while preserving subtype
 identity and inherited field views. Reference-target sharing remains permitted.
@@ -89,7 +92,7 @@ remain unrestricted. [Source correspondence and limits](sources.md#declaration-d
 
 ### Links and bag keys retain multiplicity
 
-**Appendix B.1–B.3, pp.28–30; Table 3, p.12.** A mapping retains individual
+**Appendix 2, mappings and operations, PDF pp.28–30; Table 3, PDF p.13.** A mapping retains individual
 links. Set-valuedness forbids duplicate links with the same endpoints;
 single-valuedness permits at most one outgoing link per source. Multiplicities
 count links, including repeated targets. The formalization reads inverse and
@@ -102,8 +105,8 @@ of the tuple of target values.
 
 ### A formula needs its complete graph binding
 
-**Appendix B.4 Definition 8, p.30; Figure 21c and its explanation, pp.17,19;
-§6.2.2–3, p.20.** A formula consists of a predicate symbol and a graph morphism,
+**Appendix 2 Definition 8, PDF p.31; Figure 21c and its explanation, PDF pp.19–21;
+§6.2.2–3, PDF pp.21–23.** A formula consists of a predicate symbol and a graph morphism,
 including all vertex and arrow images. The printed arrow-list shorthand assumes
 finitely many arrows and no isolated vertices. An unordered argument bag can
 lose occurrence assignments; it also cannot describe isolated vertex images.
@@ -115,7 +118,7 @@ with zero arguments, although zero-arrow arities are valid under Definition 8.
 
 ### Metamodel representation and semantic instantiation differ
 
-**§6.1.3 and Figure 21c, pp.17,19; §6.2.1, p.20.** Expressing the metamodel as
+**§6.1.3 and Figure 21c, PDF pp.19–21; §6.2.1, PDF p.21.** Expressing the metamodel as
 a formal class diagram establishes syntactic self-description. Establishing that
 a diagram is a semantic instance additionally requires an interpretation and
 satisfaction of every effective declaration, including naming, arity, key and
@@ -125,9 +128,11 @@ or that every formal CD is an instance of Figure 21c. The omitted dashed
 attachments for `nd` and `ad` are supplied explicitly in the formalization.
 [Bindings and scope](sources.md#figure-21c-metamodel).
 
-### Appendix E equations apply to roles that exist
+<a id="appendix-e-equations-apply-to-roles-that-exist"></a>
 
-**§5.5 and Figure 18, pp.14–16; Appendix E Tables 5–8, p.33.** Read analogous
+### Appendix 5 equations apply to roles that exist
+
+**§5.5 and Figure 18, PDF p.17; Tables 5–8 (see Appendix 5), PDF pp.22–23.** Read analogous
 incidence and naming equations under the relevant role-presence guards. A parented
 clafer has source/head-map/parent-map roles; a reference has target/dereference
 roles; the target map exists exactly when both conditions hold. A selected super
@@ -140,7 +145,7 @@ both directions.
 
 ### Names do not determine gluing identity
 
-**§6.1.1–3, pp.17–19; §6.2.5, p.21.** Distinguish role occurrences, the classes
+**§6.1.1–3, PDF pp.18–21; §6.2.5, PDF p.23.** Distinguish role occurrences, the classes
 or maps they denote, and displayed names. Repeated `parent`, `dref` or `isA`
 strings do not identify maps. The adopted gluing rule identifies exactly equal
 resolved referents, requiring matching endpoints and consistent names, predefined
@@ -152,12 +157,15 @@ set-valued defaults; bag maps have no such default.
 [Adopted rule and proof boundaries](sources.md#mcs-gluing-and-the-approved-q4-rule);
 [resolved-referent gluing implementation PR](https://github.com/kbak/clafer-lean/pull/57).
 
-### Appendix D intersection is not difference
+<a id="appendix-d-intersection-is-not-difference"></a>
 
-**Appendix D.3–D.4, p.32.** The PDF prints `∩` in the intersection equation;
+### Appendix 4 intersection is not difference
+
+**Appendix 4, “Type rules” and “Semantics”, PDF pp.33–34.** The PDF prints `∩` in the intersection equation;
 text extraction can misread the glyph. Ordinary common-element intersection
-needs no correction. D.4.1 identifies `E` and `S` on set expressions, explaining
-the mixed evaluator subscripts in D.4.2. D.3.1 lists addition and subtraction
+needs no correction. “Semantics of expressions” identifies `E` and `S` on set
+expressions, explaining the mixed evaluator subscripts in “Semantics of set
+expressions”. The arithmetic typing rule lists addition and subtraction
 although its displayed arithmetic conclusion shows only addition. These typing
 rules and notation do not by themselves supply constraint interpretation or
 primitive-value conversion.
@@ -165,7 +173,7 @@ primitive-value conversion.
 
 ### Effective group inheritance and empty inventories
 
-**§4.2.1–2, §6.2.2, Appendix C and D.4.** Groups on abstract declarations supply
+**§4.2.1–2, §6.2.2, Appendix 3 and D.4.** Groups on abstract declarations supply
 inheritable bounds. Each concrete context enforces its effective bound over the
 union of own and inherited child heads; no separate abstract original-child
 invariant is added. This group-inheritance interpretation follows the pinned
@@ -177,7 +185,7 @@ explain the complete arities and separate component needed for vertex-only formu
 
 ### Inherited ordinary fields and explicit abstract types
 
-**§5.3.4–5, §5.5, Appendix F.** The inherited-field clarification distinguishes
+**§5.3.4–5, §5.5, Appendix 6.** The inherited-field clarification distinguishes
 authored explicit abstract types from ordinary fields whose effective abstractness
 comes from containment. Fields such as comp.version have the same occurrences
 at the same realized parent across its super chain. Context views restrict the
@@ -194,7 +202,7 @@ This fills a specification gap; it is not attributed as a printed theorem.
 Structural compilation and gluing establish structural results under their
 [explicit contracts](compile.md). The separate [constraint-preservation bridge](constraint-preservation.md)
 connects resolved expression meanings to generated predicates under stated model
-assumptions; the [complete Appendix F fixture](appendix-f.md) discharges those
+assumptions; the [complete Appendix 6 fixture](telematics.md) discharges those
 assumptions for one concrete model. Neither establishes correctness for all
 Clafer source texts. The compiler-comparison audit's
 [decision table](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)

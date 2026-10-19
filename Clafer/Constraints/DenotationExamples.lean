@@ -6,7 +6,7 @@ public import Clafer.Constraints.IntegerExamples
 
 /-! # Sensitive kernel-checked denotation examples
 
-SoSyM D.4/Figure 28 and Appendix F. Assertions exercise the actual typed
+SoSyM D.4/Figure 28 and Appendix 6. Assertions exercise the actual typed
 constructors. Positive and negative results distinguish intersection from
 union/difference, joins from projections, and all from Option.some.
 -/

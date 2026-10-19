@@ -1,10 +1,12 @@
 module
 
-public import Clafer.Examples.AppendixFCompiled
-public import Clafer.Examples.AppendixFMutations
+public import Clafer.Examples.Telematics.Compiled
+public import Clafer.Examples.Telematics.Mutations
 
 /-!
-# Focused rejection obligations of the complete Appendix F input
+# Focused rejection obligations of the complete telematics input
+
+SoSyM Appendix 6 (PDF p.34).
 
 These arity witnesses exercise the actual attached source symbols. They need
 not satisfy unrelated structural or source obligations. Rejection transports
@@ -12,9 +14,9 @@ to the actual generated formula whenever its full arity reduct is this witness.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixF.Rejections
+namespace Clafer.Examples.Telematics.Rejections
 open CategoryTheory MCS Compile DPGraph DPGraph.Predicates Constraints
-open AppendixFConstraints
+open Telematics.Expressions
 
 set_option maxHeartbeats 2000000
 set_option maxRecDepth 4096
@@ -44,31 +46,31 @@ theorem generated_rejected {V : Type} (q : ConstraintId ast)
   exact hf
 
 theorem wrong_display_count :
-    ¬ (AppendixFModel.model 19 2 3).model ∈
-      (ConstraintMeaning.authored input domains AppendixFModel.integers).meaning (occurrence 5) := by
-  apply symbol_rejected (occurrence 5) _ (AppendixFModel.model_coherent _ _ _)
-    (AppendixFModel.atom 19)
-  · change AppendixFModel.atom 19 ∈ AppendixFModel.objects 19
-    simp [AppendixFModel.objects,AppendixFModel.position,Inherited.config,Inherited.heads]
-  · exact AppendixFConstraintExamples.actual_c06_rejects_one_display
+    ¬ (Telematics.ExpressionEnvironment.model 19 2 3).model ∈
+      (ConstraintMeaning.authored input domains Telematics.ExpressionEnvironment.integers).meaning (occurrence 5) := by
+  apply symbol_rejected (occurrence 5) _ (Telematics.ExpressionEnvironment.model_coherent _ _ _)
+    (Telematics.ExpressionEnvironment.atom 19)
+  · change Telematics.ExpressionEnvironment.atom 19 ∈ Telematics.ExpressionEnvironment.objects 19
+    simp [Telematics.ExpressionEnvironment.objects,Telematics.ExpressionEnvironment.position,Telematics.Structural.config,Telematics.Structural.heads]
+  · exact Telematics.ExpressionExamples.actual_c06_rejects_one_display
 
 theorem wrong_server_parent :
-    ¬ (AppendixFMutations.movedModel 15).model ∈
-      (ConstraintMeaning.authored input domains AppendixFModel.integers).meaning (occurrence 3) := by
-  apply symbol_rejected (occurrence 3) _ (AppendixFMutations.moved_coherent _)
-    (AppendixFModel.atom 5)
-  · change AppendixFModel.atom 5 ∈ AppendixFModel.objects 15
-    simp [AppendixFModel.objects,AppendixFModel.position,Inherited.config,Inherited.heads]
-  · exact AppendixFMutations.c04_rejects_wrong_owner
+    ¬ (Telematics.Mutations.movedModel 15).model ∈
+      (ConstraintMeaning.authored input domains Telematics.ExpressionEnvironment.integers).meaning (occurrence 3) := by
+  apply symbol_rejected (occurrence 3) _ (Telematics.Mutations.moved_coherent _)
+    (Telematics.ExpressionEnvironment.atom 5)
+  · change Telematics.ExpressionEnvironment.atom 5 ∈ Telematics.ExpressionEnvironment.objects 15
+    simp [Telematics.ExpressionEnvironment.objects,Telematics.ExpressionEnvironment.position,Telematics.Structural.config,Telematics.Structural.heads]
+  · exact Telematics.Mutations.c04_rejects_wrong_owner
 
 theorem lower_display_version :
-    ¬ (AppendixFModel.model 11 3 2).model ∈
-      (ConstraintMeaning.authored input domains AppendixFModel.integers).meaning (occurrence 1) := by
-  apply symbol_rejected (occurrence 1) _ (AppendixFModel.model_coherent _ _ _)
-    (AppendixFModel.atom 4)
-  · change AppendixFModel.atom 4 ∈ AppendixFModel.objects 11
-    simp [AppendixFModel.objects,AppendixFModel.position,Inherited.config,Inherited.heads]
-  · exact AppendixFConstraintExamples.actual_c02_lower
+    ¬ (Telematics.ExpressionEnvironment.model 11 3 2).model ∈
+      (ConstraintMeaning.authored input domains Telematics.ExpressionEnvironment.integers).meaning (occurrence 1) := by
+  apply symbol_rejected (occurrence 1) _ (Telematics.ExpressionEnvironment.model_coherent _ _ _)
+    (Telematics.ExpressionEnvironment.atom 4)
+  · change Telematics.ExpressionEnvironment.atom 4 ∈ Telematics.ExpressionEnvironment.objects 11
+    simp [Telematics.ExpressionEnvironment.objects,Telematics.ExpressionEnvironment.position,Telematics.Structural.config,Telematics.Structural.heads]
+  · exact Telematics.ExpressionExamples.actual_c02_lower
 
 
 
@@ -120,12 +122,12 @@ def model (c : Fin 28) (missing : Option (Fin 34)) : IntegerBinding (support c) 
     all_goals simp [objects,maps]
   integer_domain := by
     intro x hx
-    have he : x = 27 := by simpa [AppendixFConstraints.support] using hx
+    have he : x = 27 := by simpa [Telematics.Expressions.support] using hx
     subst x; simp [graph,objects]
 
 theorem coherent (c : Fin 28) (missing : Option (Fin 34)) : (model c missing).Coherent := by
   intro i j ho hk
-  have he := AppendixFModel.map_identity_unique i j ho hk
+  have he := Telematics.ExpressionEnvironment.map_identity_unique i j ho hk
   subst j
   exact ⟨⟨Equiv.refl _,fun _ => rfl,fun _ => rfl⟩⟩
 
@@ -250,8 +252,8 @@ instance xorContainsDecidable (k : Fin 3) (d : Fin 28) (x y : Fin 3) :
 instance xorChildDecidable (k : Fin 3) (d : Fin 28) (x y : Fin 3) :
     Decidable (Groups.ChildObjects core.family (xorConfig k) d x y) :=
   decidable_of_iff
-    (∃ a, a ∈ Inherited.ancestorTable d ∧ ∃ c,
-      Inherited.parents c = some a ∧ (xorConfig k).contains c x y)
+    (∃ a, a ∈ Telematics.Structural.ancestorTable d ∧ ∃ c,
+      Telematics.Structural.parents c = some a ∧ (xorConfig k).contains c x y)
     (by simp only [Groups.ChildObjects,ancestor_iff,parents_eq])
 
 noncomputable def channelGroup : Groups.Id (family input) := ⟨5,rfl⟩
@@ -288,18 +290,18 @@ theorem xor_declared :
 
 
 theorem c07_wrong_display_count :
-    ¬ (AppendixFModel.model 19 2 3).model ∈
-      (ConstraintMeaning.authored input domains AppendixFModel.integers).meaning (occurrence 6) := by
-  apply symbol_rejected (occurrence 6) _ (AppendixFModel.model_coherent _ _ _)
-    (AppendixFModel.atom 19)
-  · change AppendixFModel.atom 19 ∈ AppendixFModel.objects 19
-    simp [AppendixFModel.objects,AppendixFModel.position,Inherited.config,Inherited.heads]
-  · exact AppendixFConstraintExamples.actual_c07_rejects_one_display
+    ¬ (Telematics.ExpressionEnvironment.model 19 2 3).model ∈
+      (ConstraintMeaning.authored input domains Telematics.ExpressionEnvironment.integers).meaning (occurrence 6) := by
+  apply symbol_rejected (occurrence 6) _ (Telematics.ExpressionEnvironment.model_coherent _ _ _)
+    (Telematics.ExpressionEnvironment.atom 19)
+  · change Telematics.ExpressionEnvironment.atom 19 ∈ Telematics.ExpressionEnvironment.objects 19
+    simp [Telematics.ExpressionEnvironment.objects,Telematics.ExpressionEnvironment.position,Telematics.Structural.config,Telematics.Structural.heads]
+  · exact Telematics.ExpressionExamples.actual_c07_rejects_one_display
 
 theorem c07_vacuity {V : Type} (m : IntegerBinding (support 19) V)
     (ρ : Environment (support 19) V []) (absent : (m.model.obj (17 : Fin 28) : Set V) = (∅ : Set V)) :
     ((domains (occurrence 6)).close (input.constraint (occurrence 6)).body).denote m ρ =
       (head23 Expr.this).some.denote m ρ :=
-  AppendixFDefined.c07_vacuity m ρ absent
+  Telematics.Definedness.c07_vacuity m ρ absent
 
-end Clafer.Examples.AppendixF.Rejections
+end Clafer.Examples.Telematics.Rejections

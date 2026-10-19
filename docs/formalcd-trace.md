@@ -321,7 +321,7 @@ Covers:
 `declaration`, `raw`, `diagram`, `edges`, `effectiveFormulasEquiv`.
 Names are in `FormalCD.Telematics`. These reuse full typed Formula bindings and
 the existing optional metadata/default framework. Sources: §6.1.1–3, Figure 21b,
-p.19's twelve effective declarations, and B.4 Definitions 7–9.
+PDF p.21's twelve effective declarations, and B.4 Definitions 7–9.
 
 Covers:
 - `req~formalcd-figure21-example~1`
@@ -355,7 +355,7 @@ Covers:
 version targets along actual inclusion/version links for each server link.
 There is no comparison for an empty server fiber. Semantic universes retain
 `U : Type u`, subset vertices and link bound `max u w`. The source correction
-is Figure 8 line 9 / §4.2.3–4.3, Figure 21a / §6.1.2 and Appendix F, recorded as [Q7](sources.md#figure-21b-and-the-accepted-q7-correction)
+is Figure 8 line 9 / §4.2.3–4.3, Figure 21a / §6.1.2 and Appendix 6, recorded as [Q7](sources.md#figure-21b-and-the-accepted-q7-correction)
 in the source map; the generic built-in catalogue remains separate.
 
 Covers:

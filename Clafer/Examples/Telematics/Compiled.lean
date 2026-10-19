@@ -1,9 +1,11 @@
 module
 
-public import Clafer.Examples.AppendixFSatisfaction
+public import Clafer.Examples.Telematics.Satisfaction
 
 /-!
-# The actual compiled and glued Appendix F model
+# The actual compiled and glued telematics model
+
+SoSyM Appendix 6 (PDF p.34).
 
 Apply the selected §6.2.4–5 semantic bridge to the exact resolved fixture and
 canonical descent of the same concrete configuration. The theorem discharges
@@ -11,14 +13,14 @@ all structural, integer-domain and attached-body assumptions of that bridge.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixF
+namespace Clafer.Examples.Telematics
 open CategoryTheory MCS Compile DPGraph DPGraph.Predicates Constraints
 
 set_option maxHeartbeats 4000000
 set_option maxRecDepth 4096
 
 def inventoryDomains (c : Fin 12) :
-    Domains (AppendixFConstraints.inventory c).support (AppendixFConstraints.inventory c).locals :=
+    Domains (Telematics.Expressions.inventory c).support (Telematics.Expressions.inventory c).locals :=
   match c with
   | 0 => .nil
   | 1 => .nil
@@ -191,4 +193,4 @@ theorem compiled_glued_model : interpretation.IsModel
 
 theorem nonempty_configuration : (config.head 0).Nonempty := ⟨atom 0, by simp [config,heads]⟩
 
-end Clafer.Examples.AppendixF
+end Clafer.Examples.Telematics

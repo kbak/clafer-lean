@@ -6,7 +6,7 @@ public import FormalCD.Metamodel.Binding
 /-!
 # Name and arity discipline meanings
 
-SoSyM §6.1.3 p.19 and B.4 Definition 8 p.30. The context explicitly supplies
+SoSyM §6.1.3 PDF p.21 and B.4 Definition 8 PDF p.31. The context explicitly supplies
 registry/name decoding, the represented signature and graph, object encodings,
 and candidate vertex/occurrence data absent from the drawing. Context contains
 no validity proof. The predicates check that data against the actual spans.

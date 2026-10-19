@@ -9,6 +9,11 @@ kernel proof certificates nor universal compiler soundness/completeness results.
 Source parsing, defaults, resolution, optimization, inferred-scope adequacy,
 expressions, primitives, temporal features and production generation are excluded.
 
+The manifest’s `paper_sha256` belongs to the immutable `52-S/v1` comparison
+contract and retains the original preprint identity for replay compatibility.
+The [source map](sources.md#primary-source) records that provenance separately
+from the publisher e-offprint now used for maintained citations.
+
 ## Representation relation
 
 For admitted core `m`, let `U` be the candidate's finite object labels, `r` its
