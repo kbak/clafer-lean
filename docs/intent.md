@@ -62,7 +62,10 @@ structural meaning. Reference occurrences retain identity even at repeated targe
 The [pinned importer](resolved-import.md) lives under `Clafer/Verification/`, with
 same-generation compiler capture under `scripts/verification/` and fixtures under
 `tests/`. It preserves the effective boundary and rejects unsupported source
-features. Solver integration and external comparison remain #52.
+features. The [bounded comparison harness](bounded-comparison.md) compares exact supplied
+candidates against generated static Alloy, with explicit manual scopes and replayable
+external evidence. Bounded test enumeration and seeded sampling preserve negative
+candidates and both discrepancy directions; they make no universal compiler claim.
 
 The separate [inherited realization extension](inherited-realization.md) supplies
 Appendix F's ordinary field instances, explicit abstract families, restrictions of
@@ -75,7 +78,7 @@ The [full constraint-bearing fixture](appendix-f.md) combines all twelve bodies 
 and [#69’s selected bridge](constraint-preservation.md) connects it to generated
 predicate satisfaction with explicit primitive and model assumptions.
 
-Exclude instance/object generation, Alloy/SMT/SAT integration, production runtime
+Exclude production instance/object generation, general Alloy/SMT/SAT integration, production runtime
 configuration management, Claferize, post-2014 extensions, a production parser and
 visualization. Keep the foundation reproducible and reviewable and the README brief.
 Give new readers enough context to understand Clafer, the purpose and maturity of
@@ -114,7 +117,7 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | [Representative models](representative-models.md) | Checked integration, source/feature coverage and explicit Appendix F omissions |
 | [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix F navigation assumptions |
 | [MCS inventory](mcs-invariants.md) and [Compile contract](compile.md) | Detailed structural clauses and transformation assumptions |
-| [IR comparison contract](resolved-ir-comparison.md) | Accepted comparison domain, compiler audit and remaining prerequisites |
+| [IR comparison contract](resolved-ir-comparison.md) | Accepted comparison domain, compiler audit and external trust obligations |
 | [Contributing](../CONTRIBUTING.md), [trace convention](traceability.md) and [maintenance](maintenance.md) | Setup/checks, evidence links and repository administration |
 | [Historical change records](changes/) | Retained accepted scopes and plans; not current architecture or status |
 

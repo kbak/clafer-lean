@@ -1,0 +1,3 @@
+Target 0..1
+2..3 box 0..1
+  refs ->> Target 0..4

@@ -4,8 +4,9 @@ The importer implements [#51](https://github.com/kbak/clafer-lean/issues/51) ins
 `Clafer/Verification/`, with external capture/protocol code under
 `scripts/verification/`. It targets the accepted S fragment in the
 [comparison contract](resolved-ir-comparison.md), using #50's
-[effective core and checker](structural-checker.md). Solver integration, pinning,
-Alloy command replacement and comparison claims remain #52. Broader Appendix F
+[effective core and checker](structural-checker.md). The [bounded comparison
+harness](bounded-comparison.md) supplies #52 pinning, scoped solver execution,
+command replacement and replay; these remain outside the importer theorem. Broader Appendix F
 realization does not enlarge the import whitelist.
 
 ## Build and replay

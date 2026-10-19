@@ -75,6 +75,12 @@ jobs:
             --stack "$RUNNER_TEMP/clafer-tools/stack" --work "$RUNNER_TEMP/clafer-compiler"
           echo "CLAFER_CAPTURE=$RUNNER_TEMP/clafer-compiler/clafer-capture" >> "$GITHUB_ENV"
           echo "CLAFER_CAPTURE_BUILD=$RUNNER_TEMP/clafer-compiler/build.json" >> "$GITHUB_ENV"
+      - name: Provision pinned Alloy comparison
+        run: |
+          ib install-alloy --destination "$RUNNER_TEMP/clafer-alloy"
+          echo "CLAFER_ALLOY_JAR=$RUNNER_TEMP/clafer-alloy/alloy-6.2.0.jar" >> "$GITHUB_ENV"
+          echo "CLAFER_ALLOY_CACHE=$RUNNER_TEMP/clafer-alloy-runtime" >> "$GITHUB_ENV"
+          echo "CLAFER_COMPARISON_EVIDENCE=$RUNNER_TEMP/clafer-comparison-evidence" >> "$GITHUB_ENV"
       # [impl->req~intentbond-workflow~1]
       - name: Check source, traceability, and Lean
         env:
@@ -139,5 +145,6 @@ jobs:
             ${{ runner.temp }}/scope-selection.json
             ${{ runner.temp }}/clafer-compiler/build.json
             ${{ runner.temp }}/clafer-compiler/build.log
+            ${{ runner.temp }}/clafer-comparison-evidence/
           if-no-files-found: warn
           retention-days: 30

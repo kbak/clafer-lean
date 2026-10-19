@@ -1,0 +1,12 @@
+xor exclusive
+  first
+  second
+or inclusive
+  first
+  second
+mux atMostOne
+  first
+  second
+opt optionalGroup
+  first
+  second

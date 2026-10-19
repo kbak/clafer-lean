@@ -412,8 +412,12 @@ Its fieldwise representation and normalization bridge reuse the effective core
 and checker. External capture and strict protocol scripts live under
 `scripts/verification/`; tests and fixtures live under `tests/`. Same-generation
 receipts retain backend state omitted from JSON. No authored/default provenance
-is reconstructed. Solver/search integration remains #52. Full pinned validation
-and independent semantic review apply to the importer.
+is reconstructed. The [bounded comparison harness](bounded-comparison.md) lives in
+`scripts/verification/`, with regression sources and tests under `tests/`. Its
+external candidate pin/decode relation, scoped SAT4J calls, enumeration and replay
+reuse the importer and checker. It adds no solver imports to public Lean roots
+and asserts no universal backend theorem. Full pinned validation
+and independent semantic review apply to the importer and comparison relation.
 
 ## Structural Compile
 
