@@ -2257,8 +2257,13 @@ bounds/options/versions/seeds, observed verdicts, null stages not run, diagnosti
 limits/completeness and replay commands. Manifest references are acyclic; results
 and outputs cannot change input identity. Save execution evidence externally;
 keep licensed stable regression fixtures in tests and no diaries in living docs.
-Replay requires no LLM and validates its inputs/source. No automated upstream
-issue or comment posting is part of the harness.
+Replay requires no LLM and validates its inputs/source and runtime identities.
+Record the actual checkout commit in `lean_commit`, or `null` when the source
+root has no `.git` metadata. Never substitute a parent repository's commit.
+Absent Git metadata does not waive complete `source.json` byte hashes, manifest
+input hashes or replay source/runtime checks; corrupt metadata and Git execution
+failures remain execution errors. No automated upstream issue or comment posting
+is part of the harness.
 
 Covers:
 - `intent~formalization-foundation~1`

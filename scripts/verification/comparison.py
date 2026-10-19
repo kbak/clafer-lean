@@ -19,6 +19,22 @@ PAPER = "56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb"
 CATEGORIES = {"agree_satisfies", "agree_violates", "alloy_accepts_lean_rejects", "lean_accepts_alloy_rejects"}
 
 
+def source_commit():
+    """Optional checkout metadata; source byte hashes remain authoritative."""
+    metadata = ROOT / ".git"
+    try:
+        metadata.lstat()
+    except FileNotFoundError:
+        return None
+    # Explicit metadata prevents discovery of an unrelated parent repository.
+    # lstat keeps broken gitfiles/symlinks distinct from an absent .git entry;
+    # Git and filesystem failures propagate to the execution diagnostic.
+    return subprocess.check_output(
+        ["git", "--git-dir", str(metadata), "--work-tree", str(ROOT),
+         "rev-parse", "--verify", "HEAD^{commit}"],
+        cwd=ROOT, text=True, stderr=subprocess.PIPE).strip()
+
+
 def source_snapshot():
     source = {str(p.relative_to(ROOT)): digest(p.read_bytes()) for directory in ("Clafer", "FormalCD", "DPGraph", "scripts/verification")
               for p in sorted((ROOT / directory).rglob("*")) if p.is_file() and p.suffix in (".lean", ".py", ".java", ".hs")}
@@ -95,8 +111,8 @@ def compare(bundle, candidate, output, *, bitwidth, overall, runtime=None, timeo
         result["admission"] = "admitted"
         manifest["compiler_build_sha256"] = digest((output / "capture/build.json").read_bytes())["sha256"]
         manifest["generation_receipt"] = "capture/generation.json"
-        manifest["lean_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-        # Commit plus raw worktree source digest: HEAD alone is insufficient.
+        manifest["lean_commit"] = source_commit()
+        # Raw source identity is mandatory, including snapshots without .git.
         source = source_snapshot()
         (output / "source.json").write_bytes(encoded(source))
         (output / "language-runtime.json").write_bytes(encoded(dict(python=sys.version,implementation=platform.python_implementation())))

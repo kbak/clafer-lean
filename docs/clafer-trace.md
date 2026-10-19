@@ -1305,7 +1305,10 @@ Covers:
 table enumeration for its stated domain, seeded generation, strict deletion
 shrinking and search accounting. [search.py](../scripts/verification/search.py)
 exposes both search modes. `comparison.compare`/`replay` retain raw-byte hashes,
-source identities, verdicts and replay inputs. [mutations.py](../scripts/verification/mutations.py)
+source identities, verdicts and replay inputs. `source_commit` records an optional
+checkout commit without parent discovery; `source_snapshot` and replay retain
+mandatory source byte matching even without Git metadata. Git failures remain
+execution diagnostics. [mutations.py](../scripts/verification/mutations.py)
 implements the three explicit injected sensitivity defects. The normal Python
 test discovery runs these comparisons; CI provisions and retains external evidence.
 
@@ -1322,6 +1325,12 @@ nesting, abstract cover/shared inheritance, unrelated overlap, malformed/root in
 cyclic and nonfunctional tables, unpinned witnesses, the fixed exhaustive domain,
 seeded candidates, all three shrunk mutations and pin/arithmetic/execution failures.
 `RelationTests` checks generator counts, seeds, interruption and result algebra.
+`SourceIdentityTests` exercises snapshot comparison/replay with isolated capture
+admission, actual checkout/worktree Git metadata, parent/environment isolation,
+corrupt metadata/execution errors, source/input byte tampering and runtime mismatch.
+`LiveComparisonTests.test_12_source_snapshot_comparison_and_replay` checks a
+complete real comparison and replay with identical hashed sources relocated to
+a tree without Git metadata, retained runtime identities and tampering rejection.
 Existing [test_resolved_import.py](../tests/test_resolved_import.py) retains E1/E7–E9/
 E12–E13 strict source/IR/receipt/constructor/option rejection assertions; these
 complement the relation-specific E1–E14 comparisons. Mutation assertions are

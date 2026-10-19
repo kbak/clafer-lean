@@ -419,7 +419,8 @@ link arrays retain distinct occurrence IDs, never endpoint deduplication.
 
 | Artifact | Required fields |
 | --- | --- |
-| `manifest.json` | `schema`, `contract_revision`, `compiler_commit`, `compiler_build_sha256`, `lean_commit`, `paper_sha256`, `effective_options`, `generation_receipt`, `inputs` mapping logical relative names to byte size/SHA-256; matrix decision IDs and admitted fragment |
+| `manifest.json` | `schema`, `contract_revision`, `compiler_commit`, `compiler_build_sha256`, `lean_commit` (actual checkout commit, or `null` when source-root Git metadata is absent), `paper_sha256`, `effective_options`, `generation_receipt`, `inputs` mapping logical relative names to byte size/SHA-256; matrix decision IDs and admitted fragment |
+| `source.json` | Complete current Lean/adapter source byte size/SHA-256 inventory, also mandatory for captured trees without Git metadata; replay requires matching source bytes |
 | `capture/generation.json` | Source/feature/token audit, both IR hashes, JSON/Alloy hashes, consumed UID-map projection/hash, registry, symbol/field mapping, scopes/string-map results, backend selector, `_glCard` optimization metadata |
 | `core.json` | Ordered declaration inventory with UID/name/parent/super/kind/target/abstract/local and group bounds, using #51's root/sentinel convention; compiler-only metadata separate; no fabricated authored fields |
 | `candidate.json` | Original #50/#51 `objects`, `root`, class membership and typed ordinary relation tables; preserve original bytes/row order in the input identity |
@@ -434,6 +435,9 @@ This concrete file mapping retains the #49 schema obligations without adding
 solver-generated ASTs or witnesses to the acyclic input manifest. Canonical
 comparison tables are sorted and duplicate-free; raw candidate input identity is
 preserved separately. Search reports retain termination and all case denominators.
+An unavailable `lean_commit` never waives manifest input hashes, source matching
+or runtime identity checks. Never read a parent repository's commit; corrupt Git
+metadata and Git execution failures remain inconclusive execution errors.
 
 
 Retain the source, original IR/Alloy, actual command/pin, raw solver output and

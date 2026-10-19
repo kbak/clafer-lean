@@ -158,6 +158,12 @@ minimality. Stable fixtures are MIT licensed; raw evidence stays external.
 `comparison.py` writes `clafer-structural-comparison/v1` artifacts. Raw input
 hashes cover source, both IR states via receipt, compiler build, original Alloy,
 core, candidate, pin, command, bounds, settings and current Lean/adapter sources.
+`source.json` retains the complete source byte inventory in checkouts and captured
+source trees alike. `lean_commit` records the actual checkout commit, or `null`
+when the source root has no `.git` entry. Git lookup uses only that root's metadata;
+it never discovers a parent repository. Corrupt metadata and Git execution failures
+produce an inconclusive execution diagnostic, not an unavailable-commit success.
+The optional commit field never replaces source hashes or replay runtime checks.
 The input manifest does not hash itself or outputs. Results reference that
 manifest and hash raw solver logs, witness, decoded tables and bijection. Null
 verdicts identify stages not run. `ImportMain.failedPredicates` names failed

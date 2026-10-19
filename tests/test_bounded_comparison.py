@@ -90,6 +90,130 @@ class RelationTests(unittest.TestCase):
             self.assertEqual([],value["containment"])
 
 
+class SourceIdentityTests(unittest.TestCase):
+    """Exercise real source hashing/replay and Git, without compiler/solver setup."""
+
+    def setUp(self):
+        temporary=tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.directory=Path(temporary.name)
+        self.source=self.directory/"source"
+        (self.source/"Clafer").mkdir(parents=True)
+        self.source_file=self.source/"Clafer/Example.lean"
+        self.source_file.write_text("def exampleValue := 1\n")
+        self.bundle=self.directory/"capture"
+        self.bundle.mkdir()
+        # Capture admission is isolated here; live tests below exercise the real
+        # compiler. Malformed candidate bytes stop before checker/solver setup.
+        for name in ("input.cfr","analyzed.json","model.als","build.json","manifest.json"):
+            (self.bundle/name).write_bytes(b"{}\n")
+        (self.bundle/"generation.json").write_bytes(p.encoded(dict(observations=[])))
+        self.enterContext(patch.object(c,"ROOT",self.source))
+        self.enterContext(patch.object(c,"import_bundle",return_value=({},{})))
+
+    def git(self,*args,cwd=None):
+        return subprocess.check_output(["git",*args],cwd=cwd or self.source,text=True,
+            stderr=subprocess.PIPE,env={k:v for k,v in os.environ.items() if not k.startswith("GIT_")}).strip()
+
+    def init_repository(self):
+        self.git("init","-q")
+        self.git("-c","user.name=Source identity test","-c","user.email=test@example.invalid",
+                 "-c","commit.gpgsign=false","-c","core.hooksPath=/dev/null",
+                 "commit","--allow-empty","-qm","Source identity fixture")
+        return self.git("rev-parse","HEAD")
+
+    def compare(self,name="comparison"):
+        output=self.directory/name
+        result=c.compare(self.bundle,None,output,bitwidth=8,overall=1,candidate_bytes=b"{broken")
+        return result,output,p.loads((output/"manifest.json").read_bytes())
+
+    def test_snapshot_comparison_and_replay_without_git(self):
+        result,path,manifest=self.compare()
+        self.assertEqual("malformed",result["category"],result)
+        self.assertIsNone(manifest["lean_commit"])
+        source=p.loads((path/"source.json").read_bytes())
+        self.assertEqual({"Clafer/Example.lean":p.digest(self.source_file.read_bytes())},source)
+        self.assertEqual(p.digest((path/"source.json").read_bytes()),manifest["inputs"]["source.json"])
+        output=self.directory/"replay"
+        replayed=c.replay(path,output)
+        self.assertEqual("malformed",replayed["category"],replayed)
+        self.assertIsNone(p.loads((output/"manifest.json").read_bytes())["lean_commit"])
+        self.assertEqual(source,p.loads((output/"source.json").read_bytes()))
+
+    def test_snapshot_does_not_inherit_parent_or_environment_commit(self):
+        self.init_repository()
+        snapshot=self.source/"snapshot"
+        snapshot.mkdir()
+        with patch.object(c,"ROOT",snapshot), patch.dict(os.environ,{"GIT_DIR":str(self.source/".git")}):
+            result,_,manifest=self.compare()
+        self.assertEqual("malformed",result["category"],result)
+        self.assertIsNone(manifest["lean_commit"])
+
+    def test_checkout_and_linked_worktree_report_actual_commit(self):
+        expected=self.init_repository()
+        _,_,manifest=self.compare()
+        self.assertEqual(expected,manifest["lean_commit"])
+        worktree=self.directory/"linked"
+        self.git("worktree","add","--detach",str(worktree),"HEAD")
+        self.assertTrue((worktree/".git").is_file())
+        with patch.object(c,"ROOT",worktree):
+            _,_,manifest=self.compare("linked-comparison")
+        self.assertEqual(expected,manifest["lean_commit"])
+
+    def test_corrupt_git_metadata_is_execution_failure(self):
+        # Even inside a valid parent repo, corrupt local metadata cannot fall
+        # back to that parent's commit or become an absent-metadata success.
+        self.init_repository()
+        for kind in ("file","directory","dangling-link"):
+            with self.subTest(kind=kind):
+                snapshot=self.source/kind
+                snapshot.mkdir()
+                metadata=snapshot/".git"
+                if kind=="file":metadata.write_text("not a gitfile\n")
+                elif kind=="directory":metadata.mkdir()
+                else:metadata.symlink_to(snapshot/"missing-metadata")
+                with patch.object(c,"ROOT",snapshot):
+                    result,_,_=self.compare(kind)
+                self.assertEqual("inconclusive",result["category"],result)
+                self.assertFalse(result["complete"])
+                self.assertIsNone(result["lean"]);self.assertIsNone(result["solver"])
+                self.assertEqual("execution",result["diagnostics"][0]["stage"])
+
+    def test_git_execution_failure_is_not_missing_metadata(self):
+        self.init_repository()
+        with patch.object(subprocess,"check_output",side_effect=OSError("injected Git execution failure")):
+            result,_,_=self.compare()
+        self.assertEqual("inconclusive",result["category"],result)
+        self.assertFalse(result["complete"])
+        self.assertEqual(dict(stage="execution",reason="injected Git execution failure"),result["diagnostics"][0])
+
+    def test_snapshot_replay_rejects_source_and_input_byte_tampering(self):
+        result,path,_=self.compare()
+        self.assertEqual("malformed",result["category"],result)
+        original=self.source_file.read_bytes()
+        self.source_file.write_bytes(original+b"-- changed source bytes\n")
+        with self.assertRaisesRegex(p.Rejection,"replay_source_changed"):
+            c.replay(path,self.directory/"changed-source")
+        self.source_file.write_bytes(original)
+        source_path=path/"source.json"
+        source_path.write_bytes(source_path.read_bytes()+b"\n")
+        with self.assertRaisesRegex(p.Rejection,"replay_input_hash"):
+            c.replay(path,self.directory/"changed-input")
+
+    def test_snapshot_replay_still_checks_runtime_identity(self):
+        result,path,manifest=self.compare()
+        self.assertEqual("malformed",result["category"],result)
+        runtime_path=path/"language-runtime.json"
+        runtime=p.loads(runtime_path.read_bytes())
+        runtime["python"]="different runtime"
+        runtime_path.write_bytes(p.encoded(runtime))
+        # Preserve input hash consistency so this reaches the runtime check.
+        manifest["inputs"]["language-runtime.json"]=p.digest(runtime_path.read_bytes())
+        (path/"manifest.json").write_bytes(p.encoded(manifest))
+        with self.assertRaisesRegex(p.Rejection,"replay_python_runtime_changed"):
+            c.replay(path,self.directory/"changed-runtime")
+
+
 class LiveComparisonTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -325,6 +449,33 @@ class LiveComparisonTests(unittest.TestCase):
             replay_path=self.evidence/f"malformed-candidate-replay-{i}"
             self.assertEqual("malformed",c.replay(path,replay_path,runtime=self.runtime)["category"])
             self.assertEqual(broken,(replay_path/"candidate.json").read_bytes())
+
+    def test_12_source_snapshot_comparison_and_replay(self):
+        # Relocate every hashed source byte without Git metadata. The existing
+        # checker process uses the identical source/runtime; no verdict is mocked.
+        snapshot=self.evidence/"source-snapshot"
+        sources=c.source_snapshot()
+        for name in sources:
+            target=snapshot/name
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(ROOT/name,target)
+        self.assertFalse((snapshot/".git").exists())
+        with patch.object(c,"ROOT",snapshot):
+            result,path=self.run_case("bag",self.repeat(),"agree_satisfies")
+            manifest=p.loads((path/"manifest.json").read_bytes())
+            self.assertIsNone(manifest["lean_commit"])
+            self.assertEqual(sources,p.loads((path/"source.json").read_bytes()))
+            self.assertIn("checker-runtime.json",manifest["inputs"])
+            self.assertIn("profile.json",manifest["inputs"])
+            replay_path=self.evidence/"source-snapshot-replay"
+            replayed=c.replay(path,replay_path,runtime=self.runtime)
+            self.assertEqual(result["category"],replayed["category"],replayed)
+            self.assertTrue(replayed["complete"])
+            self.assertIsNone(p.loads((replay_path/"manifest.json").read_bytes())["lean_commit"])
+            source=snapshot/"scripts/verification/comparison.py"
+            source.write_bytes(source.read_bytes()+b"\n# changed source bytes\n")
+            with self.assertRaisesRegex(p.Rejection,"replay_source_changed"):
+                c.replay(path,self.evidence/"source-snapshot-tampered-replay",runtime=self.runtime)
 
     def test_09_per_parent_keys_and_two_parents(self):
         value=candidate({"c0_Target":[1],"c0_box":[2,3],"c0_refs":[4,5]},
