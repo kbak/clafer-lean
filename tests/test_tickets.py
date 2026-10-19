@@ -16,6 +16,41 @@ SPEC.loader.exec_module(tickets)
 
 # [utest->req~github-tracking~1]
 class TicketTests(unittest.TestCase):
+    def test_public_issue_creation_never_accesses_private_project(self):
+        with (
+            tempfile.NamedTemporaryFile() as body,
+            patch.object(tickets, "gh", return_value="https://github.com/kbak/clafer-lean/issues/7") as gh,
+            patch.object(tickets, "track") as tracking,
+            contextlib.redirect_stdout(io.StringIO()) as output,
+        ):
+            tickets.main(["create", "--title", "Public contribution",
+                          "--body-file", body.name, "--no-project"])
+        tracking.assert_not_called()
+        self.assertEqual(gh.call_count, 1)
+        self.assertEqual(gh.call_args.args[:2], ("issue", "create"))
+        self.assertIn("https://github.com/kbak/clafer-lean/issues/7", output.getvalue())
+
+    def test_public_issue_close_never_accesses_private_project(self):
+        with (
+            patch.object(tickets, "gh", return_value="closed") as gh,
+            patch.object(tickets, "track") as tracking,
+            contextlib.redirect_stdout(io.StringIO()),
+        ):
+            tickets.main(["close", "7", "--no-project"])
+        tracking.assert_not_called()
+        self.assertEqual(gh.call_args.args[:3], ("issue", "close", 7))
+
+    def test_public_issue_failure_is_not_hidden(self):
+        with (
+            tempfile.NamedTemporaryFile() as body,
+            patch.object(tickets, "gh", side_effect=subprocess.CalledProcessError(1, ["gh"])),
+            patch.object(tickets, "track") as tracking,
+        ):
+            with self.assertRaises(subprocess.CalledProcessError):
+                tickets.main(["create", "--title", "Public contribution",
+                              "--body-file", body.name, "--no-project"])
+        tracking.assert_not_called()
+
     def test_track_uses_live_field_and_option_ids(self):
         with (
             patch.object(

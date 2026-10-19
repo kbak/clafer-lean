@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: >-
+  Cite this software when using the formalization, including the Git commit you
+  used. Cite the SoSyM paper separately for the language semantics.
+type: software
+title: 'Clafer Lean: formal semantics of Clafer in Lean 4'
+authors:
+  - family-names: Bąk
+    given-names: Kacper
+repository-code: 'https://github.com/kbak/clafer-lean'
+url: 'https://github.com/kbak/clafer-lean'
+license: MIT
+abstract: >-
+  A research formalization of Clafer modeling semantics with reusable DP-graph
+  and formal class-diagram libraries, structural compilation, selected constraint
+  correspondence results, and a verified finite structural candidate checker.
+keywords:
+  - Clafer
+  - Lean 4
+  - formal semantics
+  - formal verification

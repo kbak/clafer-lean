@@ -39,17 +39,22 @@ artifacts in Markdown and review the actual Lean declarations they reference.
 Do not weaken scope or coverage to make a change pass. Scope changes need explicit
 review in the PR.
 
-Plan and track work as issues in [the GitHub Project](https://github.com/users/kbak/projects/2).
+Plan work as public issues; maintainers track them in
+[the private GitHub Project](https://github.com/users/kbak/projects/2).
 Search existing issues before creating one. Use `python3 scripts/tickets.py` to
 create, track, update, and comment on issues; `--help` lists commands. Record
 scope, acceptance criteria, source sections, affected requirement IDs, dependencies,
-and validation. Set In Progress when starting and link PRs with `Closes #N`.
+and validation. With Project access, set In Progress when starting. Without it,
+use `create --no-project` and public issue comments; leave Project updates to a
+maintainer. `close --no-project` likewise leaves Project reconciliation to the
+maintainer. This public contribution route also applies to agents working in forks;
+private Project access is not a prerequisite. Link PRs with `Closes #N`.
 Close tickets and mark Done only after their acceptance criteria are met.
 In IntentMade, the credential-bearing coordinator uses its deployment ticket
 wrapper. Workers return ticket updates to the coordinator; never copy GitHub
 credentials into a worker.
-If GitHub access is unavailable, preserve the proposed ticket locally and report
-the blocker. A planning issue alone does not authorize semantic implementation.
+If public GitHub access is unavailable, preserve the proposed ticket locally and
+report the blocker. A planning issue alone does not authorize semantic implementation.
 
 The SoSyM paper is the primary semantic reference; cite section/definition numbers
 when adding definitions and theorems. Record ambiguities and deliberate departures
