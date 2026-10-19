@@ -348,6 +348,8 @@ In [Structure](../Clafer/Compile/Structure.lean), `find_spec`, `sourceId_injecti
 `resolve_sourceId`, `parent_ids`, `super_ids`, `target_ids`, `shape_preserved`,
 `family_wellFormed`, `naming`, `heads_bijective`, `names_preserved` and `referents_preserved` prove
 finite resolution and structural preservation. In
+`naming`, the private `primitive_name_injective` and `primitive_name_ne_sing`
+lemmas isolate the finite canonical-name checks of Appendix E Table 8. In
 [Basic](../Clafer/Compile/Basic.lean), `wellFormed`, `fresh_heads`, `fresh_maps`,
 `shared_target` and `maps_finite` establish output validity, freshness, resolved
 sharing and finite generated map carriers.
@@ -492,8 +494,10 @@ Covers:
 [Gluing.lean](../Clafer/MCS/Gluing.lean): `className_label`, `mapName_label`,
 `predefined_label`, `kind_label`, `mode_label`, `raw_wellFormed`.
 [Origins.lean](../Clafer/MCS/Gluing/Origins.lean): `annotations_head`,
-`naming_of_valid`. The latter derives naming and predefined uniqueness from
-`MCS.Valid`, but neither it nor `labelHom` assumes effective-default completeness.
+`naming_of_valid`, with private `originAnnotation_injective` recovering semantic
+origins from annotations (§6.1 / Appendix E Table 8). `naming_of_valid` derives
+naming and predefined uniqueness from `MCS.Valid`, but neither it nor `labelHom`
+assumes effective-default completeness.
 `raw_wellFormed` explicitly requires that separate hypothesis.
 
 Covers:
