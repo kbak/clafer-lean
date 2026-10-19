@@ -1,24 +1,39 @@
 # Repository maintenance
 
-The repository and its [Project](https://github.com/users/kbak/projects/2) are
-currently private. The MIT license is already in place; changing visibility
-remains a maintainer decision.
+<!-- [impl->req~public-foundation~1] -->
 
-Before making the repository public:
+The repository is public and MIT licensed. Its
+[Project](https://github.com/users/kbak/projects/2) remains private; changing
+Project visibility is a separate maintainer decision. Public issues and pull
+requests are the contributor-facing planning interface. Launch acceptance is
+tracked in [issue #5](https://github.com/kbak/clafer-lean/issues/5).
 
-- Enable main-branch protection/rulesets: require PRs, a passing
-  `Lean and IntentBond` check, resolved review conversations, and block force
-  pushes/deletion. Choose review requirements appropriate to the contributor
-  pool; keep IntentBond exit-4 semantic review mandatory before acceptance.
-- Enable GitHub private vulnerability reporting, update [SECURITY.md](../SECURITY.md),
-  and add the reporting link to the issue template configuration.
+Maintain these repository controls:
+
+- Main-branch protection requires PRs, a passing `Lean and IntentBond` check on
+  an up-to-date branch, and resolved review conversations. Force pushes and branch
+  deletion are blocked. Administrators are subject to the same restrictions. For the
+  current single-maintainer project, there is no minimum approving-review count:
+  GitHub cannot count an author's own approval. Require independent semantic review of IntentBond exit-4 changes
+  before acceptance, and record its disposition in the PR. A green CI check does
+  not supply that review. Require one approving review once another reviewer is
+  available; dismiss stale approvals and require approval of the latest push.
+- GitHub private vulnerability reporting is enabled.
+  [SECURITY.md](../SECURITY.md) and the issue chooser direct sensitive reports
+  to the private form. Keep their destinations consistent and verify availability
+  after any visibility or security-setting change.
 - Review tracked files and history for private data; check attribution for any
-  imported publication material or upstream code.
-- Decide when to make the Project public, separately from repository visibility.
+  imported publication material or upstream code. Include commit messages and
+  author metadata, all branches/tags intended for publication, and retained
+  change records. Keep redacted findings and source identities in external
+  evidence; do not rewrite history or remove frozen records without approval.
+- Keep the Project private unless its publication is separately authorized.
 
-Branch protection and private vulnerability reporting are unavailable under the
-current private-repository plan. CI and contributor instructions alone cannot
-enforce protected-branch rules.
+GitHub's [branch-protection guidance](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches)
+and [private-reporting guidance](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository)
+describe feature availability and configuration. CI and contributor instructions
+alone do not enforce protected-branch rules; inspect the live settings when
+reviewing repository policy.
 
 IntentBond updates must update both `requirements/intentbond.txt` and the pinned
 skill link in `AGENTS.md`. Lean updates must update `lean-toolchain` and pass the

@@ -2,8 +2,10 @@
 
 <!-- [impl->req~public-foundation~1] -->
 
-Start with an existing issue or propose a small, scoped one in the
-[GitHub Project](https://github.com/users/kbak/projects/2). Semantic work should
+Start with an [existing issue](https://github.com/kbak/clafer-lean/issues) or
+propose a small, scoped one. Maintainers also track issues in a
+[private GitHub Project](https://github.com/users/kbak/projects/2); contributors
+can use the public issues and pull requests without Project access. Semantic work should
 identify the paper sections, intended definitions/theorems, ambiguities, and
 acceptance criteria before implementation. See [AGENTS.md](AGENTS.md).
 

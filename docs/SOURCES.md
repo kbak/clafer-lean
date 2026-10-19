@@ -785,7 +785,8 @@ The #20 MCS structural implementation follows the Q2 guards/analogous expansion,
 Q4 identity separation and Q9 source correction in the [MCS inventory](mcs-invariants.md).
 The typed constraint extension and Q3 disposition are described above. The
 [independent core denotation](constraint-denotation.md) supplies constraint meaning
-and the Appendix F expansions; compilation preservation remains #69. [Structural Compile](compile.md)
+and the Appendix F expansions; the [selected preservation bridge](constraint-preservation.md)
+connects them to generated predicate meanings. [Structural Compile](compile.md)
 and [resolved-referent gluing](#mcs-gluing-and-the-approved-q4-rule) have separate
 input contracts; their integration remains on #24.
 
@@ -945,8 +946,9 @@ and `join_span` make the D.4 relational reduction explicit, while head counts
 retain different reference objects at equal targets. Source operations do not
 justify imposing a finite universe of primitive values. The complete integer
 realization and partial singleton extraction therefore remain #67's contract.
-The expression environments reuse #66's nonprimitive carrier; a complete
-structural/primitive/compiler bridge remains #69. No supplementary compiler
+The expression environments reuse #66's nonprimitive carrier; the
+[selected preservation bridge](constraint-preservation.md) states the additional
+primitive and admissible-model assumptions needed to compose these meanings. No supplementary compiler
 claim or third-party implementation is introduced by these equations.
 
 ## Representative compilation and gluing
@@ -962,7 +964,44 @@ emitted local declarations under an explicit integer-domain interpretation.
 Structural attachment and operand definedness do not establish general expression
 preservation or full Appendix F satisfaction. The independent expression meanings
 are supplied by the [denotation contract](constraint-denotation.md); their compiled
-bridge and full-model acceptance remain #69/#64.
+bridge is supplied by the [selected preservation contract](constraint-preservation.md),
+with the [complete fixture](appendix-f.md) supplying simultaneous satisfaction.
+
+
+## Selected constraint preservation
+
+The [preservation contract](constraint-preservation.md) connects SoSyM §6.2.2–5
+and Appendix D.4 to B.4 Definition 10/B.5 using the actual generated support
+bindings and label map. Predicate meanings universally evaluate typed bodies at
+context objects; explicit external domains are closed by the existing universal
+constructor. Original links, complete arities and Q1–Q9 remain unchanged. The
+whole-model result composes the generated local/group/inherited/abstract bank
+with these fixed meanings and retains its selected configuration assumptions.
+It is not a universal source-text compiler-correctness result.
+
+The twelve [Appendix F bodies](inherited-realization.md#constraint-scope-handoff)
+all observe real navigation maps, so positive Compile support needs no dummy
+edge. The finite structural projection's primitive `1..1` placeholder is separate
+from the complete integer domain required by #67/#68. Section 5.3.5 p.14 identifies
+a primitive head with its value class; a complete integer-bearing fixture needs
+an unrestricted primitive-head bound and actual root containment. The existing
+resolved contract already permits those explicit fields; ordinary version/server
+bounds and the guarded #50 checker are unchanged. No combined model is inferred
+by replacing only the primitive set in the old finite structural witness.
+
+
+## Complete Appendix F model
+
+[The complete model](appendix-f.md) reuses the reviewed d01–d26 and c01–c12
+inventory, including the manually checked p.34 indentation and final selections.
+It retains Q1–Q9, D2/D4/D6, reference-head counts, global plaECU extents, c07's
+implication vacuity and c02's unguarded display ≥ server comparison. The selected
+primitive correction gives int unrestricted bounds and actual root containment;
+it preserves mandatory version/server bounds and the mathematical Int domain.
+No additional source interpretation or supplementary compiler claim is introduced.
+The kernel-checked correspondence concerns this hand-authored resolved input;
+source parsing, name resolution, default insertion and coercion elaboration
+remain manually reviewed boundaries.
 
 ## Pinned resolved importer (#51)
 

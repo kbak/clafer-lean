@@ -117,6 +117,12 @@ Needs: impl, utest
 The repository keeps its MIT license and provides contribution and
 private security-reporting guidance, issue/PR templates, a brief README, and links
 to the SoSyM publication, free preprint, and maintained Haskell implementation.
+The README explains Clafer and the formalization's purpose for new readers,
+states its research maturity and delivered-scope limits, and provides clone/build
+instructions, a command for checking an existing example, and clear routes to
+documentation, contribution guidance, issue tracking and security reporting.
+Keep detailed mathematical inventories in the canonical documentation rather
+than requiring familiarity with paper section numbers at the entry point.
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.1 Definitions 1–5,
@@ -1969,9 +1975,82 @@ relative/global/inherited navigation, no cache, server = parent and display-head
 counts. Preserve Q7's display >= server direction without Figure 21's guard.
 Exercise implication vacuity and actual operator combinations with positive and
 negative witnesses. Check the resolved supports against the complete inherited
-AST. General textual resolution and Compile/gluing preservation remain separate;
-the complete combined model result stays with #64/#69. See the
+AST. General textual resolution remains separate. The extension requirement
+for preservation, `req~clafer-constraint-preservation~1`, supplies the selected Compile/gluing bridge;
+the complete combined fixture is specified separately by
+requirement `req~clafer-appendix-f-complete~1`. See the
 [denotation contract](constraint-denotation.md).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Derived source-constraint predicate meanings
+`req~clafer-constraint-predicates~1`
+
+For the resolved typed core of Appendix D.4, derive each source occurrence's
+predicate meaning from its body, complete support graph, explicit external-binder
+domains and a fixed integer realization. Evaluate at every object of its context
+class. Introduce external binders in lexical order, checking each domain before
+its binder enters scope; do not choose a domain from a mere existence proof.
+Preserve empty-domain vacuity and distinguish undefined operations from defined
+false bodies. Require shared resolved class identity, coherent original map links,
+literal inheritance inclusions and actual integer-domain realization. Retain
+local finiteness and singleton extraction obligations. Callers must not supply
+arbitrary predicate meanings or assume the desired truth equivalence.
+
+Prove correspondence between this meaning and independent source denotation on
+admissible complete arity diagrams, including explicit closed-body specialization.
+See the [preservation contract](constraint-preservation.md).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Selected Compile and gluing constraint correspondence
+`req~clafer-constraint-preservation~1`
+
+Prove the full arity-binding and source/formula satisfaction correspondence for
+actual generated Compile bindings. Derive context ownership, repeated resolved
+class and map identities, and preservation of original links; retain isolated
+vertices and every support occurrence. A literal argument bag is not full binding
+identity. Derive inclusion admissibility from generated local declarations while
+keeping primitive-domain realization explicit.
+
+Transport the interpreted source formula along the actual labeling morphism and
+prove its membership in the exact declaration image. Compose with the generated
+local/group/inheritance/abstract bank and its selected shared-object realization
+to prove both directions of whole-model satisfaction correspondence. State
+selected-core, primitive, typing/root and canonical-candidate assumptions
+explicitly. Derive generation/completeness from actual construction; no client
+supplies a complete semantic bridge. Generic model reduct does not imply
+unrestricted reflection for arbitrary targets. Preserve effective-default
+completeness, the original MCS total-args/key proof and positive-map input contract.
+This extends the structural promises without reinterpreting them as earlier
+expression-preservation results or claiming textual compiler correctness.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Constraint preservation sensitivity and Appendix F support
+`req~clafer-constraint-preservation-witnesses~1`
+
+Audit all twelve Appendix F bodies against positive-map Compile support and
+preserve their complete resolved bindings. Check that each uses actual source
+navigation; do not add dummy maps or weaken total args. Retain the full integer
+domain and record any mismatch with finite primitive placeholders separately from
+the actual `1..1` version/server operand bounds. The complete selected-model fixture is specified separately by
+requirement `req~clafer-appendix-f-complete~1`; this interface supplies its semantic correspondence.
+
+Provide predicate-satisfaction witnesses sensitive to version order, display-head
+count, server/parent navigation, context/binding identity and changes to interpreted
+bodies. Check explicit external domains and show that structural compilation
+success does not discharge source truth. Preserve scalar-conversion failures and
+the existing positive/negative core denotation examples.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2004,7 +2083,8 @@ assumption explicit. Reuse the selected partial comparison and its defined
 true/false and invalid-operand witnesses. Distinguish structural attachment,
 operand definedness, interpreted predicate satisfaction and whole-model
 satisfaction. Do not substitute Figure 21's optional guarded VC or assert general
-expression preservation; #68/#69 retain those remaining obligations.
+expression preservation as part of this structural promise. The separate
+denotation and preservation requirements state those semantic obligations.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2025,7 +2105,7 @@ separate fixtures into an unsupported full-model claim.
 The structural projection includes all printed declarations; the separately
 compiled c02 fragment is a supported subset, not full Appendix F completion.
 Full interpretation of all printed constraints, final selections and a nonempty
-satisfying full model remain #64. #69 depends on this structural milestone and
+satisfying full model have the separate contract `req~clafer-appendix-f-complete~1`. #69 depends on this structural milestone and
 is not a prerequisite for its narrower result. Preserve independent public imports
 for DPGraph, FormalCD and Clafer under the existing layer checks. Keep #24 open
 until its deliverables are accepted and the implementing PR is merged.
@@ -2094,3 +2174,53 @@ Covers:
 - `intent~traceable-contributions~1`
 
 Needs: impl, utest
+
+## Complete resolved Appendix F integration
+`req~clafer-appendix-f-complete~1`
+
+Represent every printed declaration and c01–c12 conjunct of SoSyM Appendix F
+p.34 in one resolved/defaulted input, including the final dual, extraDisplay
+and large selections. Reconcile the visually checked source inventory with
+actual owner/position attachments, repeated size identities, all seven super
+edges, five abstract families and three xor groups. Reuse the accepted source
+elaboration and Q1–Q9/D2/D4/D6 decisions without replacing or omitting a body.
+Prove the input contract, real positive-map support, generated structural MCS
+validity, gluing incidence/metadata/default obligations and final FormalCD validity.
+Keep the structural MCS distinct from the augmented zero-arrow bank.
+
+Construct a concrete nonempty satisfying configuration with two ECUs and two
+displays per ECU, correct server/parent and master relationships, no cache and
+all final selections. Realize the primitive integer head as all mathematical
+integers with unrestricted 0..* bounds and actual root containment; retain
+mandatory 1..1 version/server fields and finite counted nonprimitive collections.
+Derive numeric definedness from actual navigation and bounds. Discharge all
+hypotheses of `Compile.ConstraintMeaning.whole_model` for this same configuration
+and its canonical descent into the exact generated/glued diagram. Neither a
+source-truth-only theorem nor an assumed correspondence meets this requirement.
+
+Document remaining elaboration assumptions and finite-evaluation boundaries
+in [the full-model contract](appendix-f.md). This requirement extends the selected
+interfaces above; it does not rename representative/subset proofs into full-model
+acceptance, claim a finite entire interpretation or broaden #50's checker.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl, proof
+
+## Complete Appendix F rejection witnesses
+`req~clafer-appendix-f-rejections~1`
+
+Supply focused negative witnesses for zero/two xor selections, wrong display
+count, forbidden cache, wrong server/parent relationship and lower display
+version. Identify the violated obligations of the complete resolved model and
+connect failures to actual attachments/generated predicates. Coupled failures
+are permitted; independent isolation requires its own proof. Preserve sensitive
+operator witnesses for c01/c05/c07/c08/c09, including implication vacuity even
+where the positive final selection makes a branch vacuous.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof

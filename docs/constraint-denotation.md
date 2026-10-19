@@ -4,8 +4,8 @@
 of SoSyM Appendix D.1–D.4/Figure 28 and the manual Appendix F expansions. The
 [product intent](intent.md), [source map](SOURCES.md#appendix-d-rule-dispositions-q3),
 [integer bridge](integer-extraction.md), and [inherited inventory](inherited-realization.md)
-remain authoritative for their respective boundaries. Compile/gluing preservation
-belongs to #69; the combined full-model acceptance result belongs to #64.
+remain authoritative for their respective boundaries. The [selected Compile/gluing bridge](constraint-preservation.md) derives predicate
+meanings from these equations; the [combined full-model result](appendix-f.md) applies them to one complete fixture.
 
 ## Values and environments
 
@@ -99,5 +99,6 @@ the four version/server map bounds, with no finiteness requirement on int.
 The [trace inventory](clafer-trace.md#resolved-constraint-denotation)
 links their actual declarations and sensitive positive/negative witnesses.
 No textual resolver, automatic coercion insertion, higher-arity relation,
-string arithmetic, tuple binder, evaluator correctness or compiler-preservation
-result is claimed.
+string arithmetic, tuple binder or evaluator correctness is claimed. The separate
+[preservation contract](constraint-preservation.md) states the selected
+Compile/gluing result and its admissible-model assumptions.

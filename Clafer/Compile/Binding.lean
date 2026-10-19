@@ -58,8 +58,8 @@ noncomputable def boundArrow (e : (support i q).Edge) : (roles i).Arrow
   let y := vertex i q ((support i q).mapRef e).target
   have hs := map_spec i q e
   change (roles i).Arrow x y
-  cases hk : ((support i q).mapRef e).kind with
-  | head =>
+  match hk : ((support i q).mapRef e).kind with
+  | .head =>
     simp only [hk] at hs
     have hp : (family i).parent c = some x := (parent_eq i c x).mpr (by simpa [x] using hs.1)
     have hc : c = y := sourceId_injective i.ast (hs.2.trans (vertex_id i q _).symm)
@@ -67,7 +67,7 @@ noncomputable def boundArrow (e : (support i q).Edge) : (roles i).Arrow
     · simp [roles, MCS.Roles.source, Family.canonicalRoles, Family.canonicalVertex,
         Clafer.Roles.mapSource, Clafer.Roles.source, hp]
     · exact hc
-  | parent =>
+  | .parent =>
     simp only [hk] at hs
     have hc : c = x := sourceId_injective i.ast (hs.1.trans (vertex_id i q _).symm)
     have hp : (family i).parent c = some y := (parent_eq i c y).mpr (by simpa [y] using hs.2)
@@ -75,7 +75,7 @@ noncomputable def boundArrow (e : (support i q).Edge) : (roles i).Arrow
     · exact hc
     · simp [roles, MCS.Roles.target, Family.canonicalRoles, Family.canonicalVertex,
         Clafer.Roles.mapTarget, Clafer.Roles.target, hp]
-  | dereference =>
+  | .dereference =>
     simp only [hk] at hs
     have hc : c = x := sourceId_injective i.ast (hs.1.trans (vertex_id i q _).symm)
     have ht : ((family i).reference c).target = some y :=
@@ -86,7 +86,7 @@ noncomputable def boundArrow (e : (support i q).Edge) : (roles i).Arrow
     · exact hc
     · simp [roles, MCS.Roles.target, Family.canonicalRoles, Family.canonicalVertex,
         Clafer.Roles.mapTarget, Clafer.Roles.target, ht]
-  | target =>
+  | .target =>
     simp only [hk] at hs
     have hp : (family i).parent c = some x := (parent_eq i c x).mpr (by simpa [x] using hs.1)
     have ht : ((family i).reference c).target = some y :=
@@ -98,7 +98,7 @@ noncomputable def boundArrow (e : (support i q).Edge) : (roles i).Arrow
         Clafer.Roles.mapSource, Clafer.Roles.source, hp]
     · simp [roles, MCS.Roles.target, Family.canonicalRoles, Family.canonicalVertex,
         Clafer.Roles.mapTarget, Clafer.Roles.target, ht]
-  | inclusion =>
+  | .inclusion =>
     simp only [hk] at hs
     have hc : c = x := sourceId_injective i.ast (hs.1.trans (vertex_id i q _).symm)
     have hsup : (family i).super c = some y := (super_eq i c y).mpr (by simpa [y] using hs.2)
