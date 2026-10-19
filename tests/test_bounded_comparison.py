@@ -34,6 +34,29 @@ def candidate(members, containment=(), references=(), garbage=()):
 
 
 class RelationTests(unittest.TestCase):
+    def test_command_matches_complete_identifiers(self):
+        header="open util/integer\npred show {}\nrun show for 1\n\n"
+        pin_text="pred ib_candidate {}\n"
+        for symbol in ("c0_ib_candidate", "ib_candidate_suffix", "ib_candidate'", "ib_candidateÉ"):
+            with self.subTest(symbol=symbol):
+                declaration=f"lone sig {symbol} {{}}\n"
+                model,command=c.command(header+declaration,pin_text,{symbol:1},4,1)
+                self.assertEqual(header.replace("run show for 1\n","")+declaration,
+                                 model.split("\npred ib_candidate",1)[0])
+                self.assertIn(f"1 {symbol}",command)
+                self.assertEqual(1,model.count("pred ib_candidate {"))
+        for declaration in ("pred ib_candidate {}\n", "sig ib_candidate {}\n",
+                            "sig x { ib_candidate: set x }\n"):
+            with self.subTest(collision=declaration):
+                with self.assertRaisesRegex(p.Rejection,"original_command"):
+                    c.command(header+declaration,pin_text,{},4,1)
+
+    def test_command_requires_one_original_command(self):
+        for original in ("pred show {}\n", "run show for 2\n", "run show for 1\n"*2):
+            with self.subTest(original=original):
+                with self.assertRaisesRegex(p.Rejection,"original_command"):
+                    c.command(original,"pred ib_candidate {}\n",{},4,1)
+
     def test_interruption_preserves_observed_solver(self):
         runtime=dict(java=Path("java"),classes=Path("classes"),jar=Path("alloy.jar"),identity={})
         for stage,observed,expected in ((None,None,None),("original_parse",None,None),
@@ -240,7 +263,8 @@ class LiveComparisonTests(unittest.TestCase):
             eight={"c0_x":8},keywords={**{f"c{i}_"+name:1 for i in range(4) for name in ("first","second")},
                 **{"c0_"+name:1 for name in ("exclusive","inclusive","atMostOne","optionalGroup")}},
             identities={"c0_Base":2,"c0_Unused":0,"c0_left":1,"c0_right":1,"c0_same":2,"c1_same":2,"c0_links":2},
-            spellings={"c0_box":2,"c0_links'":2,"c0_same'":2,"c0_Élément":2})
+            spellings={"c0_box":2,"c0_links'":2,"c0_same'":2,"c0_Élément":2},
+            predicate_name={"c0_ib_candidate":1})
         for name,bounds in maps.items():
             path=cls.evidence / ("capture-"+name)
             fixture=(ROOT/"tests/fixtures/importer"/(name+".cfr")) if name in ("identities","spellings") else FIXTURES/(name+".cfr")
@@ -476,6 +500,24 @@ class LiveComparisonTests(unittest.TestCase):
             source.write_bytes(source.read_bytes()+b"\n# changed source bytes\n")
             with self.assertRaisesRegex(p.Rejection,"replay_source_changed"):
                 c.replay(path,self.evidence/"source-snapshot-tampered-replay",runtime=self.runtime)
+
+    def test_13_predicate_substring_comparison_and_replay(self):
+        original=(self.bundles["predicate_name"]/"model.als").read_text()
+        self.assertIn("lone sig c0_ib_candidate",original)
+        for count in (0,1):
+            with self.subTest(count=count):
+                value=candidate({"c0_ib_candidate":list(range(1,count+1))},
+                                [["c0_ib_candidate",[0,o]] for o in range(1,count+1)])
+                result,path=self.run_case("predicate_name",value,"agree_satisfies",bitwidth=4,overall=1)
+                self.assertEqual("sat",result["solver"])
+                self.assertTrue(result["faithful"])
+                self.assertTrue(result["complete"])
+                self.assertEqual(original,(path/"original.als").read_text())
+                replayed=c.replay(path,self.evidence/f"predicate-name-replay-{count}",runtime=self.runtime)
+                self.assertEqual("agree_satisfies",replayed["category"],replayed)
+                self.assertEqual("sat",replayed["solver"])
+                self.assertTrue(replayed["faithful"])
+                self.assertTrue(replayed["complete"])
 
     def test_09_per_parent_keys_and_two_parents(self):
         value=candidate({"c0_Target":[1],"c0_box":[2,3],"c0_refs":[4,5]},

@@ -1325,6 +1325,11 @@ nesting, abstract cover/shared inheritance, unrelated overlap, malformed/root in
 cyclic and nonfunctional tables, unpinned witnesses, the fixed exhaustive domain,
 seeded candidates, all three shrunk mutations and pin/arithmetic/execution failures.
 `RelationTests` checks generator counts, seeds, interruption and result algebra.
+It also checks exact predicate-name collisions and missing/duplicate original
+commands. `LiveComparisonTests.test_13_predicate_substring_comparison_and_replay`
+compiles `predicate_name.cfr` with the pinned compiler and checks empty and
+singleton candidates plus replay against the actual backend, including witness
+fidelity, for the generated signature `c0_ib_candidate`.
 `SourceIdentityTests` exercises snapshot comparison/replay with isolated capture
 admission, actual checkout/worktree Git metadata, parent/environment isolation,
 corrupt metadata/execution errors, source/input byte tampering and runtime mismatch.

@@ -3,6 +3,7 @@
 import argparse
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -10,7 +11,7 @@ import time
 import platform
 
 import alloy_runtime
-from protocol import PIN, OPTIONS, Rejection, digest, encoded, exact, import_bundle, loads, reject, unsupported
+from protocol import IDENTIFIER, PIN, OPTIONS, Rejection, digest, encoded, exact, import_bundle, loads, reject, unsupported
 from relation import canonical, decode, inventory, isomorphism, occurrences, pin, range_argument, validate_candidate
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -51,7 +52,9 @@ def lean(core, candidate):
 
 def command(original, pin_text, bounds, bitwidth, overall, unpinned=False, observations=None):
     exact_command = "run show for 1\n"
-    if original.count(exact_command) != 1 or "ib_candidate" in original:
+    # Use the imported S fragment's identifier grammar: a generated symbol such
+    # as c0_ib_candidate does not collide with the added predicate.
+    if original.count(exact_command) != 1 or "ib_candidate" in re.findall(IDENTIFIER, original):
         reject("original_command")
     if type(overall) is not int or overall < 0:
         unsupported("global_scope")

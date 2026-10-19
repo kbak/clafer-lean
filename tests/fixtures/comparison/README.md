@@ -12,6 +12,8 @@ object in both Lean extents, exposing Alloy's intrinsic top-level-signature
 disjointness in the reverse direction. No candidate admission rule removes it.
 Runtime captures, hashes, seeds, witnesses and minimized replays are retained
 outside the repository by the executable tests.
+`predicate_name.cfr` checks that a supported name containing `ib_candidate`
+compares and replays without being mistaken for the added predicate itself.
 
 The JSON candidates are stable, original MIT-licensed regression inputs:
 `unrelated-overlap.json` exposes the intrinsic representation restriction;

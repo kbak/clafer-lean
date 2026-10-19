@@ -78,6 +78,8 @@ Every actual command scope is inspected through Alloy's resolved AST, including
 exactness, range and increment. The harness emits no explicit exact scopes.
 All original facts/declarations remain byte-for-byte intact; only the recorded
 `run show for 1` command is replaced and the recorded comparison predicate added.
+Predicate collision checks compare complete identifiers using the admitted
+fragment's grammar; names such as `c0_ib_candidate` remain valid.
 Every added constraint, including `#signature <= requested_bound`, is in `pin.als`.
 
 Pinned Alloy `ScopeComputer` rejects a scope other than 1 for `one sig`, and a
