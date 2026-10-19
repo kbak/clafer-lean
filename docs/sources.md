@@ -8,6 +8,34 @@ sources; it is not a complete literature audit. The
 [architecture](architecture.md#roadmap-and-validation-accounting) explains the
 implemented results and their proof limits.
 
+Browse the source map by topic:
+
+- **Editions and evidence:** [primary source](#primary-source),
+  [locator crosswalk](#published-locators-and-legacy-aliases),
+  [supporting sources and licenses](#supporting-sources-and-licenses) and
+  [open decisions](#question-dispositions-and-validation-tasks).
+- **DPGraph:** [span composition](#span-composition-and-relational-reduction),
+  [predicate contracts](#predicate-contracts-and-the-accepted-q8-correction) and
+  [generalized sketches](#generalized-sketches-and-model-reduct-coherence).
+- **FormalCD:** [structure](#formalcd-structure-and-selected-morphisms),
+  [Figure 21c](#figure-21c-metamodel),
+  [realization](#metamodel-realization-and-translational-semantics) and
+  [Figure 21b](#figure-21b-and-the-accepted-q7-correction).
+- **Clafer structure:** [syntax and Shapes](#resolved-2014-clafer-and-individual-shapes),
+  [MCS](#figure-23-and-appendix-5-mcs-discipline),
+  [Compile](#structural-compile-contract), [gluing](#mcs-gluing-and-the-approved-q4-rule)
+  and [declaration disjointness](#declaration-disjointness-clarification).
+- **Constraint meaning and models:** [integer extraction](#integer-extraction-and-appendix-6-version-operands),
+  [inherited realization](#appendix-6-inherited-realization-clarification),
+  [denotation](#independent-constraint-meaning-and-appendix-6-elaboration),
+  [preservation](#selected-constraint-preservation),
+  [representative models](#representative-compilation-and-gluing) and
+  [complete telematics](#complete-appendix-6-model).
+- **Verification and reuse:** [compiler audit](#pinned-compiler-compatibility-audit),
+  [finite semantics](#finite-structural-candidate-semantics),
+  [importer](#pinned-resolved-importer) and
+  [shared foundations](#reusable-semantic-foundations).
+
 The decision history is retained in the
 [formalization roadmap issue](https://github.com/kbak/clafer-lean/issues/2) and
 [source-audit review PR](https://github.com/kbak/clafer-lean/pull/40), the

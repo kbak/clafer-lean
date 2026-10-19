@@ -5,6 +5,23 @@ the [requirements](spec.md) to actual declarations; review must assess the Lean
 statements and [source correspondence](sources.md#formalcd-structure-and-selected-morphisms).
 All names below are in `FormalCD`. Examples remain outside the public entrypoint.
 
+Browse implementation and proof artifacts by topic:
+
+- [Structure and metadata](#raw-and-bundled-structure),
+  [morphisms](#specialized-morphisms-and-forgetting) and
+  [compatible signatures](#supported-signature-data-and-compatible-specialization).
+- [Figure 21c inventory](#metamodel-inventory-and-typed-declarations),
+  [discipline meanings](#discipline-meanings-and-full-binding-representation) and
+  [syntactic self-description](#bounded-syntactic-self-description-data).
+- [Restricted realization and reconstruction](#restricted-realization-and-reconstruction-data),
+  [semantic self-instance](#particular-semantic-self-instantiation-data) and
+  [boundary witnesses](#canonical-realization-boundary-data).
+- [Figure 21b](#figure-21b-data-and-effective-formulas),
+  [guarded version comparison](#guarded-vc-interpretation-data) and
+  [model witnesses](#figure-21b-model-and-boundary-data).
+- [Reusable metadata descent](#reusable-metadata-descent-implementation) and
+  [integer realization](#explicit-integer-realization-implementation).
+
 ## Raw and bundled structure
 
 `impl~formalcd-data~1`

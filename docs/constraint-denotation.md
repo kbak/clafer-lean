@@ -1,7 +1,7 @@
 # Resolved constraint denotation
 
 The constraint denotation interprets the typed core
-of SoSyM Appendix D.1–D.4/Figure 28 and the manual Appendix 6 expansions, as specified
+of SoSyM Appendix 4/Figure 28 and the manual Appendix 6 expansions, as specified
 in the [constraint-meaning issue](https://github.com/kbak/clafer-lean/issues/68). The
 [product intent](intent.md), [source map](sources.md#appendix-d-rule-dispositions-q3),
 [integer bridge](integer-extraction.md), and [inherited inventory](inherited-realization.md)
@@ -75,7 +75,7 @@ head/composite link counts under ownership and functional reference assumptions.
 The expression inventory uses the source IDs d01–d26, root=0 and int=27 from
 [inherited realization](inherited-realization.md). `Telematics.Expressions.inventory_resolved` checks each support against its
 actual AST. The twelve bodies retain the contexts and navigation spelled out in
-the [constraint scope handoff](inherited-realization.md#constraint-scope-handoff).
+the [constraint inventory](inherited-realization.md#constraint-scope-handoff).
 In particular, c01 visits fixed through the cache.size head before integer
 dereferencing; c03 follows inherited options to cache; c04 compares the server
 value with the actual owning parent after widening both to ECU; c06/c07 count

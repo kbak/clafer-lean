@@ -7,6 +7,42 @@ verification and the complete Appendix 6 model. The [documentation map](intent.m
 also defines the project decision labels used below. A research or planning
 requirement alone does not authorize semantic implementation.
 
+Browse requirements by topic:
+
+- **Project:** [validation](#reproducible-lean-validation),
+  [contribution workflow](#intentbond-on-every-contribution),
+  [documentation](#focused-public-project-documentation) and
+  [source research](#source-audit-and-three-layer-roadmap).
+- **DPGraph:** [graphs and models](#graphs-signatures-and-typed-declarations),
+  [spans](#link-preserving-spans-and-isomorphisms),
+  [predicates](#bounded-semantic-graph) and
+  [conditional pushouts](#declaration-unions-on-carrier-cocones).
+- **FormalCD:** [structure](#formalcd-structure-and-semantic-boundary),
+  [metamodel](#figure-21c-metamodel-shape),
+  [realization](#faithful-restricted-metamodel-realization) and
+  [Figure 21b](#complete-figure-21b-example).
+- **Clafer structure:** [syntax and Shapes](#resolved-2014-clafer-syntax),
+  [MCS](#mcs-metamodel-and-ownership),
+  [Compile and groups](#structural-compile-input-contract),
+  [gluing](#mcs-gluing-identity-and-incidence) and
+  [inherited realization](#selected-inherited-field-and-explicit-abstract-realization).
+- **Constraints:** [typing](#resolved-core-constraint-typing),
+  [integer extraction](#integer-extraction-from-primitive-navigation),
+  [denotation](#explicit-constraint-model-environments) and
+  [preservation](#derived-source-constraint-predicate-meanings).
+- **Finite verification:** [comparison contract](#resolved-ir-comparison-contract-and-compatibility-audit),
+  [checker](#effective-structural-core-and-supported-fragment),
+  [importer](#pinned-resolved-compiler-import) and
+  [bounded comparison](#exact-bounded-candidate-comparison).
+- **Worked models:** [walkthrough](#small-lean-model-walkthrough),
+  [representative integration](#representative-compilation-and-gluing) and
+  [complete telematics model](#complete-resolved-appendix-6-integration).
+- **Shared foundations:** [span/navigation laws](#reusable-span-and-navigation-laws),
+  [exact declaration images](#exact-declaration-image-semantics),
+  [referent graphs](#reusable-referent-graph-construction),
+  [metadata descent](#reusable-formalcd-metadata-descent) and
+  [integer realization](#reusable-explicit-integer-realization).
+
 ## Reproducible Lean validation
 
 `req~lean-validation~1`
@@ -142,7 +178,7 @@ private security-reporting guidance, issue/PR templates, a brief README, and lin
 to the SoSyM publication, free preprint, and maintained Haskell implementation.
 
 The README explains Clafer and the formalization's purpose for new readers,
-states its research maturity and delivered-scope limits, and provides clone/build
+states the established results and their limits, and provides clone/build
 instructions, a command for checking an existing example, and clear routes to
 documentation, contribution guidance, issue tracking and security reporting.
 Link the first mention of Lean to its [official site](https://lean-lang.org/).

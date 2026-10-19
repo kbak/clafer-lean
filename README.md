@@ -30,8 +30,7 @@ The `clafer` Lake package provides three public Lean libraries:
 Dependencies flow `Clafer → FormalCD → DPGraph → Mathlib`; `DPGraph` is independently
 importable. The [architecture](docs/architecture.md) explains these boundaries.
 
-**Status: active research, with no stable API or supported releases.** The
-[Telematics case study](docs/telematics.md) connects a complete, manually resolved
+The [Telematics case study](docs/telematics.md) connects a complete, manually resolved
 telematics model to compilation and a concrete satisfying interpretation,
 including all twelve constraint bodies. Its proof establishes that particular
 model under the documented formalization choices. General source-text compiler
@@ -97,8 +96,8 @@ For sensitive reports, follow the [security policy](SECURITY.md).
 ## References and license
 
 To cite the formalization, use [CITATION.cff](CITATION.cff) and include the Git
-commit used. Research snapshots do not promise API stability; see the
-[snapshot and review policy](docs/maintenance.md#research-snapshots).
+commit used. The [snapshot and review policy](docs/maintenance.md#research-snapshots)
+describes how reviewed source revisions are recorded.
 
 The primary semantic reference is:
 

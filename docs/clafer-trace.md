@@ -7,6 +7,26 @@ below are in namespace `Clafer`, with witnesses in `Clafer.Examples`. Kernel
 checking establishes the Lean statements; independent review must assess their
 correspondence to the paper and the selected input boundary.
 
+Browse implementation and proof artifacts by topic:
+
+- **Structure:** [syntax and Shapes](#deep-resolved-declarations),
+  [MCS](#mcs-metamodel), [Compile](#compile-input-and-finite-identity-allocation) and
+  [gluing](#mcs-gluing-representation).
+- **Constraints:** [typing](#resolved-core-expression-constructors),
+  [integer extraction](#integer-extraction-interface),
+  [denotation](#resolved-constraint-denotation) and
+  [preservation](#derived-source-predicate-meanings).
+- **Realization:** [group generation](#interpreted-group-generation) and
+  [inherited fields and abstract families](#selected-inherited-realization).
+- **Verification:** [effective core](#effective-structural-core),
+  [whole-model meaning](#whole-model-structural-meaning),
+  [finite checker](#finite-structural-checker),
+  [importer](#resolved-compiler-import-and-capture) and
+  [bounded comparison](#external-bounded-comparison-execution).
+- **Worked models:** [walkthrough](#small-model-walkthrough),
+  [representative integration](#representative-model-integration) and
+  [complete telematics](#complete-appendix-6-resolved-model).
+
 ## Deep resolved declarations
 
 `impl~clafer-resolved-syntax~1`
