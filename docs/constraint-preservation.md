@@ -49,8 +49,8 @@ by `groupLabel`. Its source candidate is exactly that target candidate's reduct.
 `glued_constraint_declared` establishes actual membership in the generated image.
 `whole_model` composes the result with `Compile.Realization.whole_model`: for a
 selected inherited core and an admissible shared-object configuration, typedness,
-root conditions and satisfaction of its canonically descended glued diagram are
-equivalent to extended structural satisfaction and truth of every attached source
+root conditions, declaration disjointness and satisfaction of its canonically
+descended glued diagram are equivalent to extended structural satisfaction and truth of every attached source
 constraint. The local, group, inclusion and abstract obligations and complete
 declaration image come from the existing generation proofs. The interpretation
 substituted for their authored-meaning parameter is fixed by the bodies.

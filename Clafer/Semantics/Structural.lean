@@ -1,6 +1,6 @@
 module
 
-public import Clafer.Semantics.EffectiveCore
+public import Clafer.Semantics.Inheritance
 public import DPGraph.Predicates.Interpretation
 public import DPGraph.Predicates.FunctionalKey
 
@@ -43,6 +43,27 @@ def Rooted : Prop :=
 
 def Inherits : Prop :=
   ∀ d c, m.family.super d = some c → ∀ x, (x ∈ s.head d) → (x ∈ s.head c)
+
+/-- Maintainer-adopted #87 clarification of §5.5/Appendix E: shared head
+membership requires comparability through super edges. Equality is reflexive;
+containment, names and reference targets do not create ancestry. Context views
+are restrictions of these declarations, not additional heads. -/
+def DeclarationDisjoint : Prop :=
+  ∀ d e x, x ∈ s.head d → x ∈ s.head e → m.Ancestor d e ∨ m.Ancestor e d
+
+/-- Pairwise disjointness of inheritance-incomparable declaration extents. -/
+theorem declarationDisjoint_iff : s.DeclarationDisjoint m ↔
+    ∀ d e, ¬ m.Ancestor d e → ¬ m.Ancestor e d →
+      ∀ x, ¬ (x ∈ s.head d ∧ x ∈ s.head e) := by
+  constructor
+  · intro h d e hd he x hx
+    exact (h d e x hx.1 hx.2).elim hd he
+  · intro h d e x hd he
+    by_cases hde : m.Ancestor d e
+    · exact Or.inl hde
+    · apply Or.inr
+      by_contra hed
+      exact h d e hde hed x ⟨hd, he⟩
 
 /-- The direct subtype family covers its abstract head, and distinct images
 are disjoint in that common target (accepted Q8), including the empty family. -/
@@ -90,6 +111,6 @@ obligation. Root reachability is derived from these clauses and core validity. -
 def StructuralSatisfies {n : Nat} {U : Type u} (m : EffectiveCore n)
     (s : Configuration (Fin n) U) : Prop :=
   s.Typed m ∧ s.Rooted m ∧ s.Inherits m ∧ s.Abstracts m ∧
-  s.Parents m ∧ s.References m ∧ s.Keys m ∧ s.Multiplicities m ∧ s.Groups m
+  s.Parents m ∧ s.References m ∧ s.Keys m ∧ s.Multiplicities m ∧ s.Groups m ∧ s.DeclarationDisjoint m
 
 end Clafer.Semantics

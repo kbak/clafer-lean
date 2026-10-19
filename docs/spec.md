@@ -1752,7 +1752,8 @@ provenance. State well-formedness separately from the guarded S fragment in
 Compile, gluing, Q1/Q8 and top-level abstract corrections. Reject excluded and
 pending combinations, including primitive values, user expressions, nested
 abstract bodies, reference inheritance and nontrivial abstract groups. Abstract
-inheritance chains and unrelated class overlap remain available.
+inheritance chains remain available. Raw candidates may contain unrelated class
+overlap; satisfying configurations must meet declaration disjointness.
 
 Prove effective erasure correspondence for valid supported constraint-free ASTs
 and the selected compiled structural interpretation, with complete declaration
@@ -1775,7 +1776,14 @@ parent ownership, shared-object inheritance, abstract cover and common-target
 sibling disjointness, reference totality, set keys, local multiplicities and
 concrete own-child group bounds. Groups count the union of child head objects;
 references count occurrences, including distinct heads with equal parent/target.
-Unrelated class extents may overlap.
+Require an independent declaration-disjointness obligation: for distinct resolved
+declarations d and e, their head extents are disjoint whenever neither is reachable
+from the other through super edges. This applies to nested declarations and separate
+inheritance trees. Containment ancestry, equal names and shared reference targets
+do not establish comparability. Preserve the same object along its super chain;
+inherited context views restrict existing field objects and links and are not
+fresh declarations. This is the [maintainer-adopted #87 clarification](SOURCES.md#declaration-disjointness-clarification),
+not a theorem that the paper uniquely determines the global rule.
 
 Construct the subset/span interpretation and prove the correspondence to the
 selected complete compiled/glued structural diagram, explicitly accounting for
@@ -1799,7 +1807,9 @@ occurrence-preserving reference data and a terminating executable checker under
 unsupported input from well-formed candidates that violate structural constraints.
 Duplicate object/link/ordinary-tuple identities and dangling/ill-typed endpoints
 are malformed; absent/multiple parents or dereference values are semantic
-violations. Keep empty classes and failing candidates in the representation.
+violations. Unrelated declaration overlap is also a semantic violation, never
+malformed or unsupported solely because of the overlap. Keep empty classes and
+failing candidates in the representation.
 
 Prove both directions of `check m c = true ↔ StructuralSatisfies m (realize c)`
 under explicit validity and fragment hypotheses, plus malformed-input rejection.
@@ -1821,7 +1831,10 @@ Supply positive and negative whole-model kernel-checked witnesses and executable
 tests for empty classes, zero/optional/exact/bounded/unbounded finite counts,
 groups, nesting, admitted inheritance and abstract cover/disjointness, malformed
 identities/endpoints, and repeated-target set/bag behavior. Exercise reference
-cycles without recursive target traversal and permit unrelated class overlap.
+cycles without recursive target traversal. Reject unrelated declaration overlap,
+including nested declarations and distinct inheritance trees, while accepting
+distinct objects, same-object super chains and permitted shared reference targets.
+Preserve typed overlap candidates, union counting and inherited-view identity.
 Detect deliberate duplicate-collapse and omitted-bound mutations with the
 corresponding assertions. Keep all existing validation and coverage policy;
 record full pinned validation, theorem-axiom inspection, source-matched evidence
@@ -1839,7 +1852,8 @@ Needs: impl, proof, utest
 
 Extend the Clafer whole-model interpretation for the accepted Appendix F
 D2/D4/D6 combinations in [the scoped source contract](inherited-realization.md).
-Preserve #50's guarded fragment and checker unchanged. Read authored abstractness
+Preserve #50's guarded fragment; enforce #87's declaration disjointness in both
+the checker and this extended satisfaction relation. Read authored abstractness
 from retained AST metadata; do not reconstruct it from the erased effective flag.
 Keep the existing equal-parent declaration rule. Support the listed seven super
 edges to parentless explicit basic abstracts and ordinary nested field templates;
@@ -1890,7 +1904,10 @@ structural MCS. Preserve role/referent/name separation, incidence and metadata
 compatibility, effective-default completeness, input positive support and the
 original bank's total-args/key discipline. Do not assert that the larger raw bank
 satisfies Figure 23 total args. Provide whole-model equivalence with explicit
-root/typedness conditions and structural scope transport for later interpretation.
+root/typedness and declaration-disjointness conditions and structural scope
+transport for later interpretation. Declaration disjointness is an explicit global
+condition on the configuration; local Shapes and generated abstract-family predicates
+alone do not establish it.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1905,8 +1922,8 @@ ECU/plaECU/ECU1/ECU2 and display/plaDisplay, display.options and nested xor,
 and plaECU.plaDisplay in both ECU1 and ECU2. Check compiled/generated and glued
 predicates on the actual constructed structural fixture. Reject inconsistent
 inherited containment/dereference values, uncovered explicit abstracts, forbidden
-explicit sibling overlap, shared owned occurrences at distinct parents and
-inappropriate duplicate occurrences. Reject an xor violation at realized
+explicit sibling overlap and inheritance-incomparable declaration overlap, shared
+owned occurrences at distinct parents and inappropriate duplicate occurrences. Reject an xor violation at realized
 options.size. Retain the source-ID mapping and the separate twelve-conjunct scope
 inventory; these structural witnesses do not claim #64's full expression-bearing
 fixture or complete satisfaction result.
@@ -2023,7 +2040,8 @@ Transport the interpreted source formula along the actual labeling morphism and
 prove its membership in the exact declaration image. Compose with the generated
 local/group/inheritance/abstract bank and its selected shared-object realization
 to prove both directions of whole-model satisfaction correspondence. State
-selected-core, primitive, typing/root and canonical-candidate assumptions
+selected-core, primitive, typing/root, declaration-disjointness and
+canonical-candidate assumptions
 explicitly. Derive generation/completeness from actual construction; no client
 supplies a complete semantic bridge. Generic model reduct does not imply
 unrestricted reflection for arbitrary targets. Preserve effective-default
@@ -2182,8 +2200,9 @@ Implement the accepted #52 harness under `scripts/verification/`, tests/fixtures
 under `tests/` and any Lean additions under `Clafer/Verification/`. Reuse #51's
 same-generation strict capture/import and #50's effective core, finite candidate
 domain, semantic bridges and verified checker. Preserve S/X/D guards, distinct
-UIDs/names/referents, occurrence identities and unrelated-class overlap; do not
-add Alloy disjointness to Lean admission. Preserve existing public roots, package
+UIDs/names/referents, occurrence identities and raw unrelated-class overlap. Apply
+the #87 disjointness rule in satisfaction without filtering admission or
+enumeration. Preserve existing public roots, package
 and dependency directions and all checker/compile promises.
 
 For each supported core, explicit manual bound vector and well-formed candidate,
@@ -2226,7 +2245,9 @@ inherited objects and each reference-head occurrence. Justify the virtual root,
 top-level containment, used objects and every classified auxiliary; unknown
 auxiliaries are unsupported. Decode under only reviewed object/link bijections
 and validate witnesses against the original candidate, not endpoint-reduced data.
-Distinguish intrinsic generated-model restrictions from adapter/domain/bitwidth
+Keep the stable unrelated-overlap candidate and require `agree_violates` under
+#87, without changing its exact pin or representation. Distinguish intrinsic
+generated-model restrictions from adapter/domain/bitwidth
 failures before reporting a discrepancy. State the external trust assumptions;
 serialization roundtrips and trace links alone do not establish this relation.
 

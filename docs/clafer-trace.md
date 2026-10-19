@@ -635,7 +635,9 @@ Covers:
 
 [Structural.lean](../Clafer/Semantics/Structural.lean): `Configuration`,
 `StructuralSatisfies`, `Typed`, `Rooted`, `Inherits`, `Abstracts`, `Parents`,
-`References`, `Keys`, `Multiplicities`, `Child`, `Groups`.
+`References`, `Keys`, `Multiplicities`, `Child`, `Groups`, `DeclarationDisjoint`.
+[Inheritance.lean](../Clafer/Semantics/Inheritance.lean): `EffectiveCore.Ancestor`
+is super-edge closure; `next` supplies the finite decision procedure.
 [Interpretation.lean](../Clafer/Semantics/Interpretation.lean): `headMap`,
 `derefMap`, `targetMap`, `ordinaryMap`, `inclusionMap`, `interpret`.
 [Bridge.lean](../Clafer/Semantics/Bridge.lean): `LocalConditions`,
@@ -651,6 +653,11 @@ Covers:
 `structural_model_iff` connect independent clauses to the exact local compiled
 bank plus explicit global obligations. [Abstracts.lean](../Clafer/Semantics/Abstracts.lean):
 `abstracts_iff` gives the existing Cover/Q8 Disjoint meaning.
+[Structural.lean](../Clafer/Semantics/Structural.lean): `declarationDisjoint_iff`
+relates shared-head comparability to pairwise disjointness of incomparable heads.
+[Inheritance.lean](../Clafer/Semantics/Inheritance.lean): `ancestor_iff_iterate`,
+`iterate_bounded`, `ancestor_iff_bounded` justify the terminating ancestry decision
+without admission assumptions.
 [Relational.lean](../Clafer/Semantics/Relational.lean): `inRange_one_iff`,
 `one_iff_total_single`, `compositeFiber`, `composite_multiplicity`, `two_key_iff`,
 `parent_one_iff`, `deref_one_iff`. [Interpretation.lean](../Clafer/Semantics/Interpretation.lean):
@@ -722,7 +729,10 @@ Covers:
 `set_not_satisfies`, `set_rejects_repetition`, `exact_two_accepts`,
 `optional_rejects_two`, `zero_rejects_two`, `lower_three_rejects`,
 `unbounded_accepts`, `group_three_accepts`, `group_two_rejects`,
-`unrelated_overlap_and_union`, `missing_target_violates`, `missing_target_typed`,
+`unrelated_overlap_rejected`, `unrelated_overlap_typed`, `overlap_group_union`,
+`overlap_old_checks`, `overlap_protocol_violates`, `nested_overlap_typed`,
+`nested_overlap_rejected`, `separate_trees_overlap_violates`,
+`separate_trees_distinct_satisfy`, `missing_target_violates`, `missing_target_typed`,
 `nested_satisfies`, `nested_reachable`, `sibling_overlap_rejected`,
 `uncovered_abstract_rejected`, `empty_classes_accept`, `reference_cycle_accepts`,
 `zero_accepts_empty`, `optional_accepts_empty`, `optional_accepts_one`,
@@ -803,7 +813,8 @@ Covers:
 `inhabited_zero_bounds`.
 [GroupOverlapExamples.lean](../Clafer/Compile/GroupOverlapExamples.lean):
 `overlap_typed`, `union_unchanged`, `two_head_paths_one_object`,
-`compiled_overlap_xor`, `glued_overlap_xor`. These check group predicates under explicit typed
+`compiled_overlap_xor`, `glued_overlap_xor`. These preserve raw group-union
+semantics without claiming whole-model declaration disjointness, under explicit typed
 configurations, not a claim of complete #66 inherited-family realizability.
 
 Covers:
@@ -815,7 +826,8 @@ Covers:
 [Realization](../Clafer/Semantics/Realization.lean) defines `Core`, `Core.ofInput`,
 `Core.Selected`, `Abstracts`, `Groups`, `Satisfies`, `View`, `headView`, `derefView`
 and `targetView`. The extension retains authored metadata and original link
-identities. [The source contract](inherited-realization.md) records the selected
+identities. `Satisfies` also requires declaration disjointness while views retain
+the original field objects. [The source contract](inherited-realization.md) records the selected
 D2/D4/D6 combinations and the complete scoped Appendix F inventory.
 
 Covers:
@@ -861,6 +873,8 @@ and `local_model_iff` for the selected broader input. In
 `field_iff`, `abstract_iff`, `bank_model_iff`, `correspondence` and `whole_model`
 connect actual generated declarations and exact gluing to the independent
 structural conditions, with authored expression meaning left as a parameter.
+`whole_model` explicitly requires declaration disjointness on the model side;
+the generated local/abstract/group bank does not entail this extra global clause.
 
 Covers:
 - `req~clafer-compile-realization~1`
@@ -878,13 +892,14 @@ Covers:
 
 `proof~clafer-inherited-witnesses~1`
 
-[Inherited](../Clafer/Examples/Inherited.lean) supplies `wf`, `selected`, `satisfies`, `all_reach_root`, `compiled_glued_model`,
+[Inherited](../Clafer/Examples/Inherited.lean) supplies `wf`, `selected`, `declaration_disjoint`, `satisfies`, `all_reach_root`, `compiled_glued_model`,
 `inherited_version`, `inherited_options_and_displays`, `realized_xor_generated`
 and `realized_xor_glued`.
 [InheritedRejections](../Clafer/Examples/InheritedRejections.lean) proves
 `inconsistent_context_parent`, `inconsistent_context_reference`,
 `shared_owner_rejected`, `duplicate_rejected`, `uncovered_rejected`,
 `overlap_rejected`, `uncovered_generated_cover`, `overlap_generated_disjoint`,
+`unrelated_fields_typed`, `unrelated_fields_disjoint_rejected`, `unrelated_fields_rejected`,
 `two_options_rejected`, `generated_xor_rejects_two` and
 `glued_xor_rejects_two`. No general expression satisfaction is claimed.
 
@@ -1043,7 +1058,8 @@ inclusion meanings from generated local declarations. `constraint_iff`,
 `compiled_model_iff`, `glued_constraint_iff`, `glued_constraint_declared`, `authored_iff` and
 `whole_model` prove the selected satisfaction correspondence using the actual
 label and complete generated bank. The latter composes
-`Compile.Realization.whole_model` and retains its selected structural conditions;
+`Compile.Realization.whole_model` and retains its selected structural conditions,
+including explicit declaration disjointness;
 it does not infer reflection from generic model reduct.
 [VersionPreservation.lean](../Clafer/Examples/VersionPreservation.lean) specializes
 `generated_version_iff` and `generated_operands_defined` to the actual compiled
@@ -1246,7 +1262,7 @@ Covers:
 [AppendixFConfiguration](../Clafer/Examples/AppendixFConfiguration.lean):
 `integer_extent`, `primitive_root_containment`, `nonprimitive_finite`,
 `typed`, `rooted`, `inherits`, `parents_hold`, `references_hold`, `keys`,
-`multiplicities`, `abstracts`, `groups` and `structural_satisfaction`.
+`multiplicities`, `abstracts`, `groups`, `declaration_disjoint` and `structural_satisfaction`.
 [AppendixFSatisfaction](../Clafer/Examples/AppendixFSatisfaction.lean):
 `c01_all`, `c02_all`, `c02_defined`, `c03_all`, `c04_all`,
 `c05_holds` through `c12_holds`.
@@ -1325,7 +1341,8 @@ Covers:
 [test_bounded_comparison.py](../tests/test_bounded_comparison.py) executes actual
 paired compiler captures, Lean checks, pinned solver calls, witness fidelity and
 replay. Its numbered live tests cover repeated-target sets/bags, local/group bounds,
-nesting, abstract cover/shared inheritance, unrelated overlap, malformed/root inputs,
+nesting, abstract cover/shared inheritance, rejected unrelated overlap with
+`agree_violates`, accepted distinct heads, nested overlap rejection, malformed/root inputs,
 cyclic and nonfunctional tables, unpinned witnesses, the fixed exhaustive domain,
 seeded candidates, all three shrunk mutations and pin/arithmetic/execution failures.
 `RelationTests` checks generator counts, seeds, interruption and result algebra.

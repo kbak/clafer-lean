@@ -6,7 +6,8 @@ public import Clafer.Semantics.Realization
 
 The guarded fragment has no inherited field bodies. In that fragment the two
 abstract classifications coincide, and the inherited union reduces to own heads.
-No checker code, admitted fragment or effective-core erasure is changed.
+Both relations require #87 declaration disjointness; their admitted fragment
+and effective-core erasure coincide.
 -/
 
 @[expose] public section

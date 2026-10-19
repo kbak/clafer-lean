@@ -394,13 +394,19 @@ Whole-model semantics, representation and erasure bridges live under
 under `Clafer/Verification/`. These remain in the single `clafer` package and
 add no reverse dependency or finite-carrier condition to DPGraph or FormalCD.
 The reusable local bank is the existing structural Compile bank. Global root,
-abstract-cover/disjointness and group obligations must be stated and interpreted
+abstract-cover/disjointness, declaration disjointness and group obligations must
+be stated and interpreted
 in addition to that bank; local Shapes alone do not establish whole-model meaning.
 
 Finite ordinary relation tables retain head objects as occurrence identities.
 Derived reference-target spans retain composable links. Inheritance uses the same
-ambient objects, and group counts use the union of child head fibers. Unrelated
-classes may overlap; Alloy's implicit signature disjointness is not a Lean guard.
+ambient objects, and group counts use the union of child head fibers.
+`Configuration.DeclarationDisjoint` independently requires super-edge comparability
+for shared declaration membership. It is a satisfaction condition, with overlap
+still available in raw candidates. Inherited field/context restrictions are not
+fresh declarations. The same global condition accompanies normalization and the
+compiled/glued whole-model correspondences; no generic subset/span restriction is
+introduced.
 The [structural checker guide](structural-checker.md) identifies the domain,
 compiled-bank and arbitrary-span normalization bridges, protocol and proof APIs.
 The theorem checks the executable algorithm against independent satisfaction;

@@ -519,8 +519,14 @@ theorem groups : Semantics.Realization.Groups core config := by
   all_goals dsimp only
   all_goals decide +revert
 
+theorem declaration_disjoint : config.DeclarationDisjoint core.toEffectiveCore := by
+  change ∀ d e x, x ∈ heads d → x ∈ heads e →
+    Compile.Groups.Ancestor core.family d e ∨ Compile.Groups.Ancestor core.family e d
+  simp only [ancestor_iff]
+  decide
+
 theorem satisfies : Semantics.Realization.Satisfies core config :=
-  ⟨typed, rooted, ⟨inherits, parents_hold, references_hold, keys, multiplicities⟩, abstracts, groups⟩
+  ⟨typed, rooted, ⟨inherits, parents_hold, references_hold, keys, multiplicities⟩, abstracts, groups, declaration_disjoint⟩
 
 theorem all_reach_root (x : Fin 25) : config.Reaches x :=
   Semantics.Realization.reaches core config (EffectiveCore.erase_wellFormed input) selected satisfies x
@@ -532,7 +538,7 @@ theorem compiled_glued_model :
     (Compile.Realization.interpretation input (Fin 25) authored).IsModel
       (Compile.Realization.glued input).toDPGraph (Compile.Realization.descend input config) :=
   (Compile.Realization.whole_model input authored selected config).mpr
-    ⟨satisfies, fun q => (no_constraints q).elim⟩ |>.2.2
+    ⟨satisfies, fun q => (no_constraints q).elim⟩ |>.2.2.2
 
 /-- d09 version retains one occurrence at every view of each component. -/
 theorem inherited_version :

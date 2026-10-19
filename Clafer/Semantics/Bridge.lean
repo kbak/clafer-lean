@@ -102,7 +102,8 @@ theorem key_local_iff (typed : s.Typed m) (parents : s.Parents m)
 def LocalConditions : Prop :=
   s.Inherits m ∧ s.Parents m ∧ s.References m ∧ s.Keys m ∧ s.Multiplicities m
 
-def GlobalConditions : Prop := s.Rooted m ∧ s.Abstracts m ∧ s.Groups m
+def GlobalConditions : Prop :=
+  s.Rooted m ∧ s.Abstracts m ∧ s.Groups m ∧ s.DeclarationDisjoint m
 
 theorem structural_split : StructuralSatisfies m s ↔
     s.Typed m ∧ s.GlobalConditions m ∧ s.LocalConditions m := by

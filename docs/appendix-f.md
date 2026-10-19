@@ -73,7 +73,9 @@ use embeddings and do not assign zero cardinality to infinite collections.
 The finite checker from #50 is not applied to this interpretation.
 
 `structural_satisfaction` discharges typing, root, inheritance, parent,
-reference, key, multiplicity, abstract-cover/disjoint and group obligations.
+reference, key, multiplicity, abstract-cover/disjoint, group and declaration-disjointness
+obligations. `declaration_disjoint` checks finite head memberships and the separate
+complete integer extent against the actual super-edge ancestry.
 [AppendixFSatisfaction](../Clafer/Examples/AppendixFSatisfaction.lean) evaluates
 all twelve bodies using navigation from these same objects and links.
 `c02_defined` derives operand definedness from actual version/server head
@@ -84,7 +86,8 @@ arity vertex and map with the actual generated support reduct. `source_holds`
 proves every attached body at every applicable context object.
 `compiled_glued_model` applies `Compile.ConstraintMeaning.whole_model` to this
 same configuration's canonical descent and the exact generated/glued bank.
-Its selected-core, primitive-domain, typing/root and source-truth assumptions
+Its selected-core, primitive-domain, typing/root, declaration-disjointness and
+source-truth assumptions
 are discharged; they are not premises of the final concrete theorem.
 
 ## Negative witnesses

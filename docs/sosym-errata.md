@@ -76,6 +76,17 @@ insufficient for arbitrary spans.
 
 ## Clarifications
 
+### Incomparable Clafer declaration heads are disjoint
+
+**§5.3–5.5, §6.1–6.2 and Appendices E–F.** The adopted #87 rule requires
+super-edge comparability for two declaration heads to share an object. It covers
+nested declarations and separate inheritance trees while preserving subtype
+identity and inherited field views. Reference-target sharing remains permitted.
+The paper supplies inclusion and explicit abstract-family partitions without
+uniquely specifying this global rule. This is a maintainer-adopted clarification
+consistent with the pinned static Alloy translation; generic subset/span models
+remain unrestricted. [Source correspondence and limits](SOURCES.md#declaration-disjointness-clarification).
+
 ### Links and bag keys retain multiplicity
 
 **Appendix B.1–B.3, pp.28–30; Table 3, p.12.** A mapping retains individual

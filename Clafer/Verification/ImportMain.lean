@@ -27,6 +27,7 @@ def failedPredicates {n : Nat} (m : Semantics.EffectiveCore n) (c : Candidate n)
   ([ ("typed", decide ((realize c).Typed m)),
      ("rooted", decide ((realize c).Rooted m)),
      ("inherits", decide ((realize c).Inherits m)),
+     ("declaration_disjoint", decide ((realize c).DeclarationDisjoint m)),
      ("abstracts", decide ((realize c).Abstracts m)),
      ("parents", decide ((realize c).Parents m)),
      ("references", decide ((realize c).References m)),

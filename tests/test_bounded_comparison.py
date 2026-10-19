@@ -328,7 +328,13 @@ class LiveComparisonTests(unittest.TestCase):
             self.run_case("inheritance",candidate(members,links),"agree_violates")
         overlap=candidate({"c0_x":[1],"c0_y":[1]},[["c0_x",[0,1]],["c0_y",[0,1]]])
         self.assertEqual(overlap,p.loads((FIXTURES/"unrelated-overlap.json").read_bytes()))
-        self.run_case("overlap",overlap,"lean_accepts_alloy_rejects")
+        result,path=self.run_case("overlap",overlap,"agree_violates")
+        self.assertEqual("violates",result["lean"])
+        self.assertEqual(["declaration_disjoint"],p.loads((path/"lean.json").read_bytes())["failed_predicates"])
+        self.run_case("overlap",candidate({"c0_x":[1],"c0_y":[2]},
+            [["c0_x",[0,1]],["c0_y",[0,2]]]),"agree_satisfies")
+        self.run_case("nesting",candidate({"c0_box":[1],"c0_child":[1]},
+            [["c0_box",[0,1]],["c0_child",[1,1]]]),"agree_violates")
         value=candidate({"c0_x":[1]},[["c0_x",[0,1]]])
         for mutate in (lambda x:x["objects"].append(2),
                        lambda x:x["containment"].clear(),lambda x:x["members"].append(["c0_x",0])):
@@ -380,7 +386,10 @@ class LiveComparisonTests(unittest.TestCase):
                                     mode="exhaustive",expected=count)
             (self.evidence/(name+"-exhaustive.json")).write_bytes(p.encoded(report))
             self.assertTrue(report["complete_domain"],report)
-            self.assertGreater(report["categories"].get("lean_accepts_alloy_rejects",0),0)
+            self.assertEqual(report["categories"].get("lean_accepts_alloy_rejects",0),0)
+            self.assertEqual(report["categories"].get("alloy_accepts_lean_rejects",0),0)
+            self.assertGreater(report["categories"].get("agree_violates",0),0)
+            self.assertGreater(report["categories"].get("agree_satisfies",0),0)
         for name in ("bag","nesting","inheritance"):
             core=self.cores[name];bounds=self.metadata[name]["bounds"]
             stream=candidates.generated(core,bounds,52,6)

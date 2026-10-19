@@ -909,17 +909,57 @@ context only; its Alloy facts do not define the Lean relation.
 | B.1 Definitions 1–5/Theorems 1–2, B.2.1–2 | Ordinary relation-tuple links and link-isomorphic representation; composite target spans preserve composable occurrences under Q1 |
 | §6.1–6.2, B.4 Definitions 6–10/B.5 | Interpretation into the existing bounded subset/span graph and explicit connection with the selected compiled structural declarations; global clauses supplement the local bank |
 
-Unrelated classes may overlap in the shared ambient carrier. No implicit Alloy
-signature partition, global unique parent across unrelated memberships, primitive
-value domain or authored/default theorem is introduced. The [requirements](spec.md#whole-model-structural-satisfaction-and-interpretation)
+The shared ambient carrier represents unrelated overlap as well as subtype
+sharing. Clafer satisfaction adds the declaration-disjointness clarification below;
+generic DPGraph/FormalCD models remain unrestricted. No primitive value domain
+or authored/default theorem is introduced. The [requirements](spec.md#whole-model-structural-satisfaction-and-interpretation)
 and [trace map](clafer-trace.md) distinguish definitions, implementation proofs and
 whole-model boundary tests.
+
+## Declaration disjointness clarification
+
+[Issue #87](https://github.com/kbak/clafer-lean/issues/87) adopts the static Alloy
+translation's declaration-identity rule: distinct resolved declaration extents
+are disjoint unless one declaration reaches the other through super edges.
+This includes nested declarations and different inheritance trees. Containment
+ancestry, equal names and reference targets do not establish comparability.
+Subtype and supertype membership share the same object. Inherited context views
+restrict existing field objects and links and are not fresh declarations.
+
+The primary source correspondence has these limits:
+
+| Passage | What it supplies; limit of the correspondence |
+| --- | --- |
+| §5.3.1–3/Table 4, p.13; §5.3.4–5 and §5.4, p.14 | Basic/reference declaration structure, abstract realization, root and containment. These do not state the global partition of all incomparable declaration heads. |
+| §5.5/Figures 18–19, pp.14–16 | Identity-preserving inheritance, inclusion and inherited features. Super chains share objects; containment and repeated names are different relations. |
+| §6.1.2/Figure 21, pp.17–18; §6.2.3–5/Figure 23; Appendix E Tables 6–8, p.33 | Explicit inclusion and abstract-family cover/disjointness with accepted Q8. Local Shapes do not supply global disjointness between arbitrary unrelated heads. |
+| B.5, p.30; Appendix F, p.34 | Shared subset/span interpretation and inherited component/version/options views. Generic subset/span objects are not partitioned; a field's context restriction keeps its object/link identity. |
+
+The paper does not uniquely determine the additional global rule. This is a
+maintainer-adopted clarification, consistent with the selected translation, not a
+theorem inferred from compiler agreement. Supplementary evidence is
+[`Generator/Alloy.hs`](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Generator/Alloy.hs#L144-L156)
+(`claferDecl`/`genExtends`, lines 144–156), at the existing MIT-licensed
+pin `15adb2216909421bcb5022174d2d84ef2b42307c`. The
+[Alloy language reference, signatures](https://alloytools.org/spec.html#signatures)
+specifies disjoint top-level signatures and disjoint sibling `extends` signatures;
+subtypes are subsets of their parents. The accepted comparison profile remains
+Alloy 6.2.0. These constraints propagate to incomparable descendants; inherited
+fields remain relations over their existing signature objects.
+
+The independent `Configuration.DeclarationDisjoint` obligation and its finite
+ancestry decision implement this rule. Compile/gluing and arbitrary-span
+normalization expose it as a global condition alongside the actual generated
+bank. Admission, raw representation, exact pins and enumeration keep overlapping
+candidates; the stable #52 regression now requires `agree_violates`. Reference
+occurrences may still share targets according to the existing per-parent set/bag
+rules. Group unions, inherited views and Q1/Q8 retain their meanings.
 
 ## Appendix F inherited realization clarification
 
 The accepted D2/D4/D6 combinations for #66 and the scoped #64 source inventory
 are recorded in [inherited realization](inherited-realization.md). This extends
-#50 without changing its guarded checker: ordinary effective-abstract fields
+#50 while retaining its guarded domain: ordinary effective-abstract fields
 are realized by their parents, explicit abstracts retain direct-subtype cover
 and Q8 disjointness, and inherited maps restrict shared objects and links.
 The equal-parent declaration rule remains in force; broader refinement is
