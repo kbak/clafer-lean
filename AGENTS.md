@@ -1,34 +1,24 @@
 # Working on Clafer Lean
 
-The repository remains `kbak/clafer-lean`; its single Lake package is `clafer`.
+The repository is `kbak/clafer-lean`; its single Lake package is `clafer`.
 The sibling public roots are `DPGraph`, `FormalCD` and `Clafer`, with permitted
 dependencies `Clafer -> FormalCD -> DPGraph -> Mathlib`. Keep DPGraph independently
-importable. Its delivered slice includes SoSyM B.1 Definitions 1–5, Theorems 1–2 and
-B.2.1–2 link-preserving span operations with the adopted Q1 correction, B.4
-Definitions 6–10, a fixed-signature category, the abstract B.5 model reduct and
-selected Table 3/A.1 predicates in a bounded graph of subsets and spans, with the
-accepted common-target Q8 disjointness correction.
-FormalCD delivers raw/bundled class diagrams, naming/default obligations and
-name-preserving morphisms, compatible signature support and the Figure 21c
-metamodel with explicit disciplines, bounded syntactic self-description and
-Figure 21b with its corrected guarded VC interpretation and concrete models.
-Self-description does not assert semantic self-instantiation. VC remains a
-FormalCD extension, separate from the generic built-in vocabulary.
-Preserve full graph bindings separately from the literal bag key and total-args
-conditions; see the source map before extending metamodel representation. Clafer
-delivers resolved deep syntax, typed core constraints with graph support and
-explicit inheritance widening, a binder/context boundary, individual Shapes and
-the Figure 23/Appendix E structural MCS discipline, including the accepted
-top-level abstract head and seven-association source-multiplicity corrections.
-Structural Compile derives well-formed MCS values under its explicit resolved-input
-contract (docs/compile.md), including positive map support for constraints.
-Role identities, resolved referents and names remain separate. Gluing uses equal
-resolved referents with explicit incidence/metadata consistency; FormalCD validity
-additionally requires complete effective defaults in the source bank.
-Read the remaining layer boundaries in
-[architecture](docs/ARCHITECTURE.md), the [requirements](docs/spec.md) and
-[roadmap #2](https://github.com/kbak/clafer-lean/issues/2)/
-[design #13](https://github.com/kbak/clafer-lean/issues/13) before those increments.
+importable and new Lean modules under their owning root.
+
+Read the canonical [intent and documentation map](docs/intent.md),
+[architecture](docs/ARCHITECTURE.md), affected [requirements](docs/spec.md), and
+[source map](docs/SOURCES.md) before extending a layer. They own current scope,
+contracts, paper correspondences and accepted corrections. [Roadmap #2](https://github.com/kbak/clafer-lean/issues/2)
+and [design #13](https://github.com/kbak/clafer-lean/issues/13) retain decision history.
+
+Preserve the semantic boundaries: full graph bindings, literal bag keys and
+argument totality are separate; bounded syntactic self-description does not imply
+semantic self-instantiation; VC is a FormalCD extension. Role identities,
+resolved referents and names are distinct. Gluing uses equal referents with
+incidence/metadata consistency and complete effective defaults for FormalCD
+validity. Follow the [Compile contract](docs/compile.md), including positive map
+support, and the focused contracts linked from intent for groups, inherited
+realization, constraint meanings and finite verification.
 
 Every agent must use [IntentBond](https://github.com/kbak/intentbond) for planning,
 implementation, and review. Read the development skill and its relevant references

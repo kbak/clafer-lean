@@ -367,11 +367,14 @@ Covers:
 | Constraints: Appendix D.1–D.4 | Resolved typed core, lexical binders, both joins, explicit inheritance widening and finite graph support; meaning remains distinct from syntax | [#21](https://github.com/kbak/clafer-lean/issues/21), Q3 disposition below |
 | Compile: §6.2.4 | [Structural Compile](compile.md): finite resolved-AST-to-MCS construction; derived termination, freshness, incidence, cojoining and kind/name preservation under explicit input well-formedness | [#22](https://github.com/kbak/clafer-lean/issues/22), depends on #3/#20/#21 |
 | Gluing: §6.2.5 and B.4 Definition 10 | Used-referent graph with approved Q4 incidence/metadata consistency, exact declaration image and DP labeling; separate CD validity under naming/default completeness | [#23](https://github.com/kbak/clafer-lean/issues/23), [construction and proofs](#mcs-gluing-and-the-approved-q4-rule); no global pushout existence |
-| Integration: Appendix F and selected earlier figures | Proposed finite AST/MCS/CD examples exercising compile/glue statements; enumerate unsupported constructs | [#24](https://github.com/kbak/clafer-lean/issues/24), after #22/#23 |
+| Integration: Appendix F and selected earlier figures | [Representative examples](representative-models.md) exercise Compile/gluing with explicit coverage limits; the [complete Appendix F model](appendix-f.md) separately satisfies all twelve bodies | [#24](https://github.com/kbak/clafer-lean/issues/24) and [#64](https://github.com/kbak/clafer-lean/issues/64), delivered under their distinct contracts |
 
 ### Question dispositions and validation tasks
 
-Q1–Q9 name source questions; A1–A9 in the architecture name design areas.
+Q1–Q9 name source questions; [A1–A9](ARCHITECTURE.md#nine-architectural-decision-areas)
+name design areas; [D1–D8](resolved-ir-comparison.md#decisions-accepted-locations-and-dependency-boundaries)
+name compiler-comparison decisions. These project IDs are separate from the
+paper's section numbering.
 An accepted correction is a bounded decision, not permission to fill unrelated
 source gaps. Keep the original issue discussions as the decision history.
 
@@ -382,16 +385,15 @@ source gaps. Keep the original issue discussions as the decision history.
 | Q3 — Appendix D notation | Resolved for the selected core: ordinary common-element intersection is already printed as ∩ in D.4.2. D.4.1 equates E and S on set expressions, reconciling the mixed subscripts. D.1–D.3 govern typing; the implementation boundary is enumerated below. | #21 supplies typed syntax and explicit inheritance paths. The [denotation extension](constraint-denotation.md) supplies independent core meanings, local finite cardinality and the #67 singleton bridge; no compiler-preservation theorem follows from a signature. |
 | Q4 — labels and identity | #20 representation accepted: preserve role identities separately from resolved class/map referents and displayed names, and state the identity level of cojoining equalities. Repeated parent/dref/isA strings do not identify arrows. Approved Q4: identify exactly equal class/map referents; equal map referents require equal endpoint class referents, and identified roles require equal names, predefined identities/kinds and modes. Reject conflicts. | #20 retains the data needed for intended identifications and repeated-name witnesses; #23 implements this congruence and proves endpoint/declaration preservation, then separate CD validity under explicit default assumptions. #22 retains generated identities. Existing FormalCD names remain metadata. |
 | Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
-| Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Figures 21 and 23 were visually inspected in planning; that does not complete the later construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) owns the bounded assessment and reviewed source disposition; #3/#20/#24 must pair the relevant Figure 16/22/23 and Appendix F inventory with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
+| Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Visual inspection alone does not replace a construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) records the bounded assessment and reviewed source disposition. The [syntax correspondence](#resolved-2014-clafer-and-individual-shapes), [MCS inventory](mcs-invariants.md) and [representative coverage](representative-models.md) pair Figures 16/22/23 and Appendix F with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
 | Q7 — VC order and guard | Accepted: display.version ≥ server.version, guarded by a nonempty server fiber. Contrary adjacent p.17 prose is the discrepancy. | #19 / #38 delivers the [guarded correspondence and whole models](#figure-21b-and-the-accepted-q7-correction): greater/equal pass, lower fails VC, absent server passes. No remaining implementation task for this correction. |
 | Q8 — disjointness shape | Accepted: §6.1.2/Figure 21 common-target maps with nonoverlapping images; Table 3's common-source shape is erroneous. | #16 / #34 delivers typed arity, interpretation and overlap/repeated-nonempty-binding failures. [Contract below](#predicate-contracts-and-the-accepted-q8-correction); no second predicate or source-object inequality. |
 | Q9 — Figure 23 source multiplicities | Accepted source correction: source `0..1` on the four ordinary-map and three inclusion-role associations means unique ownership within each image. The printed lower bounds force every MapRole into both parent_map and dref_map images, contradicting their distinct Table 8 names. | Shape/inheritance guards still require or forbid roles exactly. Head-class and formula source `1` are unchanged. The [correction and proof map](mcs-invariants.md#figure-23-source-multiplicity-correction) link the typed representation and nonempty witnesses. |
 
-The roadmap can be accepted with deferred work explicitly assigned; it cannot
-claim that those tasks or missing-source research are completed. #40 delivers
-#2's source/design cross-check; #41's bounded assessment leaves the named source
-gaps unaudited and further acquisition conditional. The architecture records
-the existing #13 assessment and the separate proof-status boundaries.
+The accepted source/design cross-check and bounded supporting-source assessment
+leave the named source gaps unaudited and further acquisition conditional.
+The [architecture](ARCHITECTURE.md#roadmap-and-validation-accounting) records the
+design rationale and proof-status boundaries separately from ticket completion.
 
 ### Appendix D rule dispositions (Q3)
 
@@ -849,14 +851,14 @@ interpretation. Generated local predicates are exactly the existing individual
 Shape inventory plus guarded inclusion predicates; group/abstract semantic
 translation and full constraint preservation remain outside this increment.
 
-The [accepted D6 group contract](group-compilation.md) extends this structural
+The [accepted group-inheritance contract](group-compilation.md) extends this structural
 result through a separate generated component. Abstract groups are inheritable
 bounds, applied at concrete contexts over the union of own and super-hierarchy
 child heads. This follows the pinned compiler's `genGroupConst`, `analyzeGCard`,
 `findHierarchy` and inheritance regressions, while empty inventories deliberately
 retain literal count zero instead of the compiler's skip. The contract records
 all six immutable compiler links and the comparison with §4.2.2, §6.2.2, D.4 and
-Appendix C. No D1 default-policy change is made. Vertex-only formulas use B.4
+Appendix C. The authored/effective default policy is unchanged. Vertex-only formulas use B.4
 Definition 8 without claiming Figure 23 total args for the complete union.
 #50 supplies the selected count/representation interface; #66 owns inherited
 realization and commuting restrictions. Typed relation/count and exact union
@@ -957,9 +959,10 @@ rules. Group unions, inherited views and Q1/Q8 retain their meanings.
 
 ## Appendix F inherited realization clarification
 
-The accepted D2/D4/D6 combinations for #66 and the scoped #64 source inventory
-are recorded in [inherited realization](inherited-realization.md). This extends
-#50 while retaining its guarded domain: ordinary effective-abstract fields
+The accepted nested-abstractness, inheritance and group combinations, together
+with the Appendix F source inventory, are recorded in
+[inherited realization](inherited-realization.md). This separate extension
+preserves the finite checker's guarded domain: ordinary effective-abstract fields
 are realized by their parents, explicit abstracts retain direct-subtype cover
 and Q8 disjointness, and inherited maps restrict shared objects and links.
 The equal-parent declaration rule remains in force; broader refinement is
@@ -1034,7 +1037,8 @@ by replacing only the primitive set in the old finite structural witness.
 
 [The complete model](appendix-f.md) reuses the reviewed d01–d26 and c01–c12
 inventory, including the manually checked p.34 indentation and final selections.
-It retains Q1–Q9, D2/D4/D6, reference-head counts, global plaECU extents, c07's
+It retains the accepted source corrections and inherited-field/group policies,
+reference-head counts, global plaECU extents, c07's
 implication vacuity and c02's unguarded display ≥ server comparison. The selected
 primitive correction gives int unrestricted bounds and actual root containment;
 it preserves mandatory version/server bounds and the mathematical Int domain.
@@ -1066,4 +1070,4 @@ The compiler archive hash and extraction trust boundary are in the import guide.
 The exact copied upstream fixture retains [MIT attribution](../tests/fixtures/importer/LICENSE-upstream).
 The external observational generator copy retains its upstream license header.
 Kernel-checked importer representation is separate from upstream parser/type/
-optimization correctness and from any future Alloy comparison result.
+optimization correctness and from the separate [bounded Alloy comparison](bounded-comparison.md).

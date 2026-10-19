@@ -12,7 +12,7 @@ public roots. Imports flow `Clafer -> FormalCD -> DPGraph -> Mathlib`.
 | --- | --- | --- |
 | DPGraph | Reusable graphs, spans, predicates, model restriction and conditional pushouts | [DPGraph](../DPGraph.lean), independently importable |
 | FormalCD | Class-diagram metadata, morphisms, metamodel disciplines and bounded examples | [FormalCD](../FormalCD.lean), built on DPGraph |
-| Clafer | Resolved syntax, Shapes, MCS, structural Compile and gluing | [Clafer](../Clafer.lean), built on FormalCD |
+| Clafer | Resolved syntax, Shapes, MCS, Compile/gluing, constraint meanings and finite structural verification | [Clafer](../Clafer.lean), built on FormalCD |
 
 ## DPGraph core and models
 
@@ -264,11 +264,10 @@ The [Project](https://github.com/users/kbak/projects/2), its existing
 and [#2](https://github.com/kbak/clafer-lean/issues/2) record the backlog.
 [Merged #40](https://github.com/kbak/clafer-lean/pull/40) delivers #2's
 documentation close-out; [#41](https://github.com/kbak/clafer-lean/issues/41)
-records the bounded assessment delivered in [#43](https://github.com/kbak/clafer-lean/pull/43). The
-milestones organize increments; completion of the research issue does not
-require implementation of every milestone. Earlier issue discussion remains the
-decision history. The table records delivered merge references rather than
-inferring live Project status from the presence of code.
+records the bounded assessment delivered in [#43](https://github.com/kbak/clafer-lean/pull/43).
+The three phases below are delivered within their stated boundaries. The issues
+retain acceptance and dependency history; deferred semantic claims remain explicit
+in the theorem-status table, independently of ticket closure.
 The [nine design areas](#nine-architectural-decision-areas) and
 [proof-status accounting](#theorem-statements-and-proof-status) below supply
 the alternatives and validation boundaries for this roadmap artifact.
@@ -287,7 +286,7 @@ Covers:
 This cross-check consolidates the brief's representation and later-layer concerns
 with the rationale in #13. A1–A9 are design areas, separate from the source
 questions Q1–Q9 in [SOURCES](SOURCES.md#question-dispositions-and-validation-tasks).
-“Proposed” marks a later design to validate within its own authorized increment.
+Deferred alternatives need their own scope and validation before implementation.
 
 | Area | Choice and alternatives | Evidence and remaining validation |
 | --- | --- | --- |
@@ -321,13 +320,11 @@ link to the actual declarations; the statements below bound what may be inferred
 | Selected resolved constraint truth corresponds to generated/glued predicate satisfaction. | `Compile.ConstraintMeaning.constraint_iff`, `compiled_model_iff`, `glued_constraint_iff` and `whole_model` use body-derived meanings, explicit external domains, primitive realization and selected canonical model candidates; see the [contract](constraint-preservation.md). |
 | Compilation/gluing preserves all constraint meanings, or every CD semantically instantiates its metamodel. | Deferred; no accepted general statement or proof. Source resolution and explicit realizability/semantic hypotheses would be needed first. |
 
-#40 delivers #2's cross-check and documentation close-out. Missing-source
-limits and conditional acquisition remain recorded under Q6 / #41; acceptance of the roadmap does not
-complete that research or later implementation tickets. The pinned build,
-kernel/axiom/layer checks and IntentBond validate the candidate and existing
-proofs; they do not certify the source interpretation or complete a deferred
-task. Exit 4 leaves semantic review pending. Each continuing issue requires its
-own accepted deliverables and any required documentation merge before closure.
+The [source disposition](SOURCES.md#project-critical-source-disposition) retains
+missing-text audit limits and conditions for further acquisition. Closing the
+bounded research tasks does not make unread material audited or prove the deferred
+statements above. The [validation and review workflow](../CONTRIBUTING.md#setup-and-checks)
+separates automated checks from semantic acceptance.
 
 ## Resolved syntax and individual Shapes
 
@@ -438,10 +435,13 @@ entries in preorder, allocates class IDs and resolves finite edges.
 supports, a separate augmented declaration component, exact union gluing and
 child-object counting correspondence. The old structural bank remains intact;
 vertex-only groups do not claim its total-args discipline. See the
-[group contract](group-compilation.md) for D6, empty inventories and #50/#66 boundaries.
+[group contract](group-compilation.md) for inherited bounds, empty inventories
+and the checker/realization boundaries.
 The [Compile contract](compile.md) owns exact input assumptions, identity/sharing
 rules, formula generation and guarantees. It derives structural MCS validity,
-not constraint-semantic preservation; integration with gluing remains on #24.
+with [representative gluing integration](representative-models.md). The separate
+[constraint-preservation bridge](constraint-preservation.md) adds selected semantic
+correspondence under explicit model assumptions.
 
 ## MCS gluing
 

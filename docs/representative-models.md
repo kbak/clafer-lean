@@ -46,16 +46,10 @@ contains **every d01–d26 declaration**, plus synthetic root and implicit int;
 no printed declaration is omitted from its structural projection. The source IDs
 1–26 are retained exactly, although preorder occurrence indices differ.
 
-| Declarations | Structural projection | Separate c02 compilation fragment |
+| Fixture | Included declarations | Omissions |
 | --- | --- | --- |
-| d01 options, d02 size, d03 small, d04 large | Included, with inherited field realization and generated xor | Omitted |
-| d05 cache, d06 cache.size, d07 fixed | Included; optional cache absent in the positive configuration | Omitted |
-| d08 comp, d09 version, d10 ECU, d11 display, d12 server | Included, with mandatory version/server fields | Included; fragment IDs 2,3,4,5,6 respectively, int=1, root=0 |
-| d13 display.options | Included with super d01 | Omitted |
-| d14 plaECU, d15 plaDisplay | Included with seven-edge hierarchy and 1..2 display bound | Omitted |
-| d16 ECU1, d17 ECU2, d18 master | Included with mandatory/optional instances and shared reference target | Omitted |
-| d19 telematics, d20 channel, d21 single, d22 dual | Included with generated channel xor | Omitted |
-| d23 extraDisplay, d24 size, d25 small, d26 large | Included with generated size xor | Omitted |
+| Structural projection | All d01–d26, plus root and int; seven super edges, inherited fields and generated xor groups | No printed declarations omitted; optional cache is absent in the positive configuration |
+| Separate c02 compilation fragment | d08 comp, d09 version, d10 ECU, d11 display, d12 server, mapped to fragment IDs 2,3,4,5,6 respectively; int=1, root=0 | d01–d07 and d13–d26 |
 
 The two fixtures have explicit, different identity assignments. They are not
 silently merged into one whole-model certificate. The c02 fragment changes the
@@ -70,20 +64,15 @@ all twelve printed conjuncts and their exact navigation. The structural fixture
 has **no authored expression bodies**. Only c02 has a separate compiled typed
 attachment here; the following omissions remain visible.
 
-| ID | Representative fixture | Complete fixture |
+| Conjuncts | Representative fixture | Complete fixture |
 | --- | --- | --- |
-| c01 | Omitted: small size/cache implies fixed | `AppendixF.Meaning.c01_all`; full attachment and `AppendixF.source_holds` |
-| c02 | Typed unguarded `not (displayVersion < serverVersion)` attached and glued; operand definedness derived from local formulas plus integer domain | `AppendixF.Meaning.c02_all / c02_defined`; full attachment and `AppendixF.source_holds` |
-| c03 | Omitted: no inherited cache | `AppendixF.Meaning.c03_all`; full attachment and `AppendixF.source_holds` |
-| c04 | Omitted: server = parent at ECU | `AppendixF.Meaning.c04_all`; full attachment and `AppendixF.source_holds` |
-| c05 | Omitted: dual iff ECU2 | `AppendixF.Meaning.c05_holds`; full attachment and `AppendixF.source_holds` |
-| c06 | Omitted: extraDisplay iff two ECU1 displays | `AppendixF.Meaning.c06_holds`; full attachment and `AppendixF.source_holds` |
-| c07 | Omitted: extraDisplay iff (ECU2 implies two ECU2 displays) | `AppendixF.Meaning.c07_holds`; full attachment and `AppendixF.source_holds` |
-| c08 | Omitted: large iff no small options on all plaECU displays | `AppendixF.Meaning.c08_holds`; full attachment and `AppendixF.source_holds` |
-| c09 | Omitted: small iff no large options on all plaECU displays | `AppendixF.Meaning.c09_holds`; full attachment and `AppendixF.source_holds` |
-| c10 | Omitted: final dual selection | `AppendixF.Meaning.c10_holds`; full attachment and `AppendixF.source_holds` |
-| c11 | Omitted: final extraDisplay selection | `AppendixF.Meaning.c11_holds`; full attachment and `AppendixF.source_holds` |
-| c12 | Omitted: final large selection | `AppendixF.Meaning.c12_holds`; full attachment and `AppendixF.source_holds` |
+| c02 | Typed unguarded `not (displayVersion < serverVersion)` attached and glued; operand definedness derived from local formulas plus integer domain | `AppendixF.Meaning.c02_all` / `c02_defined`, full attachment and source truth |
+| c01, c03–c12 | All omitted, including the final three selections | Every body attached and proved by `AppendixF.source_holds` |
+
+The [complete fixture](appendix-f.md) owns the combined satisfaction account;
+its [proof index](clafer-trace.md#complete-appendix-f-model-proofs) names
+the individual conjunct proofs. Meanings and navigation paths are defined once
+in the constraint inventory linked above.
 
 The structural configuration has one plaDisplay per ECU. Its displayed choices
 must not be read as satisfaction of c06/c07 or the printed final model. The [complete fixture](appendix-f.md) separately proves all twelve conjuncts

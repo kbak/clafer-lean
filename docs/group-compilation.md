@@ -1,7 +1,7 @@
 # Compiling effective group cardinalities
 
-[#65](https://github.com/kbak/clafer-lean/issues/65) extends the
-[structural Compile contract](compile.md) with interpreted group declarations.
+Group compilation extends the [structural Compile contract](compile.md) with
+interpreted group declarations, as specified in [issue #65](https://github.com/kbak/clafer-lean/issues/65).
 `Compile.compileAugmented` retains the original well-formed MCS, adds generated
 group declarations and exposes their complete union. `Compile.gluedGroups`
 preserves that exact union and derives FormalCD naming/default validity.
@@ -41,7 +41,9 @@ a B object with only z passes. An effective opt override on B can admit two
 children. This special treatment of groups refines the paper's context-constraint
 account; ordinary explicit constraints on abstracts retain that account unchanged.
 Appendix C authored/effective provenance, override rules and child defaults are
-preserved. D1 compiler/default discrepancies remain separate from D6.
+preserved. The comparison audit treats [authored defaults (D1) and group
+semantics (D6)](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
+as separate decisions.
 
 An empty inventory counts zero. Bounds containing zero hold; a positive lower
 bound forces the context extent empty. An empty context satisfies the universal
@@ -108,5 +110,5 @@ uses only Sing; its empty-context case tests the group predicate vacuously and
 does not assert the separate root singleton obligation.
 
 Named implementation/proof and acceptance artifacts are in
-[the Clafer trace](clafer-trace.md). #24's integration and #64's full Telematics
-model retain their separate acceptance criteria.
+[the Clafer trace](clafer-trace.md). [Representative integration](representative-models.md)
+and the [complete Telematics model](appendix-f.md) have separate acceptance criteria.

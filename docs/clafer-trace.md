@@ -828,7 +828,8 @@ Covers:
 and `targetView`. The extension retains authored metadata and original link
 identities. `Satisfies` also requires declaration disjointness while views retain
 the original field objects. [The source contract](inherited-realization.md) records the selected
-D2/D4/D6 combinations and the complete scoped Appendix F inventory.
+nested-abstractness, inheritance and group combinations (comparison decisions
+D2/D4/D6) and the complete scoped Appendix F inventory.
 
 Covers:
 - `req~clafer-inherited-realization~1`
