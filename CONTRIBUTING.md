@@ -166,5 +166,13 @@ Keep source archives, GHC/Stack caches, binaries and evidence outside the reposi
 Setup failures fail the check; saved JSON fixtures do not substitute for compiler
 execution. The shared check retains all existing module, kernel, axiom, layer and
 independent-import checks.
+
+The same Python suite runs [bounded comparison](docs/bounded-comparison.md) against
+hash-pinned Alloy 6.2.0 with SAT4J and Java 17. Provisioning and bridge compilation
+use an external cache; explicit tool settings are checked, with no missing-tool
+skip. Comparison artifacts and minimized replays are retained externally under
+`CLAFER_COMPARISON_EVIDENCE` (temporary directory by default). CI retains them
+with validation evidence. Read the relation/domain and arithmetic limits before
+interpreting a bounded solver result.
 CI builds the same exporter from verified source/Stack archives before the check,
 retaining its build identities and log with the validation evidence.

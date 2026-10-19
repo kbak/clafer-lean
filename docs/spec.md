@@ -2175,6 +2175,97 @@ Covers:
 
 Needs: impl, utest
 
+## Exact bounded candidate comparison
+`req~clafer-bounded-comparison~1`
+
+Implement the accepted #52 harness under `scripts/verification/`, tests/fixtures
+under `tests/` and any Lean additions under `Clafer/Verification/`. Reuse #51's
+same-generation strict capture/import and #50's effective core, finite candidate
+domain, semantic bridges and verified checker. Preserve S/X/D guards, distinct
+UIDs/names/referents, occurrence identities and unrelated-class overlap; do not
+add Alloy disjointness to Lean admission. Preserve existing public roots, package
+and dependency directions and all checker/compile promises.
+
+For each supported core, explicit manual bound vector and well-formed candidate,
+compare the checker with the same candidate in actual pinned generated Alloy.
+Report both discrepancy directions, agreement, unsupported/malformed input,
+adapter/decoder failure and inconclusive execution separately. Typed missing or
+multiple endpoints, root/cover/key/bound violations remain negative checker
+inputs; malformed bytes/endpoints retain their diagnostics. Every SAT result must
+decode faithfully before it can count as a match or semantic discrepancy. Support
+the unpinned witness-to-checker direction without calling it reverse completeness.
+
+Use the pinned compiler and accepted Alloy 6.2.0/SAT4J/Java 17 profile in
+[the contract](resolved-ir-comparison.md). Preserve generated facts; record only
+the generated command replacement and added pin/manual-bound predicate. Validate
+resolved command AST, every signature bound/exactness flag (including abstract
+bounds), fixed options, runtime/build and wall/heap/address-space limits. Justify
+integer range independently over generated and added formulas, including relation
+tuple counts/unions; inadequate arithmetic or execution failure cannot be UNSAT
+agreement. No fallback, inferred-scope adequacy or optimizer correctness claim.
+
+Acceptance includes actual compiler/backend runs, the complete pinned Lean/kernel/
+axiom/layer/import validation, IntentBond source matching and independent semantic
+review of all eight #52 criteria. Required CI must fail unresolved harness errors;
+no missing-tool skips, scope weakening or documentation-only validation applies.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl, utest
+
+## Candidate and Alloy representation fidelity
+`req~clafer-alloy-representation~1`
+
+Specify and independently review the [candidate/Alloy relation](bounded-comparison.md).
+Equality-pin complete signature extents and every complete binary field, including
+empty relations, using receipt-declared symbols/owners/arities and distinct
+quantified variables rather than added subtype signatures. Preserve shared
+inherited objects and each reference-head occurrence. Justify the virtual root,
+top-level containment, used objects and every classified auxiliary; unknown
+auxiliaries are unsupported. Decode under only reviewed object/link bijections
+and validate witnesses against the original candidate, not endpoint-reduced data.
+Distinguish intrinsic generated-model restrictions from adapter/domain/bitwidth
+failures before reporting a discrepancy. State the external trust assumptions;
+serialization roundtrips and trace links alone do not establish this relation.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, utest
+
+## Bounded search and deterministic counterexample replay
+`req~clafer-comparison-replay~1`
+
+Supply the contract's E1–E14 boundary cases, first repeated-target sets/bags, then
+nesting, empty/zero/optional/exact/bounded/unbounded finite counts, groups and
+selected inheritance/abstract cases. Run a small fully enumerated finite domain
+and seeded candidates; document generator validity/distribution, precise domain,
+renaming, coverage and shrinking. Exhaustiveness requires all specified membership
+subsets/typed tables or a justified complete symmetry reduction and all cases
+completed. Keep requested/admitted/completed denominators, interruptions, unsupported
+inputs and execution failures. Neither SAT-witness enumeration nor sampled success
+establishes both-direction completeness or unbounded correctness.
+
+Detect three controlled injected defects: omitted set uniqueness, collapsed
+duplicate bag occurrences and changed/dropped cardinality. Retain minimal
+deterministic replays and identify these as mutations, not compiler allegations.
+Use strict `clafer-structural-comparison/v1` artifacts with duplicate-key/version
+rejection, raw source/IR/Alloy/core/candidate/pin/command/witness hashes, exact
+bounds/options/versions/seeds, observed verdicts, null stages not run, diagnostics,
+limits/completeness and replay commands. Manifest references are acyclic; results
+and outputs cannot change input identity. Save execution evidence externally;
+keep licensed stable regression fixtures in tests and no diaries in living docs.
+Replay requires no LLM and validates its inputs/source. No automated upstream
+issue or comment posting is part of the harness.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl, utest
+
 ## Complete resolved Appendix F integration
 `req~clafer-appendix-f-complete~1`
 

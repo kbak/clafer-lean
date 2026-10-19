@@ -123,3 +123,12 @@ The [resolved import protocol](resolved-import.md) connects the pinned compiler
 export to this interface through checked UID indexing and fieldwise representation.
 It derives admission hypotheses and preserves independent structural satisfaction;
 compiler metadata and the unproved parser/capture boundary remain explicit.
+
+## Bounded external comparison
+
+The [comparison harness](bounded-comparison.md) reuses this checker and the strict
+paired importer. Its independent enumeration and solver runs live outside the
+public Lean imports. `ImportMain.failedPredicates` evaluates the existing checker
+conjuncts to retain diagnostic predicate names. The checker theorem remains
+unchanged; external SAT/UNSAT results and source-matched replays do not constitute
+a universal compiler theorem or individual kernel proof certificates.

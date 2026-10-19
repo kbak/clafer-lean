@@ -11,9 +11,12 @@ finite candidates, representation bridges and the verified checker belong in
 this repository under `Clafer/Semantics/` and `Clafer/Verification/`.
 This authorization does not admit X/D language forms, change the selected paper
 semantics, or authorize production parsing, generation, optimization, expressions
-or solver integration. The [#51 importer and paired capture](resolved-import.md) are authorized in this
+or general solver integration. The [#51 importer and paired capture](resolved-import.md) are authorized in this
 repository under `Clafer/Verification/` and `scripts/verification/`, with fixtures
-under `tests/`. Executable solver/comparison policies remain #52. Compiler agreement remains a property
+under `tests/`. The accepted #52 implementation uses the solver/profile and guarded
+contract below; its [pin/decode relation and runner](bounded-comparison.md) supply
+bounded enumeration, comparison and replay under `scripts/verification/`.
+Compiler agreement remains a property
 to investigate, not the definition of structural satisfaction.
 
 Covers:
@@ -81,7 +84,7 @@ D = awaiting a decision, rejected by the version-1 admission gate for now.
 | Nested abstractness / children of abstract declarations | §5.3.4 p.14 | `Defaults` propagates abstractness; `AST.WellFormed.nested_abstract` | **D**, D2: C5 `desugarModifiers`/`resolveNClafer` retain the declared abstract flag; they do not implement Lean's containment propagation. Explicit nested abstract bodies, relocation and redefinition also require the #20/#23 disposition. |
 | Single inheritance of basics, including a concrete nested basic extending a top-level abstract leaf | §5.5 pp.14–16/Fig.18; App.E Table 6 p.33 | `Kind.CanExtend`, `inheritance_parent`, `inheritance_rank`, `Shape.Inclusions`; `Inclusion` | **S** with an abstract basic super, no inherited child/reference fields, no overlapping group roles. The same object inhabits subtype and supertype. C3 emits `extends`; cover/disjointness use accepted Q8. |
 | Nested-parent refinement, inherited references, target narrowing or kind refinement | §5.5 p.16; App.E Tables 5–8 | `inheritance_parent` requires equal parent IDs when the super is parented; `Shape.OptionalInclusions` is local only | **D**, D4: C4/C3 allow a child's parent to extend the super's parent, and generate parent/reference subrelations. C5 also relocates some abstracts. Set-over-bag is allowed by Lean kind checks but its whole-model bridge is missing. Bag-over-set/basic-over-reference fail the Lean kind restriction. |
-| Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated class identity: permitted by the accepted Lean domain; comparison with Alloy remains **D**. Alloy top-level signatures are disjoint even without an explicit `extends`; do not silently impose that on the Lean candidate domain to obtain agreement. |
+| Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated class identity: permitted by the accepted Lean domain and retained in #52 comparison under the [explicit relation](bounded-comparison.md). Alloy top-level signatures are disjoint even without an explicit `extends`; do not silently impose that on the Lean candidate domain to obtain agreement. |
 | Direct class-target reference set/bag on a concrete declaration | §5.3.2–3/Table 4 pp.13–14; B.1 Defs.1–5/Thm.2 pp.28–29 | `Reference.set/bag`, `Roles.mode`, `Shape.keyBinding`, `Key`, `SetValued`, `TargetMultiplicity` | **S**: C2 `_isSet = true/false`; C3 has one target per reference head and emits uniqueness per parent for sets. Targets must be admitted user classes, not expressions or primitive domains. |
 | Top-level abstract set/bag references | §5.3.4 corrected by §6.2.3/Fig.23; Table 7 exception | `abstract_reference_no_key`, `Roles.no_parent_maps`; head, target and dereference remain | **D**, D3: C3 globally enforces distinct targets for abstract set heads when card permits repetition. Lean's accepted parentless Shape has no parent/deref pair key. Bag lacks this uniqueness but inherited reference identity still requires a bridge. Do not invent a root parent or silently add a unary key. |
 | Span multiplicity, set keys and map equality | B.1 Def.2/Thm.2; B.2.1–2; B.3 Table 3; A.1 | `Span.comp`, `Span.Iso`, `Key`, `BagEquiv`, `Commutation`, `key_total_singleValued_iff` | **S** interpretation target: retain links under accepted Q1, not endpoint reduction. Keys compare output bags; the derived tuple criterion requires total, single-valued projections. Its parent/deref specialization gives uniqueness of `(parent,target)` once those hypotheses are established. No ordinary-key replacement for the generic predicate. |
@@ -158,7 +161,7 @@ addition to malformed IDs/cards and D rows, reject:
 
 ## Options and state absent from JSON
 
-The proposed profile fixes every C7 field. Effective options include source
+The accepted profile fixes every C7 field. Effective options include source
 `//# OPTIONS` processing, not just CLI arguments; version 1 rejects such directives
 in source to prevent hidden overrides. Semantic source features are checked before
 desugaring; formatting/comments may remain, except escapes and directives.
@@ -325,7 +328,7 @@ Deduplication by isomorphism is optional and requires a completeness argument.
 Checking whether the generated model has *some* solution cannot compare a
 particular `C`. Let `A(e,o)` be the hashed generated declarations/facts for the
 receipt's options. Version 1 uses `A(e,o) ∧ Pin(C)` with an explicitly selected
-command and bound vector. Proposed pinning must:
+command and bound vector. The implemented pinning relation must:
 
 1. Existentially name exactly the used non-root objects with pairwise distinct
    atom variables; assert **equalities** for every user signature's full extent
@@ -371,7 +374,7 @@ and reflected in the candidate domain. Record those exactness flags. The harness
 validates the resulting Alloy command AST and records it; no inferred/default
 scope is accepted.
 
-Proposed solver profile: Alloy **6.2.0**, official [distribution JAR][alloy-jar],
+Accepted #52 solver profile: Alloy **6.2.0**, official [distribution JAR][alloy-jar],
 SHA-256 `6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d`,
 manifest `6.2.0.202501090817`, Git `794226dd07b536fe35c5ca44b529417183cd629b`.
 Use its bundled SAT4J implementation (fixed by the JAR hash), Java 17 with the
@@ -383,7 +386,8 @@ prevention enabled (`A4Options.noOverflow = true`). Keep `unrolls = -1`,
 pinned [A4Options source][alloy-options]. Record all effective solver
 options, including defaults, solver identity, timeout and memory limit. An
 unavailable option/profile is unsupported; do not silently substitute a solver.
-No solver invocation or comparison run is delivered by this audit.
+The #49 audit itself delivers no solver run; executable comparison evidence is
+produced by the separately authorized [#52 harness](bounded-comparison.md).
 
 Set Alloy integer bitwidth `b` explicitly. Define `M` from the largest absolute
 integer literal and a conservative upper bound for every cardinality and
@@ -403,10 +407,11 @@ Do not discard a disagreement by assuming those shortcuts preserve semantics,
 or modify the generated facts to force agreement. Only the recorded command
 replacement and candidate pin are added to the hashed original model.
 
-## Proposed artifact schema and outcome algebra
+## Artifact schema and outcome algebra
 
-Artifact schema identifier: `clafer-structural-comparison/v1` (a proposed schema,
-not an existing executable format). Reject unknown schema versions and duplicate
+Artifact schema identifier: `clafer-structural-comparison/v1`, implemented by the
+[#52 bounded harness](bounded-comparison.md). The #49 audit originally proposed
+this format; executable artifacts and review are separate evidence. Reject unknown schema versions and duplicate
 keys. IDs are strings; counts/bounds are exact decimal integers; unbounded core
 upper limits use `null` after validating compiler `-1`. Tables have explicit
 column names and stable IDs. Sets serialize as sorted duplicate-free arrays;
@@ -415,11 +420,21 @@ link arrays retain distinct occurrence IDs, never endpoint deduplication.
 | Artifact | Required fields |
 | --- | --- |
 | `manifest.json` | `schema`, `contract_revision`, `compiler_commit`, `compiler_build_sha256`, `lean_commit`, `paper_sha256`, `effective_options`, `generation_receipt`, `inputs` mapping logical relative names to byte size/SHA-256; matrix decision IDs and admitted fragment |
-| `generation.json` | Source/feature/token audit, both IR hashes, JSON/Alloy hashes, consumed UID-map projection/hash, registry, symbol/field mapping, scopes/string-map results, backend selector, `_glCard` optimization metadata |
-| `core.json` | Normalized root ID, ordered declaration inventory with UID/name/parent/super/kind/target/abstract/local and group bounds; compiler-only metadata separate; no fabricated authored fields |
-| `candidate.json` | `objects`, `root`, class membership tables, typed ordinary relation tables, occurrence-indexed derived spans, scope vector and optional renaming certificate |
-| `command.json` | Original and comparison command ASTs/hashes, exact pin text/hash, scope map, integer bitwidth, range bound/derivation, complete solver profile, limits, generation/search mode/seed or exhaustive enumeration specification |
-| `result.json` | Input-manifest digest, admission result, Lean verdict, solver outcome, comparison category, witness/decode/isomorphism result, diagnostics, elapsed/resources, replay command, termination/completeness flag and `outputs` mapping raw output/witness names to byte size/SHA-256 |
+| `capture/generation.json` | Source/feature/token audit, both IR hashes, JSON/Alloy hashes, consumed UID-map projection/hash, registry, symbol/field mapping, scopes/string-map results, backend selector, `_glCard` optimization metadata |
+| `core.json` | Ordered declaration inventory with UID/name/parent/super/kind/target/abstract/local and group bounds, using #51's root/sentinel convention; compiler-only metadata separate; no fabricated authored fields |
+| `candidate.json` | Original #50/#51 `objects`, `root`, class membership and typed ordinary relation tables; preserve original bytes/row order in the input identity |
+| `command.json`, `pin.als`, `comparison.als` | Original/replacement command text, complete pin hash/text, requested/effective scope maps, bitwidth and independent range argument; occurrence-indexed derived spans in `command.json` |
+| `settings.json`, `capture/manifest.json` | Search mode/seed/domain, timeout/heap limits and supplied options; exact requested scope vector in the capture manifest |
+| `profile.json`, `checker-runtime.json`, `language-runtime.json` | Pinned distribution/bridge/runtime identities, JVM/OS memory and wall limits, checker build/stream identity and Python build |
+| `execution.json`, `solver.json`, `witness.xml` | Parsed original/comparison command ASTs, all effective solver options, actual Java build, stage/solver observations and full tuple/native witnesses; checkpoints preserve observed verdicts on failure |
+| `decoded.json`, `bijection.json`, `lean.json`, `decoded-lean.json` | Decoded candidate, reviewed object-renaming certificate (which induces occurrence bijections), original and decoded checker verdicts/failed predicate names |
+| `result.json` | Input-manifest digest, admission result, Lean verdict, solver outcome, comparison category, witness/decode/isomorphism result, diagnostics, elapsed time, replay command, completeness flag and `outputs` mapping raw output/witness names to byte size/SHA-256 |
+
+This concrete file mapping retains the #49 schema obligations without adding
+solver-generated ASTs or witnesses to the acyclic input manifest. Canonical
+comparison tables are sorted and duplicate-free; raw candidate input identity is
+preserved separately. Search reports retain termination and all case denominators.
+
 
 Retain the source, original IR/Alloy, actual command/pin, raw solver output and
 decoded witness as artifacts too. Hash raw bytes with SHA-256; do not normalize
@@ -453,7 +468,7 @@ category, including unsupported/failed cases. “No mismatch found” must inclu
 the admitted/completed counts and bounds; a batch with inconclusive cases is not
 an exhaustive agreement result.
 
-## Proposed comparison properties and their limits
+## Comparison properties and their limits
 
 Let `D_B(e)` be the explicitly specified finite candidate domain under bounds B,
 and `L(e,C)` the independent `StructuralSatisfies e (realize C)` predicate. Let
@@ -473,8 +488,9 @@ pin/decode fidelity and candidate representation completeness for this fragment.
 - **Representation/renaming obligations:** satisfaction is invariant under the
   object/link bijections above; `decode(encode(C)) ≅ C`; every satisfying model
   in the stated finite structural domain has a representable candidate. These
-  obligations are proposed, not consequences of JSON serialization or local CD
-  well-formedness.
+  obligations are addressed by the [external relation argument](bounded-comparison.md)
+  and executable tests; they are not consequences of JSON serialization or local
+  CD well-formedness and remain subject to independent semantic review.
 
 Random generation searches for counterexamples and must retain its distribution,
 seed and coverage; it proves neither direction. Finite exhaustive checking can
@@ -516,15 +532,15 @@ Upstream related fixture paths are under [test/positive][positive],
 [test/negative][negative] and [test/regression][regressions] at the same compiler
 commit. Static inspection establishes emitted structure only, not solver truth.
 
-## Decisions, location proposal and prerequisites
+## Decisions, accepted locations and dependency boundaries
 
-The following dispositions distinguish accepted #50 interfaces from deferred
-language extensions and external comparison work. Existing Q1/Q8 and the
+The following dispositions distinguish the accepted structural interfaces and
+external comparison from deferred language extensions. Existing Q1/Q8 and the
 top-level abstract correction remain accepted as documented in [SOURCES](SOURCES.md).
 New disagreements must be recorded on those issues before implementation; no
 compiler behavior overrides a current Lean requirement.
 
-| Decision | Proposed disposition / alternatives | Owner and review gate |
+| Decision | Accepted disposition / alternatives | Owner and review gate |
 | --- | --- | --- |
 | D1 — authored/effective and defaults | Use effective core plus erasure/satisfaction bridge. Alternative: faithful minimal authored export. Preserve numeric-group/opt/_isKeyword disagreements; no Defaults/name-resolution theorem. | #49 contract; #50 bridge and reviewed effective well-formedness. |
 | D2 — nested abstractness | Keep S limited to leaf abstract basics; reject differing declared/effective abstractness. The separate [#66 clarification](inherited-realization.md) retains authored flags and realizes ordinary effective-abstract fields through actual parent objects; it does not enlarge S. | #50 unchanged; #66 supplies the selected Appendix F extension. |
@@ -532,7 +548,7 @@ compiler behavior overrides a current Lean requirement.
 | D4 — inheritance/refinement | Require selected parent/kind rules and the guarded S subset. The separate [#66 extension](inherited-realization.md) restricts existing inherited field maps while preserving equal-parent declaration edges. Compiler parent-subtyping, redefinition and target narrowing remain excluded. | #50 unchanged; #66 preserves the existing input requirement. |
 | D5 — hidden generation state | Same-generation minimal receipt and exact options; unsupported without it. Alternative broader state export needs a versioned schema. | #49; Alloy adapter follow-ups #51/#52 after review. |
 | D6 — group/global obligations | Accepted for #65: abstract groups are inheritable bounds; concrete contexts count the union of own and inherited child heads. Empty inventories count zero, intentionally differing from C3’s skip. The [group compilation contract](group-compilation.md) records the separate generated component and complete bindings. | #50 retains its guarded checker; #65 generates/interprets groups; #66 adds realized ordinary-field groups and inherited map restrictions without changing that policy. |
-| D7 — location and scope | Accepted: reusable semantics, candidates, bridges and checker stay in this repository. No `clafer-compare` repository is created for #50. The #51 importer/capture locations are accepted as stated below; solver integration remains #52. | #50 implements the in-project extension under unchanged full validation; #51–52 own later harness decisions. |
+| D7 — location and scope | Accepted: reusable semantics, candidates, bridges and checker stay in this repository. No `clafer-compare` repository is created for #50. The #51 importer/capture and #52 solver/harness locations are accepted as stated below. | #50 implements the in-project extension under unchanged full validation; #51–52 supply separately reviewed external adapters. |
 | D8 — structural dependency cut | Accepted guarded S interface: dependencies #3/#16/#17/#20/#21/#22/#23/#49 are complete. Unrelated Lean class extents may overlap; Alloy top-level disjointness is not added. Whole-model interpretation and finite correctness bridges remain #50 deliverables. | #50 owns the complete global structural interpretation; expression evaluation and external comparison remain excluded. |
 
 **Accepted location (D7).** Whole-model structural semantics and effective-core,
@@ -546,7 +562,8 @@ state this boundary. The existing full pinned validation policy is unchanged.
 The accepted #51 location is `Clafer/Verification/` for import/validation/bridge,
 `scripts/verification/` for compiler capture/protocol, and `tests/` for fixtures.
 The [import protocol](resolved-import.md) states the implemented boundary and trust
-limits. Generation/search, solver pin/decode and comparison remain #52.
+limits. The accepted #52 [bounded harness](bounded-comparison.md) supplies test enumeration,
+solver pin/decode and comparison in `scripts/verification/`; tests stay under `tests/`.
 
 **Whole-model proof obligations.** Existing `AST.WellFormed`, `Shape.diagram`,
 `Shape.raw_wellFormed`, and expression typing from #21 are not a whole-model
@@ -580,8 +597,8 @@ covering these accepted obligations:
 
 The #49 audit is delivered and #50 implementation is authorized for the accepted
 boundary. These representation and correctness bridges are #50 deliverables,
-not additional prerequisite tickets. External #51–52 comparison still requires
-its own accepted executable policies and evidence. A review of this document
+not additional prerequisite tickets. The #51 importer and #52 bounded comparison have separately accepted executable
+policies; each still requires its implementation evidence and review. A review of this document
 alone is not evidence that the implementations or their semantic claims are correct.
 
 [compiler]: https://github.com/gsdlab/clafer/tree/15adb2216909421bcb5022174d2d84ef2b42307c
