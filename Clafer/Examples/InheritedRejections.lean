@@ -92,6 +92,31 @@ theorem overlap_generated_disjoint :
   exact hd 1 2 rfl rfl (by decide) 2
     ⟨by dsimp [overlapping]; decide, by dsimp [overlapping]; decide⟩
 
+/-- Version and server are distinct field declarations, even though their
+inherited views reuse each declaration's own occurrence identities. -/
+def unrelatedFields : Configuration (Fin 28) (Fin 25) :=
+  { config with head := fun d => {x | x ∈ config.head d ∨ (d = 24 ∧ x = 6)} }
+
+theorem unrelated_fields_typed : unrelatedFields.Typed core.toEffectiveCore := by
+  constructor
+  · intro d p x h
+    obtain ⟨hx, c, hc, hp⟩ := typed.1 d p x h
+    exact ⟨Or.inl hx, c, hc, Or.inl hp⟩
+  · intro d x t h
+    obtain ⟨hx, c, hc, ht⟩ := typed.2 d x t h
+    exact ⟨Or.inl hx, c, hc, Or.inl ht⟩
+
+theorem unrelated_fields_disjoint_rejected :
+    ¬ unrelatedFields.DeclarationDisjoint core.toEffectiveCore := by
+  intro h
+  have hc := h 21 24 6 (Or.inl (by decide)) (Or.inr ⟨rfl, rfl⟩)
+  change Groups.Ancestor core.family 21 24 ∨ Groups.Ancestor core.family 24 21 at hc
+  simp [ancestor_iff, ancestorTable] at hc
+
+theorem unrelated_fields_rejected : ¬ Semantics.Realization.Satisfies core unrelatedFields := by
+  intro h
+  exact unrelated_fields_disjoint_rejected h.2.2.2.2.2
+
 /-- Add small alongside large at the same realized options.size context. -/
 def twoOptions : Configuration (Fin 28) (Fin 25) :=
   { config with

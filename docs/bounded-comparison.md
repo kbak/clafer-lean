@@ -36,9 +36,11 @@ the object injection; full extent equalities and the quantifier's user-union
 domain give surjectivity. Field equalities give both directions of tuple
 preservation. Conversely, any representing bijection supplies the quantified
 variables and satisfies these equalities. This describes representation, not
-satisfaction of the generated facts. Alloy's intrinsic top-level disjointness
-can therefore produce `lean_accepts_alloy_rejects` for overlapping unrelated
-Lean heads. It is a generated-model restriction, not a pin admission guard.
+satisfaction of the generated facts. Alloy's intrinsic top-level and sibling
+`extends` disjointness makes a pin of incomparable overlapping heads unsatisfiable.
+The independent Clafer declaration-disjointness obligation rejects the same typed
+candidate, producing `agree_violates`. The overlap remains in admission and
+enumeration; neither pinning nor decoding assumes disjointness.
 
 Ordinary links are tuples. Reference-composite links are `(uid,parent,head,target)`;
 an object bijection induces link bijections, preserving different heads at equal

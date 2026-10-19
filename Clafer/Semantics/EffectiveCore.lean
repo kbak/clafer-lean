@@ -27,7 +27,8 @@ def WellFormed : Prop := m.family.WellFormed ∧ Function.Injective m.id ∧
   ∀ d, ValidRange (m.group d)
 
 /-- Version 1 guards. Empty abstract covers are allowed; a zero abstract card
-requires no concrete descendant. Unrelated class extents are unrestricted.
+requires no concrete descendant. Raw overlapping class extents remain representable;
+satisfaction separately imposes declaration disjointness.
 The guard does not assert any property of candidate objects. -/
 def Supported : Prop :=
   (∀ d, m.family.origin d = .syntheticRoot ∨ m.family.origin d = .user) ∧

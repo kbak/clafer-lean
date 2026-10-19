@@ -63,7 +63,7 @@ def groupChecks (m : EffectiveCore n) (c : Candidate n) : Prop :=
 def Checks (m : EffectiveCore n) (c : Candidate n) : Prop :=
   (realize c).Typed m ∧ (realize c).Rooted m ∧ (realize c).Inherits m ∧
   (realize c).Abstracts m ∧ (realize c).Parents m ∧ (realize c).References m ∧
-  (realize c).Keys m ∧ multiplicityChecks m c ∧ groupChecks m c
+  (realize c).Keys m ∧ multiplicityChecks m c ∧ groupChecks m c ∧ (realize c).DeclarationDisjoint m
 
 instance (m : EffectiveCore n) (c : Candidate n) : Decidable ((realize c).Typed m) := by
   unfold Configuration.Typed realize 
@@ -77,6 +77,11 @@ instance (m : EffectiveCore n) (c : Candidate n) : Decidable ((realize c).Rooted
 
 instance (m : EffectiveCore n) (c : Candidate n) : Decidable ((realize c).Inherits m) := by
   unfold Configuration.Inherits realize 
+  simp only [Set.mem_ofPred_eq]
+  infer_instance
+
+instance (m : EffectiveCore n) (c : Candidate n) : Decidable ((realize c).DeclarationDisjoint m) := by
+  unfold Configuration.DeclarationDisjoint realize
   simp only [Set.mem_ofPred_eq]
   infer_instance
 

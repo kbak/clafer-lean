@@ -6,6 +6,8 @@ public import Clafer.Compile.GroupExamples
 
 This exercises group interpretation on typed relations. Realizing the abstract
 child as a complete inherited family remains an explicit #66 obligation.
+These group-only witnesses retain raw overlap and do not assert #87 whole-model
+declaration disjointness.
 -/
 
 @[expose] public section

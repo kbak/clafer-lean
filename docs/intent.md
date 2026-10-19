@@ -59,6 +59,12 @@ and effective bounds without reconstructing authored/default provenance. A suppl
 finite candidate may violate constraints; the checker must distinguish that result
 from malformed or unsupported input and prove agreement with the independent
 structural meaning. Reference occurrences retain identity even at repeated targets.
+Satisfying Clafer
+configurations require disjoint extents for declarations incomparable through super
+edges, including nested declarations and separate inheritance trees. Shared objects
+along a super chain and inherited field views retain their identity; overlapping
+raw candidates remain supported violations. The [adopted clarification](SOURCES.md#declaration-disjointness-clarification)
+keeps generic DPGraph/FormalCD subset/span models unrestricted.
 The [pinned importer](resolved-import.md) lives under `Clafer/Verification/`, with
 same-generation compiler capture under `scripts/verification/` and fixtures under
 `tests/`. It preserves the effective boundary and rejects unsupported source

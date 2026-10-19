@@ -244,8 +244,24 @@ theorem groups : Semantics.Realization.Groups core config := by
     rw [hb]
     exact unrestricted_range _
 
+theorem declaration_disjoint : config.DeclarationDisjoint core.toEffectiveCore := by
+  change ∀ d e x, x ∈ config.head d → x ∈ config.head e →
+    Compile.Groups.Ancestor core.family d e ∨ Compile.Groups.Ancestor core.family e d
+  simp only [ancestor_iff]
+  intro d e x
+  cases x with
+  | inl x =>
+    change x ∈ heads d → x ∈ heads e → _
+    revert d e x
+    decide
+  | inr v =>
+    simp only [config, Set.mem_ofPred_eq]
+    intro hd he
+    subst d; subst e
+    decide
+
 theorem structural_satisfaction : Semantics.Realization.Satisfies core config :=
   ⟨typed, rooted, ⟨inherits, parents_hold, references_hold, keys, multiplicities⟩,
-    abstracts, groups⟩
+    abstracts, groups, declaration_disjoint⟩
 
 end Clafer.Examples.AppendixF

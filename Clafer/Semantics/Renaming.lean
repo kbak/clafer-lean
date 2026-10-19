@@ -43,7 +43,7 @@ theorem structural_rename (m : EffectiveCore n) (s : Configuration (Fin n) U)
   unfold StructuralSatisfies Configuration.Typed Configuration.Rooted
     Configuration.Inherits Configuration.Abstracts Configuration.Parents
     Configuration.References Configuration.Keys Configuration.Multiplicities
-    Configuration.Groups Configuration.Child Configuration.rename
+    Configuration.Groups Configuration.Child Configuration.DeclarationDisjoint Configuration.rename
   simp only [← e.forall_congr_right,
     ← e.existsUnique_congr_right, e.symm_apply_apply, e.injective.eq_iff, inRange_renamed, hg, Set.mem_ofPred_eq]
 

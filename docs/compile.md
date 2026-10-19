@@ -104,8 +104,9 @@ singleton conversion and version-operand definedness. A fresh constraint symbol
 does not
 establish any meaning for its body. The guarded constraint-free
 [structural checker](structural-checker.md) supplies a whole-model interpretation
-of the exact generated local bank plus explicit global root, abstract and group
-obligations. `compiled_bank_iff` and `erasure_correspondence` prove this selected
+of the exact generated local bank plus explicit global root, abstract, group
+and declaration-disjointness obligations. `compiled_bank_iff` and
+`erasure_correspondence` prove this selected
 structural connection; they do not assert source elaboration or user-expression
 preservation. The delivered
 [MCS gluing](ARCHITECTURE.md#mcs-gluing) provides a label morphism and conditional
@@ -127,7 +128,8 @@ The additional bank generates actual built-in cover/disjoint predicates for ever
 explicit abstract and group predicates for ordinary fields made effectively
 abstract by containment. `whole_model` relates the generated/glued bank to the
 independent extended structural conditions plus each original authored occurrence's
-meaning. Context views restrict the same interpreted links. This result does not
+meaning, with typedness, root and declaration disjointness explicit on the model
+side. Context views restrict the same interpreted links. This result does not
 extend the #50 checker. The [constraint preservation extension](constraint-preservation.md)
 fixes its authored-meaning parameter from #68’s typed denotation and explicit
 external domains, retaining the selected model assumptions.

@@ -267,6 +267,7 @@ theorem whole_model (R : IntegerRealization U)
     (s : Semantics.Configuration a.Occurrence U)
     (h : Admissible i R (s.interpret (Semantics.EffectiveCore.erase i))) :
     (s.Typed (Semantics.EffectiveCore.erase i) ∧ s.Rooted (Semantics.EffectiveCore.erase i) ∧
+      s.DeclarationDisjoint (Semantics.EffectiveCore.erase i) ∧
       (Realization.interpretation i U (authored i domains R)).IsModel
         (Realization.glued i).toDPGraph (Realization.descend i s)) ↔
     (Semantics.Realization.Satisfies (Semantics.Realization.Core.ofInput i) s ∧

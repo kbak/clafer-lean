@@ -187,7 +187,7 @@ configuration, with the authored meanings derived from all twelve bodies. -/
 theorem compiled_glued_model : interpretation.IsModel
     (Compile.Realization.glued input).toDPGraph (Compile.Realization.descend input config) :=
   ((ConstraintMeaning.whole_model input domains integers selected config admissible).mpr
-    ⟨structural_satisfaction, source_holds⟩).2.2
+    ⟨structural_satisfaction, source_holds⟩).2.2.2
 
 theorem nonempty_configuration : (config.head 0).Nonempty := ⟨atom 0, by simp [config,heads]⟩
 

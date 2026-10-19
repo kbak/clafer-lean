@@ -295,19 +295,20 @@ theorem correspondence (selected : (Semantics.Realization.Core.ofInput i).Select
           rw [p.property] at hh
           contradiction
 
-/-- Root/freshness/used-object obligations are explicit global conditions;
+/-- Root/freshness/used-object and declaration-disjointness obligations are explicit global conditions;
 all local, abstract and group clauses come from the complete generated bank. -/
 theorem whole_model (selected : (Semantics.Realization.Core.ofInput i).Selected)
     (s : Configuration a.Occurrence U) :
     (s.Typed (EffectiveCore.erase i) ∧ s.Rooted (EffectiveCore.erase i) ∧
+      s.DeclarationDisjoint (EffectiveCore.erase i) ∧
       (interpretation i U authored).IsModel (glued i).toDPGraph (descend i s)) ↔
     (Semantics.Realization.Satisfies (Semantics.Realization.Core.ofInput i) s ∧
       AuthoredHolds i authored s) := by
   constructor
-  · rintro ⟨ht,hr,hm⟩
+  · rintro ⟨ht,hr,hd,hm⟩
     obtain ⟨hl,hc,ha,hg⟩ := (correspondence i authored selected s ht).mp hm
-    exact ⟨⟨ht,hr,hl,ha,hg⟩,hc⟩
-  · rintro ⟨⟨ht,hr,hl,ha,hg⟩,hc⟩
-    exact ⟨ht,hr,(correspondence i authored selected s ht).mpr ⟨hl,hc,ha,hg⟩⟩
+    exact ⟨⟨ht,hr,hl,ha,hg,hd⟩,hc⟩
+  · rintro ⟨⟨ht,hr,hl,ha,hg,hd⟩,hc⟩
+    exact ⟨ht,hr,hd,(correspondence i authored selected s ht).mpr ⟨hl,hc,ha,hg⟩⟩
 
 end Clafer.Compile.Realization

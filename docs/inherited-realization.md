@@ -182,3 +182,19 @@ while the separate expression witnesses reject its c06/c07 counts. A modified
 typed candidate accepts the two-display c06 condition and rejects a wrong owner
 in c04; it is not claimed as a whole structural model. The [complete fixture](appendix-f.md) combines all structural and authored
 constraints with the final selections using a separate configuration.
+
+## Declaration identity and whole-model disjointness
+
+The [#87 clarification](SOURCES.md#declaration-disjointness-clarification) applies
+`Configuration.DeclarationDisjoint` to the resolved declaration inventory in
+`Realization.Satisfies`. Ancestor views of one field remain restrictions of its
+existing objects and links; they are not additional declarations to partition.
+This preserves the version, options and display witnesses, including shared
+objects along super chains and the complete integer-domain fixture.
+
+`Compile.Realization.whole_model` and `ConstraintMeaning.whole_model` require
+declaration disjointness alongside typedness and root conditions on the model
+side. The generated bank retains its actual abstract-family and group formulas;
+it does not generate the additional global partition. The concrete inherited and
+full Appendix F configurations each prove `declaration_disjoint` independently.
+The guarded compatibility theorem includes the same condition on both sides.

@@ -81,7 +81,7 @@ theorem collapse_mutation_detected :
 theorem upper_bound_mutation_detected :
     check (refs false optional) bag ≠ check (refs false unrestricted) bag := by decide
 
-/-- Unrelated head extents may overlap. Root group cardinality is their union. -/
+/-- Overlap remains representable and typed; its group still counts the union. -/
 def overlapping : Candidate 3 where
   size := 3
   root := 0
@@ -89,8 +89,38 @@ def overlapping : Candidate 3 where
   contains d p x := p == 0 && ((d == 1 && x == 1) || (d == 2 && x != 0))
   deref d x t := d == 2 && x != 0 && t == 1
 
-theorem unrelated_overlap_and_union :
-    check (refs false ⟨2, .finite 2⟩ ⟨2, .finite 2⟩) overlapping = true := by decide
+theorem unrelated_overlap_rejected :
+    check (refs false ⟨2, .finite 2⟩ ⟨2, .finite 2⟩) overlapping = false := by decide
+
+theorem unrelated_overlap_typed : (realize overlapping).Typed (refs false) := by decide
+
+theorem overlap_group_union : (realize overlapping).Groups
+    (refs false ⟨2, .finite 2⟩ ⟨2, .finite 2⟩) := by
+  unfold Configuration.Groups Configuration.Child realize
+  simp only [inRange_card, Set.mem_ofPred_eq]
+  decide
+
+/-- The old obligations all hold: only the independent #87 clause rejects it. -/
+theorem overlap_old_checks :
+    (realize overlapping).Typed (refs false) ∧
+    (realize overlapping).Rooted (refs false) ∧
+    (realize overlapping).Inherits (refs false) ∧
+    (realize overlapping).Abstracts (refs false) ∧
+    (realize overlapping).Parents (refs false) ∧
+    (realize overlapping).References (refs false) ∧
+    (realize overlapping).Keys (refs false) ∧
+    multiplicityChecks (refs false ⟨2, .finite 2⟩) overlapping ∧
+    groupChecks (refs false unrestricted ⟨2, .finite 2⟩) overlapping := by decide
+
+def rawOverlap : RawCandidate where
+  objects := [0, 1, 2]
+  root := 0
+  members := [(⟨0⟩, 0), (⟨1⟩, 1), (⟨2⟩, 1), (⟨2⟩, 2)]
+  containment := [(⟨1⟩, 0, 1), (⟨2⟩, 0, 1), (⟨2⟩, 0, 2)]
+  references := [(⟨2⟩, 1, 1), (⟨2⟩, 2, 1)]
+
+theorem overlap_protocol_violates : run (refs false) refCertificate rawOverlap =
+    .candidate .violates := by decide
 
 def rawBag : RawCandidate where
   objects := [10, 20, 30, 40]
@@ -162,6 +192,59 @@ def siblingOverlap : Candidate 6 := {
   contains := fun d p x => nested.contains d p x || (d == 4 && p == 0 && x == 1) }
 theorem sibling_overlap_rejected : check inheritance siblingOverlap = false := by decide
 
+/-- Containment ancestry is not super ancestry: the nested field shares its
+owner's object, and all endpoints remain typed. -/
+def nestedOverlap : Candidate 6 where
+  size := 3
+  root := 0
+  head d x := (d == 0 && x == 0) || ((d == 1 || d == 2) && x != 0) ||
+    ((d == 3 || d == 5) && x == 1) || (d == 4 && x == 2)
+  contains d p x := (p == 0 && ((d == 3 && x == 1) || (d == 4 && x == 2))) ||
+    (d == 5 && p == 1 && x == 1)
+  deref _ _ _ := false
+
+theorem nested_overlap_typed : (realize nestedOverlap).Typed inheritance := by decide
+theorem nested_overlap_rejected : check inheritance nestedOverlap = false := by decide
+
+/-- Separate abstract roots, each covered by its own concrete child. -/
+def separateTrees : EffectiveCore 5 where
+  family := {
+    root := 0
+    parent d := if d = 3 ∨ d = 4 then some 0 else none
+    reference _ := .basic
+    super d := if d = 3 then some 1 else if d = 4 then some 2 else none
+    origin d := if d = 0 then .syntheticRoot else .user
+    isAbstract d := d == 1 || d == 2
+    name d := if d = 0 then "Sing" else "same-name"
+    multiplicity _ := unrestricted }
+  id d := ⟨d.val⟩
+  group _ := unrestricted
+
+def treeCertificate : CoreCertificate 5 where
+  parentRank d := if d = 3 ∨ d = 4 then 1 else 0
+  superRank d := if d = 3 ∨ d = 4 then 1 else 0
+  unused _ := false
+
+def treeOverlap : RawCandidate where
+  objects := [0, 1]
+  root := 0
+  members := [(⟨0⟩, 0), (⟨1⟩, 1), (⟨2⟩, 1), (⟨3⟩, 1), (⟨4⟩, 1)]
+  containment := [(⟨3⟩, 0, 1), (⟨4⟩, 0, 1)]
+  references := []
+
+theorem separate_trees_overlap_violates :
+    run separateTrees treeCertificate treeOverlap = .candidate .violates := by decide
+
+def distinctTrees : RawCandidate where
+  objects := [0, 1, 2]
+  root := 0
+  members := [(⟨0⟩, 0), (⟨1⟩, 1), (⟨2⟩, 2), (⟨3⟩, 1), (⟨4⟩, 2)]
+  containment := [(⟨3⟩, 0, 1), (⟨4⟩, 0, 2)]
+  references := []
+
+theorem separate_trees_distinct_satisfy :
+    run separateTrees treeCertificate distinctTrees = .candidate .satisfies := by decide
+
 def uncovered : Candidate 6 := {
   size := 4
   root := 0
@@ -216,7 +299,8 @@ instance (m : EffectiveCore n) (c : Candidate n) : Decidable (collapsedMultiplic
 def collapseMutant (m : EffectiveCore n) (c : Candidate n) : Bool :=
   decide ((realize c).Typed m ∧ (realize c).Rooted m ∧ (realize c).Inherits m ∧
     (realize c).Abstracts m ∧ (realize c).Parents m ∧ (realize c).References m ∧
-    (realize c).Keys m ∧ collapsedMultiplicity m c ∧ groupChecks m c)
+    (realize c).Keys m ∧ collapsedMultiplicity m c ∧ groupChecks m c ∧
+    (realize c).DeclarationDisjoint m)
 
 /-- Test-only mutant that deliberately drops all local upper bounds. -/
 def upperBoundMutant (m : EffectiveCore n) (c : Candidate n) : Bool :=
@@ -340,8 +424,13 @@ theorem missing_child_locally_valid : (realize missingChild).LocalConditions inh
 def executableTests : IO Unit := do
   let tests := [
     check (refs false) bag,
+    !(check (refs false ⟨2, .finite 2⟩ ⟨2, .finite 2⟩) overlapping),
     !(check (refs true) bag),
     check inheritance nested,
+    !(check inheritance nestedOverlap),
+    decide (run (refs false) refCertificate rawOverlap = .candidate .violates),
+    decide (run separateTrees treeCertificate treeOverlap = .candidate .violates),
+    decide (run separateTrees treeCertificate distinctTrees = .candidate .satisfies),
     check inheritance emptyClasses,
     !(check inheritance missingChild),
     !(check inheritance siblingOverlap),

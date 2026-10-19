@@ -9,7 +9,7 @@ public import Clafer.Semantics.Bridge
 
 SoSyM §5.3.4–5, §5.5 and Appendix F, with the D2/D4/D6 clarification in
 `docs/inherited-realization.md`. This extension retains authored provenance;
-#50's erased core and its abstract predicate/checker are unchanged.
+Authored realization and effective-core checking share #87 declaration disjointness.
 -/
 
 @[expose] public section
@@ -61,7 +61,8 @@ def Groups : Prop := ∀ d, m.explicitAbstract d = false → Compile.Groups.Hold
 
 def Satisfies : Prop :=
   s.Typed m.toEffectiveCore ∧ s.Rooted m.toEffectiveCore ∧
-  s.LocalConditions m.toEffectiveCore ∧ Abstracts m s ∧ Groups m s
+  s.LocalConditions m.toEffectiveCore ∧ Abstracts m s ∧ Groups m s ∧
+  s.DeclarationDisjoint m.toEffectiveCore
 
 theorem abstracts_generic (inh : s.Inherits m.toEffectiveCore) : Abstracts m s ↔
     ∀ d, m.explicitAbstract d = true →
