@@ -257,7 +257,8 @@ D.1–D.3 forms. `Expr.widenObjects` and `widenRelation` carry explicit
 `Constraints.Widen` paths from [Support.lean](../Clafer/Constraints/Support.lean).
 No evaluator or semantic preservation theorem is implemented. Integer-only
 arithmetic is an implementation boundary, not a claim that D.3 forbids other
-primitive domains. The Q3 disposition is in the [source map](sources.md#appendix-d-rule-dispositions-q3).
+primitive domains. The [Appendix D notation decision (Q3)](sources.md#appendix-d-rule-dispositions-q3)
+is recorded in the source map.
 
 Covers:
 - `req~clafer-core-typing~1`
@@ -695,7 +696,7 @@ Covers:
 [Bridge.lean](../Clafer/Semantics/Bridge.lean): `key_local_iff`, `local_model_iff`,
 `structural_model_iff` connect independent clauses to the exact local compiled
 bank plus explicit global obligations. [Abstracts.lean](../Clafer/Semantics/Abstracts.lean):
-`abstracts_iff` gives the existing Cover/Q8 Disjoint meaning.
+`abstracts_iff` gives the existing Cover/[Q8](sources.md#predicate-contracts-and-the-accepted-q8-correction) Disjoint meaning.
 [Structural.lean](../Clafer/Semantics/Structural.lean): `declarationDisjoint_iff`
 relates shared-head comparability to pairwise disjointness of incomparable heads.
 [Inheritance.lean](../Clafer/Semantics/Inheritance.lean): `ancestor_iff_iterate`,
@@ -839,9 +840,10 @@ Covers:
 `objects_interpret`, `satisfies_iff`, `finite_bounds`, `direct_child_iff`,
 `empty_holds_iff`, `generated_group_iff`, `descendGroups_reduct`,
 `glued_group_iff`, `descended_group_iff`, `descended_model_iff`.
-Typedness proves endpoint representation; finite counts reuse #50's
-`Verification.inRange_card`. Inherited field realization/commutation remains #66's
-obligation. Generic interpretations still require authored predicate meanings.
+Typedness proves endpoint representation; finite counts reuse
+`Verification.inRange_card` from the [structural checker](structural-checker.md).
+The [inherited realization proofs](inherited-realization.md) separately establish
+field realization and commuting map restrictions. Generic interpretations still require authored predicate meanings.
 
 Covers:
 - `req~clafer-compile-groups~1`
@@ -866,7 +868,8 @@ Covers:
 `overlap_typed`, `union_unchanged`, `two_head_paths_one_object`,
 `compiled_overlap_xor`, `glued_overlap_xor`. These preserve raw group-union
 semantics without claiming whole-model declaration disjointness, under explicit typed
-configurations, not a claim of complete #66 inherited-family realizability.
+configurations. They do not establish the complete
+[inherited-family realization contract](inherited-realization.md).
 
 Covers:
 - `req~clafer-compile-groups~1`
@@ -881,7 +884,7 @@ and `targetView`. The extension retains authored metadata and original link
 identities. `Satisfies` also requires declaration disjointness while views retain
 the original field objects. [The source contract](inherited-realization.md) records the selected
 nested-abstractness, inheritance and group combinations (comparison decisions
-D2/D4/D6) and the complete scoped Appendix F inventory.
+[D2](resolved-ir-comparison.md#decision-d2)/[D4](resolved-ir-comparison.md#decision-d4)/[D6](resolved-ir-comparison.md#decision-d6)) and the complete scoped Appendix F inventory.
 
 Covers:
 - `req~clafer-inherited-realization~1`
@@ -911,7 +914,8 @@ Covers:
 [Compile.Realization](../Clafer/Compile/Realization.lean) constructs `fanBinding`,
 `coverFormula`, `disjointFormula`, `fieldFormula`, the complete `bank`, `glued`,
 `interpretation` and `descend`. Abstract predicates use the built-in vocabulary;
-new field groups reuse #65's child-object union. The old bank and original
+new field groups reuse the child-object union from
+[group compilation](group-compilation.md). The old bank and original
 constraint occurrences are promoted with full bindings.
 
 Covers:
@@ -1023,13 +1027,13 @@ inheritance widenings. `support_resolved` and `inventory_resolved` check the
 source IDs against `Inherited.ast`.
 [AppendixFModel.lean](../Clafer/Examples/AppendixFModel.lean) supplies `position`,
 `objects`, `links`, `graphMap` and `model`, with the full integer realization
-and the shared nonprimitive objects of #66. `shared_extent`, `model_coherent`,
+and the shared nonprimitive objects of [inherited realization](inherited-realization.md). `shared_extent`, `model_coherent`,
 `objects_finite`, `closed_admissible` and `example_contexts` retain the identity, finite-extent and
 environment obligations.
 [AppendixFDefined.lean](../Clafer/Examples/AppendixFDefined.lean) defines
 `FiniteStructural`, projects the original version spans via `versionGraph` and
 `versionModel`, and proves `c01_defined`–`c12_defined`. The c02 proof uses the
-four actual version/server multiplicity obligations from #67; the other bodies
+four actual version/server multiplicity obligations from [integer extraction](integer-extraction.md); the other bodies
 use admissible environments and local finite structural extents.
 
 Covers:
@@ -1067,7 +1071,7 @@ relative/global/inherited paths.
 `c06_accepts_two` and `c04_rejects_wrong_owner` on a typed moved-display
 candidate. Its deliberately violated ECU2 bound is documented; no whole-model
 satisfaction is inferred from those expression tests. The expression inventory
-is separate from #64's final full-model acceptance theorem.
+is separate from the [complete Appendix F satisfaction theorem](appendix-f.md).
 
 Covers:
 - `req~clafer-constraint-semantic-laws~1`
@@ -1207,7 +1211,9 @@ Covers:
 
 The [coverage matrix](representative-models.md) accounts for features, source
 locators, all d01–d26 declarations and c01–c12 conjuncts, assumptions and remaining
-obligations on #64/#68/#69. It links the authoritative inventory rather than
+obligations discharged separately by the [complete Appendix F model](appendix-f.md),
+[constraint denotation](constraint-denotation.md) and
+[preservation bridge](constraint-preservation.md). It links the authoritative inventory rather than
 redefining source semantics. The full structural projection and separate c02
 fragment retain distinct representation and satisfaction boundaries.
 
@@ -1260,8 +1266,8 @@ UIDs independently of repeated names; `Accepted.wellFormed` and
 `Accepted.supported` derive the semantic hypotheses from checked data.
 `CandidateRepresents` relates every original candidate row, object label and
 endpoint to its finite-ID translation, retaining reference occurrences.
-These results compose with #50's independent structural meaning and selected
-compiled-bank/span interpretation. They do not prove the external parser or
+These results compose with the independent [structural meaning and
+compiled-bank/span interpretation](structural-checker.md). They do not prove the external parser or
 upstream compiler transformations correct.
 
 Covers:

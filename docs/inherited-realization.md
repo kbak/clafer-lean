@@ -6,7 +6,7 @@ It preserves the guarded [structural checker contract](resolved-ir-comparison.md
 [Compile input](compile.md), and [group policy](group-compilation.md).
 The [complete fixture](appendix-f.md) combines it with all twelve constraint
 bodies and the selected semantic bridge. The accepted clarification is recorded
-in [issue #66](https://github.com/kbak/clafer-lean/issues/66).
+in the [inherited-realization issue](https://github.com/kbak/clafer-lean/issues/66).
 
 ## Source and accepted clarification
 
@@ -19,15 +19,15 @@ The paper's abstract-default and explicit-subtype rules do not completely specif
 inherited-field realization. The following is the accepted selected clarification,
 not a theorem attributed to the paper.
 
-The labels D2, D4 and D6 below identify the comparison audit's
+The labels [D2](resolved-ir-comparison.md#decision-d2), [D4](resolved-ir-comparison.md#decision-d4) and [D6](resolved-ir-comparison.md#decision-d6) below identify the comparison audit's
 [nested-abstractness, inheritance/refinement and group decisions](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites).
 They are project decision IDs, not sections of the paper's Appendix D.
 
-* **Nested abstractness (D2):** authored explicit abstract types and ordinary
+* **Nested abstractness ([D2](resolved-ir-comparison.md#decision-d2)):** authored explicit abstract types and ordinary
   field templates made effectively abstract by containment have different realization rules. Preserve both flags in
   the AST. Field templates have instances at realized parent objects; they are not
   emptied by an absent written subtype. An explicit abstract leaf is empty.
-* **Inheritance and refinement (D4):** preserve equal-parent declaration
+* **Inheritance and refinement ([D4](resolved-ir-comparison.md#decision-d4)):** preserve equal-parent declaration
   inheritance. All seven written super edges below target parentless abstracts. No unequal-parent AST edge, relocation,
   reference narrowing or general nested redefinition is introduced. A contextual
   field is the same field objects whose existing unique parent is in the context.
@@ -35,14 +35,14 @@ They are project decision IDs, not sections of the paper's Appendix D.
   Ancestor/descendant contexts may overlap; disjoint parent alternatives have
   disjoint owned fibers. Parent realization never bypasses explicit type cover.
 * Explicit abstracts are covered by direct explicit subtype heads, pairwise
-  disjoint in their common target (Q8). Some covering heads are field templates.
+  disjoint in their common target ([Q8](sources.md#predicate-contracts-and-the-accepted-q8-correction)). Some covering heads are field templates.
   Contextual classifications and explicit subtype classifications intersect; they
   are not a single list of disjoint competitors.
-* **Group bounds (D6):** retain the group policy's union of own/inherited child
+* **Group bounds ([D6](resolved-ir-comparison.md#decision-d6)):** retain the group policy's union of own/inherited child
   head objects and its effective override/empty-inventory rules. Realized ordinary field contexts enforce their
   effective group even if the effective abstract flag is true, notably options.size.
   Ordinary owner constraints apply to the same objects in all subtype/context views.
-* Preserve Q1 links, corrected top-level abstract heads, role/referent/name
+* Preserve [Q1](sources.md#span-composition-q1-research-for-4) links, corrected top-level abstract heads, role/referent/name
   separation, exact declaration-image gluing and effective-default completeness.
   Parentless abstracts have no invented root parent or local parent-fiber bounds.
   Their unused numeric AST slot is not authored global cardinality.
@@ -57,8 +57,7 @@ Supplementary evidence (MIT; no source copied):
 `test/regression/extends_nested_abstract_in_context.als.reg`.
 The compiler keeps ordinary children of abstract parents ordinary. Its wider
 parent-subtyping is not selected; its Telematics fixtures differ from the printed
-model, including names and extra version constraints. Preserve the other D1–D8
-boundaries in the comparison contract.
+model, including names and extra version constraints. Preserve the remaining [comparison boundaries (D1–D8)](resolved-ir-comparison.md#decisions-accepted-locations-and-dependency-boundaries).
 
 ## Scoped source-to-core inventory
 
@@ -157,15 +156,15 @@ reachability using this rank, actual coverage and unique parent ownership.
 
 `View`, `headView` and `derefView` restrict the existing object sets and link
 carriers. Forgetting restriction proofs injects links into the original maps;
-`targetLink` retains the original Q1 composable link pair. Context coverage is
+`targetLink` retains the original [Q1](sources.md#span-composition-q1-research-for-4) composable link pair. Context coverage is
 derived from parent coverage, and ordinary constraint scope transports to every
 subtype/view of the same ambient object. No contextual declaration IDs or
 unequal-parent super edges are allocated.
 
-`Compile.Realization.bank` includes the entire #65 bank, two actual built-in
+`Compile.Realization.bank` includes the entire [generated group bank](group-compilation.md), two actual built-in
 cover/disjoint formulas per explicit abstract, and one group formula per ordinary
 effective-abstract field. Direct subtype arities are enumerated from actual super
-edges, including the empty family. Field-group arities reuse #65. `declarations`
+edges, including the empty family. Field-group arities reuse the group-compilation construction. `declarations`
 and `glued_declarations` establish completeness and exact translated images;
 `defaults` retains complete effective defaults and `forget` recovers the previous
 augmentation. The existing structural MCS remains valid; the larger raw bank does
@@ -175,7 +174,8 @@ not assert its positive-args discipline.
 independent extended structural conditions and the original constraint occurrences.
 Authored expression meanings remain a parameter; no caller supplies the structural
 equivalence. `supported_input_compatibility` derives flag agreement on a selected
-AST whose erasure satisfies #50's guard, proving the same structural result and
+AST whose erasure satisfies the [finite checker guard](structural-checker.md),
+proving the same structural result and
 therefore preserving the supported checker's existing correctness result.
 
 The witness IDs use source `DeclId` numbers 1–26, root=0 and int=27, injectively.
@@ -190,7 +190,7 @@ constraints with the final selections using a separate configuration.
 
 ## Declaration identity and whole-model disjointness
 
-The [#87 clarification](sources.md#declaration-disjointness-clarification) applies
+The [declaration-disjointness clarification](sources.md#declaration-disjointness-clarification) applies
 `Configuration.DeclarationDisjoint` to the resolved declaration inventory in
 `Realization.Satisfies`. Ancestor views of one field remain restrictions of its
 existing objects and links; they are not additional declarations to partition.

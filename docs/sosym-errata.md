@@ -19,7 +19,7 @@ incorrect. Two inclusions containing the same ambient object overlap even when
 their source values are equal; binding the same nonempty map twice also fails
 disjointness. This agrees with the class partitions in Figure 21.
 [Decision and meaning](sources.md#predicate-contracts-and-the-accepted-q8-correction);
-[implemented in #34](https://github.com/kbak/clafer-lean/pull/34).
+[concrete predicate implementation PR](https://github.com/kbak/clafer-lean/pull/34).
 
 ### Top-level abstracts retain their head class
 
@@ -30,8 +30,8 @@ and Figure 23 require. A top-level abstract reference retains its head, target
 and dereference map; it has no source, head map, parent map or target map.
 Table 7's source-present clause for basic clafers needs this parentless exception
 and the separate synthetic-root exception.
-[Accepted decision #3](https://github.com/kbak/clafer-lean/issues/3);
-[implemented in #47](https://github.com/kbak/clafer-lean/pull/47).
+[resolved syntax and Shapes issue](https://github.com/kbak/clafer-lean/issues/3);
+[resolved syntax and Shapes implementation PR](https://github.com/kbak/clafer-lean/pull/47).
 
 ### The version constraint compares display to server
 
@@ -45,7 +45,7 @@ derives existence from the selected structural semantics. The adjacent p.17 pros
 reverses the inequality; Figure 8, its explanation and Appendix F support the corrected direction. Preserve Figure
 21a's nonempty-server guard rather than requiring every display to have a server.
 [Decision and checked models](sources.md#figure-21b-and-the-accepted-q7-correction);
-[implemented in #38](https://github.com/kbak/clafer-lean/pull/38).
+[self-description and telematics implementation PR](https://github.com/kbak/clafer-lean/pull/38).
 
 ### Seven Figure 23 associations need optional source multiplicities
 
@@ -58,7 +58,7 @@ force every MapRole into both the parent-map and dereference-map images, requiri
 its single label to be both `parent` and `dref`. Exact role-presence rules still
 apply. Keep source `1` for head-class and formula ownership.
 [Correction and proof map](mcs-invariants.md#figure-23-source-multiplicity-correction);
-[implemented in #56](https://github.com/kbak/clafer-lean/pull/56).
+[MCS disciplines implementation PR](https://github.com/kbak/clafer-lean/pull/56).
 
 ### Span composition agrees with relations after reduction
 
@@ -72,7 +72,7 @@ has at most one composable **link pair**. For relational inputs, this reduces to
 uniqueness of the intermediate object; parallel links make that condition
 insufficient for arbitrary spans.
 [Derivation and counterexamples](sources.md#span-composition-q1-research-for-4);
-[implemented in #32](https://github.com/kbak/clafer-lean/pull/32).
+[span implementation and proofs PR](https://github.com/kbak/clafer-lean/pull/32).
 
 ## Clarifications
 
@@ -98,7 +98,7 @@ tuples of output **bags**. Replacing bags by their supports changes key meaning.
 For a finite family of total, single-valued maps, this key is exactly injectivity
 of the tuple of target values.
 [Predicate contracts](sources.md#predicate-contracts-and-the-accepted-q8-correction);
-[ordinary-key correspondence, #53](https://github.com/kbak/clafer-lean/pull/53).
+[ordinary-key correspondence implementation PR](https://github.com/kbak/clafer-lean/pull/53).
 
 ### A formula needs its complete graph binding
 
@@ -150,7 +150,7 @@ also needs complete effective defaults in the source bank. An exact image of
 declarations does not silently add missing defaults. Ordinary non-bag maps require
 set-valued defaults; bag maps have no such default.
 [Adopted rule and proof boundaries](sources.md#mcs-gluing-and-the-approved-q4-rule);
-[implemented in #57](https://github.com/kbak/clafer-lean/pull/57).
+[resolved-referent gluing implementation PR](https://github.com/kbak/clafer-lean/pull/57).
 
 ### Appendix D intersection is not difference
 

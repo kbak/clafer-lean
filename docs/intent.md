@@ -90,6 +90,10 @@ Needs: req
 
 Use each document for its specific role; link to authoritative detail when
 updating summaries. Keep conditions needed to understand a claim beside it.
+Write for readers who have not followed the issue tracker: name each capability
+and explain its current contract before linking to its history. Use descriptive
+link text that identifies an issue or pull request when one is relevant; bare
+numbers and ticket chains must not substitute for an explanation.
 
 | Read or maintain | Purpose |
 | --- | --- |
@@ -119,6 +123,8 @@ Internal labels identify [source questions Q1–Q9](sources.md#question-disposit
 [compiler-comparison decisions D1–D8](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites).
 These are project references, not paper section numbers. Explain a decision by
 name and link to its definition when using its label outside the owning table.
+Make each later reference clickable at the point of use, preferably to the
+specific section or decision row rather than the top of a document.
 
 Keep frozen change records unchanged until controller retention permits removal.
 The historical link above reads the retained records in their original path

@@ -1,7 +1,7 @@
 # Compiling effective group cardinalities
 
 Group compilation extends the [structural Compile contract](compile.md) with
-interpreted group declarations, as specified in [issue #65](https://github.com/kbak/clafer-lean/issues/65).
+interpreted group declarations, as specified in the [group-compilation issue](https://github.com/kbak/clafer-lean/issues/65).
 `Compile.compileAugmented` retains the original well-formed MCS, adds generated
 group declarations and exposes their complete union. `Compile.gluedGroups`
 preserves that exact union and derives `FormalCD` naming/default validity.
@@ -42,8 +42,8 @@ children. This special treatment of groups refines the paper's context-constrain
 account; ordinary explicit constraints on abstracts retain that account unchanged.
 
 Appendix C authored/effective provenance, override rules and child defaults are
-preserved. The comparison audit treats [authored defaults (D1) and group
-semantics (D6)](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
+preserved. The comparison audit treats [authored defaults (D1)](resolved-ir-comparison.md#decision-d1) and
+[group semantics (D6)](resolved-ir-comparison.md#decision-d6)
 as separate decisions.
 
 An empty inventory counts zero. Bounds containing zero hold; a positive lower
@@ -69,7 +69,8 @@ objects** reached by those head maps from that same parent identity. Distinct ba
 heads with one reference target count separately. Multiple links or inherited
 paths witnessing the same object count once. No sum of declaration cardinalities
 or target deduplication is used. `InRange` gives the embedding-based meaning even
-for infinite sets; finite specialization reuses #50's `inRange_card`, with explicit
+for infinite sets; finite specialization reuses `inRange_card` from the
+[structural checker](structural-checker.md), with explicit
 finiteness of the counted subtype.
 
 The extra component can contain vertex-only formulas. A childless context with
@@ -90,19 +91,20 @@ and a graph inverse to labeling are derived. `descendGroups` therefore construct
 an actual glued interpretation from a configuration and proves its reduct equality.
 Generic noninjective MCS gluing still requires its existing consistency conditions.
 
-`objects_interpret` proves that a typed #50 relational configuration realizes each
+`objects_interpret` proves that a typed [relational configuration](structural-checker.md)
+realizes each
 selected head fiber as containment at the same parent identity. `generated_group_iff`
 and `descended_group_iff` identify source/glued formula satisfaction with the
 selected bounds. `descended_model_iff` accounts for both declaration components;
 satisfying a group alone does not establish the remaining structural obligations.
 No user-expression interpreter is inferred from fresh predicate symbols.
 
-#50's checker and guarded comparison fragment remain unchanged. `direct_child_iff`
+The [finite checker and guarded comparison fragment](structural-checker.md) remain unchanged. `direct_child_iff`
 relates inventories when strict ancestors have no children; effective-bound
 agreement is also necessary when comparing to its `Configuration.Groups` (and
-holds for `EffectiveCore.erase`). #50 does not depend on this extension.
+holds for `EffectiveCore.erase`). The finite checker does not depend on this extension.
 
-The separate [#66 realization extension](inherited-realization.md) supplies the
+The separate [realization extension](inherited-realization.md) supplies the
 selected inherited-field realization and commuting map restrictions. Selecting an
 inherited head map does not prove those obligations or copy any object. Tests of
 an inherited abstract-child fiber are explicitly group-predicate tests under typed

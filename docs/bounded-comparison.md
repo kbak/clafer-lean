@@ -1,7 +1,7 @@
 # Bounded structural comparison
 
 The harness under `scripts/verification/` implements the accepted
-[#52 contract](resolved-ir-comparison.md) using the
+[comparison contract](resolved-ir-comparison.md) using the
 [paired importer](resolved-import.md) and [verified checker](structural-checker.md).
 It compares a supplied candidate with the actual pinned compiler's static Alloy
 output. Solver observations supplement the checker theorem; they are neither
@@ -52,7 +52,8 @@ inconclusive execution on exhaustion. An unpinned command uses only the manual
 bound guards, decodes its returned witness and checks it with Lean. This direction
 alone does not establish reverse comparison or complete enumeration.
 
-The reviewed symbol relation uses the #51 receipt's signature and field inventory,
+The reviewed symbol relation uses the signature and field inventory from the
+[importer's capture receipt](resolved-import.md),
 owners, binary arities and target UIDs. It never strips guessed suffixes. When
 reference and containment have identical endpoints, the reference is the first
 field according to pinned `Generator/Alloy.hs`, `genRelations` (lines 170–180 at

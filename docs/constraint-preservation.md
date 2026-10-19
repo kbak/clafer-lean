@@ -34,7 +34,7 @@ inclusion for generated inclusion slots and equality of actual primitive integer
 class extents with the fixed realization. `admissible_of_local` derives the
 inclusion hypotheses from the generated local predicates; primitive-domain
 realization is an additional model condition. Integer extraction retains the
-independent singleton/domain obligations of #67. Neither inclusion nor scalar
+independent singleton/domain obligations of [integer extraction](integer-extraction.md). Neither inclusion nor scalar
 conversion is inferred from names, MCS validity or truth of the source body.
 
 `arity_binding`, `context_binding`, `vertex_same_id`, `boundArrow_same_id` and
@@ -93,8 +93,8 @@ SoSyM §5.3.5 p.14 identifies a primitive head with
 its value domain. A complete integer-bearing fixture must give that primitive
 head an explicit unrestricted bound and the corresponding root containment,
 both already admitted by the resolved-input contract. This does not change
-version/server `1..1` bounds, finite counted nonprimitive collections, or #50's
-guarded checker. The [complete constraint-bearing fixture](appendix-f.md) applies this conditional
+version/server `1..1` bounds, finite counted nonprimitive collections, or the
+[guarded structural checker](structural-checker.md). The [complete constraint-bearing fixture](appendix-f.md) applies this conditional
 bridge with the unrestricted primitive bound, actual root containment, two
 displays per ECU and all twelve bodies proved simultaneously.
 

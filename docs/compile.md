@@ -135,6 +135,6 @@ abstract by containment. `whole_model` relates the generated/glued bank to the
 independent extended structural conditions plus each original authored occurrence's
 meaning, with typedness, root and declaration disjointness explicit on the model
 side. Context views restrict the same interpreted links. This result does not
-extend the #50 checker. The [constraint preservation extension](constraint-preservation.md)
-fixes its authored-meaning parameter from #68’s typed denotation and explicit
+extend the [finite structural checker](structural-checker.md). The [constraint preservation extension](constraint-preservation.md)
+fixes its authored-meaning parameter using the [typed denotation](constraint-denotation.md) and explicit
 external domains, retaining the selected model assumptions.

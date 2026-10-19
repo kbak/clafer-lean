@@ -1,7 +1,8 @@
 # Resolved constraint denotation
 
-[Issue #68](https://github.com/kbak/clafer-lean/issues/68) interprets the typed core
-of SoSyM Appendix D.1–D.4/Figure 28 and the manual Appendix F expansions. The
+The constraint denotation interprets the typed core
+of SoSyM Appendix D.1–D.4/Figure 28 and the manual Appendix F expansions, as specified
+in the [constraint-meaning issue](https://github.com/kbak/clafer-lean/issues/68). The
 [product intent](intent.md), [source map](sources.md#appendix-d-rule-dispositions-q3),
 [integer bridge](integer-extraction.md), and [inherited inventory](inherited-realization.md)
 remain authoritative for their respective boundaries. The [selected Compile/gluing bridge](constraint-preservation.md) derives predicate
@@ -37,10 +38,10 @@ search evaluator or solver in this extension.
   have their ordinary mathematical meanings. Equality compares values of the
   same core sort, including whole sets/relations.
 * Union, difference and **ordinary intersection** act on both collection shapes
-  (Q3). Subsetting is set inclusion. Unary image and binary composition use an
+  ([Q3](sources.md#appendix-d-rule-dispositions-q3)). Subsetting is set inclusion. Unary image and binary composition use an
   existential common middle object.
 * Map expressions explicitly reduce the original spans to endpoint relations.
-  `join_span` proves that composing those relations agrees with reducing the Q1
+  `join_span` proves that composing those relations agrees with reducing the [Q1](sources.md#span-composition-q1-research-for-4)
   composite. The original link carriers remain in the model.
 * `this` and variables denote singletons; global extents denote the whole class.
   Widening leaves the underlying collection unchanged.
@@ -51,7 +52,7 @@ search evaluator or solver in this extension.
   value is the natural cardinality embedded in `Int`; an infinite operand is
   undefined. This does not impose a finite ambient universe or finite integer
   domain. The no/one/lone/some helpers retain these local finite-collection bounds.
-* `integerOf` uses #67's exact singleton extraction. Empty, multiple-object and
+* `integerOf` uses [exact singleton extraction](integer-extraction.md). Empty, multiple-object and
   off-domain results are undefined. The bridge supplies no arbitrary integer.
 
 Partial operations propagate undefined operands. On admissible finite operands,
@@ -72,7 +73,7 @@ link carrier. The structural `headFiberEquiv` and `compositeFiber` results retai
 head/composite link counts under ownership and functional reference assumptions.
 
 The expression inventory uses the source IDs d01–d26, root=0 and int=27 from
-#66. `AppendixFConstraints.inventory_resolved` checks each support against its
+[inherited realization](inherited-realization.md). `AppendixFConstraints.inventory_resolved` checks each support against its
 actual AST. The twelve bodies retain the contexts and navigation spelled out in
 the [constraint scope handoff](inherited-realization.md#constraint-scope-handoff).
 In particular, c01 visits fixed through the cache.size head before integer
@@ -81,11 +82,13 @@ value with the actual owning parent after widening both to ECU; c06/c07 count
 plaDisplay heads; c08/c09 start at the whole plaECU extent. The distinct declarations
 named size and options retain their distinct IDs. c10–c12 insert implicit some.
 
-The expression environments reuse #66's nonprimitive object and link identities.
+The expression environments reuse the nonprimitive objects and links of the
+[inherited realization](inherited-realization.md), preserving their identities.
 For numeric interpretation its finite primitive placeholder is replaced by the
 complete integer realization. This environment construction does not assert
-whole-model satisfaction of the compiled primitive declaration or a #69 bridge.
-The original guarded #50 checker and its domain remain unchanged.
+whole-model satisfaction of the compiled primitive declaration or establish
+the [constraint-preservation bridge](constraint-preservation.md).
+The [finite structural checker](structural-checker.md) retains its guarded domain.
 
 ## Proof boundaries
 
