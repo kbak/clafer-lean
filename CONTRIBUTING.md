@@ -21,17 +21,16 @@ scope and authoritative documents; [architecture](docs/ARCHITECTURE.md) explains
 module boundaries. Use those references when updating summaries, retaining
 artifact IDs, trace links, source citations and existing link destinations.
 
-Install Lean with [elan](https://lean-lang.org/install/), Python 3.11+, Git,
-Java 17+, and the [GitHub CLI](https://cli.github.com/). Prepare the
-[pinned importer prerequisites](#pinned-import-validation-prerequisites) for full
-validation. Then:
+Install Python 3.11+, Git, Java 17+, and the [GitHub CLI](https://cli.github.com/).
+For full validation, also install Lean with [elan](https://lean-lang.org/install/)
+and prepare the [pinned importer prerequisites](#pinned-import-validation-prerequisites).
+Documentation-only checks do not need Lean, the Haskell compiler or Alloy. Then:
 
 ```sh
 python3 -m venv .venv
 . .venv/bin/activate
-python -m pip install -r requirements/intentbond.txt
+python -m pip install -r requirements/intentbond.txt -r requirements/documentation.txt
 ib install-oft
-bash scripts/check.sh
 ```
 
 For quick feedback while editing, run `bash scripts/check.sh --preflight`.
@@ -55,13 +54,22 @@ The shared check sets `LAKE_RESTORE_ARTIFACTS=true` so all outputs are restored 
 the paths used by the audit, tests and kernel checker. A warm cache still runs
 the complete module build, fresh kernel replay, axiom audit and regression tests.
 
-An operator-configured factory may select documentation validation for changes
-confined to `README.md` and Markdown under `docs/`, using a complete file-and-mode
-comparison against its frozen baseline. It runs inventory preflight, module
-regressions and document checks without installing Lean. Any other source change
-selects full validation. IntentBond and independent read-only review remain
-required; the result records which validation ran and does not claim a fresh Lean
-build. Ordinary local checks and CI continue to run the full command.
+The [validation wrapper](scripts/validation.py) and CI automatically select
+documentation checks when only regular, nonexecutable `README.md` or Markdown
+under `docs/` changed. They compare complete source contents and modes against the
+frozen baseline, including additions, deletions and nonignored untracked files.
+The shared check verifies the selection again inside IntentBond's captured snapshot.
+Other source changes, missing or stale comparisons, and an empty diff select the
+full check. This includes changes to scripts, tests, dependencies, workflows,
+agent instructions and `scope.json`.
+
+The documentation path checks module inventory, Python regressions for inventory
+and selection, and local document links and heading anchors. It does not run Lean
+examples, including Appendix F, or provision Haskell and Alloy. Frozen change
+records remain under their retention policy; document-link checks cover living
+docs. IntentBond coverage, source matching and independent read-only review still
+apply, including review of mathematical claims. Evidence records the selected path
+without claiming a new Lean build.
 
 The shared check discovers every project module, rejects reverse dependencies
 (including through root/helper modules), builds and runs `leanchecker` on each,
@@ -100,18 +108,25 @@ a feature branch; the starting `HEAD` on main). Keep the affected intent,
 requirements, source/proof references, and checks consistent. Run:
 
 ```sh
-ib check --repo "$PWD" --base BASE_COMMIT --candidate worktree
+python3 scripts/validation.py check --base BASE_COMMIT --candidate worktree --out /tmp/clafer-check
 ```
 
-The check uses `scope.json` from that baseline and runs `scripts/check.sh` on a
-captured source snapshot. Exit 0 passes automation; exit 4 passes automation with
+Choose a fresh external output directory for each run. The wrapper invokes
+`ib check`, using `scope.json` from that baseline and running `scripts/check.sh`
+on a captured source snapshot. It retains `/tmp/clafer-check-selection.json`
+beside the evidence directory, with both source manifests, baseline identity and
+selection reason. Add `--full` to require all validation gates. Direct
+`ib check` or `bash scripts/check.sh` without a selection plan also runs full validation.
+
+Exit 0 passes automation; exit 4 passes automation with
 semantic review pending. Other exits fail. Keep the reported evidence directory
 outside the repository and summarize it in the PR. After committing, match the
 commit against that evidence with `ib verify --base BASE_COMMIT --candidate HEAD
 --evidence /path/to/evidence.json`. Use `--allow-pending-review` only when review
 will be enforced before acceptance.
 
-CI runs Lean validation and IntentBond on pull requests and main. Follow the
+CI selects documentation or full validation before expensive toolchain setup,
+and runs IntentBond on pull requests and main. Follow the
 [scope-selection rules](docs/traceability.md#scope-selection) for baseline policy,
 first adoption and the exact public-root expansion. Local checks against the
 historical baseline require the independently approved scope via `--scope`.

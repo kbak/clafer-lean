@@ -62,3 +62,19 @@ identify exact files; canonical policy hashes identify parsed policy values.
 Authorization history belongs in PR context and external factory evidence.
 Frozen task snapshots retain historical paths and are not current architecture
 or scope-selection guidance.
+
+## Documentation validation selection
+
+[The validation wrapper](../scripts/validation.py) captures both source manifests
+using the pinned IntentBond implementation, compares every path's contents and
+mode, and retains the selection outside source. [The shared check](../scripts/check.sh)
+compares the complete actual snapshot with the recorded candidate before running
+the documentation path. Only changes to regular, nonexecutable `README.md` or
+Markdown under `docs/` qualify; uncertainty selects full validation.
+
+This selects the checks run by the existing baseline command; it does not change
+`scope.json`, coverage requirements or review paths. The selection record contains
+the baseline commit, source identities and reason; IntentBond's test log records
+the actual path and results. Keep both with the evidence. Documentation checks do
+not supply fresh Lean execution evidence or semantic approval. See
+[setup and checks](../CONTRIBUTING.md#setup-and-checks) for commands and prerequisites.

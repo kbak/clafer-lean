@@ -57,12 +57,17 @@ in issues before choosing a meaning. The Haskell compiler is supplementary conte
 pin a commit when using it as evidence. Do not copy third-party material without
 checking its license. Keep the README brief.
 
-Use the pinned Lean toolchain and `bash scripts/check.sh` for full validation.
-A factory may use the explicitly configured documentation-only check described
-in `req~lean-validation~1` after proving all other source contents and modes unchanged
-from its frozen baseline. Do not select this exception by agent judgment or edit
-scope to obtain it. Keep proofs kernel
-checked. Do not introduce `sorry`, `admit`, disabled warning checks, or unchecked
+Use `python3 scripts/validation.py check --base BASE_COMMIT --candidate worktree
+--out /external/evidence` for IntentBond validation. The wrapper selects document
+checks only after comparing all source contents and modes with the frozen baseline;
+the shared check revalidates the captured snapshot. Only regular Markdown changes
+in `README.md` and `docs/` qualify. Other changes or uncertain comparisons require
+the full check. Keep the selection record beside IntentBond evidence. Do not select
+the short path by judgment, hand-write its plan, or edit scope to obtain it.
+Use `--full` to require full validation; `bash scripts/check.sh` without a selection
+plan also runs the full check with the pinned Lean toolchain. See
+[the validation workflow](CONTRIBUTING.md#setup-and-checks).
+Keep proofs kernel checked. Do not introduce `sorry`, `admit`, disabled warning checks, or unchecked
 axioms as completed proofs; discuss intentional additional axioms explicitly.
 Keep private deployment paths, credentials, and runtime state outside this repo.
 Place new Lean modules under their owning public root. The shared check discovers

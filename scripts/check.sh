@@ -19,12 +19,25 @@ run_step() {
 # [impl->req~lean-validation~1]
 # [itest->req~lean-validation~1]
 export PYTHONDONTWRITEBYTECODE=1
+validation_mode=full
+if [[ -n "${CLAFER_VALIDATION_PLAN:-}" ]]; then
+  validation_mode=$(python3 scripts/validation.py select --plan "$CLAFER_VALIDATION_PLAN")
+fi
+printf '[check] Validation mode: %s\n' "$validation_mode"
 validation_dir=.lake/validation
 # Catch source/inventory mistakes before installing Lean or preparing dependencies.
 run_step 'Module inventory' python3 scripts/project_modules.py --output-dir "$validation_dir"
 run_step 'Module regressions' python3 -m unittest discover -s tests -p test_project_modules.py -v
 
 if [[ "${1:-}" == --preflight ]]; then
+  exit 0
+fi
+
+run_step 'Documentation links' python3 scripts/check_docs.py
+if [[ "$validation_mode" == docs ]]; then
+  run_step 'Documentation regressions' python3 -m unittest discover -s tests -p test_check_docs.py -v
+  run_step 'Validation selection regressions' python3 -m unittest discover -s tests -p test_validation.py -v
+  printf '[check] Documentation validation complete; no new Lean validation claimed.\n'
   exit 0
 fi
 

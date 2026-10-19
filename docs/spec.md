@@ -35,15 +35,23 @@ the full validation requirement for Lean, build, validation or other executable 
 
 After building, run the declaration/axiom audit and Lean/Python regression tests
 before the more expensive kernel replay. Any failed gate stops later stages;
-successful validation still requires the complete kernel check.
+successful full validation still requires the complete kernel check.
 
-An explicitly configured factory documentation check may instead run source-inventory
-preflight, its Python regressions and changed-document checks when a complete
-file-content and mode comparison with the frozen baseline proves that only
-`README.md` or Markdown beneath `docs/` changed. Deletions and additions participate
-in that comparison. Other paths, executable modes, symlinks, an unavailable baseline
-or uncertain classification require full validation. Preserve the baseline identity
-and selected check in evidence. This exception does not claim new Lean validation:
+Local and CI validation may instead run source-inventory preflight, its Python
+regressions, document-link checks and validation-selection regressions when a
+complete file-content and mode comparison with a frozen Git baseline proves that
+only `README.md` or Markdown beneath `docs/` changed. Include additions, deletions
+and nonignored untracked source. Only regular, nonexecutable Markdown qualifies;
+other changed paths or modes, an unavailable baseline, an empty diff or uncertain
+classification require full validation. Validation scripts, workflows, dependencies,
+agent instructions and `scope.json` therefore require the full check.
+
+Prepare the selection outside captured source and recheck its complete candidate
+manifest inside the IntentBond snapshot before taking the documentation path.
+A missing, malformed or stale selection falls back to full validation. CI selects
+before provisioning Lean, the Haskell exporter or Alloy. Keep an explicit full-check
+option and preserve the baseline identity, source manifests, selection reason and
+actual check in evidence. Documentation validation does not claim new Lean validation:
 IntentBond tracing, source matching and independent read-only semantic review
 remain required, including review of changed mathematical claims and requirements.
 
@@ -2346,10 +2354,11 @@ integer range independently over generated and added formulas, including relatio
 tuple counts/unions; inadequate arithmetic or execution failure cannot be UNSAT
 agreement. No fallback, inferred-scope adequacy or optimizer correctness claim.
 
-Acceptance includes actual compiler/backend runs, the complete pinned Lean/kernel/
-axiom/layer/import validation, IntentBond source matching and independent semantic
+Acceptance of changes to this harness includes actual compiler/backend runs, the
+complete pinned Lean/kernel/axiom/layer/import validation, IntentBond source matching and independent semantic
 review of all eight #52 criteria. Required CI must fail unresolved harness errors;
-no missing-tool skips, scope weakening or documentation-only validation applies.
+no missing-tool skips, scope weakening or substitution of documentation checks
+for executable acceptance applies.
 
 Covers:
 - `intent~formalization-foundation~1`
