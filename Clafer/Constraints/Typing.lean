@@ -6,7 +6,7 @@ public import DPGraph.Formula
 /-!
 # Typed resolved core constraints
 
-SoSyM D.1/Figure 28, D.2, D.3.1–2; the Q3 disposition is in docs/SOURCES.md.
+SoSyM D.1/Figure 28, D.2, D.3.1–2; the Q3 disposition is in docs/sources.md.
 These constructors certify sorts and lexical scope. Integer extraction has a
 separate partial meaning in Integer.lean; no full evaluator or constraint-
 preservation theorem is supplied here.

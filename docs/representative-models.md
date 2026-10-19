@@ -7,11 +7,11 @@ integration of `Clafer`, `FormalCD` and `DPGraph`. The requirements are
 The [named trace artifacts](clafer-trace.md#representative-model-integration)
 link each claim below to Lean declarations.
 
-Primary source: the [SoSyM author preprint](SOURCES.md#primary-source), SHA-256
+Primary source: the [SoSyM author preprint](sources.md#primary-source), SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`:
 §6.2.4–5, Appendix F p.34, Figures 16, 18, 21–23. Preserve the accepted
 Q1/Q7/Q8 corrections and top-level abstract/ownership corrections in the
-[source map](SOURCES.md). These examples reuse those decisions; they add no
+[source map](sources.md). These examples reuse those decisions; they add no
 new source interpretation. Figures 15, 17 and 19 have no new standalone fixture
 here; their general representation context does not count as a checked copy of
 those printed models.
@@ -22,7 +22,7 @@ those printed models.
 | --- | --- | --- |
 | Nesting and repeated names; Figure 16, §6.2.3–5 | `Integration.Small.nested_names_and_identity`, `nesting_incidence` | Equal names remain distinct glued classes; the nested head retains its parent/child endpoints. |
 | Inheritance and references; Figure 18, §5.3–5.5 | `Small.inheritance_declared`, `shared_target_distinct_maps`; `Inherited.inherited_version`, `inherited_options_and_displays` | Inclusion is actually declared; two reference maps sharing a target remain distinct. Appendix F fields reuse ambient objects in inherited views. |
-| MCS and FormalCD validity; Figures 22–23, Appendix E | `Small.compilation_gluing_valid`, `exact_declarations`, `typed_attachments` | Instantiate Compile validity, effective-default completeness and exact translated union. Generic gluing's incidence/metadata hypotheses are derived by Compile's injective referents. |
+| MCS and `FormalCD` validity; Figures 22–23, Appendix E | `Small.compilation_gluing_valid`, `exact_declarations`, `typed_attachments` | Instantiate Compile validity, effective-default completeness and exact translated union. Generic gluing's incidence/metadata hypotheses are derived by Compile's injective referents. |
 | Individual multiplicities and xor; Appendix C, §4.2.1 | `Integration.Xor.optional_declarations`, `boundaries` | The actual compiled and glued optional-head formulas pass for zero/one/two selected objects. The generated xor passes for one and fails separately on both sides for zero/two. |
 | Typed constraint attachments; Appendix D, §6.2.2–5 | `Small.typed_attachments`, `repeated_binding_after_gluing`; `VersionCompilation.attachment`, `full_binding` | Positive support, context/owner, repeated occurrences and complete bindings survive. Fresh predicate symbols do not establish expression denotation. |
 | Integer navigation; Appendix F c02 | `VersionCompilation.versionModel`, `operands_defined`, `comparison_defined` | The emitted local inclusion/multiplicity formulas, interpreted after gluing, supply the delivered navigation theorem's structural hypotheses. Integer realization/domain equality is explicit. Definedness does not assert comparison truth. |

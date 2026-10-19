@@ -13,7 +13,7 @@ REPO = Path(__file__).resolve().parent.parent
 
 # [itest->req~lean-validation~1]
 class CheckScriptTest(unittest.TestCase):
-    def run_check(self, *, preflight=False, fail="", dependencies="Mathlib.Data.Set.Defs\nMathlib.Tactic.FinCases\n"):
+    def run_check(self, *, preflight=False, fail="", selection="full", dependencies="Mathlib.Data.Set.Defs\nMathlib.Tactic.FinCases\n"):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "scripts").mkdir()
@@ -23,6 +23,9 @@ class CheckScriptTest(unittest.TestCase):
             (root / "profile/lean-env.sh").write_text('echo profile >> "$CALLS"\n')
             stub = '''#!/usr/bin/env bash
 echo "${0##*/} $*" >> "$CALLS"
+if [[ "$1" == scripts/validation.py ]]; then
+  echo "$SELECTED_MODE"
+fi
 if [[ "$1" == scripts/project_modules.py ]]; then
   mkdir -p .lake/validation
   printf 'DPGraph\\nDPGraph.Internal.New\\nFormalCD\\nClafer\\n' > .lake/validation/modules.txt
@@ -43,7 +46,8 @@ fi
                 ["bash", str(root / "scripts/check.sh")] + (["--preflight"] if preflight else []),
                 env=dict(os.environ, PATH=str(root / "bin") + os.pathsep + os.environ["PATH"],
                          FACTORY_TESTS=str(root / "profile"), CALLS=str(root / "calls"),
-                         FAIL_STEP=fail, PREFETCH_MODULES=dependencies),
+                         FAIL_STEP=fail, PREFETCH_MODULES=dependencies,
+                         CLAFER_VALIDATION_PLAN=str(root / "plan.json"), SELECTED_MODE=selection),
                 capture_output=True, text=True, check=False,
             )
             return result, (root / "calls").read_text().splitlines()
@@ -124,6 +128,21 @@ fi
         self.assertEqual(result.returncode, 23)
         self.assertNotIn("lake env python3 -m unittest discover -s tests -v", calls)
         self.assertFalse(any("leanchecker" in call for call in calls))
+
+    def test_documentation_selection_runs_checks_without_toolchain_setup(self):
+        for failure in ("", "scripts/check_docs.py", "test_check_docs.py", "test_validation.py"):
+            with self.subTest(failure=failure):
+                result, calls = self.run_check(selection="docs", fail=failure)
+                self.assertEqual(result.returncode, 23 if failure else 0, result.stderr)
+                self.assertIn("python3 scripts/check_docs.py", calls)
+                self.assertNotIn("profile", calls)
+                self.assertFalse(any(call.startswith("lake ") for call in calls))
+                self.assertFalse(any("scripts/verification/runtime.py" in call for call in calls))
+                self.assertIn("test_project_modules.py", "\n".join(calls))
+                if not failure:
+                    self.assertIn("test_check_docs.py", "\n".join(calls))
+                    self.assertIn("test_validation.py", "\n".join(calls))
+                    self.assertIn("no new Lean validation claimed", result.stdout)
 
 
 if __name__ == "__main__":

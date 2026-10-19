@@ -32,65 +32,16 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1
-        with:
-          auto-config: 'false'
-          build: 'false'
-          test: 'false'
-          lint: 'false'
-          use-mathlib-cache: 'false'
-          use-github-cache: 'false'
-      # Native Lake caches survive ib's temporary snapshots. Lake checks source,
-      # options and import traces before restoring compiled module artifacts.
-      - name: Cache Lean build artifacts
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
-        with:
-          path: |
-            ${{ runner.temp }}/lean-dependencies/lake
-            ${{ runner.temp }}/lean-dependencies/mathlib
-          key: lean-build-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
-          restore-keys: |
-            lean-build-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
-            lean-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - name: Install pinned IntentBond and verified OFT
         run: |
-          python -m pip install -r requirements/intentbond.txt
+          python -m pip install -r requirements/intentbond.txt -r requirements/documentation.txt
           ib install-oft --destination "$RUNNER_TEMP/oft"
           echo "INTENTBOND_OFT_JAR=$RUNNER_TEMP/oft/openfasttrace-4.9.0.jar" >> "$GITHUB_ENV"
-      - name: Cache pinned compiler build dependencies
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
-        with:
-          path: ${{ runner.temp }}/clafer-compiler
-          key: clafer-compiler-${{ runner.os }}-${{ runner.arch }}-15adb2216909421bcb5022174d2d84ef2b42307c-stack3.11.1-ghc9.6.7
-      - name: Build pinned same-generation exporter
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libgmp-dev
-          mkdir -p "$RUNNER_TEMP/clafer-tools"
-          curl -fL --retry 3 https://github.com/commercialhaskell/stack/releases/download/v3.11.1/stack-3.11.1-linux-x86_64.tar.gz -o "$RUNNER_TEMP/clafer-tools/stack.tar.gz"
-          echo "1fda71e657cd8d355625cc66b61b352699279dfee2664c014a392163bd19a952  $RUNNER_TEMP/clafer-tools/stack.tar.gz" | sha256sum --check --strict
-          tar -xzf "$RUNNER_TEMP/clafer-tools/stack.tar.gz" -C "$RUNNER_TEMP/clafer-tools" --strip-components=1
-          curl -fL --retry 3 https://codeload.github.com/gsdlab/clafer/tar.gz/15adb2216909421bcb5022174d2d84ef2b42307c -o "$RUNNER_TEMP/clafer-tools/compiler.tar.gz"
-          python scripts/verification/build.py --archive "$RUNNER_TEMP/clafer-tools/compiler.tar.gz" \
-            --stack "$RUNNER_TEMP/clafer-tools/stack" --work "$RUNNER_TEMP/clafer-compiler"
-          echo "CLAFER_CAPTURE=$RUNNER_TEMP/clafer-compiler/clafer-capture" >> "$GITHUB_ENV"
-          echo "CLAFER_CAPTURE_BUILD=$RUNNER_TEMP/clafer-compiler/build.json" >> "$GITHUB_ENV"
-      - name: Provision pinned Alloy comparison
-        run: |
-          ib install-alloy --destination "$RUNNER_TEMP/clafer-alloy"
-          echo "CLAFER_ALLOY_JAR=$RUNNER_TEMP/clafer-alloy/alloy-6.2.0.jar" >> "$GITHUB_ENV"
-          echo "CLAFER_ALLOY_CACHE=$RUNNER_TEMP/clafer-alloy-runtime" >> "$GITHUB_ENV"
-          echo "CLAFER_COMPARISON_EVIDENCE=$RUNNER_TEMP/clafer-comparison-evidence" >> "$GITHUB_ENV"
-      # [impl->req~intentbond-workflow~1]
-      - name: Check source, traceability, and Lean
+      - name: Select validation and baseline scope
+        id: selection
         env:
           PR_BASE: ${{ github.event.pull_request.base.sha }}
           PUSH_BASE: ${{ github.event.before }}
-          LAKE_CACHE_DIR: ${{ runner.temp }}/lean-dependencies/lake
-          MATHLIB_CACHE_DIR: ${{ runner.temp }}/lean-dependencies/mathlib
-          # Reuse only matching build inputs; all validation gates still run.
-          LAKE_ARTIFACT_CACHE: 'true'
-          LAKE_RESTORE_ARTIFACTS: 'true'
         run: |
           candidate=$(git rev-parse HEAD)
           baseline=${PR_BASE:-${PUSH_BASE:-$candidate}}
@@ -106,6 +57,74 @@ jobs:
             baseline=$candidate
             git show "$candidate:scope.json" > "$RUNNER_TEMP/trusted-scope.json"
           fi
+          python scripts/validation.py prepare --repo "$GITHUB_WORKSPACE" \
+            --base "$baseline" --candidate "$candidate" --out "$RUNNER_TEMP/validation-selection.json"
+          mode=$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["mode"])' "$RUNNER_TEMP/validation-selection.json")
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+          echo "baseline=$baseline" >> "$GITHUB_OUTPUT"
+          echo "candidate=$candidate" >> "$GITHUB_OUTPUT"
+          echo "CLAFER_VALIDATION_PLAN=$RUNNER_TEMP/validation-selection.json" >> "$GITHUB_ENV"
+          echo "Validation: $mode; baseline: $baseline" >> "$GITHUB_STEP_SUMMARY"
+      - uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1
+        if: steps.selection.outputs.mode != 'docs'
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      # Native Lake caches survive ib's temporary snapshots. Lake checks source,
+      # options and import traces before restoring compiled module artifacts.
+      - name: Cache Lean build artifacts
+        if: steps.selection.outputs.mode != 'docs'
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: |
+            ${{ runner.temp }}/lean-dependencies/lake
+            ${{ runner.temp }}/lean-dependencies/mathlib
+          key: lean-build-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            lean-build-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+            lean-deps-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Cache pinned compiler build dependencies
+        if: steps.selection.outputs.mode != 'docs'
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: ${{ runner.temp }}/clafer-compiler
+          key: clafer-compiler-${{ runner.os }}-${{ runner.arch }}-15adb2216909421bcb5022174d2d84ef2b42307c-stack3.11.1-ghc9.6.7
+      - name: Build pinned same-generation exporter
+        if: steps.selection.outputs.mode != 'docs'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libgmp-dev
+          mkdir -p "$RUNNER_TEMP/clafer-tools"
+          curl -fL --retry 3 https://github.com/commercialhaskell/stack/releases/download/v3.11.1/stack-3.11.1-linux-x86_64.tar.gz -o "$RUNNER_TEMP/clafer-tools/stack.tar.gz"
+          echo "1fda71e657cd8d355625cc66b61b352699279dfee2664c014a392163bd19a952  $RUNNER_TEMP/clafer-tools/stack.tar.gz" | sha256sum --check --strict
+          tar -xzf "$RUNNER_TEMP/clafer-tools/stack.tar.gz" -C "$RUNNER_TEMP/clafer-tools" --strip-components=1
+          curl -fL --retry 3 https://codeload.github.com/gsdlab/clafer/tar.gz/15adb2216909421bcb5022174d2d84ef2b42307c -o "$RUNNER_TEMP/clafer-tools/compiler.tar.gz"
+          python scripts/verification/build.py --archive "$RUNNER_TEMP/clafer-tools/compiler.tar.gz" \
+            --stack "$RUNNER_TEMP/clafer-tools/stack" --work "$RUNNER_TEMP/clafer-compiler"
+          echo "CLAFER_CAPTURE=$RUNNER_TEMP/clafer-compiler/clafer-capture" >> "$GITHUB_ENV"
+          echo "CLAFER_CAPTURE_BUILD=$RUNNER_TEMP/clafer-compiler/build.json" >> "$GITHUB_ENV"
+      - name: Provision pinned Alloy comparison
+        if: steps.selection.outputs.mode != 'docs'
+        run: |
+          ib install-alloy --destination "$RUNNER_TEMP/clafer-alloy"
+          echo "CLAFER_ALLOY_JAR=$RUNNER_TEMP/clafer-alloy/alloy-6.2.0.jar" >> "$GITHUB_ENV"
+          echo "CLAFER_ALLOY_CACHE=$RUNNER_TEMP/clafer-alloy-runtime" >> "$GITHUB_ENV"
+          echo "CLAFER_COMPARISON_EVIDENCE=$RUNNER_TEMP/clafer-comparison-evidence" >> "$GITHUB_ENV"
+      # [impl->req~intentbond-workflow~1]
+      - name: Check source, traceability, and selected validation
+        env:
+          baseline: ${{ steps.selection.outputs.baseline }}
+          candidate: ${{ steps.selection.outputs.candidate }}
+          LAKE_CACHE_DIR: ${{ runner.temp }}/lean-dependencies/lake
+          MATHLIB_CACHE_DIR: ${{ runner.temp }}/lean-dependencies/mathlib
+          # Full checks retain all gates even when compiled artifacts are cached.
+          LAKE_ARTIFACT_CACHE: 'true'
+          LAKE_RESTORE_ARTIFACTS: 'true'
+        run: |
           set +e
           ib check --repo "$GITHUB_WORKSPACE" --scope "$RUNNER_TEMP/trusted-scope.json" \
             --base "$baseline" --candidate "$candidate" --out "$RUNNER_TEMP/intentbond-evidence" &
@@ -143,6 +162,7 @@ jobs:
             ${{ runner.temp }}/candidate-scope.json
             ${{ runner.temp }}/trusted-scope.json
             ${{ runner.temp }}/scope-selection.json
+            ${{ runner.temp }}/validation-selection.json
             ${{ runner.temp }}/clafer-compiler/build.json
             ${{ runner.temp }}/clafer-compiler/build.log
             ${{ runner.temp }}/clafer-comparison-evidence/

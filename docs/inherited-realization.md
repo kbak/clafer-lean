@@ -66,9 +66,11 @@ IDs d01–d26 identify distinct declarations, not names or semantic equality.
 `root` is synthetic basic concrete Sing, parentless, with no super; `int` is the
 implicit basic concrete integer domain parented by root, with no super. Source
 `integer` resolves to int. No other declarations are implicit.
+
 The complete fixture gives int explicit unrestricted 0..* bounds and contains
 every represented integer under root. The older structural projection retains
 its finite 1..1 placeholder and is not the complete interpretation.
+
 `A/E` means authored/effective abstractness. Unmarked groups are 0..*.
 Parentless abstract bounds are N/A (the unauthored storage default 1..1 has no
 local predicate). Other unmarked parented bounds default to 1..1; optional and
@@ -143,7 +145,6 @@ Global d14 is its whole realized extent, not a direct Sing child. c01 belongs to
 options, c02 to display, c03/c04 to plaDisplay, c05–c09 to telematics; the final
 three are global. No printed construct is dropped by this division of ownership.
 
-
 ## Structural representation and proof boundary
 
 `Semantics.Realization.Core.ofInput` retains the original authored abstract flag
@@ -189,7 +190,7 @@ constraints with the final selections using a separate configuration.
 
 ## Declaration identity and whole-model disjointness
 
-The [#87 clarification](SOURCES.md#declaration-disjointness-clarification) applies
+The [#87 clarification](sources.md#declaration-disjointness-clarification) applies
 `Configuration.DeclarationDisjoint` to the resolved declaration inventory in
 `Realization.Satisfies`. Ancestor views of one field remain restrictions of its
 existing objects and links; they are not additional declarations to partition.

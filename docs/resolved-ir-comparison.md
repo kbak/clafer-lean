@@ -11,11 +11,14 @@ finite candidates, representation bridges and the verified checker belong in
 this repository under `Clafer/Semantics/` and `Clafer/Verification/`.
 This authorization does not admit X/D language forms, change the selected paper
 semantics, or authorize production parsing, generation, optimization, expressions
-or general solver integration. The [#51 importer and paired capture](resolved-import.md) are authorized in this
+or general solver integration.
+
+The [#51 importer and paired capture](resolved-import.md) are authorized in this
 repository under `Clafer/Verification/` and `scripts/verification/`, with fixtures
 under `tests/`. The accepted #52 implementation uses the solver/profile and guarded
 contract below; its [pin/decode relation and runner](bounded-comparison.md) supply
 bounded enumeration, comparison and replay under `scripts/verification/`.
+
 The [decision table](#decisions-accepted-locations-and-dependency-boundaries)
 defines D1–D8; the [compatibility matrix](#guarded-compatibility-matrix) distinguishes
 supported (S), excluded (X) and decision-dependent (D) forms. Compiler agreement
@@ -26,7 +29,7 @@ Covers:
 
 ## Source identities and audit boundary
 
-The primary reference is the [SoSyM source](SOURCES.md#primary-source), 34-page
+The primary reference is the [SoSyM source](sources.md#primary-source), 34-page
 preprint SHA-256 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
 Locators below use its printed page numbers. Compiler observations use only
 [gsdlab/clafer at 15adb2216909421bcb5022174d2d84ef2b42307c][compiler], whose
@@ -86,7 +89,7 @@ D = awaiting a decision, rejected by the version-1 admission gate for now.
 | Nested abstractness / children of abstract declarations | §5.3.4 p.14 | `Defaults` propagates abstractness; `AST.WellFormed.nested_abstract` | **D**, D2: C5 `desugarModifiers`/`resolveNClafer` retain the declared abstract flag; they do not implement Lean's containment propagation. Explicit nested abstract bodies, relocation and redefinition also require the #20/#23 disposition. |
 | Single inheritance of basics, including a concrete nested basic extending a top-level abstract leaf | §5.5 pp.14–16/Fig.18; App.E Table 6 p.33 | `Kind.CanExtend`, `inheritance_parent`, `inheritance_rank`, `Shape.Inclusions`; `Inclusion` | **S** with an abstract basic super, no inherited child/reference fields, no overlapping group roles. The same object inhabits subtype and supertype. C3 emits `extends`; cover/disjointness use accepted Q8. |
 | Nested-parent refinement, inherited references, target narrowing or kind refinement | §5.5 p.16; App.E Tables 5–8 | `inheritance_parent` requires equal parent IDs when the super is parented; `Shape.OptionalInclusions` is local only | **D**, D4: C4/C3 allow a child's parent to extend the super's parent, and generate parent/reference subrelations. C5 also relocates some abstracts. Set-over-bag is allowed by Lean kind checks but its whole-model bridge is missing. Bag-over-set/basic-over-reference fail the Lean kind restriction. |
-| Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated overlap: retained as a raw negative candidate under the [explicit relation](bounded-comparison.md), rejected by #87 declaration disjointness. The [adopted clarification](SOURCES.md#declaration-disjointness-clarification) requires super-edge comparability for shared heads without restricting generic subset/span models. |
+| Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated overlap: retained as a raw negative candidate under the [explicit relation](bounded-comparison.md), rejected by #87 declaration disjointness. The [adopted clarification](sources.md#declaration-disjointness-clarification) requires super-edge comparability for shared heads without restricting generic subset/span models. |
 | Direct class-target reference set/bag on a concrete declaration | §5.3.2–3/Table 4 pp.13–14; B.1 Defs.1–5/Thm.2 pp.28–29 | `Reference.set/bag`, `Roles.mode`, `Shape.keyBinding`, `Key`, `SetValued`, `TargetMultiplicity` | **S**: C2 `_isSet = true/false`; C3 has one target per reference head and emits uniqueness per parent for sets. Targets must be admitted user classes, not expressions or primitive domains. |
 | Top-level abstract set/bag references | §5.3.4 corrected by §6.2.3/Fig.23; Table 7 exception | `abstract_reference_no_key`, `Roles.no_parent_maps`; head, target and dereference remain | **D**, D3: C3 globally enforces distinct targets for abstract set heads when card permits repetition. Lean's accepted parentless Shape has no parent/deref pair key. Bag lacks this uniqueness but inherited reference identity still requires a bridge. Do not invent a root parent or silently add a unary key. |
 | Span multiplicity, set keys and map equality | B.1 Def.2/Thm.2; B.2.1–2; B.3 Table 3; A.1 | `Span.comp`, `Span.Iso`, `Key`, `BagEquiv`, `Commutation`, `key_total_singleValued_iff` | **S** interpretation target: retain links under accepted Q1, not endpoint reduction. Keys compare output bags; the derived tuple criterion requires total, single-valued projections. Its parent/deref specialization gives uniqueness of `(parent,target)` once those hypotheses are established. No ordinary-key replacement for the generic predicate. |
@@ -101,6 +104,7 @@ guarded above, and direct class-target set/bag references. It intentionally does
 not claim closure under every combination of these features. Cases marked D
 remain visible obligations, rather than examples silently omitted from statistics.
 Later expansion requires its own matrix row, decision and validation examples.
+
 Here “leaf abstract” means no containment children; it may have subtypes.
 Its effective group bound must be `0..*`; nontrivial abstract groups are D6.
 Reference declarations participating in inheritance are D4, including a
@@ -189,7 +193,9 @@ C4 `GEnv` contains `identCountMap`, `expCount`, `stable`, `sClafers` and
 `GenEnv` consumes `uidClaferMap`, effective `ClaferArgs` and the rendered scopes.
 The map is produced before later transformations and is documented as needing
 recreation after IR changes. Reconstructing it from JSON without comparison to
-the consumed map is unjustified. `ClaferEnv` also retains original fragments,
+the consumed map is unjustified.
+
+`ClaferEnv` also retains original fragments,
 AST, fragment positions, `astModuleTrace` and `otherTokens`. Tokens can inject
 Alloy independently of JSON. `CompilerResult` contains scopes, stringMap and
 source mappings not carried by the JSON output. `genModule` further creates
@@ -281,7 +287,9 @@ and is wrong. Head multiplicity bounds the fiber of `Q_d` at each parent;
 target multiplicity bounds the links of the composite span. Under the total
 functional dereference condition these counts agree. A set-reference key is
 the existing two-projection `Key`, not an additional global target uniqueness
-condition. Top-level abstracts have no `Q_d` or synthetic-root parent; D3
+condition.
+
+Top-level abstracts have no `Q_d` or synthetic-root parent; D3
 therefore prevents importing their compiler-wide set key as a local predicate.
 The existing `DPGraph.Predicates.key_total_singleValued_iff` supplies the generic
 tuple-injectivity criterion under explicit totality and single-valuedness.
@@ -313,7 +321,9 @@ not an admission filter. `structural_reaches` proves reachability from the other
 and the well-formedness/support hypotheses. Similarly, keep potential
 overlap between unrelated head subsets available to the checker. The adopted #87
 declaration-disjointness obligation rejects it as a semantic violation, without
-changing admission, representation or enumeration. Renaming uses a bijection on used objects fixing `ρ`,
+changing admission, representation or enumeration.
+
+Renaming uses a bijection on used objects fixing `ρ`,
 preserving each class membership and map endpoint, together with independent
 bijections on link occurrences. Alloy atom spelling, record order and local link
 IDs have no semantic force. Reference-head identity and shared inherited
@@ -370,6 +380,7 @@ the same upper bounds, with an explicit isomorphism policy. For every class d,
 require `|H_d| ≤ B_d`; a super bound constrains the union of its subtype objects,
 not a separate allocation of super objects. Bound vectors need not equal sums
 of subtype maxima: they can additionally restrict their simultaneous populations.
+
 Emit explicit bounds for every top-level Alloy signature and every relevant
 subsignature, with no exact-count modifier except when supplied intentionally
 and reflected in the candidate domain. Record those exactness flags. The harness
@@ -379,13 +390,16 @@ scope is accepted.
 Accepted #52 solver profile: Alloy **6.2.0**, official [distribution JAR][alloy-jar],
 SHA-256 `6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d`,
 manifest `6.2.0.202501090817`, Git `794226dd07b536fe35c5ca44b529417183cd629b`.
+
 Use its bundled SAT4J implementation (fixed by the JAR hash), Java 17 with the
 actual runtime/build recorded, static solving, one worker, no temporal/unbounded
 mode, no decomposition (`decompose_mode = 0`, `decompose_threads = 1`), symmetry
 breaking 0, skolem depth 0, partial-instance inference disabled, and overflow
 prevention enabled (`A4Options.noOverflow = true`). Keep `unrolls = -1`,
 `coreMinimization = 2`, `coreGranularity = 0`, `recordKodkod = false` as in the
-pinned [A4Options source][alloy-options]. Record all effective solver
+pinned [A4Options source][alloy-options].
+
+Record all effective solver
 options, including defaults, solver identity, timeout and memory limit. An
 unavailable option/profile is unsupported; do not silently substitute a solver.
 The #49 audit itself delivers no solver run; executable comparison evidence is
@@ -397,7 +411,9 @@ intermediate arithmetic expression in the **generated and pinning** formula,
 under all declared scopes. Include inherited unions and relation tuple counts,
 not just each source card. Require all evaluated integers to lie in
 `[-2^(b-1), 2^(b-1)-1]`; a conservative nonnegative-count test is
-`M ≤ 2^(b-1)-1`. Counts are natural numbers on the Lean side. `-1` is translated
+`M ≤ 2^(b-1)-1`.
+
+Counts are natural numbers on the Lean side. `-1` is translated
 to absence of an upper constraint, never to a count. If the required bitwidth
 is unsupported, cannot be established, or resource limits prevent solving,
 report that outcome. Overflow prevention does not prove arithmetic adequacy:
@@ -440,7 +456,6 @@ preserved separately. Search reports retain termination and all case denominator
 An unavailable `lean_commit` never waives manifest input hashes, source matching
 or runtime identity checks. Never read a parent repository's commit; corrupt Git
 metadata and Git execution failures remain inconclusive execution errors.
-
 
 Retain the source, original IR/Alloy, actual command/pin, raw solver output and
 decoded witness as artifacts too. Hash raw bytes with SHA-256; do not normalize
@@ -548,7 +563,7 @@ nested abstractness, D4 inheritance/refinement, and D6 group/global obligations.
 
 The following dispositions distinguish the accepted structural interfaces and
 external comparison from deferred language extensions. Existing Q1/Q8 and the
-top-level abstract correction remain accepted as documented in [SOURCES](SOURCES.md).
+top-level abstract correction remain accepted as documented in the [source map](sources.md).
 Record new disagreements in a scoped issue before implementation; no
 compiler behavior overrides a current Lean requirement.
 
@@ -567,8 +582,8 @@ compiler behavior overrides a current Lean requirement.
 interpretation and representation bridges live under `Clafer/Semantics/`;
 finite candidate verification lives under `Clafer/Verification/`. Shared definitions
 remain in the owning Clafer layer. The repository retains one Lake package and
-`Clafer -> FormalCD -> DPGraph -> Mathlib`; DPGraph stays independently importable.
-The [intent](intent.md), [architecture](ARCHITECTURE.md) and
+`Clafer -> FormalCD -> DPGraph -> Mathlib`; `DPGraph` stays independently importable.
+The [intent](intent.md), [architecture](architecture.md) and
 [extension requirements](spec.md#effective-structural-core-and-supported-fragment)
 state this boundary. The existing full pinned validation policy is unchanged.
 The accepted #51 location is `Clafer/Verification/` for import/validation/bridge,

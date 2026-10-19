@@ -17,11 +17,13 @@ exporter before running Python tests when neither `CLAFER_CAPTURE` nor a
 `clafer-capture` executable on `PATH` is supplied. Install `libgmp-dev` first on
 Debian/Ubuntu. Automatic setup downloads hash-checked compiler and Stack archives
 and runs the builder below, which obtains the pinned GHC and dependencies.
+
 It uses `$XDG_CACHE_HOME/clafer-capture` (default `~/.cache/clafer-capture`);
 `CLAFER_CAPTURE_CACHE` selects another directory outside the repository.
 Build logs and identities remain there. Fresh validation snapshots use the same
 cache, checking exporter source/binary and compiler/dependency identities before
 reuse; a changed builder or exporter rebuilds it. Setup failure stops validation.
+
 The wrapper passes the exporter and build record to the test process, so it does
 not depend on environment variables exported by an earlier interactive session.
 Explicit exporter settings are checked and take precedence; an invalid explicit

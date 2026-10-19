@@ -1,7 +1,7 @@
 # MCS structural inventory
 
 The source is SoSyM §6.2.3/Figure 23 (pp.20–21) and Appendix E Tables 5–8
-(p.33), in the [pinned preprint](SOURCES.md#primary-source). The inventory below
+(p.33), in the [pinned preprint](sources.md#primary-source). The inventory below
 records the accepted Q2 expansion and Q4 representation boundary for
 [#20](https://github.com/kbak/clafer-lean/issues/20). The
 [existing Shape contract](spec.md#individual-clafer-shapes) controls exact presence.
@@ -52,7 +52,7 @@ No super means no inclusion slots; a selected super requires the head inclusion
 and every shared-endpoint inclusion. Missing one of two source/target endpoints
 forbids that inclusion slot rather than generating an equation with an undefined
 side. `Shape.SharedClass` already describes this boundary. The root and
-parentless basic exceptions use the [accepted #3 correction](SOURCES.md#resolved-2014-clafer-and-individual-shapes).
+parentless basic exceptions use the [accepted #3 correction](sources.md#resolved-2014-clafer-and-individual-shapes).
 The supported primitive-domain vocabulary is `int`, `string`, `bool`, as in
 `PrimitiveDomain`; the analogous expansion quantifies over all three. Both
 implications of each canonical naming equivalence are required, including the
@@ -80,7 +80,7 @@ Formula data must retain the symbol and complete graph binding, including
 isolated vertices and repeated argument occurrences. The literal bag key on
 `(args,pred)` and total `args` are separate conditions; neither follows just
 from well-typed full bindings. Reuse the
-[existing distinction and counterexamples](SOURCES.md#literal-key-total-args-and-the-19-obligation).
+[existing distinction and counterexamples](sources.md#literal-key-total-args-and-the-19-obligation).
 Do not weaken that key to indexed equality or suppress total args for zero-arrow
 arities.
 
@@ -133,7 +133,7 @@ later gluing operation, even if their endpoints, referents or names agree.
 | Local Shape diagram predicates | `Roles.localDiagram` translates existing `Shape.declarations` | `Roles.local_declared`, `Examples.shapes_compose` |
 
 [Metamodel.lean](../Clafer/MCS/Metamodel.lean) enumerates all nine nodes and twenty
-arrows of Figure 23. Its `Metamodel.diagram` uses the existing FormalCD vocabulary,
+arrows of Figure 23. Its `Metamodel.diagram` uses the existing `FormalCD` vocabulary,
 including bag args, literal key, role cover/disjointness, functional/total maps,
 unchanged source-one ownership and the seven corrected source bounds.
 The explicit `nd`/`ad` symbols attach to the whole structural context; the typed
@@ -155,7 +155,6 @@ compilation theorem nor proves satisfaction of the declared constraints.
 The canonical requirements and named proof artifacts are in
 [spec](spec.md#mcs-metamodel-and-ownership) and [Clafer trace](clafer-trace.md#mcs-metamodel).
 
-
 ## Gluing boundary
 
 The approved Q4 rule in [#23](https://github.com/kbak/clafer-lean/issues/23)
@@ -169,7 +168,7 @@ matching nor endpoint matching supplies a referent equality.
 identification before constructing the translated declaration image and DP map.
 These obligations are additional to `Valid`; role-level ownership/cojoining,
 Q2/Q9 and the source total-args/literal-key disciplines remain unchanged.
-`Gluing.Naming` and `Gluing.Defaults` are separate prerequisites of the FormalCD
+`Gluing.Naming` and `Gluing.Defaults` are separate prerequisites of the `FormalCD`
 validity theorem. [Origins.lean](../Clafer/MCS/Gluing/Origins.lean) derives naming
 from valid MCS origins, while effective-default completeness must still be
 supplied. The existing nonempty `Examples.formulas` has ordinary multiplicity

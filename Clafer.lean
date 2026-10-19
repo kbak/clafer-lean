@@ -30,6 +30,6 @@ disciplines, structural Compile, resolved-referent gluing and verified finite
 structural satisfaction for the guarded effective core. The resolved core has independent
 partial denotation, explicit model environments and Appendix F expansions;
 selected predicate preservation connects these meanings to Compile and gluing.
-See docs/ARCHITECTURE.md. Acceptance examples are
+See docs/architecture.md. Acceptance examples are
 checked separately.
 -/

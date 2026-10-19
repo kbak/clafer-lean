@@ -3,7 +3,7 @@
 `Clafer.Compile.compile` implements SoSyM §6.2.4 (p.21), producing the
 [Figure 23/Appendix E MCS](mcs-invariants.md) under `Compile.Input`.
 See the [product intent](intent.md), [requirements](spec.md#structural-compile-input-contract)
-and [source decisions](SOURCES.md#structural-compile-contract).
+and [source decisions](sources.md#structural-compile-contract).
 
 ## Accepted input
 
@@ -102,23 +102,28 @@ meanings from typed bodies and explicit external domains; the
 [integer extraction interface](integer-extraction.md) supplies selected partial
 singleton conversion and version-operand definedness. A fresh constraint symbol
 does not
-establish any meaning for its body. The guarded constraint-free
+establish any meaning for its body.
+
+The guarded constraint-free
 [structural checker](structural-checker.md) supplies a whole-model interpretation
 of the exact generated local bank plus explicit global root, abstract, group
 and declaration-disjointness obligations. `compiled_bank_iff` and
 `erasure_correspondence` prove this selected
 structural connection; they do not assert source elaboration or user-expression
-preservation. The delivered
-[MCS gluing](ARCHITECTURE.md#mcs-gluing) provides a label morphism and conditional
-FormalCD validity under its explicit incidence, metadata and default-completeness
-hypotheses. The group extension derives those hypotheses for Compile output. The
+preservation.
+
+The delivered
+[MCS gluing](architecture.md#mcs-gluing) provides a label morphism and conditional
+`FormalCD` validity under its explicit incidence, metadata and default-completeness
+hypotheses. The group extension derives those hypotheses for Compile output.
+
+The
 [representative integration](representative-models.md) instantiates the two
 constructions for nesting, inheritance, references, typed attachments and actual
 generated xor predicates. Its selected version example derives operand
 definedness from emitted local formulas plus explicit integer-domain realization;
 the [selected bridge](constraint-preservation.md) supplies its separate semantic
 correspondence under explicit admissibility assumptions.
-
 
 ## Selected inherited realization extension
 

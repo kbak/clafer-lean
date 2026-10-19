@@ -15,7 +15,7 @@ and class-diagram foundations. The focus is the connection between a model's
 structure, its constraints, and the configurations that satisfy them.
 
 [Overview and documentation](docs/intent.md) · [Contributing](CONTRIBUTING.md) ·
-[Roadmap](docs/ARCHITECTURE.md#roadmap-and-validation-accounting) · [MIT license](LICENSE)
+[Roadmap](docs/architecture.md#roadmap-and-validation-accounting) · [MIT license](LICENSE)
 
 ## What is here?
 
@@ -28,7 +28,7 @@ The `clafer` Lake package provides three public Lean libraries:
 | `Clafer` | Resolved syntax, typed constraints and their core meanings, structural compilation and gluing, and a verified finite structural candidate checker |
 
 Dependencies flow `Clafer → FormalCD → DPGraph → Mathlib`; `DPGraph` is independently
-importable. The [architecture](docs/ARCHITECTURE.md) explains these boundaries.
+importable. The [architecture](docs/architecture.md) explains these boundaries.
 
 **Status: active research, with no stable API or supported releases.** The
 [Appendix F case study](docs/appendix-f.md) connects a complete, manually resolved
@@ -96,7 +96,7 @@ The primary semantic reference is:
   ([free preprint](https://gsd.uwaterloo.ca/sites/default/files/2014-Bak-Clafer-Unifying-Class-Feature-Modeling%28SOSYM%29.pdf)).
 
 Read the [paper corrections and clarifications](docs/sosym-errata.md) alongside it;
-the [source map](docs/SOURCES.md) records exact correspondences and accepted choices.
+the [source map](docs/sources.md) records exact correspondences and accepted choices.
 The maintained [Haskell implementation](https://github.com/gsdlab/clafer/)
 provides supplementary context and the existing Clafer toolchain.
 

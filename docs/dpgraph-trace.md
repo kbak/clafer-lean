@@ -2,13 +2,14 @@
 
 Follow [the Lean trace convention](traceability.md): these are named Markdown
 artifacts; their evidence is the linked Lean declarations, not inline Lean tags.
-The [source map](SOURCES.md) records SoSyM B.1–B.2 spans, the adopted Q1
+The [source map](sources.md) records SoSyM B.1–B.2 spans, the adopted Q1
 correction, B.4 Definitions 6–10 and the abstract restriction argument of
 B.5 Theorem 3, and the selected Table 3/A.1 meanings with the Q8 correction.
 All declaration names below are relative to `DPGraph`, except the
 carrier/declaration structure itself, `DPGraph`.
 
 ## Core representation
+
 `impl~dpgraph-core~1`
 
 [Signature.lean](../DPGraph/Signature.lean): `Signature`, with independent
@@ -18,7 +19,7 @@ symbol and arity universes and Mathlib bundled quivers.
 [Basic.lean](../DPGraph/Basic.lean): `DPGraph`, with a `Set`
 of declarations over its carrier.
 [DPGraph.lean](../DPGraph.lean) is the independent entrypoint.
-The [representation decision](ARCHITECTURE.md#dp-graph-representation-decision)
+The [representation decision](architecture.md#dp-graph-representation-decision)
 explains total edges as a dependent sum, rejected alternatives, universe and
 dependent-equality obligations, and the reason for retaining the Quiv dependency.
 [lakefile.toml](../lakefile.toml) and [lake-manifest.json](../lake-manifest.json)
@@ -28,6 +29,7 @@ Covers:
 - `req~dpgraph-core~1`
 
 ## Translation implementation
+
 `impl~formula-translation~1`
 
 [Formula.lean](../DPGraph/Formula.lean): `Formula.translate` postcomposes
@@ -37,6 +39,7 @@ Covers:
 - `req~formula-translation~1`
 
 ## Translation proofs
+
 `proof~formula-translation~1`
 
 [Formula.lean](../DPGraph/Formula.lean): `Formula.translate_id` and
@@ -47,6 +50,7 @@ Covers:
 - `req~formula-translation~1`
 
 ## Morphism implementation
+
 `impl~dpgraph-morphisms~1`
 
 [Morphism.lean](../DPGraph/Morphism.lean): `Hom.toPrefunctor` and
@@ -57,6 +61,7 @@ Covers:
 - `req~dpgraph-morphisms~1`
 
 ## Morphism proofs
+
 `proof~dpgraph-morphisms~1`
 
 [Morphism.lean](../DPGraph/Morphism.lean): the proof fields in `Hom.id`
@@ -69,6 +74,7 @@ Covers:
 - `req~dpgraph-morphisms~1`
 
 ## Example constructions
+
 `impl~dpgraph-examples~1`
 
 [Examples.lean](../DPGraph/Examples.lean): `Examples.Vertex`, its finite
@@ -85,6 +91,7 @@ Covers:
 - `req~dpgraph-examples~1`
 
 ## Example proofs
+
 `proof~dpgraph-examples~1`
 
 [Examples.lean](../DPGraph/Examples.lean), all under `Examples`:
@@ -102,6 +109,7 @@ Covers:
 - `req~dpgraph-examples~1`
 
 ## Declaration and axiom audit
+
 `itest~dpgraph-axiom-audit~1`
 
 [tests/axiom_audit.lean](../tests/axiom_audit.lean) inspects declarations originating
@@ -111,6 +119,7 @@ axioms. It selects by module origin even for private/generated declarations
 outside a root namespace, rejects an empty audit and prints dependencies and
 totals per root. [project_modules.py](../scripts/project_modules.py) discovers
 the complete module inventory and generates every `import all` in the audit.
+
 [scripts/check.sh](../scripts/check.sh) builds the complete inventory in one Lake
 invocation and passes the three public roots to one verbose `leanchecker`, which
 enumerates their compiled descendants without repeated overlapping targets.
@@ -130,6 +139,7 @@ Covers:
 - `req~lean-validation~1`
 
 ## Fixed-signature category implementation
+
 `impl~dpgraph-category~1`
 
 [Category.lean](../DPGraph/Category.lean): `category` uses the existing `Hom`,
@@ -140,6 +150,7 @@ Covers:
 - `req~dpgraph-category~1`
 
 ## Category laws and extensionality
+
 `proof~dpgraph-category~1`
 
 [Category.lean](../DPGraph/Category.lean): `category` supplies its law fields
@@ -153,6 +164,7 @@ Covers:
 - `req~dpgraph-category~1`
 
 ## Interpretation implementation
+
 `impl~dpgraph-interpretation~1`
 
 [Semantics.lean](../DPGraph/Semantics.lean): `Interpretation.meaning` assigns a
@@ -164,6 +176,7 @@ Covers:
 - `req~dpgraph-interpretation~1`
 
 ## Satisfaction composition proof
+
 `proof~dpgraph-interpretation~1`
 
 [Semantics.lean](../DPGraph/Semantics.lean): `Interpretation.satisfies_translate`
@@ -175,6 +188,7 @@ Covers:
 - `req~dpgraph-interpretation~1`
 
 ## Model restriction implementation
+
 `impl~dpgraph-model-reduct~1`
 
 [Semantics.lean](../DPGraph/Semantics.lean): `Interpretation.Model` retains the
@@ -186,6 +200,7 @@ Covers:
 - `req~dpgraph-model-reduct~1`
 
 ## Model restriction proofs
+
 `proof~dpgraph-model-reduct~1`
 
 [Semantics.lean](../DPGraph/Semantics.lean): `Interpretation.isModel_reduct`
@@ -199,6 +214,7 @@ Covers:
 - `req~dpgraph-model-reduct~1`
 
 ## Model reduct injectivity implementation
+
 `impl~model-reduct-injective~1`
 
 [ModelTransport.lean](../DPGraph/ModelTransport.lean):
@@ -212,6 +228,7 @@ Covers:
 - `req~model-reduct-injective~1`
 
 ## Model reduct injectivity proof
+
 `proof~model-reduct-injective~1`
 
 [ModelTransport.lean](../DPGraph/ModelTransport.lean):
@@ -223,6 +240,7 @@ Covers:
 - `req~model-reduct-injective~1`
 
 ## Model reduct surjectivity implementation
+
 `impl~model-reduct-surjective~1`
 
 [ModelTransport.lean](../DPGraph/ModelTransport.lean):
@@ -236,6 +254,7 @@ Covers:
 - `req~model-reduct-surjective~1`
 
 ## Model reduct surjectivity proof
+
 `proof~model-reduct-surjective~1`
 
 [ModelTransport.lean](../DPGraph/ModelTransport.lean):
@@ -248,6 +267,7 @@ Covers:
 - `req~model-reduct-surjective~1`
 
 ## Interpreted example constructions
+
 `impl~dpgraph-semantics-examples~1`
 
 [SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean), all under
@@ -262,6 +282,7 @@ Covers:
 - `req~dpgraph-semantics-examples~1`
 
 ## Interpreted example proofs
+
 `proof~dpgraph-semantics-examples~1`
 
 [SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean), all under
@@ -279,6 +300,7 @@ Covers:
 - `req~dpgraph-semantics-examples~1`
 
 ## Span representation
+
 `impl~span-representation~1`
 
 [Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span` has independent endpoint/head
@@ -289,6 +311,7 @@ Covers:
 - `req~span-representation~1`
 
 ## Span isomorphism operations
+
 `proof~span-representation~1`
 
 [Span/Basic.lean](../DPGraph/Span/Basic.lean): the equivalence and commuting proof
@@ -301,6 +324,7 @@ Covers:
 - `req~span-representation~1`
 
 ## Indexed mapping implementation
+
 `impl~span-family-correspondence~1`
 
 [Span/IndexedFamily.lean](../DPGraph/Span/IndexedFamily.lean): `IndexedFamily`,
@@ -313,6 +337,7 @@ Covers:
 - `req~span-family-correspondence~1`
 
 ## Indexed mapping roundtrips and membership proofs
+
 `proof~span-family-correspondence~1`
 
 [Span/IndexedFamily.lean](../DPGraph/Span/IndexedFamily.lean): the equivalence,
@@ -326,6 +351,7 @@ Covers:
 - `req~span-family-correspondence~1`
 
 ## Set-valuedness implementation
+
 `impl~span-set-valuedness~1`
 
 [Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span.JointlyInjective` concerns the
@@ -337,6 +363,7 @@ Covers:
 - `req~span-set-valuedness~1`
 
 ## Set-valuedness proofs
+
 `proof~span-set-valuedness~1`
 
 [Span/Relation.lean](../DPGraph/Span/Relation.lean):
@@ -350,6 +377,7 @@ Covers:
 - `req~span-set-valuedness~1`
 
 ## Span composition implementation
+
 `impl~span-composition~1`
 
 [Span/Composition.lean](../DPGraph/Span/Composition.lean): `Span.comp` uses a
@@ -361,6 +389,7 @@ Covers:
 - `req~span-composition~1`
 
 ## Span composition proofs
+
 `proof~span-composition~1`
 
 [Span/Composition.lean](../DPGraph/Span/Composition.lean): `Span.leftUnit`,
@@ -374,6 +403,7 @@ Covers:
 - `req~span-composition~1`
 
 ## Inversion implementation
+
 `impl~span-inversion~1`
 
 [Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span.inverse` retains the head and
@@ -383,6 +413,7 @@ Covers:
 - `req~span-inversion~1`
 
 ## Inversion proofs
+
 `proof~span-inversion~1`
 
 [Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span.inverse_inverse` proves
@@ -393,6 +424,7 @@ Covers:
 - `req~span-inversion~1`
 
 ## Relation composition implementation
+
 `impl~span-relation-composition~1`
 
 [Span/Relation.lean](../DPGraph/Span/Relation.lean): `relationComp` is existential
@@ -405,6 +437,7 @@ Covers:
 - `req~span-relation-composition~1`
 
 ## Adopted Q1 correction proofs
+
 `proof~span-relation-composition~1`
 
 [Span/Relation.lean](../DPGraph/Span/Relation.lean): `Span.red_comp` and
@@ -415,13 +448,14 @@ injectivity of each input; `.relations_comp_jointlyInjective_iff` specializes to
 canonical relation spans. `.relations_comp_injective_of_first_singleValued` and
 `.relations_comp_injective_of_converse_second_singleValued` prove the sufficient
 cases without totality, through `uniqueIntermediate_of_singleValued` and
-`uniqueIntermediate_of_converse_singleValued`. The [source comparison](SOURCES.md#span-composition-q1-research-for-4)
+`uniqueIntermediate_of_converse_singleValued`. The [source comparison](sources.md#span-composition-q1-research-for-4)
 identifies this as an adopted correction to B.2.1, not its verbatim claim.
 
 Covers:
 - `req~span-relation-composition~1`
 
 ## Span example constructions
+
 `impl~span-examples~1`
 
 [Span/Examples.lean](../DPGraph/Span/Examples.lean), under `Span.Examples`:
@@ -436,6 +470,7 @@ Covers:
 - `req~span-examples~1`
 
 ## Span example proofs
+
 `proof~span-examples~1`
 
 [Span/Examples.lean](../DPGraph/Span/Examples.lean), under `Span.Examples`:
@@ -463,6 +498,7 @@ in `Predicates`; explicitly qualified `Span` and generic API names retain their
 existing namespaces.
 
 ## Bounded semantic graph: implementation
+
 `impl~setmap-semantic-graph~1`
 
 [SemanticGraph.lean](../DPGraph/Predicates/SemanticGraph.lean): `Predicates.semanticGraph` is a transparent abbreviation exposing subsets of U as vertices and existing spans on subtype carriers as arrows, with link universe `max u w` and arrow universe `max u w + 1`.
@@ -471,6 +507,7 @@ Covers:
 - `req~setmap-semantic-graph~1`
 
 ## Bounded semantic graph: proofs
+
 `proof~setmap-semantic-graph~1`
 
 [Examples.lean](../DPGraph/Predicates/Examples.lean): `Predicates.Examples.largeIdentity` and `larger_universe_interpretation` check an actual inclusion diagram with object universe 1, link universe 3 and arrow universe 4. [public_imports.lean](../tests/public_imports.lean) checks the polymorphic graph type through the independent entrypoint.
@@ -479,6 +516,7 @@ Covers:
 - `req~setmap-semantic-graph~1`
 
 ## Typed vocabulary: implementation
+
 `impl~predicate-arities~1`
 
 [Signature.lean](../DPGraph/Predicates/Signature.lean): `Predicates.Symbol`, `Range`, `Upper`, `signature` and the `Arity` unary, opposite, triangle, fanOut/fanIn vertex and edge types. [Interpretation.lean](../DPGraph/Predicates/Interpretation.lean): `unaryDiagram`, `outDiagram`, `inDiagram` retain graph-map bindings.
@@ -487,14 +525,16 @@ Covers:
 - `req~predicate-arities~1`
 
 ## Typed vocabulary: proofs
+
 `proof~predicate-arities~1`
 
-[Signature.lean](../DPGraph/Predicates/Signature.lean): `Arity.fanOut_zero_nonempty`, `fanIn_zero_nonempty`, `fanOut_zero_isolated`, `fanIn_zero_isolated`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `repeatedDiagram`, `repeated_diagram_rejected`, `collapse_not_identity` check repeated arguments and nontrivial vertex maps. Unsupported predicates are catalogued in [SOURCES](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction).
+[Signature.lean](../DPGraph/Predicates/Signature.lean): `Arity.fanOut_zero_nonempty`, `fanIn_zero_nonempty`, `fanOut_zero_isolated`, `fanIn_zero_isolated`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `repeatedDiagram`, `repeated_diagram_rejected`, `collapse_not_identity` check repeated arguments and nontrivial vertex maps. Unsupported predicates are catalogued in the [source map](sources.md#predicate-contracts-and-the-accepted-q8-correction).
 
 Covers:
 - `req~predicate-arities~1`
 
 ## Inverse: implementation
+
 `impl~predicate-inverse~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `Predicates.Inverse` requires an inhabited isomorphism to leg-swapping inversion. [Basic.lean](../DPGraph/Span/Basic.lean): `Span.Iso.inverse` transports relabeling.
@@ -503,6 +543,7 @@ Covers:
 - `req~predicate-inverse~1`
 
 ## Inverse: proofs
+
 `proof~predicate-inverse~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `inverse_symmetry`, `inverse_iff` prove symmetry and independent relabeling invariance. [Examples.lean](../DPGraph/Predicates/Examples.lean): `relabeled_inverse` uses a different link universe.
@@ -511,6 +552,7 @@ Covers:
 - `req~predicate-inverse~1`
 
 ## Commutation: implementation
+
 `impl~predicate-commutation~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `Predicates.Commutation` uses inhabited isomorphism of the full pullback composite to the direct span. [Composition.lean](../DPGraph/Span/Composition.lean): `Span.Iso.comp` transports both input link equivalences.
@@ -519,6 +561,7 @@ Covers:
 - `req~predicate-commutation~1`
 
 ## Commutation: proofs
+
 `proof~predicate-commutation~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `commutation_iff`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `relabeled_commutation`, `reduction_not_commutation` reuse the continuing Q1 counterexample from `Span.Examples.two_path_not_iso` and `red_comp`.
@@ -527,6 +570,7 @@ Covers:
 - `req~predicate-commutation~1`
 
 ## Bag-sensitive keys: implementation
+
 `impl~predicate-key~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `Predicates.BagEquiv`, `Key`, `BagEquiv.transport`. [IndexedFamily.lean](../DPGraph/Span/IndexedFamily.lean): `Span.Iso.fiberEquiv` and `fiberEquiv_target` transport the source fibers without losing target values.
@@ -535,6 +579,7 @@ Covers:
 - `req~predicate-key~1`
 
 ## Bag-sensitive keys: proofs
+
 `proof~predicate-key~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `key_iff`, `key_zero`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `bagKey_key`, `bagKey_not_setValued`, `bagKey_same_support`, `bags_differ`, `equal_tuple_not_key` distinguish multiplicity from support and check equality of every component of a failing tuple.
@@ -543,6 +588,7 @@ Covers:
 - `req~predicate-key~1`
 
 ## Ordinary-key correspondence: implementation
+
 `impl~predicate-key-functional~1`
 
 [Span/Basic.lean](../DPGraph/Span/Basic.lean): `Span.ofFunction` has one link per
@@ -560,6 +606,7 @@ Covers:
 - `req~predicate-key-functional~1`
 
 ## Ordinary-key correspondence: proofs
+
 `proof~predicate-key-functional~1`
 
 [FunctionalKey.lean](../DPGraph/Predicates/FunctionalKey.lean):
@@ -591,6 +638,7 @@ Covers:
 - `req~predicate-key-functional~1`
 
 ## Cover: implementation
+
 `impl~predicate-cover~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `Predicates.Cover` quantifies over every common-target object and an actual link in some family member.
@@ -599,6 +647,7 @@ Covers:
 - `req~predicate-cover~1`
 
 ## Cover: proofs
+
 `proof~predicate-cover~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `cover_iff`, `cover_zero`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `partition_cover`, `bag_partition_cover`, `repeated_not_cover`, `empty_domain_not_cover`, `targetModel` check positive, negative, empty-domain and repeated-binding cases.
@@ -607,6 +656,7 @@ Covers:
 - `req~predicate-cover~1`
 
 ## Corrected disjointness: implementation
+
 `impl~predicate-disjointness~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `Predicates.Disjoint` prohibits equal target values at distinct family indices, with no inequality assumption on source objects. [Signature.lean](../DPGraph/Predicates/Signature.lean) assigns the common-target `fanIn` arity.
@@ -615,6 +665,7 @@ Covers:
 - `req~predicate-disjointness~1`
 
 ## Corrected disjointness: proofs
+
 `proof~predicate-disjointness~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `disjoint_iff`, `disjoint_zero`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `partition_disjoint`, `bag_partition_disjoint`, `bag_partition_not_setValued`, `repeated_not_disjoint`, `empty_domain_disjoint`, `repeated_diagram_rejected` check the accepted Q8 correction, including repeated inclusion of the very same ambient object.
@@ -623,6 +674,7 @@ Covers:
 - `req~predicate-disjointness~1`
 
 ## Unary map properties: implementation
+
 `impl~predicate-unary-maps~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `Predicates.SetValued`, `Total`, `SingleValued`, `Inclusion` state joint endpoint injectivity, source surjectivity/injectivity and bijective identity-valued source links respectively.
@@ -631,6 +683,7 @@ Covers:
 - `req~predicate-unary-maps~1`
 
 ## Unary map properties: proofs
+
 `proof~predicate-unary-maps~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `setValued_iff`, `total_iff`, `singleValued_iff`, `inclusion_iff`; `total_fibers`, `singleValued_fibers`, `singleValued_setValued`, `setValued_characterization`, `setValued_fibers`, `setValued_inverse`, `inclusion_subset`, `inclusion_identity`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `two_not_setValued`, `two_not_singleValued`, `one_singleValued`, `one_setValued`, `one_total`, `empty_singleValued`, `empty_not_total`, `split_setValued`, `split_not_singleValued`, `literal_inclusion`, `proper_inclusion`, `empty_inclusion`, `permutation_bijective`, `permutation_not_inclusion`, `duplicate_identity_not_inclusion`.
@@ -639,6 +692,7 @@ Covers:
 - `req~predicate-unary-maps~1`
 
 ## Link multiplicities: implementation
+
 `impl~predicate-multiplicity~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `Predicates.InRange`, `TargetMultiplicity`, `SourceMultiplicity`; `distinctValuesEquiv` constructs the equivalence onto reduced reachable values under set-valuedness.
@@ -647,6 +701,7 @@ Covers:
 - `req~predicate-multiplicity~1`
 
 ## Link multiplicities: proofs
+
 `proof~predicate-multiplicity~1`
 
 [Meaning.lean](../DPGraph/Predicates/Meaning.lean): `inRange_iff`, `targetMultiplicity_iff`, `sourceMultiplicity_iff`, `source_target_duality`, `target_source_duality`, `targetMultiplicity_distinct`, `sourceMultiplicity_distinct`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `copies_finite_range` proves exact finite boundaries; `two_range`, `two_range_wide`, `two_upper_fails`, `two_lower_fails`, `one_not_two`, `empty_range`, `infinite_unbounded`, `infinite_not_finite`, `split_source_one`, `split_target_not_one`, `reversal`, `relabeled_range` exercise repeated values, zero/infinity, inversion and universe-changing relabeling.
@@ -655,6 +710,7 @@ Covers:
 - `req~predicate-multiplicity~1`
 
 ## Concrete interpretation: implementation
+
 `impl~predicate-interpretation~1`
 
 [Interpretation.lean](../DPGraph/Predicates/Interpretation.lean): `Predicates.interpretation` supplies every symbol meaning to the existing `Interpretation`. Generic [Semantics.lean](../DPGraph/Semantics.lean) remains the satisfaction/reduct interface.
@@ -663,6 +719,7 @@ Covers:
 - `req~predicate-interpretation~1`
 
 ## Concrete interpretation: proofs
+
 `proof~predicate-interpretation~1`
 
 [Examples.lean](../DPGraph/Predicates/Examples.lean): `targetModel`, `collapseHom`, `collapse_not_identity`, `restrictedModel`, `restricted_model`, `translation_interoperates`, `reduct_identity`, `reduct_composition`, `repeated_diagram_rejected`, `rejected_formula`, `larger_universe_interpretation` establish the concrete integration without whole-model reflection.
@@ -671,6 +728,7 @@ Covers:
 - `req~predicate-interpretation~1`
 
 ## Acceptance examples: implementation
+
 `impl~predicate-examples~1`
 
 [Examples.lean](../DPGraph/Predicates/Examples.lean) constructs `copies`, `two`, `one`, `split`, `liftedTwo`, `bagKey`, `constantBag`, `partition`, `emptyDomain`, `literal`, `permutation`, `duplicatedIdentity`, `repeatedDiagram`, `collapse`, the declared source/target graphs and `largeIdentity`. Examples remain outside the public entrypoint imports.
@@ -679,6 +737,7 @@ Covers:
 - `req~predicate-examples~1`
 
 ## Acceptance examples: proofs
+
 `proof~predicate-examples~1`
 
 `zero_centers_nonempty`, `zero_key_unit`, `zero_key_bool_fails`, `zero_cover_empty`, `zero_cover_unit_fails`, `zero_disjoint`, `zero_binding_nonempty`, `zero_diagram_key`, `zero_diagram_not_cover`, `zero_diagram_disjoint` and the named theorems linked in the predicate artifacts above check the positive, negative, empty, repeated-binding and universe cases in [Examples.lean](../DPGraph/Predicates/Examples.lean). `key_zero`, `cover_zero`, `disjoint_zero` and the `Arity` zero-family theorems quantify over all relevant endpoints. [public_imports.lean](../tests/public_imports.lean) exercises the exported API; [test_project_modules.py](../tests/test_project_modules.py) includes every new module in the expected discovered inventory. The unchanged shared check builds and kernel-replays all of these, and its import-all axiom audit includes their proof terms.
@@ -687,6 +746,7 @@ Covers:
 - `req~predicate-examples~1`
 
 ## Carrier-cocone data implementation
+
 `impl~dpgraph-pushout-data~1`
 
 [Pushout/Basic.lean](../DPGraph/Pushout/Basic.lean): `Pushout.CarrierCocone` fixes
@@ -700,6 +760,7 @@ Covers:
 - `req~dpgraph-pushout-data~1`
 
 ## Carrier-cocone preservation proofs
+
 `proof~dpgraph-pushout-data~1`
 
 [Pushout/Basic.lean](../DPGraph/Pushout/Basic.lean): the `preserves` fields in
@@ -711,6 +772,7 @@ Covers:
 - `req~dpgraph-pushout-data~1`
 
 ## Pushout universal property implementation
+
 `impl~dpgraph-pushout-universal~1`
 
 [Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean): `Pushout.isColimit`
@@ -725,6 +787,7 @@ Covers:
 - `req~dpgraph-pushout-universal~1`
 
 ## Pushout universal property proof
+
 `proof~dpgraph-pushout-universal~1`
 
 [Pushout/Universal.lean](../DPGraph/Pushout/Universal.lean): `Pushout.isColimit`
@@ -740,6 +803,7 @@ Covers:
 - `req~dpgraph-pushout-universal~1`
 
 ## Model amalgamation implementation
+
 `impl~dpgraph-model-amalgamation~1`
 
 [Pushout/Models.lean](../DPGraph/Pushout/Models.lean): `Pushout.modelEquiv`
@@ -754,6 +818,7 @@ Covers:
 - `req~dpgraph-model-amalgamation~1`
 
 ## Model amalgamation proofs
+
 `proof~dpgraph-model-amalgamation~1`
 
 [Pushout/Models.lean](../DPGraph/Pushout/Models.lean): the private
@@ -773,6 +838,7 @@ Covers:
 - `req~dpgraph-model-amalgamation~1`
 
 ## Public pushout interfaces
+
 `itest~dpgraph-pushout-public-api~1`
 
 [public_imports.lean](../tests/public_imports.lean) imports only `DPGraph` and

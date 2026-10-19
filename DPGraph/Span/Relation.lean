@@ -7,7 +7,7 @@ public import DPGraph.Span.Composition
 
 SoSyM B.1 Theorems 1–2; B.2.1 as corrected in issue #4 (Q1). General pullback
 composition agrees with existential relational composition after reduction.
-Isomorphism requires joint endpoint injectivity. See `docs/SOURCES.md` for the
+Isomorphism requires joint endpoint injectivity. See `docs/sources.md` for the
 source conflict, selected correction and the two-path counterexample.
 -/
 

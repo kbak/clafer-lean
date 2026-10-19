@@ -6,8 +6,8 @@ dependencies `Clafer -> FormalCD -> DPGraph -> Mathlib`. Keep DPGraph independen
 importable and new Lean modules under their owning root.
 
 Read the canonical [intent and documentation map](docs/intent.md),
-[architecture](docs/ARCHITECTURE.md), affected [requirements](docs/spec.md), and
-[source map](docs/SOURCES.md) before extending a layer. They own current scope,
+[architecture](docs/architecture.md), affected [requirements](docs/spec.md), and
+[source map](docs/sources.md) before extending a layer. They own current scope,
 contracts, paper correspondences and accepted corrections. [Roadmap #2](https://github.com/kbak/clafer-lean/issues/2)
 and [design #13](https://github.com/kbak/clafer-lean/issues/13) retain decision history.
 
@@ -57,12 +57,17 @@ in issues before choosing a meaning. The Haskell compiler is supplementary conte
 pin a commit when using it as evidence. Do not copy third-party material without
 checking its license. Keep the README brief.
 
-Use the pinned Lean toolchain and `bash scripts/check.sh` for full validation.
-A factory may use the explicitly configured documentation-only check described
-in `req~lean-validation~1` after proving all other source contents and modes unchanged
-from its frozen baseline. Do not select this exception by agent judgment or edit
-scope to obtain it. Keep proofs kernel
-checked. Do not introduce `sorry`, `admit`, disabled warning checks, or unchecked
+Use `python3 scripts/validation.py check --base BASE_COMMIT --candidate worktree
+--out /external/evidence` for IntentBond validation. The wrapper selects document
+checks only after comparing all source contents and modes with the frozen baseline;
+the shared check revalidates the captured snapshot. Only regular Markdown changes
+in `README.md` and `docs/` qualify. Other changes or uncertain comparisons require
+the full check. Keep the selection record beside IntentBond evidence. Do not select
+the short path by judgment, hand-write its plan, or edit scope to obtain it.
+Use `--full` to require full validation; `bash scripts/check.sh` without a selection
+plan also runs the full check with the pinned Lean toolchain. See
+[the validation workflow](CONTRIBUTING.md#setup-and-checks).
+Keep proofs kernel checked. Do not introduce `sorry`, `admit`, disabled warning checks, or unchecked
 axioms as completed proofs; discuss intentional additional axioms explicitly.
 Keep private deployment paths, credentials, and runtime state outside this repo.
 Place new Lean modules under their owning public root. The shared check discovers
@@ -70,6 +75,9 @@ all modules (including examples and helpers) for builds, kernel checks and
 import-all audits, and rejects reverse layer imports or unowned source modules.
 
 ## Documentation
+
+Follow the [documentation filename convention](CONTRIBUTING.md#documentation-filenames)
+when adding or moving maintained documents.
 
 Maintain current product intent, architecture, mathematical explanations, source
 citations, requirements and reusable agent guidance. Use [docs/intent.md](docs/intent.md)

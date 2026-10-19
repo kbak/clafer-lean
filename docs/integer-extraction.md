@@ -9,7 +9,7 @@ and lexical contexts are retained.
 
 The [requirements](spec.md#integer-extraction-from-primitive-navigation) define
 this extension separately from the original typing/support promises. Its source
-correspondence is recorded in [SOURCES](SOURCES.md#integer-extraction-and-appendix-f-version-operands),
+correspondence is recorded in the [source map](sources.md#integer-extraction-and-appendix-f-version-operands),
 with named [implementation and proof links](clafer-trace.md#integer-extraction-interface).
 
 ## Domain and extraction
@@ -76,6 +76,7 @@ from emitted local formulas, with the integer-domain assumption explicit. The
 from full Appendix F satisfaction. The [selected preservation bridge](constraint-preservation.md)
 connects compiled diagrams to expression meanings, and the
 [complete fixture](appendix-f.md) proves combined whole-model satisfaction.
+
 No parser, string/Boolean conversion, automatic
 coercion insertion or finite-bitwidth arithmetic is supplied. Finite structural
 objects in the examples coexist with the full integer domain; they do not bound
