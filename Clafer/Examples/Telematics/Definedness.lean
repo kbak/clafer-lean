@@ -1,10 +1,12 @@
 module
 
-public import Clafer.Examples.AppendixFConstraints
+public import Clafer.Examples.Telematics.Expressions
 public import Clafer.Constraints.CollectionMeaning
 public import Clafer.Constraints.DenotationDefined
 
-/-! # Definedness from admissible Appendix F environments
+/-! # Definedness from admissible telematics environments
+
+SoSyM Appendix 6 (PDF p.34).
 
 The finite structural extents are separate from the infinite primitive domain.
 The numeric comparison consumes exactly the delivered version/server bounds.
@@ -12,8 +14,8 @@ The numeric comparison consumes exactly the delivered version/server bounds.
 
 @[expose] public section
 universe u w
-namespace Clafer.Examples.AppendixFDefined
-open Clafer.Constraints AppendixFConstraints CategoryTheory DPGraph.Predicates
+namespace Clafer.Examples.Telematics.Definedness
+open Clafer.Constraints Telematics.Expressions CategoryTheory DPGraph.Predicates
 
 variable {U : Type u}
 
@@ -166,4 +168,4 @@ theorem c07_vacuity (m : IntegerBinding.{u,w} (support 19) U)
   apply denotes_iff_true
   simpa using hi
 
-end Clafer.Examples.AppendixFDefined
+end Clafer.Examples.Telematics.Definedness

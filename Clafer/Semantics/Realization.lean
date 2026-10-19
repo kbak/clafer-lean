@@ -7,7 +7,7 @@ public import Clafer.Semantics.Bridge
 /-!
 # Selected inherited realization
 
-SoSyM §5.3.4–5, §5.5 and Appendix F, with the D2/D4/D6 clarification in
+SoSyM §5.3.4–5, §5.5 and Appendix 6, with the D2/D4/D6 clarification in
 `docs/inherited-realization.md`. This extension retains authored provenance;
 Authored realization and effective-core checking share #87 declaration disjointness.
 -/
@@ -22,7 +22,7 @@ structure Core (n : Nat) extends EffectiveCore n where
 namespace Core
 variable {n : Nat} (m : Core n)
 
-/-- Only the combinations needed by Appendix F. Explicit nested abstracts and
+/-- Only the combinations needed by Appendix 6. Explicit nested abstracts and
 reference-super refinement are not admitted by this selected extension. -/
 def Selected : Prop :=
   (∀ d, m.explicitAbstract d = true →
@@ -55,7 +55,7 @@ def Abstracts : Prop :=
     (∀ c e, m.family.super c = some d → m.family.super e = some d → c ≠ e →
       ∀ x, ¬ (x ∈ s.head c ∧ x ∈ s.head e))
 
-/-- Inherited effective abstractness does not suppress an ordinary field's
+/-- Telematics.Structural effective abstractness does not suppress an ordinary field's
 resolved group. Explicit abstract groups retain #65's template/override policy. -/
 def Groups : Prop := ∀ d, m.explicitAbstract d = false → Compile.Groups.Holds m.family s d
 

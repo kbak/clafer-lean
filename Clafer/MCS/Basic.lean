@@ -6,7 +6,7 @@ public import FormalCD.Metamodel.Binding
 /-!
 # Multi-Clafer Shapes: structural data
 
-SoSyM §6.2.3/Figure 23 and Appendix E Tables 5–8. Local slots are
+SoSyM §6.2.3/Figure 23 and Tables 5–8 (see Appendix 5). Local slots are
 occurrence identities; cojoining compares vertices of the role graph. Resolved
 referents and strings are separate data. No quotient/gluing policy is imposed.
 The seven corrected source multiplicities are 0..1, not existence requirements
@@ -38,7 +38,7 @@ structure Family (C : Type) where
   name : C → String
   multiplicity : C → DPGraph.Predicates.Range
   root : C
-  /-- Appendix C group metadata. Interpretation and formula generation are
+  /-- Appendix 3 group metadata. Interpretation and formula generation are
   separate from the existing structural MCS disciplines. -/
   group : C → GroupMultiplicity := fun _ => {}
 

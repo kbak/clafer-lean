@@ -2,7 +2,7 @@ module
 
 public import Clafer.MCS.Metamodel
 
-/-! # Nonempty MCS witnesses and rejected structural boundaries (Appendix E) -/
+/-! # Nonempty MCS witnesses and rejected structural boundaries (Appendix 5) -/
 
 @[expose] public section
 namespace Clafer.MCS.Examples

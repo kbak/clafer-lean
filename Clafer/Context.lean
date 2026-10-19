@@ -6,7 +6,7 @@ public import Mathlib.Data.Fintype.EquivFin
 /-!
 # Resolved constraint boundary
 
-SoSyM §6.2.2, Figure 22 (p.20), Appendix D.2 (p.31).
+SoSyM §6.2.2, Figure 22 (PDF p.21), Appendix D.2 (PDF pp.32–33).
 This is the input seam for Constraints.Typing, independent of that extension
 and of any name resolver.
 Lists index occurrences: repeated declaration references are retained.

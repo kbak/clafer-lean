@@ -2,7 +2,7 @@ module
 
 public import Clafer.MCS.Basic
 
-/-! # Appendix E boundary laws and composition of typed local Shapes -/
+/-! # Appendix 5 boundary laws and composition of typed local Shapes -/
 
 @[expose] public section
 namespace Clafer.MCS

@@ -1,9 +1,11 @@
 module
 
-public import Clafer.Examples.AppendixFConstraintExamples
+public import Clafer.Examples.Telematics.ExpressionExamples
 
 /-!
-# Sensitive Appendix F constraint candidates
+# Sensitive telematics constraint candidates
+
+SoSyM Appendix 6 (PDF p.34).
 
 Typed expression environments need not satisfy every structural or authored
 constraint. This candidate moves both existing displays to ECU1, preserving
@@ -14,8 +16,8 @@ a claimed whole-model realization.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.AppendixFMutations
-open Clafer.Constraints AppendixFConstraints AppendixFModel CategoryTheory DPGraph.Predicates
+namespace Clafer.Examples.Telematics.Mutations
+open Clafer.Constraints Telematics.Expressions Telematics.ExpressionEnvironment CategoryTheory DPGraph.Predicates
 
 set_option maxHeartbeats 2000000
 set_option maxRecDepth 4096
@@ -87,15 +89,15 @@ theorem two_displays :
   simp only [displays1,head15,Expr.denote,lift₂,Option.bind_some,Option.map_some]
   rw [moved_image]
   change some {y | ∃ x, x ∈ objects 16 ∧ _} = _
-  simp [movedLinks,maps,objects,position,Inherited.config,Inherited.heads,Set.ext_iff]
+  simp [movedLinks,maps,objects,position,Telematics.Structural.config,Telematics.Structural.heads,Set.ext_iff]
 
 theorem extra_present :
     (head23 (Expr.this : Expr (support 19) [] _)).denote
       (movedModel 19) (.closed (atom 19)) = some {atom 22} := by
   simp only [head23,Expr.denote,lift₂,Option.bind_some,Option.map_some]
   rw [moved_image]
-  simp [movedLinks,links,maps,objects,position,Inherited.config,Inherited.heads,
-    Inherited.ownership,Environment.closed]
+  simp [movedLinks,links,maps,objects,position,Telematics.Structural.config,Telematics.Structural.heads,
+    Telematics.Structural.ownership,Environment.closed]
 
 theorem c06_accepts_two : c06.Holds (movedModel 19) (.closed (atom 19)) := by
   have he := denotes_some _ _ _ _ extra_present (Set.finite_singleton _)
@@ -109,7 +111,7 @@ theorem c04_rejects_wrong_owner : ¬ c04.Holds (movedModel 15) (.closed (atom 5)
   simp only [c04,parent15,dereference12,head12,Expr.Holds,Expr.denote,lift₂,
     Option.bind_some,Option.map_some]
   rw [moved_image,moved_image,moved_image]
-  simp [movedLinks,links,maps,objects,position,Inherited.config,Inherited.heads,
-    Inherited.ownership,Inherited.targets,Environment.closed,Set.ext_iff,atom]
+  simp [movedLinks,links,maps,objects,position,Telematics.Structural.config,Telematics.Structural.heads,
+    Telematics.Structural.ownership,Telematics.Structural.targets,Environment.closed,Set.ext_iff,atom]
 
-end Clafer.Examples.AppendixFMutations
+end Clafer.Examples.Telematics.Mutations

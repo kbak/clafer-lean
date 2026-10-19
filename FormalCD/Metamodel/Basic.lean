@@ -2,7 +2,7 @@ module
 
 public import FormalCD.Metamodel.Shape
 
-/-! # The typed Figure 21c metamodel (SoSyM §6.1.3, pp.17,19)
+/-! # The typed Figure 21c metamodel (SoSyM §6.1.3, PDF pp.19–21)
 
 All arrows and annotations are enumerated. Only the underlined SING metaclass
 is marked singleton in this syntax registry; concrete interpretations of String,

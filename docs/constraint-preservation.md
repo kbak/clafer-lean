@@ -3,7 +3,7 @@
 This selected bridge connects the [independent denotation](constraint-denotation.md)
 to the actual predicates emitted by [Compile](compile.md), then composes it with
 the [inherited structural realization](inherited-realization.md). Its source is
-SoSyM §6.2.2–5, B.4 Definition 10/B.5, Appendix D.4 and E/F, with the accepted
+SoSyM §6.2.2–5, B.4 Definition 10/B.5, Appendix 4 (D.4) and Appendices 5–6, with the accepted
 [corrections](sosym-errata.md). It concerns resolved typed inputs, not a textual
 resolver or a universal compiler-correctness claim.
 
@@ -22,7 +22,7 @@ universal constructor. Domains are evaluated before their binders enter scope.
 The existence of some domains in `Constraint.Input` does not select their
 meaning: semantic clients supply the actual typed domain expressions explicitly.
 Empty domains have universal vacuity; undefined domains and undefined bodies
-on applicable objects fail satisfaction. Closed Appendix F bodies use `.nil`.
+on applicable objects fail satisfaction. Closed Appendix 6 bodies use `.nil`.
 No client supplies an arbitrary set of satisfying diagrams or a source/target
 truth equivalence.
 
@@ -63,7 +63,9 @@ Effective-default completeness remains derived for the generated bank. The
 original MCS retains its total-args and literal-key proofs; the larger raw
 group/abstract bank retains its documented separate discipline.
 
-## Appendix F support audit
+<a id="appendix-f-support-audit"></a>
+
+## Appendix 6 support audit
 
 The existing [c01–c12 inventory](inherited-realization.md#constraint-scope-handoff)
 uses the complete 28-vertex/34-map graph. Its maps resolve against the complete
@@ -89,12 +91,12 @@ integer object must have the unique root as parent, contradicting that finite
 head bound. The separate expression environment therefore is not a whole model
 of that unchanged fixture.
 
-SoSyM §5.3.5 p.14 identifies a primitive head with
+SoSyM §5.3.5 PDF p.15 identifies a primitive head with
 its value domain. A complete integer-bearing fixture must give that primitive
 head an explicit unrestricted bound and the corresponding root containment,
 both already admitted by the resolved-input contract. This does not change
 version/server `1..1` bounds, finite counted nonprimitive collections, or the
-[guarded structural checker](structural-checker.md). The [complete constraint-bearing fixture](appendix-f.md) applies this conditional
+[guarded structural checker](structural-checker.md). The [complete constraint-bearing fixture](telematics.md) applies this conditional
 bridge with the unrestricted primitive bound, actual root containment, two
 displays per ECU and all twelve bodies proved simultaneously.
 

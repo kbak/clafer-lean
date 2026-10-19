@@ -5,7 +5,8 @@ public import Mathlib.CategoryTheory.Category.Quiv
 /-!
 # Signatures for diagram predicates
 
-SoSyM (2014 author preprint), Appendix B.4, Definitions 6–7.
+Published SoSyM article, Appendix 2, Definitions 6–7 (PDF p.31).
+Legacy subsection aliases such as B.4 follow docs/sources.md.
 A graph is Mathlib's `Quiv`, whose arrows form a `Quiver`. There are no
 identity/composition operations on carrier arrows. The paper's total edge set
 is represented by `Σ x y : G, (x ⟶ y)`; the two projections give its endpoints.

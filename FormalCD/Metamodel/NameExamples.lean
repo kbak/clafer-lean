@@ -2,7 +2,7 @@ module
 
 public import FormalCD.Metamodel.InterpretationExamples
 
-/-! # Valid and invalid interpreted names (SoSyM §6.1.3 p.19)
+/-! # Valid and invalid interpreted names (SoSyM §6.1.3 PDF pp.20–21)
 A singleton carrier can be a realized predefined class or a user class. Both
 cases are checked against actual name spans and the predefined inclusion square.
 -/

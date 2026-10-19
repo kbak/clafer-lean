@@ -1,8 +1,8 @@
 # MCS structural inventory
 
-The source is SoSyM §6.2.3/Figure 23 (pp.20–21) and Appendix E Tables 5–8
-(p.33), in the [pinned preprint](sources.md#primary-source). The inventory below
-records the guarded expansion of Appendix E clauses and the separation of role
+The source is SoSyM §6.2.3/Figure 23 (PDF pp.22–23) and Tables 5–8 (see Appendix 5)
+(PDF pp.22–23), in the [published article](sources.md#primary-source). The inventory below
+records the guarded expansion of Appendix 5 clauses and the separation of role
 identities from referents and names, accepted in the
 [MCS disciplines issue](https://github.com/kbak/clafer-lean/issues/20). The
 [existing Shape contract](spec.md#individual-clafer-shapes) controls exact presence.
@@ -12,7 +12,9 @@ seven associations. [Structural Compile](compile.md) supplies formula generation
 [Resolved-referent gluing](#gluing-boundary) has separate input hypotheses;
 semantic model existence remains a separate obligation.
 
-## Appendix E inventory
+<a id="appendix-e-inventory"></a>
+
+## Appendix 5 inventory
 
 Write `H`, `S`, `T` for head/source/target class roles and `h`, `p`, `d`, `t`
 for head/parent/dereference/target map roles. `P` means the clafer has a parent;
@@ -168,7 +170,7 @@ matching nor endpoint matching supplies a referent equality.
 [Gluing.lean](../Clafer/MCS/Gluing.lean) proves graph incidence and exact
 identification before constructing the translated declaration image and DP map.
 These obligations are additional to `Valid`; role-level ownership/cojoining,
-The [guarded Appendix E clauses (Q2)](mcs-invariants.md#appendix-e-inventory), [source ownership bounds (Q9)](mcs-invariants.md#figure-23-source-multiplicity-correction) and source total-args/literal-key disciplines remain unchanged.
+The [guarded Appendix 5 clauses (Q2)](mcs-invariants.md#appendix-e-inventory), [source ownership bounds (Q9)](mcs-invariants.md#figure-23-source-multiplicity-correction) and source total-args/literal-key disciplines remain unchanged.
 `Gluing.Naming` and `Gluing.Defaults` are separate prerequisites of the `FormalCD`
 validity theorem. [Origins.lean](../Clafer/MCS/Gluing/Origins.lean) derives naming
 from valid MCS origins, while effective-default completeness must still be

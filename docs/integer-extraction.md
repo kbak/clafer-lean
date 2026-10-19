@@ -43,7 +43,9 @@ element. Link-sensitive multiplicity remains separate: the 1..1 hypotheses count
 links and are sufficient to prove singleton object images. This extension does
 not interpret every bag operation in the core.
 
-## Appendix F
+<a id="appendix-f"></a>
+
+## Appendix 6
 
 `VersionNavigation` gives a well-formed resolved fragment containing comp, ECU,
 display, version and server reference declarations, and the primitive integer
@@ -61,21 +63,21 @@ result. `IntegerExamples.comparison_value` evaluates the actual navigation for
 arbitrary ECU/display integer versions; greater/equal pass and lower fails.
 
 Figure 21's server has multiplicity 0..1 and its VC formula has a nonempty-server
-guard. Appendix F's server is mandatory and its comparison is unguarded. An empty
+guard. Appendix 6's server is mandatory and its comparison is unguarded. An empty
 server navigation therefore gives `none` in this partial comparison, not vacuous
-truth. It cannot arise for a display satisfying the selected Appendix F bounds.
+truth. It cannot arise for a display satisfying the selected Appendix 6 bounds.
 
 These conditional structural-semantic results are consumed by the
-[general core denotation](constraint-denotation.md). Its full resolved Appendix F
+[general core denotation](constraint-denotation.md). Its full resolved Appendix 6
 inventory includes inherited navigation, `server = parent` and the other c01–c12
 bodies, using the [inherited structure contract](inherited-realization.md).
 [VersionCompilation](../Clafer/Examples/VersionCompilation.lean) attaches the selected
 typed version comparison, compiles/glues it, and derives its navigation hypotheses
 from emitted local formulas, with the integer-domain assumption explicit. The
 [coverage matrix](representative-models.md) separates that conditional result
-from full Appendix F satisfaction. The [selected preservation bridge](constraint-preservation.md)
+from full Appendix 6 satisfaction. The [selected preservation bridge](constraint-preservation.md)
 connects compiled diagrams to expression meanings, and the
-[complete fixture](appendix-f.md) proves combined whole-model satisfaction.
+[complete fixture](telematics.md) proves combined whole-model satisfaction.
 
 No parser, string/Boolean conversion, automatic
 coercion insertion or finite-bitwidth arithmetic is supplied. Finite structural

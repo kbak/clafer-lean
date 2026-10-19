@@ -7,8 +7,8 @@ public import Mathlib.Tactic.FinCases
 /-!
 # Telematics formal class diagram
 
-SoSyM §2 (telematics example), §6.1.1–3, Figure 21a–b (p.17),
-twelve effective formulas (p.19),
+SoSyM §2 (telematics example), §6.1.1–3, Figure 21a–b (PDF p.19),
+twelve effective formulas (PDF p.21),
 and B.4 Definitions 7–9. Arrow identities and full typed bindings are retained.
 The two isA names do not identify their arrows. This module asserts syntax only.
 -/

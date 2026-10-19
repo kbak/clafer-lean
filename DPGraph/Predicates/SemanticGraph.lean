@@ -6,7 +6,7 @@ public import DPGraph.Span
 /-!
 # A bounded semantic graph of sets and mappings
 
-SoSyM §6.1.1 (pp.17–18), A.1/B.1 (p.28), B.4 Definition 6.
+SoSyM §6.1.1 (PDF pp.18–19), A.1/B.1 (PDF pp.28–30), B.4 Definition 6.
 Vertices are subsets of one ambient U, so shared objects retain their identity.
 For U : Type u and a bound w, links live in Type (max u w), vertices in Type u
 and arrows in Type (max u w + 1). This is a quiver, with no category instance

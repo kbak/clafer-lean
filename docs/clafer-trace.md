@@ -84,7 +84,7 @@ Covers:
 `repeated_scope_positions`, `dangling_scope_rejected`.
 [Context.lean](../Clafer/Context.lean): `ConstraintBoundary.occurrences_finite`.
 Different positions can name the same declaration; unknown IDs are rejected.
-No expression typing or Appendix D semantic equation is asserted.
+No expression typing or Appendix 4 semantic equation is asserted.
 
 Covers:
 - `req~clafer-constraint-boundary~1`
@@ -186,7 +186,9 @@ These are structural statements; no whole-metagraph semantic instantiation is cl
 Covers:
 - `req~clafer-mcs-metamodel~1`
 
-## MCS Appendix E definitions
+<a id="mcs-appendix-e-definitions"></a>
+
+## MCS Appendix 5 definitions
 
 `impl~clafer-mcs-disciplines~1`
 
@@ -257,7 +259,7 @@ D.1–D.3 forms. `Expr.widenObjects` and `widenRelation` carry explicit
 `Constraints.Widen` paths from [Support.lean](../Clafer/Constraints/Support.lean).
 No evaluator or semantic preservation theorem is implemented. Integer-only
 arithmetic is an implementation boundary, not a claim that D.3 forbids other
-primitive domains. The [Appendix D notation decision (Q3)](sources.md#appendix-d-rule-dispositions-q3)
+primitive domains. The [Appendix 4 notation decision (Q3)](sources.md#appendix-d-rule-dispositions-q3)
 is recorded in the source map.
 
 Covers:
@@ -373,7 +375,7 @@ In [Structure](../Clafer/Compile/Structure.lean), `find_spec`, `sourceId_injecti
 `family_wellFormed`, `naming`, `heads_bijective`, `names_preserved` and `referents_preserved` prove
 finite resolution and structural preservation. In
 `naming`, the private `primitive_name_injective` and `primitive_name_ne_sing`
-lemmas isolate the finite canonical-name checks of Appendix E Table 8. In
+lemmas isolate the finite canonical-name checks of Table 8 (see Appendix 5). In
 [Basic](../Clafer/Compile/Basic.lean), `wellFormed`, `fresh_heads`, `fresh_maps`,
 `shared_target` and `maps_finite` establish output validity, freshness, resolved
 sharing and finite generated map carriers.
@@ -529,7 +531,7 @@ Covers:
 `predefined_label`, `kind_label`, `mode_label`, `raw_wellFormed`.
 [Origins.lean](../Clafer/MCS/Gluing/Origins.lean): `annotations_head`,
 `naming_of_valid`, with private `originAnnotation_injective` recovering semantic
-origins from annotations (§6.1 / Appendix E Table 8). `naming_of_valid` derives
+origins from annotations (§6.1 / Table 8 (see Appendix 5)). `naming_of_valid` derives
 naming and predefined uniqueness from `MCS.Valid`, but neither it nor `labelHom`
 assumes effective-default completeness.
 `raw_wellFormed` explicitly requires that separate hypothesis.
@@ -613,7 +615,9 @@ and `function_one` establish the domain, uniqueness and navigation hypotheses.
 Covers:
 - `req~clafer-integer-extraction~1`
 
-## Appendix F selected version navigation
+<a id="appendix-f-selected-version-navigation"></a>
+
+## Appendix 6 selected version navigation
 
 `impl~clafer-version-navigation~1`
 
@@ -627,7 +631,9 @@ assumes the selected semantic link bounds, not the resulting singleton operands.
 Covers:
 - `req~clafer-version-navigation~1`
 
-## Appendix F operand definedness and comparisons
+<a id="appendix-f-operand-definedness-and-comparisons"></a>
+
+## Appendix 6 operand definedness and comparisons
 
 `proof~clafer-version-navigation~1`
 
@@ -641,7 +647,7 @@ Covers:
 `greater`, `equal`, `lower`, `empty_server`, `multiple_server` and
 `wrong_domain_server` exercise concrete reference-object navigation and the
 accepted direction. The example domain contains all integers. These are selected
-fragment claims, not whole Appendix F model satisfaction or Figure 21's guarded VC.
+fragment claims, not whole Appendix 6 model satisfaction or Figure 21's guarded VC.
 
 Covers:
 - `req~clafer-version-navigation~1`
@@ -884,7 +890,7 @@ and `targetView`. The extension retains authored metadata and original link
 identities. `Satisfies` also requires declaration disjointness while views retain
 the original field objects. [The source contract](inherited-realization.md) records the selected
 nested-abstractness, inheritance and group combinations (comparison decisions
-[D2](resolved-ir-comparison.md#decision-d2)/[D4](resolved-ir-comparison.md#decision-d4)/[D6](resolved-ir-comparison.md#decision-d6)) and the complete scoped Appendix F inventory.
+[D2](resolved-ir-comparison.md#decision-d2)/[D4](resolved-ir-comparison.md#decision-d4)/[D6](resolved-ir-comparison.md#decision-d6)) and the complete scoped Appendix 6 inventory.
 
 Covers:
 - `req~clafer-inherited-realization~1`
@@ -937,11 +943,13 @@ the generated local/abstract/group bank does not entail this extra global clause
 Covers:
 - `req~clafer-compile-realization~1`
 
-## Inherited Appendix F acceptance witnesses
+<a id="inherited-appendix-f-acceptance-witnesses"></a>
+
+## Inherited Appendix 6 acceptance witnesses
 
 `impl~clafer-inherited-witnesses~1`
 
-[Inherited](../Clafer/Examples/Inherited.lean) constructs the structural AST,
+[Structural](../Clafer/Examples/Telematics/Structural.lean) constructs the structural AST,
 source-order mapping, accepted Compile input and shared-object configuration.
 The structural fixture retains the 26 printed declarations plus implicit root/int;
 the separate twelve-conjunct inventory is in the source contract.
@@ -951,10 +959,10 @@ Covers:
 
 `proof~clafer-inherited-witnesses~1`
 
-[Inherited](../Clafer/Examples/Inherited.lean) supplies `wf`, `selected`, `declaration_disjoint`, `satisfies`, `all_reach_root`, `compiled_glued_model`,
+[Structural](../Clafer/Examples/Telematics/Structural.lean) supplies `wf`, `selected`, `declaration_disjoint`, `satisfies`, `all_reach_root`, `compiled_glued_model`,
 `inherited_version`, `inherited_options_and_displays`, `realized_xor_generated`
 and `realized_xor_glued`.
-[InheritedRejections](../Clafer/Examples/InheritedRejections.lean) proves
+[StructuralRejections](../Clafer/Examples/Telematics/StructuralRejections.lean) proves
 `inconsistent_context_parent`, `inconsistent_context_reference`,
 `shared_owner_rejected`, `duplicate_rejected`, `uncovered_rejected`,
 `overlap_rejected`, `uncovered_generated_cover`, `overlap_generated_disjoint`,
@@ -1017,20 +1025,22 @@ Covers:
 - `req~clafer-constraint-denotation~1`
 - `req~clafer-constraint-semantic-laws~1`
 
-## Manual Appendix F expression implementation
+<a id="manual-appendix-f-expression-implementation"></a>
+
+## Manual Appendix 6 expression implementation
 
 `impl~clafer-appendix-f-expressions~1`
 
-[AppendixFConstraints.lean](../Clafer/Examples/AppendixFConstraints.lean)
+[Expressions.lean](../Clafer/Examples/Telematics/Expressions.lean)
 defines `c01`–`c12`, `inventory`, all explicit head/dereference/parent paths and
 inheritance widenings. `support_resolved` and `inventory_resolved` check the
-source IDs against `Inherited.ast`.
-[AppendixFModel.lean](../Clafer/Examples/AppendixFModel.lean) supplies `position`,
+source IDs against `Telematics.Structural.ast`.
+[ExpressionEnvironment.lean](../Clafer/Examples/Telematics/ExpressionEnvironment.lean) supplies `position`,
 `objects`, `links`, `graphMap` and `model`, with the full integer realization
 and the shared nonprimitive objects of [inherited realization](inherited-realization.md). `shared_extent`, `model_coherent`,
 `objects_finite`, `closed_admissible` and `example_contexts` retain the identity, finite-extent and
 environment obligations.
-[AppendixFDefined.lean](../Clafer/Examples/AppendixFDefined.lean) defines
+[Definedness.lean](../Clafer/Examples/Telematics/Definedness.lean) defines
 `FiniteStructural`, projects the original version spans via `versionGraph` and
 `versionModel`, and proves `c01_defined`–`c12_defined`. The c02 proof uses the
 four actual version/server multiplicity obligations from [integer extraction](integer-extraction.md); the other bodies
@@ -1060,18 +1070,18 @@ undefined results.
 `distinct_occurrences`, `same_resolved_identity`, `same_links`,
 `repeated_meaning` and `repeated_union` for different support edges denoting the
 same original server-head span.
-[AppendixFConstraintExamples.lean](../Clafer/Examples/AppendixFConstraintExamples.lean)
+[ExpressionExamples.lean](../Clafer/Examples/Telematics/ExpressionExamples.lean)
 checks `actual_c01`, `actual_c02_value`, greater/equal/lower numeric cases,
 `no_cache`, `actual_c04`, `actual_c05`, `actual_c06_rejects_one_display`,
 `actual_c07_rejects_one_display`, `actual_c08`–`actual_c12`, and the intermediate
 relative/global/inherited paths.
-[AppendixFDefined.lean](../Clafer/Examples/AppendixFDefined.lean) proves
+[Definedness.lean](../Clafer/Examples/Telematics/Definedness.lean) proves
 `c07_vacuity` on an absent ECU2 extent.
-[AppendixFMutations.lean](../Clafer/Examples/AppendixFMutations.lean) proves
+[Mutations.lean](../Clafer/Examples/Telematics/Mutations.lean) proves
 `c06_accepts_two` and `c04_rejects_wrong_owner` on a typed moved-display
 candidate. Its deliberately violated ECU2 bound is documented; no whole-model
 satisfaction is inferred from those expression tests. The expression inventory
-is separate from the [complete Appendix F satisfaction theorem](appendix-f.md).
+is separate from the [complete Appendix 6 satisfaction theorem](telematics.md).
 
 Covers:
 - `req~clafer-constraint-semantic-laws~1`
@@ -1139,7 +1149,7 @@ Covers:
 
 [ConstraintPredicates.lean](../Clafer/Examples/ConstraintPredicates.lean) constructs
 body-derived predicate interpretations and full identity arity bindings on the
-existing Appendix F graph environments. `liveDomain` and `emptyDomain` exercise
+existing Appendix 6 graph environments. `liveDomain` and `emptyDomain` exercise
 external binders without an arbitrary interpretation parameter. The
 [support audit](constraint-preservation.md#appendix-f-support-audit) records real
 navigation and the finite-primitive/full-integer fixture boundary.
@@ -1173,10 +1183,10 @@ Covers:
 
 [Integration.lean](../Clafer/Examples/Integration.lean) defines `Small.glued`,
 `Small.label` and the concrete inclusion slot `Small.inheritedHead`, reusing
-`Compile.Examples.input`, `Compile.GroupExamples.input` and `Examples.Inherited.input`.
+`Compile.Examples.input`, `Compile.GroupExamples.input` and `Examples.Telematics.Structural.input`.
 [VersionCompilation.lean](../Clafer/Examples/VersionCompilation.lean) defines
 `ast`, `input`, `q`, `glued`, `navigation`, `LocalHolds` and `versionModel` for the
-mandatory Appendix F comparison. These examples use the existing Compile/group
+mandatory Appendix 6 comparison. These examples use the existing Compile/group
 and inherited realization interfaces without changing their contracts.
 
 Covers:
@@ -1191,7 +1201,7 @@ In [Integration.lean](../Clafer/Examples/Integration.lean),
 structural connections. `Xor.declarations` proves emitted membership on both sides.
 `Xor.optional_declarations` checks the actual emitted
 optional multiplicities at zero/one/two objects; `Xor.boundaries` proves one
-passes and zero/two fail separately before and after gluing. `AppendixF.source_ids`,
+passes and zero/two fail separately before and after gluing. `TelematicsStructural.source_ids`,
 `exact_declarations`, `structural_model` and `version_and_server` account for the
 inherited declaration projection and its nonempty structural model.
 
@@ -1211,7 +1221,7 @@ Covers:
 
 The [coverage matrix](representative-models.md) accounts for features, source
 locators, all d01–d26 declarations and c01–c12 conjuncts, assumptions and remaining
-obligations discharged separately by the [complete Appendix F model](appendix-f.md),
+obligations discharged separately by the [complete Appendix 6 model](telematics.md),
 [constraint denotation](constraint-denotation.md) and
 [preservation bridge](constraint-preservation.md). It links the authoritative inventory rather than
 redefining source semantics. The full structural projection and separate c02
@@ -1223,7 +1233,7 @@ Covers:
 `proof~clafer-representative-coverage~1`
 
 The integration proofs above and the existing
-[Inherited.lean](../Clafer/Examples/Inherited.lean) `source_order`, `satisfies`,
+[Structural.lean](../Clafer/Examples/Telematics/Structural.lean) `source_order`, `satisfies`,
 `compiled_glued_model`, `inherited_version`, `inherited_options_and_displays`,
 `realized_xor_generated` and `realized_xor_glued` substantiate the structural rows.
 [IntegerExamples.lean](../Clafer/Constraints/IntegerExamples.lean)
@@ -1309,38 +1319,42 @@ Covers:
 - `req~clafer-resolved-import~1`
 - `req~clafer-compiler-capture~1`
 
-## Complete Appendix F resolved model
+<a id="complete-appendix-f-resolved-model"></a>
+
+## Complete Appendix 6 resolved model
 
 `impl~clafer-appendix-f-complete~1`
 
-[AppendixF](../Clafer/Examples/AppendixF.lean) defines `decl`, `attachments`,
+[Input](../Clafer/Examples/Telematics/Input.lean) defines `decl`, `attachments`,
 `ast`, `input`, `occurrence`, `core` and the unrestricted primitive head.
-[AppendixFConfiguration](../Clafer/Examples/AppendixFConfiguration.lean) defines
+[Configuration](../Clafer/Examples/Telematics/Configuration.lean) defines
 `integers`, `heads`, `ownership`, `targets` and `config` for the complete selected
-model. [AppendixFCompiled](../Clafer/Examples/AppendixFCompiled.lean) fixes
+model. [Compiled](../Clafer/Examples/Telematics/Compiled.lean) fixes
 `domains`, `compiledSupport` and the body-derived `interpretation` of the actual
-compiled/glued bank. [The source contract](appendix-f.md) distinguishes this
+compiled/glued bank. [The source contract](telematics.md) distinguishes this
 fixture from earlier structural and expression subsets.
 
 Covers:
 - `req~clafer-appendix-f-complete~1`
 
-## Complete Appendix F model proofs
+<a id="complete-appendix-f-model-proofs"></a>
+
+## Complete Appendix 6 model proofs
 
 `proof~clafer-appendix-f-complete~1`
 
-[AppendixF](../Clafer/Examples/AppendixF.lean): `wf`, `inventory_input`,
+[Input](../Clafer/Examples/Telematics/Input.lean): `wf`, `inventory_input`,
 `sourceIndex_occurrence`, `occurrence_sourceIndex`, `occurrence_body`,
 `occurrence_owner`, `mcs_valid`, `gluing_compatible`, `effective_defaults`,
 `formalcd_valid`, `exact_declarations` and `selected`.
-[AppendixFConfiguration](../Clafer/Examples/AppendixFConfiguration.lean):
+[Configuration](../Clafer/Examples/Telematics/Configuration.lean):
 `integer_extent`, `primitive_root_containment`, `nonprimitive_finite`,
 `typed`, `rooted`, `inherits`, `parents_hold`, `references_hold`, `keys`,
 `multiplicities`, `abstracts`, `groups`, `declaration_disjoint` and `structural_satisfaction`.
-[AppendixFSatisfaction](../Clafer/Examples/AppendixFSatisfaction.lean):
+[Satisfaction](../Clafer/Examples/Telematics/Satisfaction.lean):
 `c01_all`, `c02_all`, `c02_defined`, `c03_all`, `c04_all`,
 `c05_holds` through `c12_holds`.
-[AppendixFCompiled](../Clafer/Examples/AppendixFCompiled.lean): `admissible`,
+[Compiled](../Clafer/Examples/Telematics/Compiled.lean): `admissible`,
 `compiled_objects`, `compiled_relations`, `source_holds`,
 `compiled_glued_model` and `nonempty_configuration`.
 The final concrete theorem discharges every hypothesis of the selected semantic
@@ -1350,11 +1364,13 @@ source elaboration remains a review boundary.
 Covers:
 - `req~clafer-appendix-f-complete~1`
 
-## Complete Appendix F rejection candidates
+<a id="complete-appendix-f-rejection-candidates"></a>
+
+## Complete Appendix 6 rejection candidates
 
 `impl~clafer-appendix-f-rejections~1`
 
-[AppendixFRejections](../Clafer/Examples/AppendixFRejections.lean) reuses the
+[Rejections](../Clafer/Examples/Telematics/Rejections.lean) reuses the
 existing count, version and wrong-owner environments for the actual full input's
 attached symbols. `Probe.model` supplies finite navigation witnesses for cache,
 fixed and the product-line equivalences. `xorConfig` supplies zero/one/two child
@@ -1450,11 +1466,13 @@ Covers:
 - `req~clafer-alloy-representation~1`
 - `req~clafer-comparison-replay~1`
 
-## Complete Appendix F negative sensitivity
+<a id="complete-appendix-f-negative-sensitivity"></a>
+
+## Complete Appendix 6 negative sensitivity
 
 `proof~clafer-appendix-f-rejections~1`
 
-[AppendixFRejections](../Clafer/Examples/AppendixFRejections.lean):
+[Rejections](../Clafer/Examples/Telematics/Rejections.lean):
 `symbol_rejected` and `generated_rejected` identify the exact attached symbol
 and transport its failure through a matching complete arity reduct.
 `wrong_display_count`, `forbidden_cache`, `wrong_server_parent` and

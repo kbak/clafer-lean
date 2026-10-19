@@ -7,8 +7,8 @@ public import Mathlib.Data.Fintype.Basic
 /-!
 # Link-sensitive predicate meanings
 
-SoSyM Table 3 (p.12), §6.1.1–2/Figure 21 (pp.17–18), A.1 and B.1–3
-(pp.28–30), interpreted with B.1 link-renaming equivalence and accepted Q1/Q8.
+SoSyM Table 3 (PDF p.13), §6.1.1–2/Figure 21 (PDF pp.18–20), A.1 and B.1–3
+(PDF pp.28–30), interpreted with B.1 link-renaming equivalence and accepted Q1/Q8.
 Endpoints stay fixed under the invariance theorems. No predicate assumes finite
 objects or links; only the family arity and finite range bounds use natural numbers.
 -/

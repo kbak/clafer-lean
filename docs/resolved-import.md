@@ -7,7 +7,7 @@ The importer checks resolved compiler JSON inside
 [comparison contract](resolved-ir-comparison.md), using the
 [effective core and finite checker](structural-checker.md). The [bounded comparison
 harness](bounded-comparison.md) supplies candidate pinning, scoped solver execution,
-command replacement and replay; these remain outside the importer theorem. Broader Appendix F
+command replacement and replay; these remain outside the importer theorem. Broader Appendix 6
 realization does not enlarge the import whitelist.
 
 ## Build and replay

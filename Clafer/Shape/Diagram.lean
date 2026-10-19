@@ -5,7 +5,7 @@ public import Clafer.Shape
 /-!
 # Local diagram predicates of an individual Shape
 
-SoSyM Figure 16/Table 4 (p.13). This local CD uses role labels for source/target;
+SoSyM Figure 16/Table 4 (PDF pp.14–15). This local CD uses role labels for source/target;
 cojoining, inherited constraints, abstract cover/disjointness and global label
 identification belong to MCS/Compile/gluing. No model-existence claim is made.
 -/

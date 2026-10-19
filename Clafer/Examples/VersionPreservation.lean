@@ -5,9 +5,9 @@ public import Clafer.Constraints.Predicate
 public import Clafer.Constraints.DenotationDefined
 
 /-!
-# Actual generated/glued Appendix F version predicate
+# Actual generated/glued Appendix 6 version predicate
 
-SoSyM Appendix F c02, §6.2.2–5 and D.4. Local generated predicates establish
+SoSyM Appendix 6 c02, §6.2.2–5 and D.4. Local generated predicates establish
 the scalar-navigation hypotheses. They do not establish the version inequality.
 -/
 

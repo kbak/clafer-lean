@@ -5,7 +5,7 @@ public import FormalCD.Signature
 /-!
 # Full graph-binding data and its validation
 
-SoSyM B.4 Definition 8 (p.30). Candidate data can be malformed; validity is an
+SoSyM B.4 Definition 8 (PDF p.31). Candidate data can be malformed; validity is an
 explicit incidence condition. All arity vertices and indexed arrow occurrences
 are retained. No finite-arrow or no-isolated-vertex hypothesis is imposed.
 -/

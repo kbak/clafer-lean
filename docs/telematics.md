@@ -1,11 +1,14 @@
-# Complete Appendix F Telematics model
+<a id="complete-appendix-f-telematics-model"></a>
+<a id="complete-appendix-6-telematics-model"></a>
+
+# Complete telematics model
 
 The full fixture combines the [reviewed declaration and constraint inventory](inherited-realization.md#scoped-source-to-core-inventory)
 with the [resolved expression meanings](constraint-denotation.md) and the
 [selected Compile/gluing bridge](constraint-preservation.md). Its primary source
-is SoSyM Appendix F p.34, with Appendix C, D and E and §5.3–5.5/§6.2.
+is SoSyM Appendix 6 PDF p.34, with Appendices 3, 4 and 5 and §5.3–5.5/§6.2.
 The archived PDF SHA-256 is
-`56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
+`653fc7868637680c44b6176d8ff643ec20149534fe1681ea4fc4ce636db76f2d`.
 The source indentation, repeated names and constraint scopes are checked manually.
 The fixture follows the accepted [paper corrections and clarifications](sosym-errata.md)
 and the [inherited realization contract](inherited-realization.md), including
@@ -30,10 +33,28 @@ They reuse the existing contracts for:
   [paper coverage accounting](spec.md#representative-paper-coverage-accounting),
   whose narrower acceptance boundaries remain intact.
 
+## Module organization
+
+The modules live under `Clafer/Examples/Telematics/`. The full input and
+configuration use `Clafer.Examples.Telematics`; its subnamespaces identify
+supporting fixtures and proofs. `FormalCD.Telematics` is the separate Figure 21
+formal CD, with its guarded optional-server comparison.
+
+| Module(s) | Role and namespace |
+| --- | --- |
+| [Structural](../Clafer/Examples/Telematics/Structural.lean), [StructuralRejections](../Clafer/Examples/Telematics/StructuralRejections.lean) | `Telematics.Structural`: inherited structural projection, without the twelve authored bodies or complete final selections |
+| [Expressions](../Clafer/Examples/Telematics/Expressions.lean), [Definedness](../Clafer/Examples/Telematics/Definedness.lean) | `Telematics.Expressions` and `Telematics.Definedness`: resolved bodies and conditional definedness proofs |
+| [ExpressionEnvironment](../Clafer/Examples/Telematics/ExpressionEnvironment.lean), [ExpressionExamples](../Clafer/Examples/Telematics/ExpressionExamples.lean), [Mutations](../Clafer/Examples/Telematics/Mutations.lean) | Corresponding subnamespaces: expression fixtures over the earlier structural objects, separate from the full configuration |
+| [Input](../Clafer/Examples/Telematics/Input.lean), [Configuration](../Clafer/Examples/Telematics/Configuration.lean), [Compiled](../Clafer/Examples/Telematics/Compiled.lean) | `Telematics`: complete resolved input, concrete configuration and compiled/glued model |
+| [Satisfaction](../Clafer/Examples/Telematics/Satisfaction.lean), [Rejections](../Clafer/Examples/Telematics/Rejections.lean) | `Telematics.Meaning` and `Telematics.Rejections`: all twelve conjuncts and focused negative witnesses |
+
+`Integration.TelematicsStructural` names the narrower integration witness.
+Stable trace IDs retain their historical `appendix-f` spelling.
+
 ## Resolved input and generated diagrams
 
-[AppendixF](../Clafer/Examples/AppendixF.lean) reuses `Inherited.decl` for all
-26 printed declarations and attaches the exact `AppendixFConstraints.inventory`
+[Input](../Clafer/Examples/Telematics/Input.lean) reuses `Telematics.Structural.decl` for all
+26 printed declarations and attaches the exact `Telematics.Expressions.inventory`
 bodies through `occurrence`. The source declaration IDs remain d01–d26,
 with root=0 and int=27. Preorder occurrence positions remain distinct from
 source IDs, displayed names and constraint positions. `sourceIndex_occurrence`
@@ -58,7 +79,7 @@ and is not claimed to satisfy the former's positive-argument discipline.
 
 ## Concrete interpretation
 
-[AppendixFConfiguration](../Clafer/Examples/AppendixFConfiguration.lean) uses
+[Configuration](../Clafer/Examples/Telematics/Configuration.lean) uses
 36 nonprimitive objects and all mathematical integers. ECU1 and ECU2 each own
 two plaDisplay objects; ECU2.master targets ECU1. Every display's server targets
 its owning ECU. Every options.size selects large; cache is absent. The telematics
@@ -77,12 +98,12 @@ The [finite structural checker](structural-checker.md) is not applied to this in
 reference, key, multiplicity, abstract-cover/disjoint, group and declaration-disjointness
 obligations. `declaration_disjoint` checks finite head memberships and the separate
 complete integer extent against the actual super-edge ancestry.
-[AppendixFSatisfaction](../Clafer/Examples/AppendixFSatisfaction.lean) evaluates
+[Satisfaction](../Clafer/Examples/Telematics/Satisfaction.lean) evaluates
 all twelve bodies using navigation from these same objects and links.
 `c02_defined` derives operand definedness from actual version/server head
 multiplicities and dereference functionality; the inequality is proved separately.
 
-[AppendixFCompiled](../Clafer/Examples/AppendixFCompiled.lean) compares every
+[Compiled](../Clafer/Examples/Telematics/Compiled.lean) compares every
 arity vertex and map with the actual generated support reduct. `source_holds`
 proves every attached body at every applicable context object.
 `compiled_glued_model` applies `Compile.ConstraintMeaning.whole_model` to this
@@ -93,7 +114,7 @@ are discharged; they are not premises of the final concrete theorem.
 
 ## Negative witnesses
 
-[AppendixFRejections](../Clafer/Examples/AppendixFRejections.lean) ties count,
+[Rejections](../Clafer/Examples/Telematics/Rejections.lean) ties count,
 cache, server/parent and version failures to the exact full-input source symbols.
 `generated_rejected` transports each symbol failure to the actual emitted formula
 under equality of its complete arity reduct. These focused arity environments

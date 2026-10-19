@@ -6,7 +6,7 @@ public import Mathlib.Data.Fintype.Card
 /-!
 # Effective structural input
 
-SoSyM §5.3–5.5, §6.2.2–5 and Appendix E, restricted to the guarded S
+SoSyM §5.3–5.5, §6.2.2–5 and Appendix 5, restricted to the guarded S
 fragment in docs/resolved-ir-comparison.md. No authored/default provenance is
 constructed. The finite inventory retains resolved identities separately from names.
 -/

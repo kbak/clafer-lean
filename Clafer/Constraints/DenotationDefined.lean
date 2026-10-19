@@ -5,7 +5,7 @@ public import Clafer.Constraints.IntegerNavigation
 
 /-! # Structural definedness of numeric navigation
 
-SoSyM Appendix F p.34, D.3–D.4. Head multiplicities and total functional
+SoSyM Appendix 6 PDF p.34, D.3–D.4. Head multiplicities and total functional
 references supply singleton operands. They do not imply the inequality.
 -/
 

@@ -4,7 +4,7 @@ public import Clafer.Semantics.Realization
 
 /-! # Local-bank correspondence beyond the guarded leaf-super fragment
 
-SoSyM §6.2.4–5 and Appendix E. Only parentless basic super targets and
+SoSyM §6.2.4–5 and Appendix 5. Only parentless basic super targets and
 parented references are required here; abstract bodies are permitted.
 The original #50 theorem and checker retain their original guards.
 -/

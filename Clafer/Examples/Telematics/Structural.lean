@@ -6,7 +6,9 @@ public import Mathlib.Tactic.FinCases
 public import Mathlib.Data.Fin.VecNotation
 
 /-!
-# Appendix F structural realization witness
+# Telematics structural realization witness
+
+SoSyM Appendix 6 (PDF p.34).
 
 The source IDs d01–d26 map injectively to DeclId 1–26; root=0 and int=27.
 Preorder occurrences differ from source IDs (see `source_order`). This fixture
@@ -15,7 +17,7 @@ complete final selections/satisfaction remain #64/#68/#69.
 -/
 
 @[expose] public section
-namespace Clafer.Examples.Inherited
+namespace Clafer.Examples.Telematics.Structural
 open CategoryTheory MCS Compile DPGraph DPGraph.Predicates Semantics
 
 instance rangeDecidable (r : Range) : Decidable (ValidRange r) := by
@@ -575,4 +577,4 @@ theorem realized_xor_glued :
       ((Compile.Realization.fieldFormula input sizeField).translate (groupLabel input)) :=
   compiled_glued_model _ ⟨.inr (.inr sizeField), rfl⟩
 
-end Clafer.Examples.Inherited
+end Clafer.Examples.Telematics.Structural

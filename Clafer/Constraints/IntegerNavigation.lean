@@ -5,12 +5,12 @@ public import Mathlib.Data.Fin.VecNotation
 public import Mathlib.Tactic.FinCases
 
 /-!
-# Appendix F version navigation
+# Appendix 6 version navigation
 
-SoSyM Appendix F p.34, D.3–D.4, §5.3 and §5.5. The selected fragment keeps
+SoSyM Appendix 6 PDF p.34, D.3–D.4, §5.3 and §5.5. The selected fragment keeps
 reference objects, head/dereference maps and both inheritance inclusions.
 The omitted multiplicities of version and server are 1..1. In particular,
-Appendix F's comparison has no Figure 21 nonempty-server guard.
+Appendix 6's comparison has no Figure 21 nonempty-server guard.
 This is a conditional navigation theorem, not a whole-model interpretation.
 -/
 
@@ -19,7 +19,7 @@ universe u w
 namespace Clafer.Constraints.VersionNavigation
 open CategoryTheory DPGraph.Predicates
 
-/-- Resolved IDs of the selected Appendix F fragment (names are only metadata). -/
+/-- Resolved IDs of the selected Appendix 6 fragment (names are only metadata). -/
 def rootDecl : Declaration := { id := ⟨0⟩, name := "root", origin := .syntheticRoot }
 def intDecl : Declaration := { id := ⟨1⟩, name := "int", origin := .primitive .int }
 def compDecl : Declaration :=
@@ -128,7 +128,7 @@ theorem constraint_input : constraint.Input fragment boundary where
   domains := ⟨.nil⟩
 
 /-- Selected multiplicities plus the reference-function discipline. No final
-singleton or numeric inequality is assumed. Other Appendix F constraints belong
+singleton or numeric inequality is assumed. Other Appendix 6 constraints belong
 to the whole-model interpreter; e.g. server = parent further restricts the server. -/
 structure Model (U : Type u) extends IntegerBinding.{u,w} support U where
   version_head : TargetMultiplicity versionDecl.multiplicity.effective (model.map (support.arrow 2))
@@ -157,7 +157,7 @@ theorem Model.server_singleton {U} (m : Model.{u,w} U) (d : Subtype (m.model.obj
   obtain ⟨e, he⟩ := navigationImage_one _ m.server_dref s
   exact ⟨e, by unfold serverObjects; rw [hs, he]⟩
 
-/-- Well-definedness for both actual Appendix F operands, including inherited
+/-- Well-definedness for both actual Appendix 6 operands, including inherited
 version access. No absent-server guard is needed or inserted. -/
 theorem Model.operands_defined {U} (m : Model.{u,w} U) (d : Subtype (m.model.obj (0 : support.Vertex))) :
     m.realization.WellDefined (m.versionObjects {d.val}) ∧

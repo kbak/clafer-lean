@@ -7,7 +7,7 @@ public import Mathlib.Tactic.FinCases
 /-!
 # Figure 21c carrier and the inferred discipline arities
 
-SoSyM §6.1.1–3, Figure 21c (p.17), explanation p.19. The dashed attachments
+SoSyM §6.1.1–3, Figure 21c (PDF p.19), explanation PDF p.21. The dashed attachments
 of nd/ad are omitted in print. The name arity uses the naming/inclusion subgraph;
 the arity-discipline arity uses args, pred, so and ta. These are explicit inferred
 bindings justified by the constraints, not additional arrows in the figure.

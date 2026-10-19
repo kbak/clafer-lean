@@ -17,7 +17,7 @@ class DocumentationTest(unittest.TestCase):
             for name in ("README.md", "CONTRIBUTING.md", "SECURITY.md", "AGENTS.md",
                          "CLAUDE.md", "tests/fixtures/README.md",
                          "docs/changes/frozen/OLD_NAME.md", "docs/architecture.md",
-                         "docs/sources.md", "docs/nested/appendix-f.md"):
+                         "docs/sources.md", "docs/nested/telematics.md"):
                 path = root / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("# Document\n")

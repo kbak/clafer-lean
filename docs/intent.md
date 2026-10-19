@@ -4,7 +4,8 @@
 
 `intent~formalization-foundation~1`
 
-Develop a maintainable Lean 4 formalization grounded in the 2014 SoSyM paper,
+Develop a maintainable Lean 4 formalization grounded in the published SoSyM paper
+(online 2014; journal issue 2016),
 with reusable foundations supporting structural Clafer. The repository
 `kbak/clafer-lean` contains one Lake package, `clafer`, and sibling public roots
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
@@ -14,8 +15,10 @@ with reusable foundations supporting structural Clafer. The repository
 | --- | --- | --- |
 | `DPGraph` | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
 | `FormalCD` | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
-| `Clafer` | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the [complete Appendix F fixture](appendix-f.md) discharges those assumptions for one concrete selected model |
+| `Clafer` | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix 5 MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the [complete telematics fixture](telematics.md) discharges those assumptions for one concrete selected model |
 
+The [source edition and locator convention](sources.md#published-locators-and-legacy-aliases)
+identifies the publisher e-offprint, its PDF pages and legacy subsection aliases.
 The [paper companion](sosym-errata.md) explains the accepted corrections and
 clarifications in reader-facing terms; the [source map](sources.md) retains their
 exact locators, source identities and limits. These include link-preserving
@@ -35,7 +38,7 @@ The [constraint denotation](constraint-denotation.md) supplies independent core
 meanings and explicit primitive/definedness obligations. The
 [selected preservation bridge](constraint-preservation.md) connects these meanings
 to generated/glued predicates under stated model assumptions. The
-[complete Appendix F fixture](appendix-f.md) discharges those assumptions for one
+[complete telematics fixture](telematics.md) discharges those assumptions for one
 concrete model with all twelve bodies and final selections. The
 [representative models](representative-models.md) retain their narrower structural,
 group and version-attachment claims.
@@ -104,12 +107,12 @@ numbers and ticket chains must not substitute for an explanation.
 | [Paper companion](sosym-errata.md) | Concise corrections and clarifications for SoSyM readers |
 | [DPGraph](dpgraph-trace.md), [FormalCD](formalcd-trace.md) and [Clafer](clafer-trace.md) traces | Named implementation/proof artifacts and actual Lean declarations |
 | [Constraint preservation](constraint-preservation.md) | Derived predicate meanings, exact binding/label transport and selected whole-model correspondence |
-| [Constraint denotation](constraint-denotation.md) | Explicit environments, core equations and Appendix F elaboration |
-| [Complete Appendix F model](appendix-f.md) | All twelve constraint bodies, final selections and concrete whole-model satisfaction |
+| [Constraint denotation](constraint-denotation.md) | Explicit environments, core equations and Appendix 6 elaboration |
+| [Complete telematics model](telematics.md) | All twelve constraint bodies, final selections and concrete whole-model satisfaction |
 | [Inherited realization](inherited-realization.md) | Authoritative declaration/constraint inventories, ordinary fields and explicit abstract families |
 | [Group compilation](group-compilation.md) | Effective bounds, inherited child unions and augmented declarations |
-| [Representative models](representative-models.md) | Checked integration, source/feature coverage and explicit Appendix F omissions |
-| [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix F navigation assumptions |
+| [Representative models](representative-models.md) | Checked integration, source/feature coverage and explicit Appendix 6 omissions |
+| [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix 6 navigation assumptions |
 | [MCS inventory](mcs-invariants.md) and [Compile contract](compile.md) | Detailed structural clauses and transformation assumptions |
 | [IR comparison contract](resolved-ir-comparison.md) | Accepted comparison domain, compiler audit and external trust obligations |
 | [Structural checker](structural-checker.md) | Finite candidates, independent satisfaction, protocol and correctness bridges |
