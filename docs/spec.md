@@ -165,7 +165,7 @@ Theorems 1–2 and B.2.1–2 span operations (with the adopted [Q1](sources.md#s
 B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the [common-target disjointness correction (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction)) over a bounded semantic
 graph, and the first `FormalCD` structure/name-preserving morphisms, from future
-predicates, all-universes SetMap, semantic self-instantiation and the remaining
+predicates, all-universes SetMap, universal realizability and the remaining
 Clafer interpretation/integration increments.
 
 It documents the delivered resolved
@@ -417,6 +417,16 @@ realization, particular self-instantiation and unrestricted compiler correctness
 separate. Proposed theorem hypotheses and metamodel changes remain explicit
 proposals until reviewed; this assessment does not alter the existing key,
 argument-totality, universe or model-reduct contracts.
+Maintain the [realization contract](metamodel-realization.md) with exact
+encoded extents, external descriptor/metadata fields, source-only admissibility,
+reconstruction and an exhaustive effective-declaration obligation table. Assess
+the particular metamodel's declared formulas rather than imposing restrictions
+on every symbol in its vocabulary. Record which conclusions are static source
+assessments and which still need kernel-checked lemmas. Historical compiler
+snapshots need their own license/version identity; generated examples and static
+code observations must not be reported as executed compiler comparisons.
+The separate realization requirements below own the authorized implementation
+and proofs; this research requirement remains an assessment obligation.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1285,6 +1295,73 @@ data. Preserve indexed occurrences, isolated vertex images, zero-arrow formulas,
 literal bag key and total-args limitations. This is a syntactic representation
 result, not semantic self-instantiation or universal every-CD realizability;
 it requires no new axiom or metamodel-instance assertion.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Faithful restricted metamodel realization
+
+`req~formalcd-metamodel-realization~1`
+
+Implement the [realization contract](metamodel-realization.md) for any compatible
+vocabulary, registry and well-formed CDOver, retaining independent universes.
+Construct tagged classes, maps, exactly the effective full formulas, all symbols
+and all strings; subclass membership preserves ambient identity. Include all
+reserved registry names, even for unrealized identifiers. Argument links retain
+every indexed arity-arrow occurrence, including repeated images. Construct the
+name/arity contexts and descriptor without a target validity or model assumption.
+
+Prove that this encoding satisfies every existing Figure 21c declaration iff
+all declared formulas have nonempty arrow support and equal symbol/argument bags
+separate full formulas. Derive nd/ad and the other 26 unconditional declarations;
+prove necessity as well as sufficiency for total args and the literal key. Do not
+alter predicates, quotient bindings, add dummy arrows, or require support of
+unused vocabulary symbols, finiteness or absence of isolated vertices.
+
+Decode the exact raw source on its represented carrier from the encoding,
+context and explicit mode side data, without taking the original CD as a decoder
+argument. Recover the effective declaration set, full vertex/arrow bindings,
+names, predefined identifiers and modes even when realization hypotheses fail.
+Distinguish syntax reification from source satisfiability and primitive-domain
+realization. Preserve existing full-binding and bounded-self-description promises.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Particular metamodel semantic self-instantiation
+
+`req~formalcd-metamodel-self-instance~1`
+
+Prove the restricted realization hypotheses for Metamodel.diagram's actual
+effective declaration set. Establish declaration-value injectivity and complete
+indexed arities, then construct a model satisfying all thirty declarations under
+the canonical context. Check exactly thirty formula objects and forty-six args
+links and specialize exact reconstruction. State the bounded, context-dependent
+DP semantics explicitly; claim no universe fixed point, universal every-CD
+realizability, general primitive-domain theorem or unrestricted compilation proof.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Canonical realization acceptance boundaries
+
+`req~formalcd-realization-boundaries~1`
+
+Kernel check whole-model acceptance for empty declarations and for a supported
+singleton formula with repeated argument images and an isolated arity vertex.
+Check preservation of repeated names, distinct parallel maps, and unrealized
+reserved registry entries. Prove the repeated args span is not set-valued.
+Reject a declared zero-arrow formula and two supported formulas with equal
+symbol/argument bags but different isolated vertex assignments. Demonstrate
+exact reconstruction even for a rejected encoding. Retain the existing ordered
+binding, zero-arrow, literal-key and full-binding witnesses and independent
+public imports. Run the full validation, kernel, axiom and layer checks.
 
 Covers:
 - `intent~formalization-foundation~1`

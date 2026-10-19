@@ -14,7 +14,7 @@ with reusable foundations supporting structural Clafer. The repository
 | Layer | Delivered scope | Boundary |
 | --- | --- | --- |
 | `DPGraph` | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
-| `FormalCD` | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
+| `FormalCD` | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines, restricted realization with exact reconstruction and bounded semantic self-instantiation; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no universal realizability or general primitive-domain realization |
 | `Clafer` | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix 5 MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the [complete telematics fixture](telematics.md) discharges those assumptions for one concrete selected model |
 
 The [source edition and locator convention](sources.md#published-locators-and-legacy-aliases)
@@ -67,10 +67,15 @@ necessary claim lacking adequate primary evidence, as stated in the
 [source disposition](sources.md#project-critical-source-disposition). Stronger
 representations or dependency-enriched signatures require separate authorization.
 
-The [metamodel realization investigation](https://github.com/kbak/clafer-lean/issues/100)
-examines a restricted encoding theorem using the
-[original Alloy translational semantics, pinned compiler evidence and Diskin's theory](sources.md#metamodel-realization-and-translational-semantics).
-Its proposed contract adds no delivered realization or self-instantiation result.
+The [metamodel realization contract](metamodel-realization.md) gives a canonical
+encoding that satisfies Figure 21c exactly when declared formulas have positive
+arrow support and symbol-plus-argument bags separate their full bindings. The
+encoding reconstructs the complete raw CD using explicit descriptor and mode
+data. The particular metamodel meets both hypotheses and thus has a bounded,
+context-dependent semantic self-instance. These results leave general
+Compile/gluing preservation separate; the
+[original Alloy translation, compiler and Diskin assessment](sources.md#metamodel-realization-and-translational-semantics)
+retains their source differences and unresolved historical identities.
 
 Exclude production instance generation, general Alloy/SMT/SAT integration,
 production runtime configuration management, Claferize, post-2014 extensions,
@@ -117,6 +122,7 @@ numbers and ticket chains must not substitute for an explanation.
 | [Requirements](spec.md) | Normative promises, acceptance obligations and stable OFT IDs |
 | [Architecture](architecture.md) | Representation choices, module boundaries, roadmap and theorem status |
 | [Source map](sources.md) | Paper correspondence, immutable source citations, decisions and audit limits |
+| [Metamodel realization](metamodel-realization.md) | Exact restricted theorem, reconstruction, source-to-obligation comparison and bounded semantic self-instantiation |
 | [Paper companion](sosym-errata.md) | Concise corrections and clarifications for SoSyM readers |
 | [DPGraph](dpgraph-trace.md), [FormalCD](formalcd-trace.md) and [Clafer](clafer-trace.md) traces | Named implementation/proof artifacts and actual Lean declarations |
 | [Constraint preservation](constraint-preservation.md) | Derived predicate meanings, exact binding/label transport and selected whole-model correspondence |

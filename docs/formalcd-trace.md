@@ -411,3 +411,104 @@ checks include the new modules and preserve all existing regressions.
 
 Covers:
 - `req~formalcd-vc-witnesses~1`
+
+## Restricted realization and reconstruction data
+
+`impl~formalcd-realization-data~1`
+
+[Realization/Encoding.lean](../FormalCD/Metamodel/Realization/Encoding.lean):
+`Realization.Declared`, `Ambient`, `extent`, `vertices`, `arrows`, `formulas`,
+`symbols`, `arguments`, `encode`, `names`, `Supported`, `SameArguments`, `Separated`.
+[Context.lean](../FormalCD/Metamodel/Realization/Context.lean): `arities`,
+`argumentIndex`, `descriptor`, `context`.
+[Reconstruction.lean](../FormalCD/Metamodel/Realization/Reconstruction.lean):
+`ModeData`, `modes`, `decodeRaw`. All `Realization` names are under
+`FormalCD.Metamodel`. The [contract](metamodel-realization.md) specifies the
+bounded extents and explicit side data; no constructor takes target satisfaction.
+
+Covers:
+- `req~formalcd-metamodel-realization~1`
+
+## Restricted realization and reconstruction proofs
+
+`proof~formalcd-realization-laws~1`
+
+[Context.lean](../FormalCD/Metamodel/Realization/Context.lean):
+`argumentIndex_target`, `context_describe`, `arity_discipline`, `name_square`,
+`name_discipline`, `satisfies_names`, `satisfies_arities`.
+[Correctness.lean](../FormalCD/Metamodel/Realization/Correctness.lean):
+`function_bag`, `family_bag`, `total_args_iff`, `args_bags`, `pred_bags`,
+`literal_key_iff`, `classifiers_cover`, `classifiers_disjoint`,
+`predefined_cover`, `predefined_disjoint`, `other_declarations`, `model_iff`,
+and the satisfaction field of `model` prove the exact characterization.
+[Reconstruction.lean](../FormalCD/Metamodel/Realization/Reconstruction.lean):
+`candidate_roundtrip`, `decoded_declarations`, `decode_encode` recover full raw
+syntax even when support or separation fails. These names are in
+`FormalCD.Metamodel.Realization`. The existing bag key, isolated vertices,
+argument totality, source defaults and independent universes are retained.
+
+Covers:
+- `req~formalcd-metamodel-realization~1`
+
+## Particular semantic self-instantiation data
+
+`impl~formalcd-self-instance-data~1`
+
+[Self.lean](../FormalCD/Metamodel/Realization/Self.lean): `arityEdges`,
+`arityFinite`, `symbolCode`, `fingerprint`, `effectiveFormulasEquiv`,
+`formulaObjectsEquiv`, `argumentLinksEquiv`, `selfModel` are under
+`FormalCD.Metamodel.Realization.Self`. The declaration-specific support
+fingerprint is used only to prove separation, not as the meaning of generic key.
+
+Covers:
+- `req~formalcd-metamodel-self-instance~1`
+
+## Particular semantic self-instantiation proofs
+
+`proof~formalcd-self-instance-laws~1`
+
+[Self.lean](../FormalCD/Metamodel/Realization/Self.lean): `arityEdges_complete`,
+`arityEdges_nodup`, `fingerprint_injective`, `fingerprint_eq`,
+`metamodel_supported`, `metamodel_separated`, `declaration_injective`,
+`thirty_formula_objects`, `forty_six_argument_links`, `self_instantiation`,
+`self_reconstruction` are under `FormalCD.Metamodel.Realization.Self`.
+These establish all thirty interpreted declarations under `context diagram`,
+with exact syntax reconstruction and a finite formula/link inventory. They do
+not claim a finite String/Signature domain, source satisfiability, arbitrary
+primitive-domain realization or universal every-CD realizability.
+
+Covers:
+- `req~formalcd-metamodel-self-instance~1`
+
+## Canonical realization boundary data
+
+`impl~formalcd-realization-boundary-data~1`
+
+[Examples.lean](../FormalCD/Metamodel/Realization/Examples.lean): `sourceGraph`,
+`positionGraph`, `vocab`, `registry`, `fixture`, `binding`, `repeated`, `positive`,
+`zeroFormula`, `zero`, `collision` are under
+`FormalCD.Metamodel.Realization.Examples`. The positive formula has two repeated
+argument images and an isolated vertex; collision varies that vertex alone.
+
+Covers:
+- `req~formalcd-realization-boundaries~1`
+
+## Canonical realization boundary proofs
+
+`proof~formalcd-realization-boundary-laws~1`
+
+[Examples.lean](../FormalCD/Metamodel/Realization/Examples.lean):
+`positive_supported`, `positive_separated`, `positive_model`,
+`repeated_occurrences`, `positions_distinct`, `repeated_args_not_setValued`,
+`isolated_binding_retained`, `reserved_unrealized`, `repeated_names_distinct_objects`,
+`parallel_maps_distinct`, `empty_model`, `zero_not_model`, `collision_supported`,
+`collision_not_separated`, `collision_not_model`, `rejected_syntax_roundtrip`
+are under `FormalCD.Metamodel.Realization.Examples`.
+[formalcd_imports.lean](../tests/formalcd_imports.lean) exercises the independent
+universe-polymorphic characterization/reconstruction and public self-instance
+API while rejecting acceptance-example imports. Existing ordered-binding and
+zero-arrow rejection proofs remain unchanged; the full shared module build,
+axiom audit and kernel replay discover both those witnesses and these modules.
+
+Covers:
+- `req~formalcd-realization-boundaries~1`
