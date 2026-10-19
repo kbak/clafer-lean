@@ -298,6 +298,130 @@ preserves that meaning and states the additional hypotheses explicitly.
 Precomposition reduct laws remain as
 proved; any future inferred declarations need their own soundness argument.
 
+### Metamodel realization and translational semantics
+
+The [realization investigation](https://github.com/kbak/clafer-lean/issues/100)
+separates faithful encoding of CD syntax, semantic self-instantiation of the
+particular metamodel, and source-language preservation through Compile/gluing.
+The [restricted theorem](metamodel-realization.md) constructs the exact syntax
+encoding, characterizes satisfaction by two source hypotheses, and proves
+reconstruction and the particular metamodel's self-instance. These are derived
+Lean results under the existing meanings, not verbatim paper theorems. The
+[literal-key and total-args counterexamples](#literal-key-total-args-and-the-19-obligation)
+continue to obstruct unrestricted realizability.
+
+Clafer's original formal semantics was defined through translation to Alloy;
+the early [CS886 report](https://gsd.uwaterloo.ca/sites/default/files/cs886report.pdf),
+§4, PDF p.8, states this explicitly. That historical translation is semantic
+evidence for the language. The [historical recovery below](#historical-translation-evidence)
+identifies printed rules separately from a pinned July 2011 implementation;
+the exact implementation accompanying the earliest reports remains unidentified.
+The current
+[compiler comparison](resolved-ir-comparison.md#source-identities-and-audit-boundary)
+pins `15adb2216909421bcb5022174d2d84ef2b42307c`; it does not identify the original
+translation. Compare generated constraints and their relational meaning
+separately from bounded Analyzer search. A disagreement can expose a Lean
+omission, a paper ambiguity, language evolution or a compiler defect; choosing a
+correction requires evidence and review. SoSyM remains this repository's selected
+semantic reference, with its accepted corrections.
+
+At that compiler pin, `Intermediate/Intclafer.hs` retains ordered operands in
+`IFunExp`, typed expression containers and global/local bindings.
+[`Intermediate/ResolverName.hs`](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Intermediate/ResolverName.hs)
+supplies constraint context and lexical resolution; `Generator/Alloy.hs`
+generates expressions using the resolved path and environment. These static
+observations guide checks of repeated/swapped operands, binder domains,
+inherited navigation and constraints without navigation. They neither identify
+an expression operand list with a DP-graph argument bag nor establish runtime
+compiler correctness. The existing finite comparison fragment excludes user
+expressions; extending it needs its own contract.
+
+For the theoretical comparison, the inspected 2007 Wolter–Diskin report's
+§5 Definition 14 and Remark 8 distinguish persistent model extension from
+restriction and explain why noninjective identifications need semantic
+agreement. The [2008 comparison above](#generalized-sketches-and-model-reduct-coherence)
+supplies dependency consistency and typed-instance coherence obligations;
+Example 4.8's total single-valued key remains a restricted comparison with our
+bag-sensitive key. These statements inform the restricted hypotheses, without
+proving an adapter between the model representations or changing Figure 21c.
+The historical PDFs below have acquired file identities and bounded inspected
+sections. The Diskin browser renderings remain inspected locators without a
+complete PDF hash or full-paper audit.
+
+### Historical translation evidence
+
+These sources recover actual early encoding choices, not just the statement that
+Clafer translated to Alloy. Acquired files remain external; no publication text,
+figures or historical compiler code is incorporated into the repository.
+
+| Source identity | Inspected evidence and boundary |
+| --- | --- |
+| Bąk–Lotufo, [CS886 report](https://gsd.uwaterloo.ca/sites/default/files/cs886report.pdf), 25 pages; SHA-256 `1ead8b06659ca8f190519dac6987226dfa76b23f30cf9f3dbc32e4a4d1d9d561` | §4, PDF p.8 identifies translation as formal semantics. PDF creation metadata says 2010-04-27; this is an artifact date, not an authenticated translator release. |
+| Bąk, [CS846 report](https://gsd.uwaterloo.ca/sites/default/files/cs846report.pdf), 9 pages; SHA-256 `7f7c4d7c41264f233e469bfa816c876508bb1a6951ee2ab05eff319f0849b474` | §4.2–4.4/Figures 11–13, PDF pp.5–7: common clafer supertype, parent relations, abstract exclusions, resolved `this` navigation, references, groups and primitive wrappers. Creation metadata says 2010-06-29. The printed generated model is recovered evidence; no matching source commit is established. |
+| Bąk, [CS744 report](https://gsd.uwaterloo.ca/sites/default/files/cs744report.pdf), dated 2011/7/26, 10 pages; SHA-256 `6b170250a8fdf59d9ff4a2875eb55a0f3aeca2dcd3766db96cb467acc6ce0ad6` | §2.3, pp.3–4 separates encoding from scope-bounded search. §3.1–3.7, pp.4–8 compares name resolution, inheritance, ownership, cardinality, primitive and reference optimizations. §4.4, p.9 explicitly leaves possible configuration-semantics changes as a validity concern. It supplies no general optimization-preservation proof. |
+
+The [June 2010 translator announcement](https://gsd.uwaterloo.ca/node/225.html)
+links the [original source directory](http://gsd.uwaterloo.ca/clafer/src);
+its HTTPS route returns 404. The inspected GitHub default-branch history query yielded no commit before
+2010-06-09. These routes do not identify that original implementation; this is
+an acquisition gap, not evidence that the code never existed.
+
+The [July 2011 release announcement](https://gsd.uwaterloo.ca/node/378.html)
+links the optimization report and GitHub. A contemporaneous source snapshot is
+[`gsdlab/clafer@18ce83101afdc1cb98bf1288fa0ed5d69ecafd88`](https://github.com/gsdlab/clafer/tree/18ce83101afdc1cb98bf1288fa0ed5d69ecafd88),
+committed 2011-07-26; acquired archive SHA-256
+`1c26168f0875c1a4f020a248c217e1237314fbb0b6b1ef25dcd2479b6f76ab1f`.
+This is an independently pinned historical implementation, not a proven match
+to the April/June 2010 translator or to every report example. The inspected
+source headers license it under **LGPL-3.0-or-later**; the current audited
+`15adb221…` pin is MIT. Do not apply the later license to the earlier code.
+
+The following are static observations, not executed expression comparisons.
+The existing full validation separately exercises the current compiler's guarded
+structural fragment; it does not execute these historical or expression cases:
+
+| Historical source at `18ce831…` | Observation relevant to a proof contract |
+| --- | --- |
+| [`src/Generator/Alloy.hs`](https://github.com/gsdlab/clafer/blob/18ce83101afdc1cb98bf1288fa0ed5d69ecafd88/src/Generator/Alloy.hs), `genClafer`, `claferDecl`, `genRelations`, `isRef` | Non-overlapping super relations generate `extends`. Nested leaf references can become direct fields with no separate occurrence signature; other reference clafers retain a ref relation. |
+| Same file, `genConstraints`, `genParentConst`, `genOptParentConst`, `genGroupConst` | User, parent, group and reference-path constraints are explicit generators. Parent cases depend on global cardinality; an empty child inventory skips group generation. |
+| Same file, `genLExp`, `genCmpExp`, `genNumExp`, `genDecl`, `genAExp` | Operand order, integer literals and quantified domains survive structurally. Mixed set/arithmetic comparison has special cases; the source itself flags complex expressions as problematic. This warrants a regression investigation, not a general correctness claim. |
+| [`src/Intermediate/ResolverName.hs`](https://github.com/gsdlab/clafer/blob/18ce83101afdc1cb98bf1288fa0ed5d69ecafd88/src/Intermediate/ResolverName.hs), `resolveTerm`, `processDecl`, `resolveBind` | Domains resolve before a binding is pushed; sequential declarations extend the environment; newest matching local binding is selected first. Context and namespace identity are not recovered from an argument bag. |
+| [`src/Intermediate/Intclafer.hs`](https://github.com/gsdlab/clafer/blob/18ce83101afdc1cb98bf1288fa0ed5d69ecafd88/src/Intermediate/Intclafer.hs) | Distinct constructors carry ordered comparison/arithmetic operands, declarations and relational navigation. This predates the later `PExp` representation. |
+
+### Named comparisons and unresolved differences
+
+These are source-derived examples and proposed comparison cases, not executed
+Alloy witnesses. They inform the [proof obligations](metamodel-realization.md#source-to-obligation-comparison)
+without extending the existing finite comparison harness to expressions.
+
+| Case | Historical/current evidence versus the Lean contract | Disposition |
+| --- | --- | --- |
+| `P(a,b)` and `P(b,a)`, same symbol, unequal full bindings | Historical ordered AST constructors and current `IFunExp` retain positions. SoSyM B.4 Definition 8 retains the binding; Figure 21c's accepted bag key forgets positions. | Paper-level representation ambiguity/limitation, already exposed by `ordered_literal_key_fails`; require separation among declared formulas. Operand order alone does not prove an expression-to-DP encoding. |
+| `[1 = 1]` without navigation | Historical `IEInt`/`genAExp` and current `IInt`/`genPExp'` impose no generator requirement for a navigation edge. Generic DP formulas permit zero arrows; Figure 21c total args and structural Compile's positive support do not. | Deliberate restriction in Lean's current bridges, not a language-wide prohibition. Whole-pipeline acceptance of this source text was not run. |
+| Equal arrow bags, different isolated vertex bindings | B.4's full definition retains vertices; its arrow shorthand has extra hypotheses. Neither translator's expression syntax establishes injectivity of this projection. | Existing formalization preserves the distinction; `Separated` rejects the conflicting declared pair even when another arity arrow makes args total. |
+| Two reference occurrences at the same target | The 2011 leaf-reference optimization uses a binary relation; current reified references and `genSetUniquenessConstraint` distinguish occurrences from set-reference uniqueness. Lean counts occurrence heads and keeps bag links. | Representation/feature evolution to investigate by fragment and mode; direct relational storage cannot retain duplicate identical tuples. Never infer bag identity from an optimized field. |
+| Nested binder reuses a name; a later domain refers to an earlier binder | Both inspected resolver versions push bindings after resolving their domains. Current `SEnv`, `processDecl`, `resolveBind` and `genDecl` retain lexical context. Lean uses explicit typed binders. | Static alignment of mechanism, not an alpha-equivalence or shadowing correctness theorem. Fresh executable witnesses need a separate expression relation. |
+| Inherited context and an explicit replacement group bound | CS846 §4.3 describes replacement of inherited group bounds. The selected [group contract](group-compilation.md) retains its own inherited/effective policy; current `findHierarchy`/`genGroupConst` supply separate evidence. | Possible language evolution or early-report ambiguity; do not infer one policy from another version. Review a concrete differing-bound example before changing the contract. |
+| Positive group lower bound with no children | Both inspected generators skip empty groups; the adopted Lean contract counts literal zero. | Retained deliberate departure, already recorded in the group contract; unrelated to repairing total args. |
+| Two component versions required to differ | CS846 Figure 13 uses one integer wrapper shared through version fields. CS744 §3.6 shows changed primitive storage; current code uses Int/ref paths, while Lean's selected contract uses mathematical Int and explicit singleton extraction. | The printed early encoding cannot supply two independent version values through that wrapper. Possible early limitation/report or compiler defect plus later evolution; no unbounded-integer equivalence follows from Analyzer results. |
+
+For current expression handling, immutable loci are
+[`Intclafer.hs`](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Intermediate/Intclafer.hs#L175-L228),
+[`ResolverName.hs`](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Intermediate/ResolverName.hs#L143-L169),
+and [`Alloy.hs`](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Generator/Alloy.hs#L425-L562).
+`_pid` identifies an expression occurrence where supplied, not its denotation;
+`ClaferBinding` distinguishes global UID, local name and unresolved data.
+`adjustPExp`/`genDecl` route navigation with the active path; this inspection does
+not certify every inherited binder-domain adjustment. Repeated operands such
+as `x + x`, swapped subtraction operands and shadowed names must remain distinct
+test obligations if a future executable comparison is authorized.
+
+The recovered material is sufficient to formulate the restricted syntax theorem;
+it does not settle historical source-language equivalence. The original source
+snapshot, historical integer/overflow settings, and executed expression witnesses
+remain explicitly unestablished. No disagreement above authorizes a semantic
+change to Lean, a key reinterpretation, or a new predicate dependency.
+
 ### Project-critical source disposition
 
 Research follows the claims needed by an increment, using accessible primary
@@ -505,7 +629,7 @@ source gaps. Keep the original issue discussions as the decision history.
 | Q2 — Appendix 5 analogous clauses | Accepted: incidence/naming equations apply only to present roles; existing Shape rules separately require or forbid each role. The analogous expansion includes Sing/root, every supported primitive domain, the accepted parentless exception and both directions of canonical naming equivalences. | The [complete Table 5–8 inventory](mcs-invariants.md#appendix-e-inventory) enumerates the guards. The inventory links definitions and positive/negative witnesses; the accepted Figure 23 multiplicity correction is [Q9](mcs-invariants.md#figure-23-source-multiplicity-correction). |
 | Q3 — Appendix 4 notation | Resolved for the selected core: ordinary common-element intersection is already printed as ∩ in D.4.2. D.4.1 equates E and S on set expressions, reconciling the mixed subscripts. D.1–D.3 govern typing; the implementation boundary is enumerated below. | [Core constraint typing](spec.md#resolved-core-constraint-typing) supplies typed syntax and explicit inheritance paths. The [denotation extension](constraint-denotation.md) supplies independent core meanings, local finite cardinality and the [singleton-extraction bridge](integer-extraction.md); no compiler-preservation theorem follows from a signature. |
 | Q4 — labels and identity | Accepted MCS representation: preserve role identities separately from resolved class/map referents and displayed names, and state the identity level of cojoining equalities. Repeated parent/dref/isA strings do not identify arrows. Approved [Q4](sources.md#mcs-gluing-and-the-approved-q4-rule): identify exactly equal class/map referents; equal map referents require equal endpoint class referents, and identified roles require equal names, predefined identities/kinds and modes. Reject conflicts. | The [MCS representation](mcs-invariants.md) retains the data needed for intended identifications and repeated-name witnesses; [resolved-referent gluing](architecture.md#mcs-gluing) implements this congruence and proves endpoint/declaration preservation, then separate CD validity under explicit default assumptions. [Structural Compile](compile.md) retains generated identities. Existing `FormalCD` names remain metadata. |
-| Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | The [bounded self-description proof](formalcd-trace.md#bounded-syntactic-self-description-proof) establishes representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
+| Q5 — self-description | Bounded syntactic representation and a separate restricted semantic self-instance are delivered. Universal every-CD realizability and a universe fixpoint remain outside scope. | The [bounded self-description proof](formalcd-trace.md#bounded-syntactic-self-description-proof) establishes representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. The [realization contract](metamodel-realization.md) supplies explicit source support/separation and proves the particular self-instance without changing those limits. |
 | Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Visual inspection alone does not replace a construct-by-construct inventory. | The [supporting-source assessment issue](https://github.com/kbak/clafer-lean/issues/41) records the bounded assessment and reviewed source disposition. The [syntax correspondence](#resolved-2014-clafer-and-individual-shapes), [MCS inventory](mcs-invariants.md) and [representative coverage](representative-models.md) pair Figures 16/22/23 and Appendix 6 with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
 | Q7 — VC order and guard | Accepted: display.version ≥ server.version, guarded by a nonempty server fiber. Contrary adjacent PDF p.18 prose is the discrepancy. | The [guarded correspondence and whole-model proofs](#figure-21b-and-the-accepted-q7-correction) establish these cases: greater/equal pass, lower fails VC, absent server passes. No remaining implementation task for this correction. |
 | Q8 — disjointness shape | Accepted: §6.1.2/Figure 21 common-target maps with nonoverlapping images; Table 3's common-source shape is erroneous. | The [predicate proofs](dpgraph-trace.md#corrected-disjointness-proofs) establish typed arity, interpretation and overlap/repeated-nonempty-binding failures. [Contract below](#predicate-contracts-and-the-accepted-q8-correction); no second predicate or source-object inequality. |
@@ -801,8 +925,10 @@ The ordered/isolated span witnesses are projections of the displayed full
 bindings. They are not asserted to be full Figure 21c models. `fragmentModel`
 checks an explicit declaration fragment; the separate name witnesses check nd.
 The metamodel `diagram` is syntactically well-formed, which does not assert its
-own semantic satisfaction. No whole-metamodel or universal every-CD-is-an-instance
-theorem is claimed.
+own semantic satisfaction. The separate
+[canonical realization](formalcd-trace.md#particular-semantic-self-instantiation-proofs)
+proves whole-metamodel satisfaction under `context diagram`; no universal
+every-CD-is-an-instance theorem is claimed.
 
 The total bullet on args excludes an empty outgoing fiber for a realized formula.
 Zero-arrow arities (with isolated vertices) remain valid generic formulas but

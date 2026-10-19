@@ -27,6 +27,7 @@ run_cmd do
         (`FormalCD.Metamodel.Examples).isPrefixOf name ||
         (`FormalCD.Metamodel.InterpretationExamples).isPrefixOf name ||
         (`FormalCD.Metamodel.NameExamples).isPrefixOf name ||
+        (`FormalCD.Metamodel.Realization.Examples).isPrefixOf name ||
         (`FormalCD.Telematics.Examples).isPrefixOf name then
       throwError "independent FormalCD entrypoint imported {name}"
 
@@ -59,6 +60,12 @@ example : f.comp (HomOver.id B) = f := HomOver.comp_id f
 example : (f.comp g).toDPHom = f.toDPHom.comp g.toDPHom := rfl
 example (m : J.Model C.toDPGraph) :
     (f.comp g).reduct J m = f.reduct J (g.reduct J m) := HomOver.reduct_comp J f g m
+open FormalCD.Metamodel Realization in
+example : (interpretation (context A)).IsModel diagram.toDPGraph (encode A) ↔
+    Supported A ∧ Separated A := model_iff A
+
+open FormalCD.Metamodel.Realization in
+example : decodeRaw (encode A) (context A) (modes A) = A.toRawOver := decode_encode A
 end Extended
 
 #check FormalCD.bounded_self_description
@@ -69,3 +76,8 @@ end Extended
 #check FormalCD.Telematics.builtins_unchanged
 #check FormalCD.Telematics.twelve_effective_formulas
 #check FormalCD.Telematics.declared_vc_iff_guarded
+
+#check FormalCD.Metamodel.Realization.Self.self_instantiation
+#check FormalCD.Metamodel.Realization.Self.self_reconstruction
+#check FormalCD.Metamodel.Realization.Self.thirty_formula_objects
+#check FormalCD.Metamodel.Realization.Self.forty_six_argument_links
