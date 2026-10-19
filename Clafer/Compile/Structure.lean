@@ -255,6 +255,14 @@ noncomputable def labels (i : Input a) : Labels (V := a.Occurrence) (family i) w
       | .target => (family i).name c ++ "*"
     | .inclusion _ => "isA"
 
+/-- The canonical primitive names in Appendix E Table 8 distinguish domains. -/
+private theorem primitive_name_injective : Function.Injective PrimitiveDomain.name := by
+  intro d e h
+  cases d <;> cases e <;> simp_all [PrimitiveDomain.name]
+
+private theorem primitive_name_ne_sing (d : PrimitiveDomain) : d.name ≠ "Sing" := by
+  cases d <;> decide
+
 theorem naming (i : Input a) : (labels i).WellFormed (roles i) where
   head_name _ := rfl
   ordinary_name _ _ := rfl
@@ -268,7 +276,7 @@ theorem naming (i : Input a) : (labels i).WellFormed (roles i) where
       | syntheticRoot => rfl
       | primitive d =>
         have hp := (i.ast.primitive_shape _ (List.getElem_mem _) d ho).2.2.2
-        cases d <;> simp_all [PrimitiveDomain.name, AST.at]
+        exact (primitive_name_ne_sing d (hp.symm.trans hn)).elim
       | user => exact (i.user_names _ (List.getElem_mem _) ho (Or.inl hn)).elim
   primitive_iff c d := by
     change (a.at c).declaration.origin = .primitive d ↔ (a.at c).declaration.name = d.name
@@ -278,10 +286,10 @@ theorem naming (i : Input a) : (labels i).WellFormed (roles i) where
       cases ho : (a.at c).declaration.origin with
       | syntheticRoot =>
         have hr := i.root_name _ (List.getElem_mem _) ho
-        cases d <;> simp_all [PrimitiveDomain.name, AST.at]
+        exact (primitive_name_ne_sing d (hn.symm.trans hr)).elim
       | primitive e =>
         have hp := (i.ast.primitive_shape _ (List.getElem_mem _) e ho).2.2.2
-        cases d <;> cases e <;> simp_all [PrimitiveDomain.name, AST.at]
+        exact congrArg Origin.primitive (primitive_name_injective (hp.symm.trans hn))
       | user => exact (i.user_names _ (List.getElem_mem _) ho (Or.inr ⟨d, hn⟩)).elim
 
 /-- Every accepted declaration occurs exactly once among the generated heads. -/

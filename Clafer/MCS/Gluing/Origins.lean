@@ -26,6 +26,11 @@ def originAnnotation : Origin → Option registry.Id
   | .primitive d => some (.primitive d)
   | .user => none
 
+/-- The §6.1 / Table 8 annotation retains the semantic origin, including users. -/
+private theorem originAnnotation_injective : Function.Injective originAnnotation := by
+  intro x y h
+  cases x <;> cases y <;> simp_all [originAnnotation, registry]
+
 variable {C V : Type} {f : Family C} {r : Roles C V f} {l : Labels (V := V) f}
 
 /-- Cojoining's head bijection identifies the semantic owner of each class role. -/
@@ -46,22 +51,16 @@ theorem naming_of_valid {σ : DPGraph.Signature.{0,0,0}} {d : Formulas r σ}
     intro v i hi
     obtain ⟨c, rfl⟩ := hv.cojoining.head_bijective.2 v
     rw [annotations_head] at hi
-    cases ho : f.origin c with
-    | user => simp [ho, originAnnotation, registry] at hi
-    | syntheticRoot =>
-      have he : i = .sing := Option.some.inj (by simpa only [ho, originAnnotation] using hi.symm)
-      subst i
-      exact (hv.naming.sing_iff c).mp ho
+    cases i with
+    | sing =>
+      exact (hv.naming.sing_iff c).mp (originAnnotation_injective hi)
     | primitive dom =>
-      have he : i = .primitive dom := Option.some.inj (by simpa only [ho, originAnnotation] using hi.symm)
-      subst i
-      exact (hv.naming.primitive_iff c dom).mp ho
+      exact (hv.naming.primitive_iff c dom).mp (originAnnotation_injective hi)
   user_name := by
     intro v hi
     obtain ⟨c, rfl⟩ := hv.cojoining.head_bijective.2 v
     rw [annotations_head] at hi
-    have ho : f.origin c = .user := by
-      cases he : f.origin c <;> simp_all [originAnnotation, registry]
+    have ho : f.origin c = .user := originAnnotation_injective hi
     rintro ⟨i, he⟩
     cases i with
     | sing => exact (reserved_names_exclude_users hv.naming ho).1 he.symm
@@ -74,16 +73,12 @@ theorem naming_of_valid {σ : DPGraph.Signature.{0,0,0}} {d : Formulas r σ}
     have hc : c = c' := by
       cases i with
       | sing =>
-        have h₁ : f.origin c = .syntheticRoot := by
-          cases he : f.origin c <;> simp_all [originAnnotation, registry]
-        have h₂ : f.origin c' = .syntheticRoot := by
-          cases he : f.origin c' <;> simp_all [originAnnotation, registry]
+        have h₁ : f.origin c = .syntheticRoot := originAnnotation_injective hv'
+        have h₂ : f.origin c' = .syntheticRoot := originAnnotation_injective hw'
         exact ((hv.family.root_origin c).mp h₁).trans ((hv.family.root_origin c').mp h₂).symm
       | primitive dom =>
-        have h₁ : f.origin c = .primitive dom := by
-          cases he : f.origin c <;> simp_all [originAnnotation, registry]
-        have h₂ : f.origin c' = .primitive dom := by
-          cases he : f.origin c' <;> simp_all [originAnnotation, registry]
+        have h₁ : f.origin c = .primitive dom := originAnnotation_injective hv'
+        have h₂ : f.origin c' = .primitive dom := originAnnotation_injective hw'
         exact hv.family.unique_primitive c c' dom h₁ h₂
     subst c'
     rfl
