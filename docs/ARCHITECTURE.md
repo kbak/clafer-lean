@@ -407,10 +407,13 @@ The theorem checks the executable algorithm against independent satisfaction;
 an ordinary native invocation supplies a verdict, not a fresh kernel proof.
 No per-instance proof-certificate or solver theorem is claimed.
 
-The #51–52 external harness location, importer, paired compiler receipts,
-solver/search policy and generation remain deferred. JSON alone does not recover
-authored/default provenance or backend state. Preserve the full pinned validation
-and independent review gates for this executable increment.
+The [#51 importer](resolved-import.md) lives in `Clafer/Verification/Import*.lean`.
+Its fieldwise representation and normalization bridge reuse the effective core
+and checker. External capture and strict protocol scripts live under
+`scripts/verification/`; tests and fixtures live under `tests/`. Same-generation
+receipts retain backend state omitted from JSON. No authored/default provenance
+is reconstructed. Solver/search integration remains #52. Full pinned validation
+and independent semantic review apply to the importer.
 
 ## Structural Compile
 

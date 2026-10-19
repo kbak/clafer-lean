@@ -1,0 +1,4 @@
+Target 0..*
+2..3 box
+  child 0..3
+  selected ->> Target 0..2

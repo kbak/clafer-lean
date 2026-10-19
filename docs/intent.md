@@ -59,7 +59,10 @@ and effective bounds without reconstructing authored/default provenance. A suppl
 finite candidate may violate constraints; the checker must distinguish that result
 from malformed or unsupported input and prove agreement with the independent
 structural meaning. Reference occurrences retain identity even at repeated targets.
-The external comparison harness and its location remain deferred to #51–52.
+The [pinned importer](resolved-import.md) lives under `Clafer/Verification/`, with
+same-generation compiler capture under `scripts/verification/` and fixtures under
+`tests/`. It preserves the effective boundary and rejects unsupported source
+features. Solver integration and external comparison remain #52.
 
 The separate [inherited realization extension](inherited-realization.md) supplies
 Appendix F's ordinary field instances, explicit abstract families, restrictions of
@@ -111,7 +114,7 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | [Representative models](representative-models.md) | Checked integration, source/feature coverage and explicit Appendix F omissions |
 | [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix F navigation assumptions |
 | [MCS inventory](mcs-invariants.md) and [Compile contract](compile.md) | Detailed structural clauses and transformation assumptions |
-| [IR comparison contract](resolved-ir-comparison.md) | Proposed comparison domain, compiler audit and remaining prerequisites |
+| [IR comparison contract](resolved-ir-comparison.md) | Accepted comparison domain, compiler audit and remaining prerequisites |
 | [Contributing](../CONTRIBUTING.md), [trace convention](traceability.md) and [maintenance](maintenance.md) | Setup/checks, evidence links and repository administration |
 | [Historical change records](changes/) | Retained accepted scopes and plans; not current architecture or status |
 

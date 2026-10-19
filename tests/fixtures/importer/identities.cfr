@@ -1,0 +1,7 @@
+abstract Base
+abstract Unused
+left
+  same : Base 0..2
+right
+  same 0..*
+  links ->> Base 0..3

@@ -1151,6 +1151,72 @@ for the omitted constraints' proofs.
 Covers:
 - `req~clafer-representative-coverage~1`
 
+## Resolved compiler import and capture
+`impl~clafer-resolved-import~1`
+
+[Import.lean](../Clafer/Verification/Import.lean) supplies `Row`, `Input.normalize`,
+`Represents`, `bindingChecks`, `admit`, `UidCandidate.translate` and the UID
+inventory. [ImportMain.lean](../Clafer/Verification/ImportMain.lean) provides the
+native JSON boundary. [The external decoder](../scripts/verification/protocol.py)
+checks pinned IR/receipt schemas, identities, metadata and the guarded fragment;
+[capture.py](../scripts/verification/capture.py) connects it to Lean admission.
+The [import guide](resolved-import.md) states the unproved byte-decoding boundary.
+
+Covers:
+- `req~clafer-resolved-import~1`
+
+### Imported representation and semantic correspondence
+`proof~clafer-import-correspondence~1`
+
+[ImportProofs.lean](../Clafer/Verification/ImportProofs.lean) proves
+`representation_unique`, `normalization_correspondence`, `imported_check_correct`,
+`imported_verify_correct`, `lookup_sound`, `classId_represents` and
+`translate_represents`. `Accepted.uid_identity` in Import.lean retains distinct
+UIDs independently of repeated names; `Accepted.wellFormed` and
+`Accepted.supported` derive the semantic hypotheses from checked data.
+`CandidateRepresents` relates every original candidate row, object label and
+endpoint to its finite-ID translation, retaining reference occurrences.
+These results compose with #50's independent structural meaning and selected
+compiled-bank/span interpretation. They do not prove the external parser or
+upstream compiler transformations correct.
+
+Covers:
+- `req~clafer-resolved-import~1`
+
+### Same-generation capture implementation
+`impl~clafer-compiler-capture~1`
+
+[Export.hs](../scripts/verification/Export.hs) performs the source/token audit,
+analysis and paired generation in one compiler environment. The
+[builder](../scripts/verification/build.py) checks pinned original sources and
+records build identities. [protocol.py](../scripts/verification/protocol.py)
+checks consumed-map projection/registry, backend ownership/processing, options,
+explicit bounds and artifact hashes. [capture.py](../scripts/verification/capture.py)
+retains source and original JSON/Alloy with the common manifest and receipt.
+[runtime.py](../scripts/verification/runtime.py) prepares or checks that exporter
+for the shared validation command, retaining its build outside captured source.
+
+Covers:
+- `req~clafer-compiler-capture~1`
+
+### Import and capture acceptance assertions
+`utest~clafer-resolved-import~1`
+
+[Python tests](../tests/test_resolved_import.py) execute actual pinned captures,
+replay the emitted bundles through Lean admission and mutate schemas, bindings,
+cards, source constructors, options and receipts. [Lean tests](../tests/resolved_import.lean)
+exercise kernel/native admission and identity witnesses in
+[ImportExamples.lean](../Clafer/Verification/ImportExamples.lean), including
+repeated names, reference modes and repeated-target occurrences.
+[Runtime setup tests](../tests/test_capture_runtime.py) check fresh provisioning,
+cache invalidation, explicit producer settings, hash failures and child-process
+environment/status propagation. [Runner tests](../tests/test_check_script.py)
+check setup ordering and failure propagation through the shared validation gates.
+
+Covers:
+- `req~clafer-resolved-import~1`
+- `req~clafer-compiler-capture~1`
+
 ## Complete Appendix F resolved model
 `impl~clafer-appendix-f-complete~1`
 

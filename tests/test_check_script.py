@@ -30,6 +30,10 @@ if [[ "$1" == scripts/project_modules.py ]]; then
   printf '%s' "$PREFETCH_MODULES" > .lake/validation/mathlib-imports.txt
 fi
 if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
+if [[ "$1" == scripts/verification/runtime.py ]]; then
+  shift
+  "$@"
+fi
 '''
             for name in ("python3", "lake"):
                 path = root / "bin" / name
@@ -52,6 +56,7 @@ if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
                 self.assertEqual(result.returncode, code, result.stderr)
                 self.assertNotIn("profile", calls)
                 self.assertFalse(any(call.startswith("lake ") for call in calls))
+                self.assertFalse(any("scripts/verification/runtime.py" in call for call in calls))
                 self.assertIn(f"exit {code},", result.stdout)
 
     def test_cache_failure_preserves_every_build_kernel_audit_and_test_gate(self):
@@ -99,6 +104,7 @@ if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
             ("build DPGraph", "leanchecker"),
             ("axiom_audit.lean", "tests/public_imports.lean"),
             ("tests/public_imports.lean", "unittest discover -s tests -v"),
+            ("scripts/verification/runtime.py", None),
             ("unittest discover -s tests -v", None),
         ]:
             with self.subTest(failure=failure):
@@ -108,6 +114,16 @@ if [[ -n "$FAIL_STEP" && "$*" == *"$FAIL_STEP"* ]]; then exit 23; fi
                     self.assertFalse(any(forbidden in call for call in calls))
                 self.assertFalse(any("leanchecker" in call for call in calls))
                 self.assertIn("exit 23,", result.stdout)
+
+    def test_exporter_setup_precedes_python_tests(self):
+        result, calls = self.run_check()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        setup = next(i for i, call in enumerate(calls) if "scripts/verification/runtime.py" in call)
+        self.assertEqual(calls[setup + 1], "lake env python3 -m unittest discover -s tests -v")
+        result, calls = self.run_check(fail="scripts/verification/runtime.py")
+        self.assertEqual(result.returncode, 23)
+        self.assertNotIn("lake env python3 -m unittest discover -s tests -v", calls)
+        self.assertFalse(any("leanchecker" in call for call in calls))
 
 
 if __name__ == "__main__":

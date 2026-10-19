@@ -11,8 +11,9 @@ finite candidates, representation bridges and the verified checker belong in
 this repository under `Clafer/Semantics/` and `Clafer/Verification/`.
 This authorization does not admit X/D language forms, change the selected paper
 semantics, or authorize production parsing, generation, optimization, expressions
-or solver integration. External comparison harness placement and executable
-Alloy policies remain deferred to #51–52. Compiler agreement remains a property
+or solver integration. The [#51 importer and paired capture](resolved-import.md) are authorized in this
+repository under `Clafer/Verification/` and `scripts/verification/`, with fixtures
+under `tests/`. Executable solver/comparison policies remain #52. Compiler agreement remains a property
 to investigate, not the definition of structural satisfaction.
 
 Covers:
@@ -37,8 +38,10 @@ Later revisions require a new matrix audit, even if a version string is unchange
 
 The compiler is supplementary implementation evidence. Its [MIT license][license]
 was inspected (Generative Software Development Lab, 2012–2019; Intelligent
-Systems Development Lab, 2019–2023). No compiler code, fixture contents or paper
-figures are copied here. Fixture names below are citations, not executed tests.
+Systems Development Lab, 2019–2023). The importer fixtures retain the upstream MIT license; the capture builder
+retains the license in its external observational generator copy. The original
+#49 fixture inventory is source analysis; actual #51 executions are described in
+[the import protocol](resolved-import.md). No paper figures are copied.
 The relevant paper text and the existing accepted figure/correction audit were
 cross-checked against the declarations listed below; this is not an audit of
 every compiler feature or a fresh visual audit of the whole paper.
@@ -187,7 +190,7 @@ Alloy independently of JSON. `CompilerResult` contains scopes, stringMap and
 source mappings not carried by the JSON output. `genModule` further creates
 field names, inheritance facts, group-child unions and cardinality optimizations.
 
-The minimal **proposed extra export** is a same-generation receipt with:
+The required extra export, implemented by [the #51 capture adapter](resolved-import.md), is a same-generation receipt with:
 
 1. Exact compiler/build identity, effective options, post-analysis IR hash,
    post-`astrModule` hash, empty string-map result, scopes and output hashes.
@@ -208,7 +211,7 @@ The minimal **proposed extra export** is a same-generation receipt with:
 
 If state cannot be shown irrelevant under this profile or included in the
 receipt, reject the pair. No complete `GEnv`/authored-AST export is assumed to
-exist at the compiler pin; exporting this receipt is future harness work.
+exist at the compiler pin; the #51 capture adapter supplies this receipt.
 
 ## Effective core and the provenance bridge
 
@@ -529,7 +532,7 @@ compiler behavior overrides a current Lean requirement.
 | D4 — inheritance/refinement | Require selected parent/kind rules and the guarded S subset. The separate [#66 extension](inherited-realization.md) restricts existing inherited field maps while preserving equal-parent declaration edges. Compiler parent-subtyping, redefinition and target narrowing remain excluded. | #50 unchanged; #66 preserves the existing input requirement. |
 | D5 — hidden generation state | Same-generation minimal receipt and exact options; unsupported without it. Alternative broader state export needs a versioned schema. | #49; Alloy adapter follow-ups #51/#52 after review. |
 | D6 — group/global obligations | Accepted for #65: abstract groups are inheritable bounds; concrete contexts count the union of own and inherited child heads. Empty inventories count zero, intentionally differing from C3’s skip. The [group compilation contract](group-compilation.md) records the separate generated component and complete bindings. | #50 retains its guarded checker; #65 generates/interprets groups; #66 adds realized ordinary-field groups and inherited map restrictions without changing that policy. |
-| D7 — location and scope | Accepted: reusable semantics, candidates, bridges and checker stay in this repository. No `clafer-compare` repository is created for #50. External harness placement remains deferred. | #50 implements the in-project extension under unchanged full validation; #51–52 own later harness decisions. |
+| D7 — location and scope | Accepted: reusable semantics, candidates, bridges and checker stay in this repository. No `clafer-compare` repository is created for #50. The #51 importer/capture locations are accepted as stated below; solver integration remains #52. | #50 implements the in-project extension under unchanged full validation; #51–52 own later harness decisions. |
 | D8 — structural dependency cut | Accepted guarded S interface: dependencies #3/#16/#17/#20/#21/#22/#23/#49 are complete. Unrelated Lean class extents may overlap; Alloy top-level disjointness is not added. Whole-model interpretation and finite correctness bridges remain #50 deliverables. | #50 owns the complete global structural interpretation; expression evaluation and external comparison remain excluded. |
 
 **Accepted location (D7).** Whole-model structural semantics and effective-core,
@@ -540,8 +543,10 @@ remain in the owning Clafer layer. The repository retains one Lake package and
 The [intent](intent.md), [architecture](ARCHITECTURE.md) and
 [extension requirements](spec.md#effective-structural-core-and-supported-fragment)
 state this boundary. The existing full pinned validation policy is unchanged.
-The location and policies for an external importer, generator, Alloy adapter and
-search/reporting harness remain #51–52 decisions.
+The accepted #51 location is `Clafer/Verification/` for import/validation/bridge,
+`scripts/verification/` for compiler capture/protocol, and `tests/` for fixtures.
+The [import protocol](resolved-import.md) states the implemented boundary and trust
+limits. Generation/search, solver pin/decode and comparison remain #52.
 
 **Whole-model proof obligations.** Existing `AST.WellFormed`, `Shape.diagram`,
 `Shape.raw_wellFormed`, and expression typing from #21 are not a whole-model

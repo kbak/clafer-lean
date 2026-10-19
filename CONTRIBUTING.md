@@ -22,7 +22,9 @@ module boundaries. Use those references when updating summaries, retaining
 artifact IDs, trace links, source citations and existing link destinations.
 
 Install Lean with [elan](https://lean-lang.org/install/), Python 3.11+, Git,
-Java 17+, and the [GitHub CLI](https://cli.github.com/). Then:
+Java 17+, and the [GitHub CLI](https://cli.github.com/). Prepare the
+[pinned importer prerequisites](#pinned-import-validation-prerequisites) for full
+validation. Then:
 
 ```sh
 python3 -m venv .venv
@@ -150,3 +152,19 @@ under their retention policy.
 
 Contributions use the existing [MIT license](LICENSE). Preserve attribution and
 check licenses before incorporating upstream code or publication material.
+
+## Pinned import validation prerequisites
+
+The importer tests execute the pinned Haskell exporter as well as Lean. On Linux
+x86_64, `bash scripts/check.sh` prepares it automatically in an external cache when
+no exporter is configured. Install GMP headers (`libgmp-dev` on Debian/Ubuntu)
+and allow the first build to download the pinned Stack, GHC and dependencies.
+For explicit provisioning, build in external scratch and set `CLAFER_CAPTURE`
+and `CLAFER_CAPTURE_BUILD` as described in
+[the import guide](docs/resolved-import.md#build-and-replay).
+Keep source archives, GHC/Stack caches, binaries and evidence outside the repository.
+Setup failures fail the check; saved JSON fixtures do not substitute for compiler
+execution. The shared check retains all existing module, kernel, axiom, layer and
+independent-import checks.
+CI builds the same exporter from verified source/Stack archives before the check,
+retaining its build identities and log with the validation evidence.

@@ -116,3 +116,10 @@ accepts each mutant. Both kernel witnesses and native assertions detect the
 changed result. Full validation discovers these modules and tests, audits axioms
 and imports, and replays the kernel; [trace artifacts](clafer-trace.md) name the
 actual declarations. Validation evidence and acceptance review remain external.
+
+## Pinned compiler input
+
+The [resolved import protocol](resolved-import.md) connects the pinned compiler
+export to this interface through checked UID indexing and fieldwise representation.
+It derives admission hypotheses and preserves independent structural satisfaction;
+compiler metadata and the unproved parser/capture boundary remain explicit.

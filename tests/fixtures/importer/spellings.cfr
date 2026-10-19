@@ -1,0 +1,4 @@
+Élément 0..*
+box
+  same' 0..*
+  links' ->> Élément 0..*

@@ -2116,6 +2116,65 @@ Covers:
 
 Needs: impl, proof
 
+## Pinned resolved compiler import
+`req~clafer-resolved-import~1`
+
+Implement the authorized #51 importer under `Clafer/Verification/`, reusing the
+accepted #50 effective core, candidate interface and guarded S semantics. Import
+only analyzed JSON from `gsdlab/clafer@15adb2216909421bcb5022174d2d84ef2b42307c`
+under the versioned [import protocol](resolved-import.md). Preserve compiler UIDs
+separately from display names, parent/super/reference identities, effective local
+and group bounds, the exact `-1` unbounded sentinel and set/bag mode. Do not
+fabricate authored/default provenance or enlarge the comparison fragment.
+
+Reject duplicate JSON keys, unknown fields/tags, duplicate/reserved/dangling IDs,
+inconsistent nesting/bindings/type hierarchies, prohibited cycles, missing or
+invalid cards, excluded modifiers and unsupported combinations. Preserve reference
+cycles and repeated names. Reject expressions, assertions, objectives, primitives,
+temporal forms, expression targets and backend escapes; no silent dropping.
+Validate finite UID indexing, bounds, rank and unused-abstract certificates in Lean
+before checking. Preserve candidate object/head occurrence identities and keep
+malformed/unsupported input distinct from semantic violations.
+
+State a fieldwise imported-data representation relation. Prove normalized identity,
+edge/bound/mode preservation and structural-satisfaction correspondence for accepted
+inputs, deriving well-formedness/support from admission. Compose with the existing
+checker correctness and selected interpretation; roundtrips alone do not suffice.
+Keep JSON/parser/capture and runtime assumptions explicit. Supply kernel/native
+witnesses and actual pinned export tests, including repeated names, repeated-target
+bag/set heads, inheritance, nesting/groups, unused abstracts and malformed versions.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof, utest
+
+## Same-generation compiler capture
+`req~clafer-compiler-capture~1`
+
+Provide external capture/protocol scripts under `scripts/verification/` and
+fixtures under `tests/`. Pin compiler source, resolver/dependencies, build tools,
+export schema and effective options. Capture JSON and static Alloy in one analyzed
+compiler invocation, retaining original bytes, common manifest and SHA-256 hashes,
+pre/post-string-pass IR, empty string maps, the actual consumed UID map/fixed
+registry and output symbol/field ownership with backend cardinality processing.
+Reject absent/inconsistent receipts, unsupported options and source forms erased
+by analysis, including enums/initializers/escapes/directives. Require no-string
+input. Validate explicit bounds/root conventions; global cards and inferred scopes
+are not source semantics. Do not claim independently generated outputs are paired.
+
+Use deterministic error categories and replay, actual pinned-compiler execution
+in validation, upstream MIT attribution where material is copied, source matching,
+full pinned Lean/kernel/axiom/layer/import checks and IntentBond with independent
+semantic review before acceptance. Parser/type/optimizer correctness upstream and
+the separately scoped #52 solver/search/pin/decode integration remain outside this claim.
+
+Covers:
+- `intent~formalization-foundation~1`
+- `intent~traceable-contributions~1`
+
+Needs: impl, utest
+
 ## Complete resolved Appendix F integration
 `req~clafer-appendix-f-complete~1`
 
