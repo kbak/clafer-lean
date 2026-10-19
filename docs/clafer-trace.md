@@ -1,8 +1,8 @@
 # Clafer implementation and proof links
 
 These artifacts follow [the Lean trace convention](traceability.md). Source
-locators and the accepted top-level abstract correction are in
-[SOURCES](SOURCES.md#resolved-2014-clafer-and-individual-shapes). All declarations
+locators and the accepted top-level abstract correction are in the
+[source map](sources.md#resolved-2014-clafer-and-individual-shapes). All declarations
 below are in namespace `Clafer`, with witnesses in `Clafer.Examples`. Kernel
 checking establishes the Lean statements; independent review must assess their
 correspondence to the paper and the selected input boundary.
@@ -257,7 +257,7 @@ D.1–D.3 forms. `Expr.widenObjects` and `widenRelation` carry explicit
 `Constraints.Widen` paths from [Support.lean](../Clafer/Constraints/Support.lean).
 No evaluator or semantic preservation theorem is implemented. Integer-only
 arithmetic is an implementation boundary, not a claim that D.3 forbids other
-primitive domains. The Q3 disposition is in [SOURCES](SOURCES.md#appendix-d-rule-dispositions-q3).
+primitive domains. The Q3 disposition is in the [source map](sources.md#appendix-d-rule-dispositions-q3).
 
 Covers:
 - `req~clafer-core-typing~1`

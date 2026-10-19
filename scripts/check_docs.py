@@ -1,4 +1,4 @@
-"""Check local links and heading anchors in living Markdown documentation."""
+"""Check topic filenames, local links and anchors in living documentation."""
 
 from functools import lru_cache
 from pathlib import Path
@@ -10,6 +10,7 @@ from markdown_it import MarkdownIt
 
 
 PARSER = MarkdownIt("commonmark").enable(["table", "strikethrough"])
+TOPIC_NAME = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\.md")
 
 
 @lru_cache(maxsize=None)
@@ -34,8 +35,9 @@ def anchors(path):
 
 def living_documents(root):
     return sorted([*root.glob("*.md"),
-                   *(path for path in (root / "docs").rglob("*.md")
-                     if not path.is_relative_to(root / "docs/changes"))])
+                   *(path for path in (root / "docs").rglob("*")
+                     if path.is_file() and path.suffix.lower() == ".md"
+                     and not path.is_relative_to(root / "docs/changes"))])
 
 
 # [impl->req~lean-validation~1]
@@ -43,6 +45,10 @@ def check(root):
     errors, count = [], 0
     anchors.cache_clear()
     for path in living_documents(root):
+        # [impl->req~public-foundation~1]
+        if path.is_relative_to(root / "docs") and not TOPIC_NAME.fullmatch(path.name):
+            errors.append(f"{path.relative_to(root)}: topic filename must use lowercase "
+                          "ASCII words or numbers separated by hyphens and end in .md")
         for token in PARSER.parse(path.read_text(encoding="utf-8")):
             for child in token.children or []:
                 target = (child.attrGet("href") if child.type == "link_open" else

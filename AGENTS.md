@@ -6,8 +6,8 @@ dependencies `Clafer -> FormalCD -> DPGraph -> Mathlib`. Keep DPGraph independen
 importable and new Lean modules under their owning root.
 
 Read the canonical [intent and documentation map](docs/intent.md),
-[architecture](docs/ARCHITECTURE.md), affected [requirements](docs/spec.md), and
-[source map](docs/SOURCES.md) before extending a layer. They own current scope,
+[architecture](docs/architecture.md), affected [requirements](docs/spec.md), and
+[source map](docs/sources.md) before extending a layer. They own current scope,
 contracts, paper correspondences and accepted corrections. [Roadmap #2](https://github.com/kbak/clafer-lean/issues/2)
 and [design #13](https://github.com/kbak/clafer-lean/issues/13) retain decision history.
 
@@ -75,6 +75,9 @@ all modules (including examples and helpers) for builds, kernel checks and
 import-all audits, and rejects reverse layer imports or unowned source modules.
 
 ## Documentation
+
+Follow the [documentation filename convention](CONTRIBUTING.md#documentation-filenames)
+when adding or moving maintained documents.
 
 Maintain current product intent, architecture, mathematical explanations, source
 citations, requirements and reusable agent guidance. Use [docs/intent.md](docs/intent.md)

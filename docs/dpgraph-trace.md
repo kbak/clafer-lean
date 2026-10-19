@@ -2,7 +2,7 @@
 
 Follow [the Lean trace convention](traceability.md): these are named Markdown
 artifacts; their evidence is the linked Lean declarations, not inline Lean tags.
-The [source map](SOURCES.md) records SoSyM B.1–B.2 spans, the adopted Q1
+The [source map](sources.md) records SoSyM B.1–B.2 spans, the adopted Q1
 correction, B.4 Definitions 6–10 and the abstract restriction argument of
 B.5 Theorem 3, and the selected Table 3/A.1 meanings with the Q8 correction.
 All declaration names below are relative to `DPGraph`, except the
@@ -19,7 +19,7 @@ symbol and arity universes and Mathlib bundled quivers.
 [Basic.lean](../DPGraph/Basic.lean): `DPGraph`, with a `Set`
 of declarations over its carrier.
 [DPGraph.lean](../DPGraph.lean) is the independent entrypoint.
-The [representation decision](ARCHITECTURE.md#dp-graph-representation-decision)
+The [representation decision](architecture.md#dp-graph-representation-decision)
 explains total edges as a dependent sum, rejected alternatives, universe and
 dependent-equality obligations, and the reason for retaining the Quiv dependency.
 [lakefile.toml](../lakefile.toml) and [lake-manifest.json](../lake-manifest.json)
@@ -448,7 +448,7 @@ injectivity of each input; `.relations_comp_jointlyInjective_iff` specializes to
 canonical relation spans. `.relations_comp_injective_of_first_singleValued` and
 `.relations_comp_injective_of_converse_second_singleValued` prove the sufficient
 cases without totality, through `uniqueIntermediate_of_singleValued` and
-`uniqueIntermediate_of_converse_singleValued`. The [source comparison](SOURCES.md#span-composition-q1-research-for-4)
+`uniqueIntermediate_of_converse_singleValued`. The [source comparison](sources.md#span-composition-q1-research-for-4)
 identifies this as an adopted correction to B.2.1, not its verbatim claim.
 
 Covers:
@@ -528,7 +528,7 @@ Covers:
 
 `proof~predicate-arities~1`
 
-[Signature.lean](../DPGraph/Predicates/Signature.lean): `Arity.fanOut_zero_nonempty`, `fanIn_zero_nonempty`, `fanOut_zero_isolated`, `fanIn_zero_isolated`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `repeatedDiagram`, `repeated_diagram_rejected`, `collapse_not_identity` check repeated arguments and nontrivial vertex maps. Unsupported predicates are catalogued in [SOURCES](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction).
+[Signature.lean](../DPGraph/Predicates/Signature.lean): `Arity.fanOut_zero_nonempty`, `fanIn_zero_nonempty`, `fanOut_zero_isolated`, `fanIn_zero_isolated`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `repeatedDiagram`, `repeated_diagram_rejected`, `collapse_not_identity` check repeated arguments and nontrivial vertex maps. Unsupported predicates are catalogued in the [source map](sources.md#predicate-contracts-and-the-accepted-q8-correction).
 
 Covers:
 - `req~predicate-arities~1`

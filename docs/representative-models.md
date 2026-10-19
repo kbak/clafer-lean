@@ -7,11 +7,11 @@ integration of `Clafer`, `FormalCD` and `DPGraph`. The requirements are
 The [named trace artifacts](clafer-trace.md#representative-model-integration)
 link each claim below to Lean declarations.
 
-Primary source: the [SoSyM author preprint](SOURCES.md#primary-source), SHA-256
+Primary source: the [SoSyM author preprint](sources.md#primary-source), SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`:
 §6.2.4–5, Appendix F p.34, Figures 16, 18, 21–23. Preserve the accepted
 Q1/Q7/Q8 corrections and top-level abstract/ownership corrections in the
-[source map](SOURCES.md). These examples reuse those decisions; they add no
+[source map](sources.md). These examples reuse those decisions; they add no
 new source interpretation. Figures 15, 17 and 19 have no new standalone fixture
 here; their general representation context does not count as a checked copy of
 those printed models.

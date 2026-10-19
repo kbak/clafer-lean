@@ -38,7 +38,7 @@ before the more expensive kernel replay. Any failed gate stops later stages;
 successful full validation still requires the complete kernel check.
 
 Local and CI validation may instead run source-inventory preflight, its Python
-regressions, document-link checks and validation-selection regressions when a
+regressions, document filename/link checks and validation-selection regressions when a
 complete file-content and mode comparison with a frozen Git baseline proves that
 only `README.md` or Markdown beneath `docs/` changed. Include additions, deletions
 and nonignored untracked source. Only regular, nonexecutable Markdown qualifies;
@@ -168,6 +168,12 @@ and artifact IDs, trace relationships, source citations and existing link
 destinations. Explain internal decision labels by name and link to their defining
 table; readers must not need issue history to understand a correction or contract.
 
+Maintain the [documentation filename convention](../CONTRIBUTING.md#documentation-filenames)
+and check maintained topic filenames during documentation validation. Document
+moves update maintained references while preserving heading anchors and
+commit-pinned citations. Read frozen records at their linked historical revision
+to resolve relative links to former paths.
+
 Keep frozen change records unchanged under their retention policy.
 Follow the [documentation policy](../AGENTS.md#documentation): change comparisons
 belong in PR descriptions and acceptance/execution evidence in external factory
@@ -209,8 +215,8 @@ Needs: impl
 `req~formalization-roadmap~1`
 
 Maintain the three reusable layers and explicit exclusions in [intent](intent.md),
-the source-to-construct mapping in [SOURCES](SOURCES.md), and representation
-alternatives, dependencies and validation tasks in [architecture](ARCHITECTURE.md).
+the source-to-construct mapping in the [source map](sources.md), and representation
+alternatives, dependencies and validation tasks in [architecture](architecture.md).
 SoSyM is the primary semantic authority; identify exact sections/definitions/figures,
 the inspected preprint hash and Mathlib commit. Distinguish inspected full texts
 and recovered-page subsets from abstracts, snippets and unavailable sources.
@@ -628,7 +634,7 @@ Needs: impl, proof
 
 `req~span-relation-composition~1`
 
-Adopt the [Q1 correction](SOURCES.md#span-composition-q1-research-for-4) to
+Adopt the [Q1 correction](sources.md#span-composition-q1-research-for-4) to
 SoSyM B.2.1: for arbitrary spans `red(q ⋆ r) = red(q) ; red(r)`, where `;`
 is existential relational composition in source-to-target order. Require no
 finiteness, decidable equality or injectivity. Prove the canonical map from
@@ -781,7 +787,7 @@ Figure 21c. Supporting comparison: Diskin, Kadish, Piessens & Johnson (2000),
 §2.1 p. 348 (separating family / injective tuple), §3.3 pp. 353–354 / Figure 1
 and §3.5 p. 356 (marriage key). These are derived library results under explicit
 hypotheses; the 2000 set-valued notation is not identified with all SoSyM spans.
-See the [partial-source assessment](SOURCES.md#universal-arrow-foundations-partial-source-assessment)
+See the [partial-source assessment](sources.md#universal-arrow-foundations-partial-source-assessment)
 and [#44](https://github.com/kbak/clafer-lean/issues/44).
 
 Covers:
@@ -1480,7 +1486,7 @@ integer comparison/addition/subtraction, collection cardinality, unary-set and
 binary-relation union/difference/intersection and Boolean subsetting, unary–binary
 image and binary–binary join. Both joins require matching middle classes. Include
 Boolean/integer literals and explicit no/one/lone/some helpers for resolved input.
-Follow the [Q3 source disposition](SOURCES.md#appendix-d-rule-dispositions-q3):
+Follow the [Q3 source disposition](sources.md#appendix-d-rule-dispositions-q3):
 intersection is ordinary common-element intersection, already printed as ∩;
 D.4.1 identifies E and S on set expressions. This increment supplies syntax and
 typing, not semantic equations or interpretation theorems.
@@ -1895,7 +1901,7 @@ from the other through super edges. This applies to nested declarations and sepa
 inheritance trees. Containment ancestry, equal names and shared reference targets
 do not establish comparability. Preserve the same object along its super chain;
 inherited context views restrict existing field objects and links and are not
-fresh declarations. This is the [maintainer-adopted #87 clarification](SOURCES.md#declaration-disjointness-clarification),
+fresh declarations. This is the [maintainer-adopted #87 clarification](sources.md#declaration-disjointness-clarification),
 not a theorem that the paper uniquely determines the global rule.
 
 Construct the subset/span interpretation and prove the correspondence to the

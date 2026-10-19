@@ -9,7 +9,7 @@ and lexical contexts are retained.
 
 The [requirements](spec.md#integer-extraction-from-primitive-navigation) define
 this extension separately from the original typing/support promises. Its source
-correspondence is recorded in [SOURCES](SOURCES.md#integer-extraction-and-appendix-f-version-operands),
+correspondence is recorded in the [source map](sources.md#integer-extraction-and-appendix-f-version-operands),
 with named [implementation and proof links](clafer-trace.md#integer-extraction-interface).
 
 ## Domain and extraction

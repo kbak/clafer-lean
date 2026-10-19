@@ -3,7 +3,7 @@
 <!-- [impl->req~sosym-reader-companion~1] -->
 
 A reading companion to *Clafer: unifying class and feature modeling*, using the
-[34-page 2014 author preprint](SOURCES.md#primary-source). Page numbers refer to
+[34-page 2014 author preprint](sources.md#primary-source). Page numbers refer to
 that preprint. The corrections below are adopted by Clafer Lean; they are not
 publisher-issued errata. Clarifications distinguish source explanations from
 explicit choices made in the formalization.
@@ -18,7 +18,7 @@ images in `B`. Table 3's common-source shape and source-inequality condition are
 incorrect. Two inclusions containing the same ambient object overlap even when
 their source values are equal; binding the same nonempty map twice also fails
 disjointness. This agrees with the class partitions in Figure 21.
-[Decision and meaning](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction);
+[Decision and meaning](sources.md#predicate-contracts-and-the-accepted-q8-correction);
 [implemented in #34](https://github.com/kbak/clafer-lean/pull/34).
 
 ### Top-level abstracts retain their head class
@@ -44,7 +44,7 @@ comparison; its [operand-definedness contract](integer-extraction.md#appendix-f)
 derives existence from the selected structural semantics. The adjacent p.17 prose
 reverses the inequality; Figure 8, its explanation and Appendix F support the corrected direction. Preserve Figure
 21a's nonempty-server guard rather than requiring every display to have a server.
-[Decision and checked models](SOURCES.md#figure-21b-and-the-accepted-q7-correction);
+[Decision and checked models](sources.md#figure-21b-and-the-accepted-q7-correction);
 [implemented in #38](https://github.com/kbak/clafer-lean/pull/38).
 
 ### Seven Figure 23 associations need optional source multiplicities
@@ -71,7 +71,7 @@ relational composition. Isomorphism holds exactly when each outer endpoint pair
 has at most one composable **link pair**. For relational inputs, this reduces to
 uniqueness of the intermediate object; parallel links make that condition
 insufficient for arbitrary spans.
-[Derivation and counterexamples](SOURCES.md#span-composition-q1-research-for-4);
+[Derivation and counterexamples](sources.md#span-composition-q1-research-for-4);
 [implemented in #32](https://github.com/kbak/clafer-lean/pull/32).
 
 ## Clarifications
@@ -85,7 +85,7 @@ identity and inherited field views. Reference-target sharing remains permitted.
 The paper supplies inclusion and explicit abstract-family partitions without
 uniquely specifying this global rule. This is a maintainer-adopted clarification
 consistent with the pinned static Alloy translation; generic subset/span models
-remain unrestricted. [Source correspondence and limits](SOURCES.md#declaration-disjointness-clarification).
+remain unrestricted. [Source correspondence and limits](sources.md#declaration-disjointness-clarification).
 
 ### Links and bag keys retain multiplicity
 
@@ -97,7 +97,7 @@ triangle equality up to link-preserving span isomorphism, and keys compare
 tuples of output **bags**. Replacing bags by their supports changes key meaning.
 For a finite family of total, single-valued maps, this key is exactly injectivity
 of the tuple of target values.
-[Predicate contracts](SOURCES.md#predicate-contracts-and-the-accepted-q8-correction);
+[Predicate contracts](sources.md#predicate-contracts-and-the-accepted-q8-correction);
 [ordinary-key correspondence, #53](https://github.com/kbak/clafer-lean/pull/53).
 
 ### A formula needs its complete graph binding
@@ -111,7 +111,7 @@ Consequently, the literal key on `(args,pred)` is an additional instance conditi
 not a characterization of equality of all full formulas. Repeated argument
 values remain permitted. Total `args` separately excludes a realized formula
 with zero arguments, although zero-arrow arities are valid under Definition 8.
-[Checked projection and totality boundaries](SOURCES.md#literal-key-total-args-and-the-19-obligation).
+[Checked projection and totality boundaries](sources.md#literal-key-total-args-and-the-19-obligation).
 
 ### Metamodel representation and semantic instantiation differ
 
@@ -123,7 +123,7 @@ totality conditions. Clafer Lean proves bounded syntactic self-description and
 selected instance fragments; these do not establish semantic self-instantiation
 or that every formal CD is an instance of Figure 21c. The omitted dashed
 attachments for `nd` and `ad` are supplied explicitly in the formalization.
-[Bindings and scope](SOURCES.md#figure-21c-metamodel).
+[Bindings and scope](sources.md#figure-21c-metamodel).
 
 ### Appendix E equations apply to roles that exist
 
@@ -149,7 +149,7 @@ labeling step. Transporting declarations proves a DP morphism; `FormalCD` validi
 also needs complete effective defaults in the source bank. An exact image of
 declarations does not silently add missing defaults. Ordinary non-bag maps require
 set-valued defaults; bag maps have no such default.
-[Adopted rule and proof boundaries](SOURCES.md#mcs-gluing-and-the-approved-q4-rule);
+[Adopted rule and proof boundaries](sources.md#mcs-gluing-and-the-approved-q4-rule);
 [implemented in #57](https://github.com/kbak/clafer-lean/pull/57).
 
 ### Appendix D intersection is not difference
@@ -161,7 +161,7 @@ the mixed evaluator subscripts in D.4.2. D.3.1 lists addition and subtraction
 although its displayed arithmetic conclusion shows only addition. These typing
 rules and notation do not by themselves supply constraint interpretation or
 primitive-value conversion.
-[Visual-source disposition and selected typing scope](SOURCES.md#appendix-d-rule-dispositions-q3).
+[Visual-source disposition and selected typing scope](sources.md#appendix-d-rule-dispositions-q3).
 
 ### Effective group inheritance and empty inventories
 
@@ -199,5 +199,5 @@ assumptions for one concrete model. Neither establishes correctness for all
 Clafer source texts. The compiler-comparison audit's
 [decision table](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
 also records compatibility limits and deferred extensions; these are not additional
-accepted paper corrections. The [source map](SOURCES.md) retains detailed citations
+accepted paper corrections. The [source map](sources.md) retains detailed citations
 and the [product overview](intent.md) records the delivered scope.

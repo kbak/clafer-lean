@@ -190,7 +190,7 @@ constraints with the final selections using a separate configuration.
 
 ## Declaration identity and whole-model disjointness
 
-The [#87 clarification](SOURCES.md#declaration-disjointness-clarification) applies
+The [#87 clarification](sources.md#declaration-disjointness-clarification) applies
 `Configuration.DeclarationDisjoint` to the resolved declaration inventory in
 `Realization.Satisfies`. Ancestor views of one field remain restrictions of its
 existing objects and links; they are not additional declarations to partition.

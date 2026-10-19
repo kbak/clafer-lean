@@ -3,7 +3,7 @@
 `Clafer.Compile.compile` implements SoSyM §6.2.4 (p.21), producing the
 [Figure 23/Appendix E MCS](mcs-invariants.md) under `Compile.Input`.
 See the [product intent](intent.md), [requirements](spec.md#structural-compile-input-contract)
-and [source decisions](SOURCES.md#structural-compile-contract).
+and [source decisions](sources.md#structural-compile-contract).
 
 ## Accepted input
 
@@ -113,7 +113,7 @@ structural connection; they do not assert source elaboration or user-expression
 preservation.
 
 The delivered
-[MCS gluing](ARCHITECTURE.md#mcs-gluing) provides a label morphism and conditional
+[MCS gluing](architecture.md#mcs-gluing) provides a label morphism and conditional
 `FormalCD` validity under its explicit incidence, metadata and default-completeness
 hypotheses. The group extension derives those hypotheses for Compile output.
 

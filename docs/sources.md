@@ -13,7 +13,7 @@ The representation assessment for
 [merged #39](https://github.com/kbak/clafer-lean/pull/39); the bounded
 self-description and Figure 21b work for #19 is present in
 [merged #38](https://github.com/kbak/clafer-lean/pull/38).
-The [architecture](ARCHITECTURE.md#roadmap-and-validation-accounting) tracks
+The [architecture](architecture.md#roadmap-and-validation-accounting) tracks
 delivered increments and later work. The sources below support bounded claims;
 they do not constitute a complete audit of the literature.
 
@@ -34,7 +34,7 @@ B.5 Theorem 3 ground this slice:
 | B.1 Theorem 1, relation correspondence | `Span.red_toFamily`, `IndexedFamily.red_toSpan`, `Span.red_ofRelation` |
 | B.1 Theorem 2, set-valuedness | `Span.jointlyInjective_iff_fiberwise`, `Span.jointlyInjective_iff_iso_relation` |
 | B.2.1–2, mapping operations | `Span.comp`, `IndexedFamily.comp`, `Span.leftUnit`, `Span.rightUnit`, `Span.associator`, `Span.inverse`; corrected comparison is detailed below |
-| Definition 6, graphs and graph morphisms | Mathlib `Quiver`, `Quiv`, `Prefunctor`; [representation decision and dependency tradeoff](ARCHITECTURE.md#dp-graph-representation-decision) |
+| Definition 6, graphs and graph morphisms | Mathlib `Quiver`, `Quiv`, `Prefunctor`; [representation decision and dependency tradeoff](architecture.md#dp-graph-representation-decision) |
 | Definition 7, signature | `DPGraph.Signature` |
 | Definition 8, formula | `DPGraph.Formula` |
 | Definition 9, DP-graph | `DPGraph` |
@@ -376,7 +376,7 @@ Covers:
 
 ### Question dispositions and validation tasks
 
-Q1–Q9 name source questions; [A1–A9](ARCHITECTURE.md#nine-architectural-decision-areas)
+Q1–Q9 name source questions; [A1–A9](architecture.md#nine-architectural-decision-areas)
 name design areas; [D1–D8](resolved-ir-comparison.md#decisions-accepted-locations-and-dependency-boundaries)
 name compiler-comparison decisions. These project IDs are separate from the
 paper's section numbering.
@@ -397,7 +397,7 @@ source gaps. Keep the original issue discussions as the decision history.
 
 The accepted source/design cross-check and bounded supporting-source assessment
 leave the named source gaps unaudited and further acquisition conditional.
-The [architecture](ARCHITECTURE.md#roadmap-and-validation-accounting) records the
+The [architecture](architecture.md#roadmap-and-validation-accounting) records the
 design rationale and proof-status boundaries separately from ticket completion.
 
 ### Appendix D rule dispositions (Q3)

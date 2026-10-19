@@ -29,7 +29,7 @@ Covers:
 
 ## Source identities and audit boundary
 
-The primary reference is the [SoSyM source](SOURCES.md#primary-source), 34-page
+The primary reference is the [SoSyM source](sources.md#primary-source), 34-page
 preprint SHA-256 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
 Locators below use its printed page numbers. Compiler observations use only
 [gsdlab/clafer at 15adb2216909421bcb5022174d2d84ef2b42307c][compiler], whose
@@ -89,7 +89,7 @@ D = awaiting a decision, rejected by the version-1 admission gate for now.
 | Nested abstractness / children of abstract declarations | §5.3.4 p.14 | `Defaults` propagates abstractness; `AST.WellFormed.nested_abstract` | **D**, D2: C5 `desugarModifiers`/`resolveNClafer` retain the declared abstract flag; they do not implement Lean's containment propagation. Explicit nested abstract bodies, relocation and redefinition also require the #20/#23 disposition. |
 | Single inheritance of basics, including a concrete nested basic extending a top-level abstract leaf | §5.5 pp.14–16/Fig.18; App.E Table 6 p.33 | `Kind.CanExtend`, `inheritance_parent`, `inheritance_rank`, `Shape.Inclusions`; `Inclusion` | **S** with an abstract basic super, no inherited child/reference fields, no overlapping group roles. The same object inhabits subtype and supertype. C3 emits `extends`; cover/disjointness use accepted Q8. |
 | Nested-parent refinement, inherited references, target narrowing or kind refinement | §5.5 p.16; App.E Tables 5–8 | `inheritance_parent` requires equal parent IDs when the super is parented; `Shape.OptionalInclusions` is local only | **D**, D4: C4/C3 allow a child's parent to extend the super's parent, and generate parent/reference subrelations. C5 also relocates some abstracts. Set-over-bag is allowed by Lean kind checks but its whole-model bridge is missing. Bag-over-set/basic-over-reference fail the Lean kind restriction. |
-| Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated overlap: retained as a raw negative candidate under the [explicit relation](bounded-comparison.md), rejected by #87 declaration disjointness. The [adopted clarification](SOURCES.md#declaration-disjointness-clarification) requires super-edge comparability for shared heads without restricting generic subset/span models. |
+| Concrete superclasses and unrelated class overlap | §5.5/Fig.18; §6.1 formal CDs; B.5 set/span models | `AST.WellFormed` does not require an abstract super; `semanticGraph` permits shared objects in different subsets | Concrete supers: **X**, C5 resolves supers among abstracts. Unrelated overlap: retained as a raw negative candidate under the [explicit relation](bounded-comparison.md), rejected by #87 declaration disjointness. The [adopted clarification](sources.md#declaration-disjointness-clarification) requires super-edge comparability for shared heads without restricting generic subset/span models. |
 | Direct class-target reference set/bag on a concrete declaration | §5.3.2–3/Table 4 pp.13–14; B.1 Defs.1–5/Thm.2 pp.28–29 | `Reference.set/bag`, `Roles.mode`, `Shape.keyBinding`, `Key`, `SetValued`, `TargetMultiplicity` | **S**: C2 `_isSet = true/false`; C3 has one target per reference head and emits uniqueness per parent for sets. Targets must be admitted user classes, not expressions or primitive domains. |
 | Top-level abstract set/bag references | §5.3.4 corrected by §6.2.3/Fig.23; Table 7 exception | `abstract_reference_no_key`, `Roles.no_parent_maps`; head, target and dereference remain | **D**, D3: C3 globally enforces distinct targets for abstract set heads when card permits repetition. Lean's accepted parentless Shape has no parent/deref pair key. Bag lacks this uniqueness but inherited reference identity still requires a bridge. Do not invent a root parent or silently add a unary key. |
 | Span multiplicity, set keys and map equality | B.1 Def.2/Thm.2; B.2.1–2; B.3 Table 3; A.1 | `Span.comp`, `Span.Iso`, `Key`, `BagEquiv`, `Commutation`, `key_total_singleValued_iff` | **S** interpretation target: retain links under accepted Q1, not endpoint reduction. Keys compare output bags; the derived tuple criterion requires total, single-valued projections. Its parent/deref specialization gives uniqueness of `(parent,target)` once those hypotheses are established. No ordinary-key replacement for the generic predicate. |
@@ -563,7 +563,7 @@ nested abstractness, D4 inheritance/refinement, and D6 group/global obligations.
 
 The following dispositions distinguish the accepted structural interfaces and
 external comparison from deferred language extensions. Existing Q1/Q8 and the
-top-level abstract correction remain accepted as documented in [SOURCES](SOURCES.md).
+top-level abstract correction remain accepted as documented in the [source map](sources.md).
 Record new disagreements in a scoped issue before implementation; no
 compiler behavior overrides a current Lean requirement.
 
@@ -583,7 +583,7 @@ interpretation and representation bridges live under `Clafer/Semantics/`;
 finite candidate verification lives under `Clafer/Verification/`. Shared definitions
 remain in the owning Clafer layer. The repository retains one Lake package and
 `Clafer -> FormalCD -> DPGraph -> Mathlib`; `DPGraph` stays independently importable.
-The [intent](intent.md), [architecture](ARCHITECTURE.md) and
+The [intent](intent.md), [architecture](architecture.md) and
 [extension requirements](spec.md#effective-structural-core-and-supported-fragment)
 state this boundary. The existing full pinned validation policy is unchanged.
 The accepted #51 location is `Clafer/Verification/` for import/validation/bridge,

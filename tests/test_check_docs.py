@@ -11,6 +11,28 @@ import check_docs
 
 # [itest->req~lean-validation~1]
 class DocumentationTest(unittest.TestCase):
+    def test_topic_filenames_and_conventional_or_frozen_exceptions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            for name in ("README.md", "CONTRIBUTING.md", "SECURITY.md", "AGENTS.md",
+                         "CLAUDE.md", "tests/fixtures/README.md",
+                         "docs/changes/frozen/OLD_NAME.md", "docs/architecture.md",
+                         "docs/sources.md", "docs/nested/appendix-f.md"):
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("# Document\n")
+            self.assertEqual(check_docs.check(root), (0, []))
+            for name in ("Uppercase.md", "under_score.md", "upper-extension.MD",
+                         "space name.md", "non-ascii-é.md", "double--hyphen.md"):
+                with self.subTest(name=name):
+                    path = root / "docs/nested" / name
+                    path.write_text("# Document\n")
+                    count, errors = check_docs.check(root)
+                    self.assertEqual(count, 0)
+                    self.assertEqual(len(errors), 1)
+                    self.assertIn(f"docs/nested/{name}: topic filename", errors[0])
+                    path.unlink()
+
     def test_local_files_anchors_images_and_frozen_records(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()

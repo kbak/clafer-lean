@@ -17,7 +17,7 @@ with reusable foundations supporting structural Clafer. The repository
 | `Clafer` | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the [complete Appendix F fixture](appendix-f.md) discharges those assumptions for one concrete selected model |
 
 The [paper companion](sosym-errata.md) explains the accepted corrections and
-clarifications in reader-facing terms; the [source map](SOURCES.md) retains their
+clarifications in reader-facing terms; the [source map](sources.md) retains their
 exact locators, source identities and limits. These include link-preserving
 composition, common-target disjointness, guarded version comparison, top-level
 abstract heads and corrected ownership bounds. Full formula bindings, literal
@@ -46,7 +46,7 @@ It distinguishes constraint violations from malformed or unsupported input.
 Reference occurrences retain identity at repeated targets; declarations
 incomparable through super edges have disjoint extents in satisfying models.
 Overlapping raw candidates remain supported violations. This
-[declaration-disjointness clarification](SOURCES.md#declaration-disjointness-clarification)
+[declaration-disjointness clarification](sources.md#declaration-disjointness-clarification)
 leaves generic `DPGraph`/`FormalCD` subset/span models unrestricted.
 
 The [pinned importer](resolved-import.md) preserves effective identities and bounds
@@ -56,12 +56,12 @@ static Alloy, with manual scopes, enumeration/seeded sampling and replayable
 external evidence. It retains negative candidates and both discrepancy directions;
 it supplies no universal compiler theorem.
 
-The [roadmap and proof-status account](ARCHITECTURE.md#roadmap-and-validation-accounting)
+The [roadmap and proof-status account](architecture.md#roadmap-and-validation-accounting)
 records delivered results and deferred extensions. The bounded
-[supporting-source assessment](SOURCES.md#generalized-sketches-and-model-reduct-coherence)
+[supporting-source assessment](sources.md#generalized-sketches-and-model-reduct-coherence)
 leaves unread pages unaudited. Further acquisition is conditional on a named
 necessary claim lacking adequate primary evidence, as stated in the
-[source disposition](SOURCES.md#project-critical-source-disposition). Stronger
+[source disposition](sources.md#project-critical-source-disposition). Stronger
 representations or dependency-enriched signatures require separate authorization.
 
 Exclude production instance generation, general Alloy/SMT/SAT integration,
@@ -95,8 +95,8 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | --- | --- |
 | This intent | Product goals, delivered scope and exclusions |
 | [Requirements](spec.md) | Normative promises, acceptance obligations and stable OFT IDs |
-| [Architecture](ARCHITECTURE.md) | Representation choices, module boundaries, roadmap and theorem status |
-| [Source map](SOURCES.md) | Paper correspondence, immutable source citations, decisions and audit limits |
+| [Architecture](architecture.md) | Representation choices, module boundaries, roadmap and theorem status |
+| [Source map](sources.md) | Paper correspondence, immutable source citations, decisions and audit limits |
 | [Paper companion](sosym-errata.md) | Concise corrections and clarifications for SoSyM readers |
 | [DPGraph](dpgraph-trace.md), [FormalCD](formalcd-trace.md) and [Clafer](clafer-trace.md) traces | Named implementation/proof artifacts and actual Lean declarations |
 | [Constraint preservation](constraint-preservation.md) | Derived predicate meanings, exact binding/label transport and selected whole-model correspondence |
@@ -112,15 +112,19 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | [Resolved import](resolved-import.md) | Pinned compiler capture, effective-core import and replay prerequisites |
 | [Bounded comparison](bounded-comparison.md) | Exact candidate pins, Alloy search and discrepancy replay |
 | [Contributing](../CONTRIBUTING.md), [trace convention](traceability.md) and [maintenance](maintenance.md) | Setup/checks, evidence links and repository administration |
-| [Historical change records](changes/) | Retained accepted scopes and plans; not current architecture or status |
+| [Historical change records](https://github.com/kbak/clafer-lean/tree/ee4c82835a67626b6eeb925033732e42b1c618c9/docs/changes) | Retained accepted scopes and plans at a revision preserving their relative link targets; not current architecture or status |
 
-Internal labels identify [source questions Q1–Q9](SOURCES.md#question-dispositions-and-validation-tasks),
-[architectural choices A1–A9](ARCHITECTURE.md#nine-architectural-decision-areas), and
+Internal labels identify [source questions Q1–Q9](sources.md#question-dispositions-and-validation-tasks),
+[architectural choices A1–A9](architecture.md#nine-architectural-decision-areas), and
 [compiler-comparison decisions D1–D8](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites).
 These are project references, not paper section numbers. Explain a decision by
 name and link to its definition when using its label outside the owning table.
 
 Keep frozen change records unchanged until controller retention permits removal.
+The historical link above reads the retained records in their original path
+context. The local `changes/` copies retain historical filenames in references;
+use the current map for maintained documents and the
+[filename convention](../CONTRIBUTING.md#documentation-filenames) when adding or moving them.
 Do not merge normative requirements with proof indexes or treat historical
 proposals as current promises. Preserve artifact IDs, trace relationships, source
 citations and existing link destinations when consolidating living prose.

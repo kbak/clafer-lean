@@ -8,7 +8,7 @@ preserves that exact union and derives `FormalCD` naming/default validity.
 
 ## Source and selected meaning
 
-The [primary preprint](SOURCES.md#primary-source), SHA-256
+The [primary preprint](sources.md#primary-source), SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`, supplies:
 
 | Locator | Meaning and boundary |
@@ -49,7 +49,7 @@ as separate decisions.
 An empty inventory counts zero. Bounds containing zero hold; a positive lower
 bound forces the context extent empty. An empty context satisfies the universal
 predicate vacuously. This deliberately differs from `genGroupConst`'s unconditional
-empty-inventory skip. The [compiler license/source policy](SOURCES.md#pinned-compiler-compatibility-audit)
+empty-inventory skip. The [compiler license/source policy](sources.md#pinned-compiler-compatibility-audit)
 applies; no compiler source is incorporated.
 
 ## Representation and interpretation

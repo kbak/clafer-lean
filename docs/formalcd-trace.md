@@ -2,7 +2,7 @@
 
 Follow the [Lean trace convention](traceability.md). These named artifacts link
 the [requirements](spec.md) to actual declarations; review must assess the Lean
-statements and [source correspondence](SOURCES.md#formalcd-structure-and-selected-morphisms).
+statements and [source correspondence](sources.md#formalcd-structure-and-selected-morphisms).
 All names below are in `FormalCD`. Examples remain outside the public entrypoint.
 
 ## Raw and bundled structure

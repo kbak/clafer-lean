@@ -17,7 +17,7 @@ Repository `kbak/clafer-lean` contains the single Lake package `clafer`.
 Place modules beneath their owning public root and preserve
 `Clafer -> FormalCD -> DPGraph -> Mathlib`; `import DPGraph` remains independent.
 The [product overview and documentation map](docs/intent.md) identify delivered
-scope and authoritative documents; [architecture](docs/ARCHITECTURE.md) explains
+scope and authoritative documents; [architecture](docs/architecture.md) explains
 module boundaries. Use those references when updating summaries, retaining
 artifact IDs, trace links, source citations and existing link destinations.
 
@@ -64,7 +64,7 @@ full check. This includes changes to scripts, tests, dependencies, workflows,
 agent instructions and `scope.json`.
 
 The documentation path checks module inventory, Python regressions for inventory
-and selection, and local document links and heading anchors. It does not run Lean
+and selection, topic filenames, and local document links and heading anchors. It does not run Lean
 examples, including Appendix F, or provision Haskell and Alloy. Frozen change
 records remain under their retention policy; document-link checks cover living
 docs. IntentBond coverage, source matching and independent read-only review still
@@ -159,7 +159,7 @@ Use the [Lean trace-link convention](docs/traceability.md) for implementation an
 proof artifacts; the pinned OFT does not import inline `.lean` tags.
 Review must assess whether definitions match the intended semantics and whether
 proofs establish the stated results; trace coverage and a successful build alone
-do not establish that correspondence. The [source map](docs/SOURCES.md) owns exact
+do not establish that correspondence. The [source map](docs/sources.md) owns exact
 paper correspondences, accepted corrections and audit limits; the
 [product overview](docs/intent.md) owns current scope. Keep focused contracts and
 trace indexes separate from those summaries, and preserve frozen change records
@@ -167,6 +167,26 @@ under their retention policy.
 
 Contributions use the existing [MIT license](LICENSE). Preserve attribution and
 check licenses before incorporating upstream code or publication material.
+
+## Documentation filenames
+
+Use lowercase ASCII words or numbers separated by hyphens for maintained topic
+filenames under `docs/`, with a `.md` extension: `architecture.md`, `sources.md`,
+`spec.md` and `constraint-denotation.md`. The documentation checker enforces this
+convention. Document titles and the [documentation map](docs/intent.md#documentation-map)
+describe each document's role.
+
+Retain conventional repository entry points and tooling names: `README.md`,
+`CONTRIBUTING.md`, `SECURITY.md`, `AGENTS.md` and `CLAUDE.md`. Fixture directories
+also retain their `README.md` entry points. Frozen `docs/changes/` records retain
+their original names and contents; read them through the historical revision
+linked from the documentation map when their relative links use former paths.
+
+When moving a document, update maintained links and source comments together,
+preserve heading anchors, artifact IDs and trace relationships, and leave
+commit-pinned citations intact. Avoid aliases that differ only in case, since
+those paths collide on case-insensitive filesystems. Old branch-based external
+links need the current path; a commit-pinned URL retains the historical document.
 
 ## Pinned import validation prerequisites
 
