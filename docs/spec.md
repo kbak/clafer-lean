@@ -147,9 +147,9 @@ than requiring familiarity with paper section numbers at the entry point.
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.1 Definitions 1–5,
-Theorems 1–2 and B.2.1–2 span operations (with the adopted Q1 reduction law),
+Theorems 1–2 and B.2.1–2 span operations (with the adopted [Q1](sources.md#span-composition-q1-research-for-4) reduction law),
 B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
-Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
+Table 3/A.1 predicates (including the [common-target disjointness correction (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction)) over a bounded semantic
 graph, and the first `FormalCD` structure/name-preserving morphisms, from future
 predicates, all-universes SetMap, semantic self-instantiation and the remaining
 Clafer interpretation/integration increments.
@@ -167,6 +167,12 @@ of detail. Consolidate repeated explanations through links while retaining inten
 and artifact IDs, trace relationships, source citations and existing link
 destinations. Explain internal decision labels by name and link to their defining
 table; readers must not need issue history to understand a correction or contract.
+Name capabilities, dependencies and proof limits in the prose. Link to the current
+contract or proof inventory for technical detail. Historical references must use
+descriptive link text identifying the issue or pull request; do not use bare
+numbers, number-only links or chains of tickets as explanations. Internal decision
+references must link at each point of use to the relevant explanation or table
+row, even when an earlier paragraph has already introduced the label.
 
 Maintain the [documentation filename convention](../CONTRIBUTING.md#documentation-filenames)
 and check maintained topic filenames during documentation validation. Document
@@ -223,7 +229,7 @@ and recovered-page subsets from abstracts, snippets and unavailable sources.
 Record disagreements before selecting meanings; the compiler is supplementary
 context and any use as evidence requires an immutable revision and a license check.
 
-Acceptance of roadmap/source-audit issue [#2](https://github.com/kbak/clafer-lean/issues/2)
+Acceptance of the [formalization roadmap issue](https://github.com/kbak/clafer-lean/issues/2)
 requires all of the following:
 
 - Three phase milestones and a dependency-ordered backlog in the existing Project,
@@ -235,8 +241,8 @@ requires all of the following:
   including gaps in 2003/2000 source coverage; recording a limit does not
   complete the missing-source research.
 - PR review of maintained documentation, this scoped requirement and trace links.
-  Research progress alone is not acceptance. Keep #2 Open / In Progress until
-  its deliverables are accepted and the implementing PR is merged, preserving
+  Research progress alone is not acceptance. Close the roadmap issue only after
+  its deliverables are accepted and the implementing PR is merged; preserve
   its earlier discussion.
 
 Distinguish proposed, proved and deferred theorem statements. This research
@@ -244,7 +250,7 @@ requirement adds no Lean theorem or mathematical implementation obligation;
 later semantic increments require their own authorized scope. The existing
 validation, IntentBond and GitHub-tracking requirements continue to apply.
 Project-critical source research and the conditional sketch-extension assessment
-are tracked by [#41](https://github.com/kbak/clafer-lean/issues/41) after #2 closes.
+have a separate [supporting-source assessment issue](https://github.com/kbak/clafer-lean/issues/41).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -256,9 +262,9 @@ Needs: impl
 
 `req~resolved-ir-comparison-contract~1`
 
-Maintain the documentation/source-analysis deliverable for
-[#49](https://github.com/kbak/clafer-lean/issues/49), under
-[#48](https://github.com/kbak/clafer-lean/issues/48), in
+Maintain the documentation and source analysis specified in the
+[compiler compatibility audit issue](https://github.com/kbak/clafer-lean/issues/49), under
+the [bounded semantic comparison project issue](https://github.com/kbak/clafer-lean/issues/48), in
 [the comparison contract](resolved-ir-comparison.md). Use SoSyM as the primary
 semantic reference and pin the supplementary compiler to
 `15adb2216909421bcb5022174d2d84ef2b42307c`. Distinguish current Lean declarations,
@@ -293,14 +299,16 @@ Acceptance requires:
 - A precise proposed companion-harness or separately bounded in-project location,
   with requirements/architecture amendments reviewed before implementation.
   Preserve policy and dependency layers during this planning increment.
-- Missing whole-model interpretation and finite-checker bridge obligations
-  allocated to [#50](https://github.com/kbak/clafer-lean/issues/50). Record a
+- Whole-model interpretation and finite-checker bridge obligations explicitly
+  allocated to the [structural-semantics issue](https://github.com/kbak/clafer-lean/issues/50). Record a
   reviewed structural dependency disposition before any constraint-free shortcut;
-  #21 typing and #22/#23 structural results alone do not suffice. Preserve existing
+  [Core typing](#resolved-core-constraint-typing), [structural Compile](compile.md)
+  and [gluing](architecture.md#mcs-gluing) alone do not suffice. Preserve existing
   roadmap dependencies until that review, without requiring unrelated deferred
   language features to be completed first.
 - Explicit source-decision records and review of the contract/matrix and
-  documentation PR. Keep #49 open until review and acceptance/merge; automated
+  documentation PR. Close the compatibility-audit issue only after review and
+  acceptance/merge; automated
   validation or a proposed interface does not establish semantic implementation.
 
 Keep the existing requirements `req~clafer-resolved-syntax~1`,
@@ -319,8 +327,8 @@ Needs: impl
 
 `req~supporting-source-research~1`
 
-Maintain the bounded assessment authorized by
-[#41](https://github.com/kbak/clafer-lean/issues/41), with SoSyM B.4 Definitions
+Maintain the bounded assessment authorized by the
+[supporting-source assessment issue](https://github.com/kbak/clafer-lean/issues/41), with SoSyM B.4 Definitions
 7–10 and B.5 Theorem 3 as the semantic reference. Compare the inspected Diskin
 & Wolter §4.1–3 signature dependencies, declaration closure, typed-instance
 satisfaction and pullback coherence with the actual `Signature`, `Interpretation`
@@ -339,7 +347,7 @@ its applicability limits. The unread 2003 keyed-sketch material and missing 2000
 universal-arrow pages remain explicit audit limits; further acquisition is
 deferred unless a named necessary claim lacks adequate primary evidence.
 
-Review this disposition with #41's assessment. Record hashes and locators for acquired
+Review this disposition together with the [supporting-source assessment](sources.md#project-critical-source-disposition). Record hashes and locators for acquired
 files, and retain failed-route evidence outside living documentation. Abstracts,
 snippets and indexed PDF results do not establish a technical audit.
 Assess accessible alternative Diskin sources by their exact statements and
@@ -630,7 +638,9 @@ Covers:
 
 Needs: impl, proof
 
-## Relation composition: adopted Q1 correction
+<a id="relation-composition-adopted-q1-correction"></a>
+
+## Relation composition: adopted [span-composition correction (Q1)](sources.md#span-composition-q1-research-for-4)
 
 `req~span-relation-composition~1`
 
@@ -728,7 +738,7 @@ Needs: impl, proof
 `req~predicate-commutation~1`
 
 Interpret Table 3 equality as inhabited `Span.Iso (q.comp r) s` for a typed
-triangle. Preserve every composable link pair and the continuing Q1 reduction
+triangle. Preserve every composable link pair and the continuing [Q1](sources.md#span-composition-q1-research-for-4) reduction
 law. Prove invariance under relabeling all three spans. Exhibit relabeled
 satisfying triangles and a two-composite-link/one-direct-link triangle whose
 reduced relations agree but which fails commutation.
@@ -788,7 +798,7 @@ Figure 21c. Supporting comparison: Diskin, Kadish, Piessens & Johnson (2000),
 and §3.5 p. 356 (marriage key). These are derived library results under explicit
 hypotheses; the 2000 set-valued notation is not identified with all SoSyM spans.
 See the [partial-source assessment](sources.md#universal-arrow-foundations-partial-source-assessment)
-and [#44](https://github.com/kbak/clafer-lean/issues/44).
+and the [ordinary-key correspondence issue](https://github.com/kbak/clafer-lean/issues/44).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -809,7 +819,9 @@ Covers:
 
 Needs: impl, proof
 
-## Disjoint images: accepted Q8 correction
+<a id="disjoint-images-accepted-q8-correction"></a>
+
+## Disjoint images: accepted [common-target disjointness correction (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction)
 
 `req~predicate-disjointness~1`
 
@@ -886,7 +898,7 @@ Needs: impl, proof
 `req~predicate-examples~1`
 
 Provide kernel-checked positive and negative witnesses for the complete selected
-vocabulary: relabeled inverse/commutation; the Q1 two-path counterexample; one
+vocabulary: relabeled inverse/commutation; the [Q1](sources.md#span-composition-q1-research-for-4) two-path counterexample; one
 versus two links with a repeated target; multiplicity-sensitive and failing
 keys; cover/disjointness with repeated bindings, empty domains and zero-member
 families whose central vertex survives; literal/empty inclusion and moving or
@@ -1245,7 +1257,7 @@ disjoint(i1,i2), cover(i1,i2), inverse(server,display), inclusion(i1), inclusion
 0..5(display), 1..1(version), 0..1(server), VC(server,i1,i2,version), and
 setValued(version), setValued(server), setValued(display). Multiplicities count
 outgoing links. Explain total/single-valued notation via these bounds, retaining
-Q8 common-target disjointness and existing span inverse meanings. Prove inventory,
+[Q8](sources.md#predicate-contracts-and-the-accepted-q8-correction) common-target disjointness and existing span inverse meanings. Prove inventory,
 incidence, declaration membership/distinctness, naming/default obligations and
 syntactic well-formedness in the same CDOver family as the metamodel.
 
@@ -1258,7 +1270,7 @@ Needs: impl, proof
 
 `req~formalcd-vc-semantics~1`
 
-Adopt Q7: display.version ≥ server.version, with equality allowed and an absent
+Adopt [Q7](sources.md#figure-21b-and-the-accepted-q7-correction): display.version ≥ server.version, with equality allowed and an absent
 server satisfying VC vacuously. Sources: Figure 8 line 9 and its accompanying
 §4.2.3 discussion (p.8; §4.3 supplies configuration context on p.9), Figure 21a
 OCL / §6.1.2, and Appendix F; retain the discrepancy with the adjacent reversed
@@ -1350,7 +1362,7 @@ Expose a resolved declaration context and a finite indexed bag of referenced
 scope occurrences for each constraint (§6.2.2/Figure 22). Preserve repeated
 references in different positions; context is recorded separately. Provide
 separate binder IDs, display names and resolved domain occurrences as the input
-interface for #21, validating known IDs and unique binder IDs per boundary.
+interface for [core constraint typing](spec.md#resolved-core-constraint-typing), validating known IDs and unique binder IDs per boundary.
 Constraint bodies and expression typing are supplied by the separate core
 constraint module below. Name resolution remains an upstream obligation; the separate
 [denotation extension](constraint-denotation.md) supplies Appendix D equations. The context module must not depend on the expression
@@ -1374,7 +1386,7 @@ kind-indexed role inventories and incidence proofs. When a super is selected,
 head inclusion is required and source/target inclusions exist exactly for shared
 endpoints; absent supers supply no inclusion family.
 
-Apply the accepted #3 source correction: §5.3.4 (p.14) incorrectly excludes the
+Apply the accepted [top-level abstract correction](sources.md#resolved-2014-clafer-and-individual-shapes): §5.3.4 (p.14) incorrectly excludes the
 head of a top-level abstract clafer, contrary to §6.2.3 (p.20) and Figure 23's
 total head role. Retain the head and omit source/parent-dependent maps. An
 abstract reference retains target and dereference. Read Table 7's basic-source
@@ -1434,7 +1446,7 @@ Needs: impl, proof
 
 `req~clafer-mcs-disciplines~1`
 
-Implement the complete applicable Tables 5–8 inventory and accepted Q2 expansion
+Implement the complete applicable Tables 5–8 inventory and accepted [Q2](mcs-invariants.md#appendix-e-inventory) expansion
 in [the MCS inventory](mcs-invariants.md). Use typed incidence and exact existing
 Shape presence guards; express cojoining at role-graph vertex identity. Include
 both endpoints of all four ordinary roles and three guarded super roles, root,
@@ -1449,7 +1461,7 @@ invariant fields. Preserve resolved hierarchy/kind restrictions at the structura
 family boundary. Supply nonempty composed shapes with proved obligations,
 including inherited roles, absent roles and distinct same-name arrows.
 This is a structural MCS representation, not an AST compiler or model-existence
-claim; #22 owns conversion from the already resolved AST and formula generation.
+claim; [structural Compile](compile.md) provides conversion from the already resolved AST and formula generation.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1587,7 +1599,7 @@ changing the underlying link-sensitive multiplicity predicates.
 Supply named proofs of correspondence, successful extraction, rejection boundaries,
 resolved-ID rejection and inheritance preservation. Preserve arbitrary negative
 and positive integers without overflow or finite-bitwidth arithmetic. Document
-that this is an operation interface consumed by the independent expression denotation (#68),
+that this is an operation interface consumed by the independent [expression denotation](constraint-denotation.md),
 not a general primitive-domain framework, parser or a reuse of VC as an evaluator.
 See [the conversion contract](integer-extraction.md).
 
@@ -1602,7 +1614,7 @@ Needs: impl, proof
 
 Represent the actual Appendix F p.34 fragment's `version >= server.version` in
 the typed core, following comp inheritance, version/server reference objects,
-head maps and dereferences to the resolved integer class. Retain accepted Q7's
+head maps and dereferences to the resolved integer class. Retain accepted [Q7](sources.md#figure-21b-and-the-accepted-q7-correction)'s
 display >= server direction. Derive both operands' singleton/domain hypotheses
 from the selected default 1..1 version/server multiplicities, functional total
 dereferences, and actual inheritance inclusions. Do not assume the final operands
@@ -1617,7 +1629,7 @@ The theorem is conditional on the selected structural semantics, not a proof
 that structural Compile establishes those semantics or a whole Appendix F model.
 The separate inherited realization and constraint denotation extensions supply
 inherited structures and other expressions (including `server = parent`);
-this fragment requirement does not assert their combined model result. Document Q3 limits and
+this fragment requirement does not assert their combined model result. Document [Q3](sources.md#appendix-d-rule-dispositions-q3) limits and
 the full mathematical integer realization separately from finite object examples.
 
 Covers:
@@ -1754,9 +1766,10 @@ The complete diagram must contain the exact union of both components, and gluing
 must preserve its exact translated image, naming, incidence, metadata and complete
 effective defaults. Prove that complete satisfaction accounts for both components
 and that each generated group is equivalent to the selected child-count bounds
-under explicit typed-relation and finite-count assumptions. Reuse #50 counting
-and representation APIs without extending its guarded checker or reversing its
-dependency. Keep #66 inherited field realization and map restrictions explicit;
+under explicit typed-relation and finite-count assumptions. Reuse the [structural counting
+and representation APIs](structural-checker.md) without extending its guarded checker or reversing its
+dependency. Keep the [inherited field realization and map restriction](inherited-realization.md)
+obligations explicit;
 selection alone cannot establish those laws.
 
 Check actual compiled/glued positive and negative xor (one passes, zero/two fail
@@ -1775,8 +1788,8 @@ Needs: impl, proof
 `req~clafer-gluing-identity~1`
 
 Construct the graph of used class/map referents from the delivered MCS roles
-and labels (SoSyM §6.2.5), with the approved Q4 rule from
-[#23](https://github.com/kbak/clafer-lean/issues/23). Identify class roles if and
+and labels (SoSyM §6.2.5), with the identity rule approved in the
+[resolved-referent gluing issue](https://github.com/kbak/clafer-lean/issues/23). Identify class roles if and
 only if their classReferent values agree, and map roles if and only if their
 mapReferent values agree. Equal map referents must have equal source and target
 class referents. Require class/map names, optional predefined registry identities
@@ -1848,8 +1861,8 @@ failure of translated-formula injectivity despite the source literal key.
 Exhibit DP preservation together with failure of `FormalCD` validity when defaults
 are missing, including a nonempty valid source bank; also prove a positive
 `FormalCD` validity result with sufficient defaults. Keep examples separate from
-public imports and preserve Q2/Q9, the existing validation gates and OFT IDs.
-Compile-to-gluing integration (#24) and general constraint semantics remain
+public imports and preserve [guarded Appendix E clauses (Q2)](mcs-invariants.md#appendix-e-inventory) and [source ownership bounds (Q9)](mcs-invariants.md#figure-23-source-multiplicity-correction), the existing validation gates and OFT IDs.
+[Compile-to-gluing integration](representative-models.md) and general constraint semantics remain
 separate.
 
 Covers:
@@ -1861,12 +1874,12 @@ Needs: impl, proof
 
 `req~clafer-effective-core~1`
 
-Provide the accepted #50 effective-core interface in the Clafer layer, retaining
+Provide the accepted [effective-core interface](structural-checker.md) in the Clafer layer, retaining
 resolved identities, display names, parent/super/reference edges, root/origin,
 abstractness and effective local/group bounds without fabricated authored/default
 provenance. State well-formedness separately from the guarded S fragment in
 [the comparison contract](resolved-ir-comparison.md). Preserve all existing syntax,
-Compile, gluing, Q1/Q8 and top-level abstract corrections. Reject excluded and
+Compile, gluing, [span composition (Q1)](sources.md#span-composition-q1-research-for-4), [common-target disjointness (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction) and top-level abstract corrections. Reject excluded and
 pending combinations, including primitive values, user expressions, nested
 abstract bodies, reference inheritance and nontrivial abstract groups. Abstract
 inheritance chains remain available. Raw candidates may contain unrelated class
@@ -1901,7 +1914,7 @@ from the other through super edges. This applies to nested declarations and sepa
 inheritance trees. Containment ancestry, equal names and shared reference targets
 do not establish comparability. Preserve the same object along its super chain;
 inherited context views restrict existing field objects and links and are not
-fresh declarations. This is the [maintainer-adopted #87 clarification](sources.md#declaration-disjointness-clarification),
+fresh declarations. This is the [declaration-disjointness clarification](sources.md#declaration-disjointness-clarification),
 not a theorem that the paper uniquely determines the global rule.
 
 Construct the subset/span interpretation and prove the correspondence to the
@@ -1960,7 +1973,7 @@ Detect deliberate duplicate-collapse and omitted-bound mutations with the
 corresponding assertions. Keep all existing validation and coverage policy;
 record full pinned validation, theorem-axiom inspection, source-matched evidence
 and independent semantic review before acceptance. Candidate enumeration,
-production generation and solver integration remain outside #50.
+production generation and solver integration remain outside this checker contract.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1975,7 +1988,8 @@ Needs: impl, proof, utest
 Extend the Clafer whole-model interpretation for the accepted Appendix F
 nested-abstractness, inheritance and group combinations in
 [the scoped source contract](inherited-realization.md).
-Preserve #50's guarded fragment; enforce #87's declaration disjointness in both
+Preserve the [finite checker](structural-checker.md)'s guarded fragment; enforce
+the [declaration-disjointness rule](sources.md#declaration-disjointness-clarification) in both
 the checker and this extended satisfaction relation. Read authored abstractness
 from retained AST metadata; do not reconstruct it from the erased effective flag.
 Keep the existing equal-parent declaration rule. Support the listed seven super
@@ -1994,14 +2008,15 @@ field is not emptied by absence of an explicit subtype. When both classification
 apply, enforce both. Exclude ungrounded recursive realization islands and derive
 root reachability from the selected finite rank and whole-model conditions.
 
-Count the #65 union of own/inherited child heads once per ambient object, retaining
+Count the [union of own and inherited child heads](group-compilation.md) once per
+ambient object, retaining
 distinct reference occurrences at equal targets. Enforce effective group bounds
-at realized ordinary fields, particularly options.size; preserve #65's explicit
-abstract-template override and empty-inventory policy. Transport ordinary owner
+at realized ordinary fields, particularly options.size; preserve the group contract's
+explicit abstract-template override and empty-inventory policy. Transport ordinary owner
 constraints to subtype and context-view objects parametrically, without claiming
-a general expression evaluator. Preserve Q1, Q8, top-level abstract heads and the
+a general expression evaluator. Preserve [Q1](sources.md#span-composition-q1-research-for-4), [Q8](sources.md#predicate-contracts-and-the-accepted-q8-correction), top-level abstract heads and the
 absence of parentless local-fiber/global-cardinality inventions. Prove explicit
-compatibility with #50 satisfaction and therefore its supported checker results.
+compatibility with [finite structural satisfaction](structural-checker.md) and therefore its supported checker results.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2015,13 +2030,14 @@ Needs: impl, proof
 Generate or derive the structural obligations of `req~clafer-inherited-realization~1`
 in the actual compiled/glued representation. Generate cover/disjointness for every
 explicit abstract family, including empty families, and effective groups for
-realized ordinary fields omitted by the effective-abstract guard. Preserve all #65
-declarations and source constraints. Construct full bindings and prove actual
+realized ordinary fields omitted by the effective-abstract guard. Preserve all [generated group
+declarations](group-compilation.md) and source constraints. Construct full bindings and prove actual
 declaration completeness and exact gluing images. Establish semantic correspondence
 from the constructed interpretation, not a caller-supplied equivalence assumption.
 Derive inherited map restrictions and link-preserving commutation from the same
 interpreted maps. Keep ordinary constraint meaning an explicit parameter
-for #68/#69 and retain every occurrence's original binding.
+for [constraint denotation](constraint-denotation.md) and
+[preservation](constraint-preservation.md) and retain every occurrence's original binding.
 
 Forgetting the extension recovers the existing augmented Compile and its valid
 structural MCS. Preserve role/referent/name separation, incidence and metadata
@@ -2050,8 +2066,8 @@ inherited containment/dereference values, uncovered explicit abstracts, forbidde
 explicit sibling overlap and inheritance-incomparable declaration overlap, shared
 owned occurrences at distinct parents and inappropriate duplicate occurrences. Reject an xor violation at realized
 options.size. Retain the source-ID mapping and the separate twelve-conjunct scope
-inventory; these structural witnesses do not claim #64's full expression-bearing
-fixture or complete satisfaction result.
+inventory; these structural witnesses do not establish the
+[complete expression-bearing fixture or its satisfaction theorem](appendix-f.md).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2067,8 +2083,8 @@ Interpret the resolved typed core over explicit shared-object model environments
 lexical scope. Preserve actual inheritance inclusions and shared object identity;
 repeated resolved map occurrences preserve link identities and endpoints. Global
 navigation can select parentless abstract extents. Keep local finiteness
-obligations separate from the complete integer domain. Preserve the guarded #50
-checker and the #66 inherited realization interface.
+obligations separate from the complete integer domain. Preserve the [guarded finite
+checker](structural-checker.md) and the [inherited realization interface](inherited-realization.md).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2081,10 +2097,10 @@ Needs: impl, proof
 
 Give independent mathematical meanings and constructor equations for all supported
 Boolean, integer, unary-set and binary-relation constructors, both joins,
-quantification, cardinality and no/one/lone/some helpers. Apply Q3 ordinary
+quantification, cardinality and no/one/lone/some helpers. Apply [Q3](sources.md#appendix-d-rule-dispositions-q3) ordinary
 intersection. Make span reduction explicit; retain original links and count
-reference heads separately from dereferenced targets. Integrate #67's partial
-singleton bridge, deriving Appendix F numeric operand definedness from structural
+reference heads separately from dereferenced targets. Integrate the [partial singleton
+extraction bridge](integer-extraction.md), deriving Appendix F numeric operand definedness from structural
 map bounds, reference functionality and inheritance. Undefined is distinct from
 false. Do not define truth by evaluator success or silently assume final operand
 singletons. No executable evaluator is required; one would require a separate
@@ -2118,7 +2134,7 @@ Needs: impl, proof
 Supply all manual c01–c12 expansions from the accepted inherited inventory,
 retaining implicit some, implication/equivalence, >=, repeated names,
 relative/global/inherited navigation, no cache, server = parent and display-head
-counts. Preserve Q7's display >= server direction without Figure 21's guard.
+counts. Preserve [Q7](sources.md#figure-21b-and-the-accepted-q7-correction)'s display >= server direction without Figure 21's guard.
 Exercise implication vacuity and actual operator combinations with positive and
 negative witnesses. Check the resolved supports against the complete inherited
 AST. General textual resolution remains separate. The extension requirement
@@ -2257,10 +2273,10 @@ separate fixtures into an unsupported full-model claim.
 The structural projection includes all printed declarations; the separately
 compiled c02 fragment is a supported subset, not full Appendix F completion.
 Full interpretation of all printed constraints, final selections and a nonempty
-satisfying full model have the separate contract `req~clafer-appendix-f-complete~1`. #69 depends on this structural milestone and
+satisfying full model have the separate contract `req~clafer-appendix-f-complete~1`. [Constraint preservation](constraint-preservation.md) depends on this structural milestone and
 is not a prerequisite for its narrower result. Preserve independent public imports
-for `DPGraph`, `FormalCD` and Clafer under the existing layer checks. Keep #24 open
-until its deliverables are accepted and the implementing PR is merged.
+for `DPGraph`, `FormalCD` and Clafer under the existing layer checks. Close the representative-integration issue only after its deliverables are
+accepted and the implementing PR is merged.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2272,8 +2288,8 @@ Needs: impl, proof
 
 `req~clafer-resolved-import~1`
 
-Implement the authorized #51 importer under `Clafer/Verification/`, reusing the
-accepted #50 effective core, candidate interface and guarded S semantics. Import
+Implement the authorized [resolved importer](resolved-import.md) under `Clafer/Verification/`, reusing the
+accepted [effective core, candidate interface and guarded structural semantics](structural-checker.md). Import
 only analyzed JSON from `gsdlab/clafer@15adb2216909421bcb5022174d2d84ef2b42307c`
 under the versioned [import protocol](resolved-import.md). Preserve compiler UIDs
 separately from display names, parent/super/reference identities, effective local
@@ -2321,7 +2337,7 @@ Use deterministic error categories and replay, actual pinned-compiler execution
 in validation, upstream MIT attribution where material is copied, source matching,
 full pinned Lean/kernel/axiom/layer/import checks and IntentBond with independent
 semantic review before acceptance. Parser/type/optimizer correctness upstream and
-the separately scoped #52 solver/search/pin/decode integration remain outside this claim.
+the separately scoped [bounded comparison harness](bounded-comparison.md) solver/search/pin/decode integration remain outside this claim.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -2333,12 +2349,11 @@ Needs: impl, utest
 
 `req~clafer-bounded-comparison~1`
 
-Implement the accepted #52 harness under `scripts/verification/`, tests/fixtures
-under `tests/` and any Lean additions under `Clafer/Verification/`. Reuse #51's
-same-generation strict capture/import and #50's effective core, finite candidate
-domain, semantic bridges and verified checker. Preserve S/X/D guards, distinct
+Implement the accepted [bounded comparison harness](bounded-comparison.md) under `scripts/verification/`, tests/fixtures
+under `tests/` and any Lean additions under `Clafer/Verification/`. Reuse the [strict same-generation capture/import](resolved-import.md)
+and [effective core, finite candidates, semantic bridges and verified checker](structural-checker.md). Preserve S/X/D guards, distinct
 UIDs/names/referents, occurrence identities and raw unrelated-class overlap. Apply
-the #87 disjointness rule in satisfaction without filtering admission or
+the [declaration-disjointness rule](sources.md#declaration-disjointness-clarification) in satisfaction without filtering admission or
 enumeration. Preserve existing public roots, package
 and dependency directions and all checker/compile promises.
 
@@ -2362,7 +2377,7 @@ agreement. No fallback, inferred-scope adequacy or optimizer correctness claim.
 
 Acceptance of changes to this harness includes actual compiler/backend runs, the
 complete pinned Lean/kernel/axiom/layer/import validation, IntentBond source matching and independent semantic
-review of all eight #52 criteria. Required CI must fail unresolved harness errors;
+review of all eight [bounded comparison harness](bounded-comparison.md) criteria. Required CI must fail unresolved harness errors;
 no missing-tool skips, scope weakening or substitution of documentation checks
 for executable acceptance applies.
 
@@ -2384,7 +2399,7 @@ inherited objects and each reference-head occurrence. Justify the virtual root,
 top-level containment, used objects and every classified auxiliary; unknown
 auxiliaries are unsupported. Decode under only reviewed object/link bijections
 and validate witnesses against the original candidate, not endpoint-reduced data.
-Keep the stable unrelated-overlap candidate and require `agree_violates` under #87,
+Keep the stable unrelated-overlap candidate and require `agree_violates` under the [declaration-disjointness clarification](sources.md#declaration-disjointness-clarification),
 without changing its exact pin or representation. Distinguish intrinsic
 generated-model restrictions from adapter/domain/bitwidth
 failures before reporting a discrepancy. State the external trust assumptions;
@@ -2462,7 +2477,7 @@ source-truth-only theorem nor an assumed correspondence meets this requirement.
 Document remaining elaboration assumptions and finite-evaluation boundaries
 in [the full-model contract](appendix-f.md). This requirement extends the selected
 interfaces above; it does not rename representative/subset proofs into full-model
-acceptance, claim a finite entire interpretation or broaden #50's checker.
+acceptance, claim a finite entire interpretation or broaden the [finite structural checker](structural-checker.md).
 
 Covers:
 - `intent~formalization-foundation~1`

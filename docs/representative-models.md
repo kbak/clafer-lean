@@ -10,7 +10,8 @@ link each claim below to Lean declarations.
 Primary source: the [SoSyM author preprint](sources.md#primary-source), SHA-256
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`:
 §6.2.4–5, Appendix F p.34, Figures 16, 18, 21–23. Preserve the accepted
-Q1/Q7/Q8 corrections and top-level abstract/ownership corrections in the
+[span composition (Q1)](sources.md#span-composition-q1-research-for-4),
+[version comparison (Q7)](sources.md#figure-21b-and-the-accepted-q7-correction) and [common-target disjointness (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction) corrections and top-level abstract/ownership corrections in the
 [source map](sources.md). These examples reuse those decisions; they add no
 new source interpretation. Figures 15, 17 and 19 have no new standalone fixture
 here; their general representation context does not count as a checked copy of
@@ -97,9 +98,9 @@ applies the selected semantic bridge to its actual generated/glued diagram.
   Command-level build/IntentBond evidence records the configured validation;
   trace coverage does not certify the source correspondence. Independent semantic
   review and acceptance remain separate gates.
-* #68 supplies general expression meaning; [#69’s selected bridge](constraint-preservation.md)
+* [Constraint denotation](constraint-denotation.md) supplies general expression meaning; [constraint preservation](constraint-preservation.md)
   connects body-derived predicates to exact Compile/gluing bindings and
-  depends on this structural milestone. #64 owns full Appendix F satisfaction.
+  depends on this structural milestone. The [complete Appendix F model](appendix-f.md) proves full Appendix F satisfaction.
   The full-model result has its own [requirements and proof artifacts](appendix-f.md);
   the representative integration keeps its narrower contract. Neither result
   claims that all of Clafer or all paper figures are complete.

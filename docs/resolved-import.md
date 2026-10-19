@@ -1,11 +1,12 @@
 # Pinned resolved import
 
-The importer implements [#51](https://github.com/kbak/clafer-lean/issues/51) inside
+The importer checks resolved compiler JSON inside
 `Clafer/Verification/`, with external capture/protocol code under
-`scripts/verification/`. It targets the accepted S fragment in the
-[comparison contract](resolved-ir-comparison.md), using #50's
-[effective core and checker](structural-checker.md). The [bounded comparison
-harness](bounded-comparison.md) supplies #52 pinning, scoped solver execution,
+`scripts/verification/`, as specified in the
+[resolved-import issue](https://github.com/kbak/clafer-lean/issues/51). It targets the accepted S fragment in the
+[comparison contract](resolved-ir-comparison.md), using the
+[effective core and finite checker](structural-checker.md). The [bounded comparison
+harness](bounded-comparison.md) supplies candidate pinning, scoped solver execution,
 command replacement and replay; these remain outside the importer theorem. Broader Appendix F
 realization does not enlarge the import whitelist.
 
@@ -114,8 +115,8 @@ exceptions identify the actual pipeline, without asserting optimizer correctness
 
 External failure categories are `malformed`, `unsupported`, `compiler_rejected`
 and `error`. No failed import gets a semantic verdict. Lean independently checks
-field preservation, UID uniqueness, interval encodings, ranks and the #50 fragment
-certificate before `verify`. Candidate failures retain #50's `malformed`,
+field preservation, UID uniqueness, interval encodings, ranks and the supported-fragment
+certificate before `verify`. Candidate failures retain the [checker](structural-checker.md)'s `malformed`,
 `satisfies` and `violates` distinction.
 
 ## Representation and proof boundary
@@ -134,9 +135,9 @@ admission yields `Accepted.wellFormed`, `Accepted.supported` and
 when names repeat. `representation_unique` proves fieldwise representation
 uniquely determines the effective core. `normalization_correspondence` then
 preserves independent `StructuralSatisfies` for arbitrary configurations.
-`imported_check_correct` and `imported_verify_correct` compose this with #50's
-checker correctness. These are semantic statements, not serialization roundtrips.
-Existing #50 span/compiled-bank results identify the selected interpretation.
+`imported_check_correct` and `imported_verify_correct` compose this with
+[checker correctness](structural-checker.md). These are semantic statements, not serialization roundtrips.
+The existing span and compiled-bank bridges identify the selected interpretation.
 
 Candidate JSON uses natural object labels and string class UIDs. `members` rows
 are `[uid, object]`; containment/reference rows are `[uid, [source, target]]`.

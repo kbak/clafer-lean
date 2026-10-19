@@ -53,7 +53,7 @@ an occurrence even when parent and target coincide with another occurrence.
 `headFiberEquiv`, `compositeFiber` and `composite_multiplicity` identify the counted
 link fibers. `key_local_iff` relates pair uniqueness to the existing interpreted
 Shape key. `abstracts_iff` relates the global abstract clauses to the existing
-Cover and common-target Disjoint predicates with Q8.
+Cover and common-target Disjoint predicates with [Q8](sources.md#predicate-contracts-and-the-accepted-q8-correction).
 
 `local_model_iff` proves both directions for the **exact** `Compile.localFormulas`
 bank. `structural_model_iff` additionally includes the global root, abstract, group

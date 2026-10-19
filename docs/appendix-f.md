@@ -71,7 +71,7 @@ and `primitive_root_containment` expose this correction directly. Nonprimitive
 extents and all expression count operands are finite; the integer extent and
 the root's collection of children are infinite. Unrestricted structural bounds
 use embeddings and do not assign zero cardinality to infinite collections.
-The finite checker from #50 is not applied to this interpretation.
+The [finite structural checker](structural-checker.md) is not applied to this interpretation.
 
 `structural_satisfaction` discharges typing, root, inheritance, parent,
 reference, key, multiplicity, abstract-cover/disjoint, group and declaration-disjointness

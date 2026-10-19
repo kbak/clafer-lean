@@ -2,8 +2,9 @@
 
 The source is SoSyM §6.2.3/Figure 23 (pp.20–21) and Appendix E Tables 5–8
 (p.33), in the [pinned preprint](sources.md#primary-source). The inventory below
-records the accepted Q2 expansion and Q4 representation boundary for
-[#20](https://github.com/kbak/clafer-lean/issues/20). The
+records the guarded expansion of Appendix E clauses and the separation of role
+identities from referents and names, accepted in the
+[MCS disciplines issue](https://github.com/kbak/clafer-lean/issues/20). The
 [existing Shape contract](spec.md#individual-clafer-shapes) controls exact presence.
 The [MCS modules](../Clafer/MCS/Basic.lean) implement this structural inventory.
 The [source correction](#figure-23-source-multiplicity-correction) applies to
@@ -52,7 +53,7 @@ No super means no inclusion slots; a selected super requires the head inclusion
 and every shared-endpoint inclusion. Missing one of two source/target endpoints
 forbids that inclusion slot rather than generating an equation with an undefined
 side. `Shape.SharedClass` already describes this boundary. The root and
-parentless basic exceptions use the [accepted #3 correction](sources.md#resolved-2014-clafer-and-individual-shapes).
+parentless basic exceptions use the [top-level abstract correction](sources.md#resolved-2014-clafer-and-individual-shapes).
 The supported primitive-domain vocabulary is `int`, `string`, `bool`, as in
 `PrimitiveDomain`; the analogous expansion quantifies over all three. Both
 implications of each canonical naming equivalence are required, including the
@@ -69,9 +70,9 @@ Keep local role slots, graph role identities, resolved class/map referents, and
 displayed strings distinguishable. Cojoining equalities must explicitly state
 which identity level they compare. Equality of displayed `parent`, `dref` or
 `isA` strings must not by itself identify arrows. Preserve endpoints and the
-information needed for intended identifications. The approved #23 gluing
+information needed for intended identifications. The approved [gluing](architecture.md#mcs-gluing)
 congruence and its graph/DP-morphism proof use the explicit resolved-referent
-contract described below; the #20 representation alone does not select that policy.
+contract described below; the MCS representation alone does not select that policy.
 
 Figure 23 also includes Role, ClassRole, MapRole, InclRole, String, PredefStr,
 Formula and Signature, with the ClassRole/MapRole cover/disjoint partition,
@@ -86,7 +87,7 @@ arities.
 
 ## Figure 23 source-multiplicity correction
 
-The accepted #20 correction changes the source multiplicity on each of the four
+The accepted ownership correction changes the source multiplicity on each of the four
 ordinary-map and three inclusion-role associations from `1` to `0..1` over its
 common target: each role has at most one owner within each association's image.
 Shape and inheritance guards still enforce exact required and forbidden presence.
@@ -157,7 +158,7 @@ The canonical requirements and named proof artifacts are in
 
 ## Gluing boundary
 
-The approved Q4 rule in [#23](https://github.com/kbak/clafer-lean/issues/23)
+The identity rule accepted in the [resolved-referent gluing issue](https://github.com/kbak/clafer-lean/issues/23)
 identifies equal resolved class/map referents only. `Gluing.Incidence` requires
 equal map referents to have equal endpoint class referents. `Gluing.Compatible`
 also requires equal class/map names, predefined annotations and map modes on
@@ -167,7 +168,7 @@ matching nor endpoint matching supplies a referent equality.
 [Gluing.lean](../Clafer/MCS/Gluing.lean) proves graph incidence and exact
 identification before constructing the translated declaration image and DP map.
 These obligations are additional to `Valid`; role-level ownership/cojoining,
-Q2/Q9 and the source total-args/literal-key disciplines remain unchanged.
+The [guarded Appendix E clauses (Q2)](mcs-invariants.md#appendix-e-inventory), [source ownership bounds (Q9)](mcs-invariants.md#figure-23-source-multiplicity-correction) and source total-args/literal-key disciplines remain unchanged.
 `Gluing.Naming` and `Gluing.Defaults` are separate prerequisites of the `FormalCD`
 validity theorem. [Origins.lean](../Clafer/MCS/Gluing/Origins.lean) derives naming
 from valid MCS origins, while effective-default completeness must still be

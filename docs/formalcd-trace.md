@@ -279,7 +279,7 @@ Covers:
 `names_valid`, `valid_user_name`, `valid_predefined_name`, `reserved_user_rejected`,
 `wrong_predefined_rejected`, `incompatible_name_span_rejected`, `extended_nd_satisfied`.
 All names are in `FormalCD.Metamodel.Examples`. The source map states the exact
-fragment/model boundary. Generic key, Q1 and Q8 are unchanged.
+fragment/model boundary. Generic key, [span composition (Q1)](sources.md#span-composition-q1-research-for-4) and [common-target disjointness (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction) are unchanged.
 
 Covers:
 - `req~formalcd-metamodel-disciplines~1`
@@ -355,7 +355,7 @@ Covers:
 version targets along actual inclusion/version links for each server link.
 There is no comparison for an empty server fiber. Semantic universes retain
 `U : Type u`, subset vertices and link bound `max u w`. The source correction
-is Figure 8 line 9 / §4.2.3–4.3, Figure 21a / §6.1.2 and Appendix F, recorded as Q7
+is Figure 8 line 9 / §4.2.3–4.3, Figure 21a / §6.1.2 and Appendix F, recorded as [Q7](sources.md#figure-21b-and-the-accepted-q7-correction)
 in the source map; the generic built-in catalogue remains separate.
 
 Covers:

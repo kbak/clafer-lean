@@ -2,9 +2,9 @@
 
 Follow [the Lean trace convention](traceability.md): these are named Markdown
 artifacts; their evidence is the linked Lean declarations, not inline Lean tags.
-The [source map](sources.md) records SoSyM B.1–B.2 spans, the adopted Q1
+The [source map](sources.md) records SoSyM B.1–B.2 spans, the adopted [Q1](sources.md#span-composition-q1-research-for-4)
 correction, B.4 Definitions 6–10 and the abstract restriction argument of
-B.5 Theorem 3, and the selected Table 3/A.1 meanings with the Q8 correction.
+B.5 Theorem 3, and the selected Table 3/A.1 meanings with the [common-target disjointness correction (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction).
 All declaration names below are relative to `DPGraph`, except the
 carrier/declaration structure itself, `DPGraph`.
 
@@ -436,7 +436,9 @@ an endpoint-preserving head equivalence under composite joint injectivity.
 Covers:
 - `req~span-relation-composition~1`
 
-## Adopted Q1 correction proofs
+<a id="adopted-q1-correction-proofs"></a>
+
+## Adopted [span-composition correction (Q1)](sources.md#span-composition-q1-research-for-4) proofs
 
 `proof~span-relation-composition~1`
 
@@ -564,7 +566,7 @@ Covers:
 
 `proof~predicate-commutation~1`
 
-[Meaning.lean](../DPGraph/Predicates/Meaning.lean): `commutation_iff`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `relabeled_commutation`, `reduction_not_commutation` reuse the continuing Q1 counterexample from `Span.Examples.two_path_not_iso` and `red_comp`.
+[Meaning.lean](../DPGraph/Predicates/Meaning.lean): `commutation_iff`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `relabeled_commutation`, `reduction_not_commutation` reuse the continuing [Q1](sources.md#span-composition-q1-research-for-4) counterexample from `Span.Examples.two_path_not_iso` and `red_comp`.
 
 Covers:
 - `req~predicate-commutation~1`
@@ -668,7 +670,7 @@ Covers:
 
 `proof~predicate-disjointness~1`
 
-[Meaning.lean](../DPGraph/Predicates/Meaning.lean): `disjoint_iff`, `disjoint_zero`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `partition_disjoint`, `bag_partition_disjoint`, `bag_partition_not_setValued`, `repeated_not_disjoint`, `empty_domain_disjoint`, `repeated_diagram_rejected` check the accepted Q8 correction, including repeated inclusion of the very same ambient object.
+[Meaning.lean](../DPGraph/Predicates/Meaning.lean): `disjoint_iff`, `disjoint_zero`. [Examples.lean](../DPGraph/Predicates/Examples.lean): `partition_disjoint`, `bag_partition_disjoint`, `bag_partition_not_setValued`, `repeated_not_disjoint`, `empty_domain_disjoint`, `repeated_diagram_rejected` check the accepted [common-target disjointness correction (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction), including repeated inclusion of the very same ambient object.
 
 Covers:
 - `req~predicate-disjointness~1`
