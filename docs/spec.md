@@ -8,18 +8,21 @@ also defines the project decision labels used below. A research or planning
 requirement alone does not authorize semantic implementation.
 
 ## Reproducible Lean validation
+
 `req~lean-validation~1`
 
 The project pins Lean 4 and builds every module in the sibling `DPGraph`,
 `FormalCD` and `Clafer` libraries of the single `clafer` Lake package. It treats
 warnings as errors and rechecks every compiled project module with Lean's bundled
 `leanchecker`, including examples and helpers not imported by the entrypoints.
+
 Enforce `Clafer -> FormalCD -> DPGraph -> Mathlib`, including transitive imports
 through helpers and roots; exercise `import DPGraph` and its public names without
 the upper layers. Reject uncovered project modules and reverse dependencies,
 testing rejection as well as the permitted graph.
 The shared check command must fail if any
 validation stage fails. This includes the DP-graph definitions, proofs and examples.
+
 Run module discovery and its Python regressions before toolchain/dependency setup;
 make that preflight available separately for development feedback. Report elapsed
 time for build, kernel-check and test stages, identifying every kernel-checked
@@ -29,9 +32,11 @@ IntentBond exit status even if log streaming fails. Batch module builds and
 deduplicate overlapping kernel-check targets while retaining the complete
 discovered inventory. Preflight success does not satisfy
 the full validation requirement for Lean, build, validation or other executable changes.
+
 After building, run the declaration/axiom audit and Lean/Python regression tests
 before the more expensive kernel replay. Any failed gate stops later stages;
 successful validation still requires the complete kernel check.
+
 An explicitly configured factory documentation check may instead run source-inventory
 preflight, its Python regressions and changed-document checks when a complete
 file-content and mode comparison with the frozen baseline proves that only
@@ -41,6 +46,7 @@ or uncertain classification require full validation. Preserve the baseline ident
 and selected check in evidence. This exception does not claim new Lean validation:
 IntentBond tracing, source matching and independent read-only semantic review
 remain required, including review of changed mathematical claims and requirements.
+
 CI may reuse unchanged compiled project modules through Lake's native artifact
 cache, keyed by source contents, compiler options and transitive import traces.
 Changed inputs must rebuild affected modules and their dependents; invalid source
@@ -50,23 +56,27 @@ force fresh compilation in isolated snapshots. The shared check defaults caching
 to disabled outside an explicitly enabled environment. Restore all artifacts to
 the snapshot build paths before running the complete fresh kernel replay, axiom
 audit and regression gates; cache hits never substitute for these checks.
+
 CI and deployment-managed caches may also reuse pinned dependency artifacts.
 Derive the optional Mathlib prefetch from imports in every discovered project
 module and Lean test, including unimported helpers/examples and the pushout-cocone
 dependency. Fetch their transitive dependencies through Mathlib's cache; an empty
 inventory must not trigger a whole-Mathlib download. Cache failure must retain
-the complete pinned source-build fallback. CI persists native Lake dependency
+the complete pinned source-build fallback.
+
+CI persists native Lake dependency
 and project artifacts and Mathlib downloads outside captured source, passing
 their paths into the isolated check. Separate caches by OS, architecture, toolchain and dependency
 manifest; save populated caches after successful validation and permit later
 commits with the same dependency identity to reuse them. Always invoke the full
 discovered module build so Lake validates every module's inputs before reuse;
 never substitute an unchecked copy of a prior checkout's build directory.
+
 Audit declarations by their originating project modules, including private and
 generated declarations regardless of namespace, with complete `import all`
 coverage. Reject unsafe/partial definitions, new axioms and transitive axiom
 dependencies outside `propext`, `Classical.choice` and `Quot.sound`; report these
-standard axioms separately. Reject an empty audit or one missing actual DPGraph
+standard axioms separately. Reject an empty audit or one missing actual `DPGraph`
 declarations. Zero declarations in a future root only indicate scaffolding.
 
 Covers:
@@ -75,6 +85,7 @@ Covers:
 Needs: impl, itest
 
 ## IntentBond on every contribution
+
 `req~intentbond-workflow~1`
 
 Agent instructions require the pinned IntentBond development skill. The repository
@@ -94,6 +105,7 @@ Covers:
 Needs: impl
 
 ## GitHub planning and tracking
+
 `req~github-tracking~1`
 
 Agents plan work as GitHub issues in the configured Project. The ticket helper
@@ -109,11 +121,13 @@ Covers:
 Needs: impl, utest
 
 ## Focused public project documentation
+
 `req~public-foundation~1`
 
 The repository keeps its MIT license and provides contribution and
 private security-reporting guidance, issue/PR templates, a brief README, and links
 to the SoSyM publication, free preprint, and maintained Haskell implementation.
+
 The README explains Clafer and the formalization's purpose for new readers,
 states its research maturity and delivered-scope limits, and provides clone/build
 instructions, a command for checking an existing example, and clear routes to
@@ -121,25 +135,31 @@ documentation, contribution guidance, issue tracking and security reporting.
 Link the first mention of Lean to its [official site](https://lean-lang.org/).
 Keep detailed mathematical inventories in the canonical documentation rather
 than requiring familiarity with paper section numbers at the entry point.
+
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.1 Definitions 1–5,
 Theorems 1–2 and B.2.1–2 span operations (with the adopted Q1 reduction law),
 B.4 Definitions 6–10 foundation, abstract B.5 model reduct and selected
 Table 3/A.1 predicates (including the Q8 correction) over a bounded semantic
-graph, and the first FormalCD structure/name-preserving morphisms, from future
+graph, and the first `FormalCD` structure/name-preserving morphisms, from future
 predicates, all-universes SetMap, semantic self-instantiation and the remaining
-Clafer interpretation/integration increments. It documents the delivered resolved
+Clafer interpretation/integration increments.
+
+It documents the delivered resolved
 AST, typed core constraints, constraint boundary, individual Shapes, MCS
 structural discipline, structural Compile and resolved-referent gluing.
+
 It keeps private deployment configuration and credentials outside the source repository. Keep
 [intent](intent.md) as the canonical overview, linking current architecture,
 mathematical explanations, source citations, requirements and trace artifacts.
+
 Use its documentation map to identify the authoritative location for each kind
 of detail. Consolidate repeated explanations through links while retaining intent
 and artifact IDs, trace relationships, source citations and existing link
 destinations. Explain internal decision labels by name and link to their defining
 table; readers must not need issue history to understand a correction or contract.
+
 Keep frozen change records unchanged under their retention policy.
 Follow the [documentation policy](../AGENTS.md#documentation): change comparisons
 belong in PR descriptions and acceptance/execution evidence in external factory
@@ -152,6 +172,7 @@ Covers:
 Needs: impl
 
 ## SoSyM reader companion
+
 `req~sosym-reader-companion~1`
 
 Maintain [corrections and clarifications](sosym-errata.md) as a concise companion
@@ -176,6 +197,7 @@ Covers:
 Needs: impl
 
 ## Source audit and three-layer roadmap
+
 `req~formalization-roadmap~1`
 
 Maintain the three reusable layers and explicit exclusions in [intent](intent.md),
@@ -217,6 +239,7 @@ Covers:
 Needs: impl
 
 ## Resolved-IR comparison contract and compatibility audit
+
 `req~resolved-ir-comparison-contract~1`
 
 Maintain the documentation/source-analysis deliverable for
@@ -279,6 +302,7 @@ Covers:
 Needs: impl
 
 ## Supporting-source and coherence research
+
 `req~supporting-source-research~1`
 
 Maintain the bounded assessment authorized by
@@ -294,11 +318,13 @@ Record exact inspected statements, source/version identities and the limits of
 browser excerpts, recovered-page subsets and acquired complete files. For partial
 collections, record file/page hashes, page gaps and which claims are supported;
 do not treat recovered passages as uninspected or missing passages as audited.
+
 Bound acquisition by the claims required for an active increment. Use accessible
 primary alternatives when they establish the exact needed statement, recording
 its applicability limits. The unread 2003 keyed-sketch material and missing 2000
 universal-arrow pages remain explicit audit limits; further acquisition is
 deferred unless a named necessary claim lacks adequate primary evidence.
+
 Review this disposition with #41's assessment. Record hashes and locators for acquired
 files, and retain failed-route evidence outside living documentation. Abstracts,
 snippets and indexed PDF results do not establish a technical audit.
@@ -311,6 +337,7 @@ candidate revisions. Distinguish relevant foundations from a ready-made sketch
 package, and static inspection from compatibility verified by building. Preserve
 the adopted pins and separately review any future extension, adapter and license.
 Keep source limits, architecture, canonical intent and trace links consistent.
+
 Compare ordinary graph arities, marker-bearing arities and dependency-category
 signatures; state the extra closure, preservation and semantic-consistency
 obligations without importing them into the delivered API. Check proposed
@@ -326,6 +353,7 @@ Covers:
 Needs: impl
 
 ## Graphs, signatures and typed declarations
+
 `req~dpgraph-core~1`
 
 Implement SoSyM Appendix B.4, Definitions 6–9, using Mathlib `Quiver`,
@@ -337,7 +365,7 @@ its arity to the carrier; a DP-graph has a carrier and a `Set` of typed formulas
 Retain repeated arguments and isolated arity vertices. Do not impose categorical
 structure on carrier arrows, global finiteness, decidable equality or dependency
 closure. Explain the total-edge/dependent-sum correspondence. Provide the
-independently importable `DPGraph` with no FormalCD/Clafer dependencies.
+independently importable `DPGraph` with no `FormalCD`/`Clafer` dependencies.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -345,6 +373,7 @@ Covers:
 Needs: impl
 
 ## Formula translation laws
+
 `req~formula-translation~1`
 
 For a fixed signature, translate a formula by postcomposing its arity-to-carrier
@@ -357,6 +386,7 @@ Covers:
 Needs: impl, proof
 
 ## Declaration-preserving morphisms
+
 `req~dpgraph-morphisms~1`
 
 A DP morphism is a graph morphism with a proof that translation maps every
@@ -372,6 +402,7 @@ Covers:
 Needs: impl, proof
 
 ## Finite witnesses and failed preservation
+
 `req~dpgraph-examples~1`
 
 Construct a finite arity with two distinct parallel arrows and an isolated vertex,
@@ -379,9 +410,10 @@ a nonempty source declaration set and an explicitly described target declaration
 Give a nonidentity DP morphism identifying those arrows; prove distinctness,
 equal images and declaration preservation. Apply the translation-composition
 theorem to explicit composable maps. Exercise the isolated vertex's binding.
+
 Provide a graph map to a carrier whose required declaration is absent and prove
 that it cannot be equipped with a DP preservation proof. All these examples must
-compile independently of FormalCD/Clafer. Their syntax-only predicate names carry
+compile independently of `FormalCD`/`Clafer`. Their syntax-only predicate names carry
 no unproved meaning; they do not implement SetMap or Theorem 3. Finiteness is
 local to these examples, not a restriction on the core.
 
@@ -391,6 +423,7 @@ Covers:
 Needs: impl, proof
 
 ## Fixed-signature category
+
 `req~dpgraph-category~1`
 
 For each signature and fixed carrier vertex/arrow universes, provide a Mathlib
@@ -405,6 +438,7 @@ Covers:
 Needs: impl, proof
 
 ## Abstract interpretation and satisfaction
+
 `req~dpgraph-interpretation~1`
 
 An interpretation for a fixed signature and semantic graph assigns each symbol
@@ -427,6 +461,7 @@ Covers:
 Needs: impl, proof
 
 ## Contravariant model reduct
+
 `req~dpgraph-model-reduct~1`
 
 For a fixed interpretation, a declaration-preserving DP morphism `F : S → T`
@@ -447,6 +482,7 @@ Covers:
 Needs: impl, proof
 
 ## Model reduct injectivity
+
 `req~model-reduct-injective~1`
 
 For any `I : Interpretation σ Ω`, `F : Hom S T` and `J : Hom T S`, prove
@@ -465,6 +501,7 @@ Covers:
 Needs: impl, proof
 
 ## Model reduct surjectivity
+
 `req~model-reduct-surjective~1`
 
 For any `I : Interpretation σ Ω`, `F : Hom S T` and `J : Hom T S`, prove
@@ -483,6 +520,7 @@ Covers:
 Needs: impl, proof
 
 ## Interpreted witnesses
+
 `req~dpgraph-semantics-examples~1`
 
 Exercise a nonempty signature and declaration set with an explicit predicate
@@ -500,9 +538,10 @@ Covers:
 Needs: impl, proof
 
 ## Link-preserving spans and isomorphisms
+
 `req~span-representation~1`
 
-Implement SoSyM B.1 Definitions 1–5 within DPGraph: a span from `A : Type u`
+Implement SoSyM B.1 Definitions 1–5 within `DPGraph`: a span from `A : Type u`
 to `B : Type v` has a head `L : Type w` and total source/target functions.
 The three universes are independent; distinct links may have equal endpoints.
 An isomorphism is a head equivalence commuting with both legs, including across
@@ -514,6 +553,7 @@ Covers:
 Needs: impl, proof
 
 ## Span and indexed-family correspondence
+
 `req~span-family-correspondence~1`
 
 Represent indexed mappings by `I : A → Type w` and evaluation `∀ a, I a → B`.
@@ -531,6 +571,7 @@ Covers:
 Needs: impl, proof
 
 ## Set-valued spans and relation reduction
+
 `req~span-set-valuedness~1`
 
 For SoSyM B.1 Theorem 2, a relation span has head
@@ -545,6 +586,7 @@ Covers:
 Needs: impl, proof
 
 ## Pullback span composition and laws
+
 `req~span-composition~1`
 
 Implement SoSyM B.2.1 source-to-target composition with head
@@ -562,6 +604,7 @@ Covers:
 Needs: impl, proof
 
 ## Span inversion
+
 `req~span-inversion~1`
 
 Implement SoSyM B.2.2 inversion by retaining the head and swapping the legs.
@@ -574,6 +617,7 @@ Covers:
 Needs: impl, proof
 
 ## Relation composition: adopted Q1 correction
+
 `req~span-relation-composition~1`
 
 Adopt the [Q1 correction](SOURCES.md#span-composition-q1-research-for-4) to
@@ -582,6 +626,7 @@ is existential relational composition in source-to-target order. Require no
 finiteness, decidable equality or injectivity. Prove the canonical map from
 composite links to the right-hand relation span is surjective, and existence
 of a span isomorphism to it iff the outer endpoint map is injective.
+
 For relational inputs, characterize this injectivity by at most one intermediate
 object per outer endpoint pair. Prove sufficient cases: the first relation is
 single-valued, or the converse of the second is single-valued; neither requires
@@ -595,6 +640,7 @@ Covers:
 Needs: impl, proof
 
 ## Span witnesses and universe boundaries
+
 `req~span-examples~1`
 
 Provide kernel-checked examples of parallel links with identical endpoints;
@@ -613,6 +659,7 @@ Covers:
 Needs: impl, proof
 
 ## Bounded semantic graph
+
 `req~setmap-semantic-graph~1`
 
 Provide a graph over an ambient `U : Type u` whose vertices are subsets `A : Set U`
@@ -629,6 +676,7 @@ Covers:
 Needs: impl, proof
 
 ## Separate typed predicate arities
+
 `req~predicate-arities~1`
 
 Declare the selected Table 3/A.1 symbols with real arity quivers, separately
@@ -639,8 +687,8 @@ symbols carry a natural lower bound and finite natural or unbounded upper bound.
 Retain the isolated central vertex for n=0 and repeated graph-map argument
 bindings. Impose no global finiteness, decidable equality or implicit set-valued
 default. Catalogue VC, naming/arity disciplines, arbitrary path equations beyond
-the triangle and later FormalCD/Clafer-specific predicates as outside this generic
-built-in vocabulary. FormalCD extensions supply nd/ad and the selected VC.
+the triangle and later `FormalCD`/`Clafer`-specific predicates as outside this generic
+built-in vocabulary. `FormalCD` extensions supply nd/ad and the selected VC.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -648,6 +696,7 @@ Covers:
 Needs: impl, proof
 
 ## Inverse predicate
+
 `req~predicate-inverse~1`
 
 Interpret Table 3 inverse using B.1 Definition 2 and B.2.2: for opposite spans
@@ -661,6 +710,7 @@ Covers:
 Needs: impl, proof
 
 ## Triangle commutation
+
 `req~predicate-commutation~1`
 
 Interpret Table 3 equality as inhabited `Span.Iso (q.comp r) s` for a typed
@@ -675,6 +725,7 @@ Covers:
 Needs: impl, proof
 
 ## Bag-sensitive finite-family keys
+
 `req~predicate-key~1`
 
 A common-source finite family is a key exactly when target-preserving
@@ -692,6 +743,7 @@ Covers:
 Needs: impl, proof
 
 ## Ordinary-key correspondence and repeated marriages
+
 `req~predicate-key-functional~1`
 
 Derive an ordinary-function specialization of `req~predicate-key~1` without
@@ -730,6 +782,7 @@ Covers:
 Needs: impl, proof
 
 ## Covering common-target families
+
 `req~predicate-cover~1`
 
 Interpret Table 3 cover and §6.1.2 as every target object being reached by a
@@ -743,6 +796,7 @@ Covers:
 Needs: impl, proof
 
 ## Disjoint images: accepted Q8 correction
+
 `req~predicate-disjointness~1`
 
 Use §6.1.2/Figure 21 common-target family maps: for distinct indices i and j,
@@ -759,6 +813,7 @@ Covers:
 Needs: impl, proof
 
 ## Set-valued, total, single-valued and inclusion maps
+
 `req~predicate-unary-maps~1`
 
 Use B.1.4/Theorem 2 joint endpoint injectivity for set-valuedness; use A.1,
@@ -778,6 +833,7 @@ Covers:
 Needs: impl, proof
 
 ## Cardinal multiplicity bounds on links
+
 `req~predicate-multiplicity~1`
 
 Interpret Table 3 mult-trg/mult-src and B.1 indexed families by bounding each
@@ -796,6 +852,7 @@ Covers:
 Needs: impl, proof
 
 ## Concrete interpretation and generic model restriction
+
 `req~predicate-interpretation~1`
 
 Connect every symbol to its span meaning in the bounded semantic graph using
@@ -811,6 +868,7 @@ Covers:
 Needs: impl, proof
 
 ## Predicate acceptance witnesses
+
 `req~predicate-examples~1`
 
 Provide kernel-checked positive and negative witnesses for the complete selected
@@ -820,7 +878,7 @@ keys; cover/disjointness with repeated bindings, empty domains and zero-member
 families whose central vertex survives; literal/empty inclusion and moving or
 duplicated counterexamples; finite/empty/infinite ranges and reversal; concrete
 formula translation and nonidentity model restriction; larger link universes.
-Expose the reusable API through independent import DPGraph and keep examples
+Expose the reusable API through independent import `DPGraph` and keep examples
 separate. The unchanged shared check must discover, build, kernel replay and
 audit every added module; preserve warning enforcement, source export checks,
 IntentBond coverage and independent semantic review. No solver is required.
@@ -831,6 +889,7 @@ Covers:
 Needs: impl, proof
 
 ## Declaration unions on carrier cocones
+
 `req~dpgraph-pushout-data~1`
 
 For fixed-signature DP morphisms `F : Hom S T` and `J : Hom S U` at fixed
@@ -843,7 +902,7 @@ semantic universes independent in that data type.
 
 Expose `Pushout.CarrierCocone`, `obj`, `inl`, `inr`, `cocone` and `CompatibleModels` through
 `import DPGraph`. These are derived constructions over SoSyM B.4 Definitions
-9–10 and the abstract B.5 reduct, not concrete span, FormalCD or Clafer gluing.
+9–10 and the abstract B.5 reduct, not concrete span, `FormalCD` or Clafer gluing.
 Do not add finiteness, injectivity, inference closure or interpretation invariance.
 The cocone data alone does not assert a universal property or model amalgamation.
 
@@ -853,6 +912,7 @@ Covers:
 Needs: impl, proof, itest
 
 ## Pushout universal property
+
 `req~dpgraph-pushout-universal~1`
 
 For `σ : Signature.{s, va, ua}`, `S T U : DPGraph.{s, va, ua, v, u} σ`,
@@ -877,6 +937,7 @@ Covers:
 Needs: impl, proof, itest
 
 ## Model amalgamation on a carrier pushout
+
 `req~dpgraph-model-amalgamation~1`
 
 For a signature in universes `s va ua`, fixed carrier universes `v u`,
@@ -884,10 +945,13 @@ For a signature in universes `s va ua`, fixed carrier universes `v u`,
 `Ω : Quiv.{v,u}`, `I : Interpretation σ Ω` and `hc : IsColimit c`, provide
 `Pushout.modelEquiv F J c I hc :
 I.Model (Pushout.obj F J c) ≃ Pushout.CompatibleModels I F J`.
+
 Its forward map must be exactly the pair of reducts along `Pushout.inl F J c`
 and `Pushout.inr F J c`. Construct the inverse using the supplied carrier
 colimit, prove that it satisfies the union of translated declarations, and
-prove both inverse laws. Prove `Pushout.modelEquiv_fst F J c I hc m` and
+prove both inverse laws.
+
+Prove `Pushout.modelEquiv_fst F J c I hc m` and
 `Pushout.modelEquiv_snd F J c I hc m`, with exactly that explicit argument order,
 stating respectively
 `(modelEquiv F J c I hc m).val.1 = I.reduct (Pushout.inl F J c) m` and
@@ -900,7 +964,7 @@ preserve all existing interpretation and reduct declarations. This is a derived
 result over SoSyM B.4 Definitions 9–10 and abstract B.5 Theorem 3, not a verbatim
 paper claim. Require no finiteness, injectivity, semantic invariance or separate
 model amalgamation assumption, and assert no global pushout existence or concrete
-FormalCD/Clafer gluing.
+`FormalCD`/`Clafer` gluing.
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -908,12 +972,15 @@ Covers:
 Needs: impl, proof, itest
 
 ## FormalCD structure and semantic boundary
+
 `req~formalcd-structure~1`
 
-Expose reusable FormalCD modules through `import FormalCD`, depending on DPGraph
-and never Clafer. Reuse Quiv/Prefunctor, DPGraph.Formula and a declaration Set
+Expose reusable `FormalCD` modules through `import FormalCD`, depending on `DPGraph`
+and never Clafer. Reuse Quiv/Prefunctor, `DPGraph.Formula` and a declaration Set
 at a supported signature containing the built-in predicates, retaining
-DPGraph.Predicates.signature as the original specialization. Annotate existing vertices/arrows with class/map
+`DPGraph.Predicates.signature` as the original specialization.
+
+Annotate existing vertices/arrows with class/map
 names, optional predefined identifiers and ordinary/bag/inclusion map modes.
 Keep raw data independently inspectable from a WellFormed proposition and bundle
 valid CDs with its proof. A shared registry provides stable identifiers, canonical
@@ -936,6 +1003,7 @@ Covers:
 Needs: impl, proof
 
 ## FormalCD naming and predefined identity
+
 `req~formalcd-naming~1`
 
 Require predefined classes to use their registry's canonical name and user-defined
@@ -952,17 +1020,18 @@ Covers:
 Needs: impl, proof
 
 ## FormalCD effective declarations
+
 `req~formalcd-declarations~1`
 
 Every inclusion-marked arrow must have its corresponding built-in inclusion
-formula in the underlying DPGraph's effective declaration set. Every ordinary
+formula in the underlying `DPGraph`'s effective declaration set. Every ordinary
 map must have its corresponding setValued formula. Explicit bag mode adds no
 implicit setValued obligation, but authors may explicitly declare it. Inclusion
 is separate from bag mode and receives its semantic consequences from the existing
 inclusion interpretation. Use the typed unary binding with the actual arrow and
 its endpoints; do not replace typed formulas with a weaker arity predicate.
 Preserve all authored declarations in one authoritative effective set. Membership
-obligations in WellFormed suffice; generic DPGraph defaults/meanings are unchanged.
+obligations in WellFormed suffice; generic `DPGraph` defaults/meanings are unchanged.
 These are the accepted §6.1.1–3 defaults, with Figure 21c's bag exception.
 
 Covers:
@@ -971,11 +1040,12 @@ Covers:
 Needs: impl, proof
 
 ## FormalCD name-preserving morphisms
+
 `req~formalcd-morphisms~1`
 
 At a shared registry and supported signature (including the original built-in
 specialization), a morphism between independently
-well-formed CDs is an existing declaration-preserving DPGraph.Hom together with
+well-formed CDs is an existing declaration-preserving `DPGraph.Hom` together with
 equality of class names, map names, optional predefined annotations and map modes
 at mapped vertices/arrows. Preserve none versus some and ordinary versus bag versus
 inclusion exactly. Require neither global carrier injectivity nor reflection of
@@ -984,8 +1054,8 @@ Definition 10, not an extra theorem attributed verbatim to the paper.
 
 Provide identity, composition, extensionality from the underlying DP map and graph
 map, associativity and both units. Prove all metadata obligations close under
-identity/composition and that forgetting to DPGraph.Hom respects both operations,
-reusing DPGraph laws. Reuse the existing satisfaction/model reduct after forgetting,
+identity/composition and that forgetting to `DPGraph.Hom` respects both operations,
+reusing `DPGraph` laws. Reuse the existing satisfaction/model reduct after forgetting,
 with explicit interpretation, contravariant direction and its identity/composition
 laws. Do not re-prove the general reduct or claim arbitrary DP maps preserve metadata.
 
@@ -995,6 +1065,7 @@ Covers:
 Needs: impl, proof
 
 ## FormalCD acceptance witnesses
+
 `req~formalcd-examples~1`
 
 Keep examples separate from the public entrypoint and kernel check:
@@ -1010,7 +1081,7 @@ Keep examples separate from the public entrypoint and kernel check:
 - An actual concrete interpretation/model and restriction, plus failing satisfaction
   illustrating the separate semantic condition.
 
-Preserve independent DPGraph import, module discovery, import-layer checks, warnings,
+Preserve independent `DPGraph` import, module discovery, import-layer checks, warnings,
 kernel replay, axiom audits and trace coverage. The Figure 21c acceptance
 requirements below extend these witnesses, together with the complete Figure
 21b and VC requirements. No sorry/admit, unchecked axioms, unsafe/partial mathematical declarations,
@@ -1021,15 +1092,15 @@ Covers:
 
 Needs: impl, proof
 
-
 ## Compatible signature extension
+
 `req~formalcd-signature-extension~1`
 
 Provide an injective inclusion of the built-in symbols with inverse arity graph
-maps. Reuse DPGraph signatures, formulas and interpretations. Formula inclusion
+maps. Reuse `DPGraph` signatures, formulas and interpretations. Formula inclusion
 must be injective and commute with translation; extension of interpretations must
 restrict to the original meanings. Support independently bounded symbol, arity,
-carrier, registry and semantic universes without narrowing DPGraph. Preserve the
+carrier, registry and semantic universes without narrowing `DPGraph`. Preserve the
 original Raw/CD/Hom API and acceptance examples, ordinary/inclusion defaults,
 bag behavior, optional registry metadata, forgetting, identity/composition and
 model reduct laws at every supported common signature.
@@ -1040,6 +1111,7 @@ Covers:
 Needs: impl, proof
 
 ## Figure 21c metamodel shape
+
 `req~formalcd-metamodel-shape~1`
 
 Construct the eleven-node, thirteen-arrow inventory in the source map as a typed
@@ -1058,6 +1130,7 @@ Covers:
 Needs: impl, proof
 
 ## Metamodel discipline meanings
+
 `req~formalcd-metamodel-disciplines~1`
 
 Give nd/ad mathematical meanings connected to the extended interpretation and
@@ -1082,6 +1155,7 @@ Covers:
 Needs: impl, proof
 
 ## Full graph-formula identity and projection limits
+
 `req~formalcd-formula-identity~1`
 
 Formula identity is the existing symbol and full binding. Prove extensionality
@@ -1104,6 +1178,7 @@ Covers:
 Needs: impl, proof
 
 ## Metamodel acceptance witnesses
+
 `req~formalcd-metamodel-examples~1`
 
 Kernel check the complete inventory/defaults, valid and invalid predefined/user
@@ -1121,8 +1196,8 @@ Covers:
 
 Needs: impl, proof
 
-
 ## Bounded syntactic self-description
+
 `req~formalcd-bounded-self-description~1`
 
 For SoSyM §6.1.3 / Figure 21c, provide a named checked representation and
@@ -1141,6 +1216,7 @@ Covers:
 Needs: impl, proof
 
 ## Complete Figure 21b example
+
 `req~formalcd-figure21-example~1`
 
 Construct Figure 21b / §6.1.1–3 with exactly Comp, ECU, Display, Int and five
@@ -1165,15 +1241,18 @@ Covers:
 Needs: impl, proof
 
 ## Corrected guarded VC semantics
+
 `req~formalcd-vc-semantics~1`
 
 Adopt Q7: display.version ≥ server.version, with equality allowed and an absent
 server satisfying VC vacuously. Sources: Figure 8 line 9 and its accompanying
 §4.2.3 discussion (p.8; §4.3 supplies configuration context on p.9), Figure 21a
 OCL / §6.1.2, and Appendix F; retain the discrepancy with the adjacent reversed
-prose in the source map. VC's arity has exactly the
+prose in the source map.
+
+VC's arity has exactly the
 server, i1, i2 and version arrows and all endpoints. Interpret its actual typed
-formula through DPGraph.Interpretation over the existing bounded subset/span
+formula through `DPGraph.Interpretation` over the existing bounded subset/span
 graph, with an explicit integer realization/decoding and universe parameters.
 Keep built-in meanings unchanged. Under inclusion and version 1..1 declarations,
 prove correspondence with the guarded integer comparison. No True placeholder,
@@ -1186,6 +1265,7 @@ Covers:
 Needs: impl, proof
 
 ## Figure 21b semantic witnesses
+
 `req~formalcd-vc-witnesses~1`
 
 Provide a concrete nonempty model satisfying all twelve effective declarations,
@@ -1205,6 +1285,7 @@ Covers:
 Needs: impl, proof
 
 ## Resolved 2014 Clafer syntax
+
 `req~clafer-resolved-syntax~1`
 
 Implement directly constructible deep containment syntax for the selected 2014
@@ -1226,6 +1307,7 @@ Covers:
 Needs: impl, proof
 
 ## Selected Clafer input well-formedness
+
 `req~clafer-input-wellformedness~1`
 
 State and check Clafer-local conditions from §5.3.4–5, §5.4–5 and §6.2.2:
@@ -1237,7 +1319,7 @@ canonical names and no super. Require valid effective intervals and consistency
 of authored/defaulted values. Enforce §5.5's kind restrictions and equal parents
 when the super has a parent. Rule out containment and inheritance cycles using
 the deep containment representation and explicit depth/rank conditions. These
-conditions do not strengthen FormalCD or DPGraph. Supply a well-formed mixed
+conditions do not strengthen `FormalCD` or `DPGraph`. Supply a well-formed mixed
 model with basic, set, bag, top-level abstract basic/reference and nested abstract
 cases, plus rejected malformed or uninhabitable witnesses for important boundaries.
 
@@ -1247,6 +1329,7 @@ Covers:
 Needs: impl, proof
 
 ## Constraint and binder input boundary
+
 `req~clafer-constraint-boundary~1`
 
 Expose a resolved declaration context and a finite indexed bag of referenced
@@ -1265,6 +1348,7 @@ Covers:
 Needs: impl, proof
 
 ## Individual Clafer Shapes
+
 `req~clafer-individual-shapes~1`
 
 Represent Figure 16/Table 4 and §6.2.3's individual Shapes as typed role graphs
@@ -1295,6 +1379,7 @@ Covers:
 Needs: impl, proof
 
 ## Finite syntax and compilation termination basis
+
 `req~clafer-finite-traversal~1`
 
 Keep finiteness local to the Clafer input and role presentation. Provide a finite
@@ -1303,18 +1388,18 @@ with a decreasing child measure and well-founded resolved parent traversal.
 Reference IDs are not recursive children; cyclic references must not prevent
 finite traversal. Prove finite class/map-role carriers. This is a basis for
 the terminating structural Compile below; this traversal requirement alone
-does not assert compiler correctness or a full MCS theorem. Preserve independent generic DPGraph imports.
+does not assert compiler correctness or a full MCS theorem. Preserve independent generic `DPGraph` imports.
 
 Covers:
 - `intent~formalization-foundation~1`
 
 Needs: impl, proof
 
-
 ## MCS metamodel and ownership
+
 `req~clafer-mcs-metamodel~1`
 
-Encode SoSyM §6.2.3/Figure 23 with the existing graph/formula and FormalCD APIs:
+Encode SoSyM §6.2.3/Figure 23 with the existing graph/formula and `FormalCD` APIs:
 Role, ClassRole, MapRole, InclRole, String, PredefStr, Formula, Signature and the
 Clafer owner; the cover/disjoint partition; labels, endpoints, slots and formulas.
 Preserve the accepted correction from source `1` to `0..1` on the four ordinary-map
@@ -1332,6 +1417,7 @@ Covers:
 Needs: impl, proof
 
 ## Complete Appendix E structural discipline
+
 `req~clafer-mcs-disciplines~1`
 
 Implement the complete applicable Tables 5–8 inventory and accepted Q2 expansion
@@ -1339,7 +1425,9 @@ in [the MCS inventory](mcs-invariants.md). Use typed incidence and exact existin
 Shape presence guards; express cojoining at role-graph vertex identity. Include
 both endpoints of all four ordinary roles and three guarded super roles, root,
 every supported primitive domain, basic/set/bag and parentless abstract cases.
-Missing source/target endpoints forbid the corresponding inclusion slot. Enforce
+Missing source/target endpoints forbid the corresponding inclusion slot.
+
+Enforce
 head/parent/dref/target and inclusion naming, both directions of Sing and all
 primitive naming equivalences, and the target-name equation derived via the head
 map. Bundle each discipline once as a proposition, without inconsistent duplicate
@@ -1355,6 +1443,7 @@ Covers:
 Needs: impl, proof
 
 ## MCS formula bindings and literal constraints
+
 `req~clafer-mcs-formulas~1`
 
 Formula objects have one owner, a symbol and a complete well-typed graph binding,
@@ -1374,6 +1463,7 @@ Covers:
 Needs: impl, proof
 
 ## Resolved core constraint typing
+
 `req~clafer-core-typing~1`
 
 Provide deep, intrinsically typed resolved expressions for the selected core of
@@ -1406,6 +1496,7 @@ Covers:
 Needs: impl, proof
 
 ## Lexical scope and typed constraint input
+
 `req~clafer-core-binding~1`
 
 Keep source names, resolved declaration/binder IDs and occurrence positions
@@ -1431,6 +1522,7 @@ Covers:
 Needs: impl, proof
 
 ## Constraint graph support and semantic boundary
+
 `req~clafer-core-support~1`
 
 Provide a finite graph of class/map occurrences for a constraint (§6.2.2/Figure
@@ -1438,7 +1530,7 @@ Provide a finite graph of class/map occurrences for a constraint (§6.2.2/Figure
 validate their endpoints against resolved declarations. Graph arrows and navigation
 paths retain endpoint evidence. Widening paths must imply the reflexive/transitive
 closure of actual inheritance edges. Preserve isolated vertices and repeated
-resolved identities, with source names as metadata. Expose a DPGraph signature
+resolved identities, with source names as metadata. Expose a `DPGraph` signature
 whose predicate arities are these complete support graphs, and accept full graph
 bindings for later formula construction. Check endpoint rejection and preservation
 of repeated occurrences and full bindings.
@@ -1456,6 +1548,7 @@ Covers:
 Needs: impl, proof
 
 ## Integer extraction from primitive navigation
+
 `req~clafer-integer-extraction~1`
 
 Provide the selected D.3–D.4 unary collection-to-integer bridge as an explicitly
@@ -1490,6 +1583,7 @@ Covers:
 Needs: impl, proof
 
 ## Appendix F version operand well-definedness
+
 `req~clafer-version-navigation~1`
 
 Represent the actual Appendix F p.34 fragment's `version >= server.version` in
@@ -1518,6 +1612,7 @@ Covers:
 Needs: impl, proof
 
 ## Structural Compile input contract
+
 `req~clafer-compile-contract~1`
 
 Define Compile on the finite resolved AST of §6.2.4 with an explicit input
@@ -1527,7 +1622,7 @@ Require a typed constraint body satisfying the existing `Constraint.Input`
 interface for every attached boundary occurrence. Occurrences are indexed by
 owner and position, so repeated boundary numbers or equal bodies do not omit
 attachments. Require `0 < support.mapCount` for accepted constraints, solely
-at the Compile boundary. Keep generic `Constraint.Input` and DPGraph formulas
+at the Compile boundary. Keep generic `Constraint.Input` and `DPGraph` formulas
 unchanged, including their zero-arrow cases.
 
 Resolution, default elaboration, binder environments, explicit inheritance
@@ -1544,6 +1639,7 @@ Covers:
 Needs: impl, proof
 
 ## Structural Compile construction and preservation
+
 `req~clafer-compile-structure~1`
 
 Implement a total Lean transformation from accepted resolved ASTs to MCS values,
@@ -1569,6 +1665,7 @@ Covers:
 Needs: impl, proof
 
 ## Compile formula generation and full bindings
+
 `req~clafer-compile-formulas~1`
 
 Generate every existing local Shape declaration and every guarded inclusion
@@ -1594,6 +1691,7 @@ Covers:
 Needs: impl, proof
 
 ## Compile group data and direct-child maps
+
 `req~clafer-compile-group-data~1`
 
 Preserve each resolved declaration's complete `GroupMultiplicity` in the
@@ -1616,6 +1714,7 @@ Covers:
 Needs: impl, proof
 
 ## Interpreted group compilation and augmented gluing
+
 `req~clafer-compile-groups~1`
 
 Generate one interpreted group declaration for every concrete context using its
@@ -1658,6 +1757,7 @@ Covers:
 Needs: impl, proof
 
 ## MCS gluing identity and incidence
+
 `req~clafer-gluing-identity~1`
 
 Construct the graph of used class/map referents from the delivered MCS roles
@@ -1679,11 +1779,12 @@ Covers:
 Needs: impl, proof
 
 ## Exact gluing declarations and DP labeling
+
 `req~clafer-gluing-declarations~1`
 
 The glued declaration set is exactly the image of the source formula bank under
 postcomposition with labeling, at the same signature. Prove label is a graph
-morphism and a declaration-preserving DPGraph.Hom (B.4 Definition 10). Preserve
+morphism and a declaration-preserving `DPGraph.Hom` (B.4 Definition 10). Preserve
 the complete typed binding, including isolated vertices and repeated argument
 occurrences. Do not add target defaults to this exact image. The source literal
 bag key and total-args obligations remain separate: a valid source bank does not
@@ -1697,13 +1798,14 @@ Covers:
 Needs: impl, proof
 
 ## FormalCD validity after gluing
+
 `req~clafer-gluing-formalcd~1`
 
 Descend class/map names, predefined annotations and map modes to used referents
 with preservation theorems. Derive predefined classification from semantic
 origins through a shared registry, using the existing Sing/int/string/bool names
 and singleton/primitive kinds; spelling alone must not create a registry identity.
-Prove FormalCD.RawOver.WellFormed separately from DP preservation, with explicit
+Prove `FormalCD.RawOver.WellFormed` separately from DP preservation, with explicit
 naming, registry uniqueness, metadata consistency and effective-default
 completeness hypotheses. For valid MCS values, derive canonical naming and
 registry uniqueness from the structural disciplines and origin annotations.
@@ -1719,6 +1821,7 @@ Covers:
 Needs: impl, proof
 
 ## Gluing acceptance witnesses
+
 `req~clafer-gluing-examples~1`
 
 Kernel check a nonempty valid MCS with distinct class and map roles intentionally
@@ -1728,9 +1831,9 @@ not identify maps. Reject source/target, class/map name, predefined identity/kin
 and mode conflicts. Exercise canonical predefined naming and bag behavior,
 complete binding transport with repeated arguments and isolated vertices, and
 failure of translated-formula injectivity despite the source literal key.
-Exhibit DP preservation together with failure of FormalCD validity when defaults
+Exhibit DP preservation together with failure of `FormalCD` validity when defaults
 are missing, including a nonempty valid source bank; also prove a positive
-FormalCD validity result with sufficient defaults. Keep examples separate from
+`FormalCD` validity result with sufficient defaults. Keep examples separate from
 public imports and preserve Q2/Q9, the existing validation gates and OFT IDs.
 Compile-to-gluing integration (#24) and general constraint semantics remain
 separate.
@@ -1740,8 +1843,8 @@ Covers:
 
 Needs: impl, proof
 
-
 ## Effective structural core and supported fragment
+
 `req~clafer-effective-core~1`
 
 Provide the accepted #50 effective-core interface in the Clafer layer, retaining
@@ -1767,6 +1870,7 @@ Covers:
 Needs: impl, proof
 
 ## Whole-model structural satisfaction and interpretation
+
 `req~clafer-structural-satisfaction~1`
 
 Define independent global structural satisfaction for the accepted fragment from
@@ -1776,6 +1880,7 @@ parent ownership, shared-object inheritance, abstract cover and common-target
 sibling disjointness, reference totality, set keys, local multiplicities and
 concrete own-child group bounds. Groups count the union of child head objects;
 references count occurrences, including distinct heads with equal parent/target.
+
 Require an independent declaration-disjointness obligation: for distinct resolved
 declarations d and e, their head extents are disjoint whenever neither is reachable
 from the other through super edges. This applies to nested declarations and separate
@@ -1790,7 +1895,7 @@ selected complete compiled/glued structural diagram, explicitly accounting for
 global obligations absent from local Shapes. Prove the required ordinary-map
 representation, link/fiber count and key correspondences, object/link renaming
 invariance and completeness of the declared finite representation domain. Keep
-DPGraph independently importable and unrestricted. Do not claim global SetMap,
+`DPGraph` independently importable and unrestricted. Do not claim global SetMap,
 user-expression semantics or full compiler/optimizer/source preservation.
 
 Covers:
@@ -1799,6 +1904,7 @@ Covers:
 Needs: impl, proof
 
 ## Finite structural checker and input protocol
+
 `req~clafer-finite-checker~1`
 
 Provide finite shared-object carriers, class memberships, containment and
@@ -1825,6 +1931,7 @@ Covers:
 Needs: impl, proof, utest
 
 ## Structural checker boundary and mutation witnesses
+
 `req~clafer-checker-witnesses~1`
 
 Supply positive and negative whole-model kernel-checked witnesses and executable
@@ -1848,6 +1955,7 @@ Covers:
 Needs: impl, proof, utest
 
 ## Selected inherited field and explicit abstract realization
+
 `req~clafer-inherited-realization~1`
 
 Extend the Clafer whole-model interpretation for the accepted Appendix F
@@ -1887,6 +1995,7 @@ Covers:
 Needs: impl, proof
 
 ## Generated inherited realization and structural correspondence
+
 `req~clafer-compile-realization~1`
 
 Generate or derive the structural obligations of `req~clafer-inherited-realization~1`
@@ -1916,6 +2025,7 @@ Covers:
 Needs: impl, proof
 
 ## Appendix F inherited structural witnesses
+
 `req~clafer-inherited-witnesses~1`
 
 Provide kernel-checked positive witnesses for inherited comp.version across
@@ -1935,6 +2045,7 @@ Covers:
 Needs: impl, proof
 
 ## Explicit constraint model environments
+
 `req~clafer-constraint-environments~1`
 
 Interpret the resolved typed core over explicit shared-object model environments
@@ -1951,6 +2062,7 @@ Covers:
 Needs: impl, proof
 
 ## Independent core denotation
+
 `req~clafer-constraint-denotation~1`
 
 Give independent mathematical meanings and constructor equations for all supported
@@ -1970,6 +2082,7 @@ Covers:
 Needs: impl, proof
 
 ## Constraint invariance and boundary witnesses
+
 `req~clafer-constraint-semantic-laws~1`
 
 Prove constructor equations and relevant environment, renaming and support
@@ -1985,6 +2098,7 @@ Covers:
 Needs: impl, proof
 
 ## Appendix F resolved expression inventory
+
 `req~clafer-appendix-f-expressions~1`
 
 Supply all manual c01–c12 expansions from the accepted inherited inventory,
@@ -2005,6 +2119,7 @@ Covers:
 Needs: impl, proof
 
 ## Derived source-constraint predicate meanings
+
 `req~clafer-constraint-predicates~1`
 
 For the resolved typed core of Appendix D.4, derive each source occurrence's
@@ -2028,6 +2143,7 @@ Covers:
 Needs: impl, proof
 
 ## Selected Compile and gluing constraint correspondence
+
 `req~clafer-constraint-preservation~1`
 
 Prove the full arity-binding and source/formula satisfaction correspondence for
@@ -2056,6 +2172,7 @@ Covers:
 Needs: impl, proof
 
 ## Constraint preservation sensitivity and Appendix F support
+
 `req~clafer-constraint-preservation-witnesses~1`
 
 Audit all twelve Appendix F bodies against positive-map Compile support and
@@ -2077,12 +2194,13 @@ Covers:
 Needs: impl, proof
 
 ## Representative compilation and gluing
+
 `req~clafer-representative-integration~1`
 
 Apply the delivered Compile/gluing correctness interfaces to concrete resolved
 models (SoSyM §6.2.4–5, selected Figures 16, 18, 21–23 and Appendix F), proving
 expected nesting, inheritance, shared-reference identity, multiplicity and typed
-constraint-attachment relationships. Establish MCS validity, FormalCD validity
+constraint-attachment relationships. Establish MCS validity, `FormalCD` validity
 with complete effective defaults, and exact translated declaration preservation
 for the selected concrete banks. Keep role identities, referents and names
 separate; retain full support bindings and repeated constraint occurrences.
@@ -2111,6 +2229,7 @@ Covers:
 Needs: impl, proof
 
 ## Representative paper coverage accounting
+
 `req~clafer-representative-coverage~1`
 
 Maintain a concise [feature/source and completion matrix](representative-models.md)
@@ -2126,7 +2245,7 @@ compiled c02 fragment is a supported subset, not full Appendix F completion.
 Full interpretation of all printed constraints, final selections and a nonempty
 satisfying full model have the separate contract `req~clafer-appendix-f-complete~1`. #69 depends on this structural milestone and
 is not a prerequisite for its narrower result. Preserve independent public imports
-for DPGraph, FormalCD and Clafer under the existing layer checks. Keep #24 open
+for `DPGraph`, `FormalCD` and Clafer under the existing layer checks. Keep #24 open
 until its deliverables are accepted and the implementing PR is merged.
 
 Covers:
@@ -2136,6 +2255,7 @@ Covers:
 Needs: impl, proof
 
 ## Pinned resolved compiler import
+
 `req~clafer-resolved-import~1`
 
 Implement the authorized #51 importer under `Clafer/Verification/`, reusing the
@@ -2169,6 +2289,7 @@ Covers:
 Needs: impl, proof, utest
 
 ## Same-generation compiler capture
+
 `req~clafer-compiler-capture~1`
 
 Provide external capture/protocol scripts under `scripts/verification/` and
@@ -2195,6 +2316,7 @@ Covers:
 Needs: impl, utest
 
 ## Exact bounded candidate comparison
+
 `req~clafer-bounded-comparison~1`
 
 Implement the accepted #52 harness under `scripts/verification/`, tests/fixtures
@@ -2236,6 +2358,7 @@ Covers:
 Needs: impl, utest
 
 ## Candidate and Alloy representation fidelity
+
 `req~clafer-alloy-representation~1`
 
 Specify and independently review the [candidate/Alloy relation](bounded-comparison.md).
@@ -2258,6 +2381,7 @@ Covers:
 Needs: impl, utest
 
 ## Bounded search and deterministic counterexample replay
+
 `req~clafer-comparison-replay~1`
 
 Supply the contract's E1–E14 boundary cases, first repeated-target sets/bags, then
@@ -2273,12 +2397,14 @@ establishes both-direction completeness or unbounded correctness.
 Detect three controlled injected defects: omitted set uniqueness, collapsed
 duplicate bag occurrences and changed/dropped cardinality. Retain minimal
 deterministic replays and identify these as mutations, not compiler allegations.
+
 Use strict `clafer-structural-comparison/v1` artifacts with duplicate-key/version
 rejection, raw source/IR/Alloy/core/candidate/pin/command/witness hashes, exact
 bounds/options/versions/seeds, observed verdicts, null stages not run, diagnostics,
 limits/completeness and replay commands. Manifest references are acyclic; results
 and outputs cannot change input identity. Save execution evidence externally;
 keep licensed stable regression fixtures in tests and no diaries in living docs.
+
 Replay requires no LLM and validates its inputs/source and runtime identities.
 Record the actual checkout commit in `lean_commit`, or `null` when the source
 root has no `.git` metadata. Never substitute a parent repository's commit.
@@ -2294,6 +2420,7 @@ Covers:
 Needs: impl, utest
 
 ## Complete resolved Appendix F integration
+
 `req~clafer-appendix-f-complete~1`
 
 Represent every printed declaration and c01–c12 conjunct of SoSyM Appendix F
@@ -2304,7 +2431,7 @@ edges, five abstract families and three xor groups. Reuse the accepted source
 elaboration, accepted source corrections and inherited-field/group decisions
 without replacing or omitting a body.
 Prove the input contract, real positive-map support, generated structural MCS
-validity, gluing incidence/metadata/default obligations and final FormalCD validity.
+validity, gluing incidence/metadata/default obligations and final `FormalCD` validity.
 Keep the structural MCS distinct from the augmented zero-arrow bank.
 
 Construct a concrete nonempty satisfying configuration with two ECUs and two
@@ -2329,6 +2456,7 @@ Covers:
 Needs: impl, proof
 
 ## Complete Appendix F rejection witnesses
+
 `req~clafer-appendix-f-rejections~1`
 
 Supply focused negative witnesses for zero/two xor selections, wrong display

@@ -8,6 +8,7 @@ checking establishes the Lean statements; independent review must assess their
 correspondence to the paper and the selected input boundary.
 
 ## Deep resolved declarations
+
 `impl~clafer-resolved-syntax~1`
 
 [Syntax.lean](../Clafer/Syntax.lean): `Kind`, `Reference`, `Origin`,
@@ -20,6 +21,7 @@ Covers:
 - `req~clafer-resolved-syntax~1`
 
 ## Resolved syntax witnesses
+
 `proof~clafer-resolved-syntax~1`
 
 [Examples.lean](../Clafer/Examples.lean): `sample_wellFormed` constructs a mixed
@@ -33,17 +35,19 @@ Covers:
 - `req~clafer-resolved-syntax~1`
 
 ## Local input obligations
+
 `impl~clafer-input-wellformedness~1`
 
 [Syntax.lean](../Clafer/Syntax.lean): `AST.WellFormed`, `Kind.CanExtend`,
 `ValidRange` and `Defaults` state resolved identity, root/domain, containment,
 abstractness, inheritance, interval and constraint-context obligations. Rank is
-proof data for inheritance acyclicity. Generic FormalCD/DPGraph contracts are reused.
+proof data for inheritance acyclicity. Generic `FormalCD`/`DPGraph` contracts are reused.
 
 Covers:
 - `req~clafer-input-wellformedness~1`
 
 ## Input invariants and rejected cases
+
 `proof~clafer-input-wellformedness~1`
 
 [Syntax.lean](../Clafer/Syntax.lean): `AST.WellFormed.no_self_parent`,
@@ -60,6 +64,7 @@ Covers:
 - `req~clafer-input-wellformedness~1`
 
 ## Context and occurrence interface
+
 `impl~clafer-constraint-boundary~1`
 
 [Context.lean](../Clafer/Context.lean): `BinderId`, `Binder`,
@@ -72,6 +77,7 @@ Covers:
 - `req~clafer-constraint-boundary~1`
 
 ## Context boundary witnesses
+
 `proof~clafer-constraint-boundary~1`
 
 [Examples.lean](../Clafer/Examples.lean): `repeated_scope_resolved`,
@@ -84,6 +90,7 @@ Covers:
 - `req~clafer-constraint-boundary~1`
 
 ## Typed individual role graphs and local diagrams
+
 `impl~clafer-individual-shapes~1`
 
 [Shape.lean](../Clafer/Shape.lean): `Roles.classPresent`, `mapPresent`, `Class`,
@@ -91,7 +98,7 @@ Covers:
 `SharedClass`, `Inclusions`, `OptionalInclusions`.
 [Diagram.lean](../Clafer/Shape/Diagram.lean): `Shape.inverseBinding`,
 `triangleBinding`, `keyBinding`, `declarations`, `raw`, `diagram`, `realization`.
-These reuse graph-valued predicates and FormalCD's defaults. Optionality is
+These reuse graph-valued predicates and `FormalCD`'s defaults. Optionality is
 controlled by kind and endpoints. Inheritance's inclusion arrows are typed in
 one shared carrier; this does not impose the remaining global MCS equations.
 
@@ -99,12 +106,13 @@ Covers:
 - `req~clafer-individual-shapes~1`
 
 ## Shape incidence, kind and optionality
+
 `proof~clafer-individual-shapes~1`
 
 [Shape.lean](../Clafer/Shape.lean): `Roles.endpoints_present`, `incidence`,
 `no_basic_target`, `no_parent_source`, `no_parent_maps`, `root_only_head`,
 `root_no_maps`, `Located.shape_has_head`, `parentless_has_no_source`,
-`Shape.no_source_inclusion`, `Shape.Inclusions.declared` (under FormalCD well-formedness).
+`Shape.no_source_inclusion`, `Shape.Inclusions.declared` (under `FormalCD` well-formedness).
 [Diagram.lean](../Clafer/Shape/Diagram.lean): `Shape.raw_wellFormed`,
 `inverse_declared`, `key_declared`, `key_conditions`.
 [Examples.lean](../Clafer/Examples.lean): constructible `basicShape`, `setShape`,
@@ -120,6 +128,7 @@ Covers:
 - `req~clafer-individual-shapes~1`
 
 ## Structural traversal
+
 `impl~clafer-finite-traversal~1`
 
 [Syntax.lean](../Clafer/Syntax.lean): `Tree.fold`, `Forest.fold`, `Tree.entries`, `Forest.entries`, `AST.entries`,
@@ -134,6 +143,7 @@ Covers:
 - `req~clafer-finite-traversal~1`
 
 ## Finite representation and decreasing measures
+
 `proof~clafer-finite-traversal~1`
 
 [Syntax.lean](../Clafer/Syntax.lean): `Tree.child_smaller`,
@@ -147,8 +157,8 @@ correctness theorem follows from these finite presentation results.
 Covers:
 - `req~clafer-finite-traversal~1`
 
-
 ## MCS metamodel
+
 `impl~clafer-mcs-metamodel~1`
 
 [MCS/Metamodel.lean](../Clafer/MCS/Metamodel.lean): `Metamodel.Node`, `Edge`,
@@ -161,6 +171,7 @@ Covers:
 - `req~clafer-mcs-metamodel~1`
 
 ## MCS metamodel boundaries
+
 `proof~clafer-mcs-metamodel~1`
 
 [MCS/Metamodel.lean](../Clafer/MCS/Metamodel.lean): `Metamodel.wellFormed`,
@@ -176,6 +187,7 @@ Covers:
 - `req~clafer-mcs-metamodel~1`
 
 ## MCS Appendix E definitions
+
 `impl~clafer-mcs-disciplines~1`
 
 [MCS/Basic.lean](../Clafer/MCS/Basic.lean): `Family`, `Family.WellFormed`,
@@ -187,6 +199,7 @@ Covers:
 - `req~clafer-mcs-disciplines~1`
 
 ## MCS structural laws and nonempty composition
+
 `proof~clafer-mcs-disciplines~1`
 
 [MCS/Laws.lean](../Clafer/MCS/Laws.lean): `Roles.incidence`, `Roles.inclusion_incidence`,
@@ -208,6 +221,7 @@ Covers:
 - `req~clafer-mcs-disciplines~1`
 
 ## MCS formula representation
+
 `impl~clafer-mcs-formulas~1`
 
 [MCS/Basic.lean](../Clafer/MCS/Basic.lean): `Formulas`, `Formulas.Arg`, `.argument`,
@@ -219,6 +233,7 @@ Covers:
 - `req~clafer-mcs-formulas~1`
 
 ## MCS formula boundary proofs
+
 `proof~clafer-mcs-formulas~1`
 
 [MCS/Laws.lean](../Clafer/MCS/Laws.lean): `Formulas.no_zero_arrow`,
@@ -233,6 +248,7 @@ Covers:
 - `req~clafer-mcs-formulas~1`
 
 ## Resolved core expression constructors
+
 `impl~clafer-core-typing~1`
 
 [Typing.lean](../Clafer/Constraints/Typing.lean): `Constraints.Collection`, `Ty`,
@@ -247,6 +263,7 @@ Covers:
 - `req~clafer-core-typing~1`
 
 ## Core typing witnesses and rejection assertions
+
 `proof~clafer-core-typing~1`
 
 [Constraints/Examples.lean](../Clafer/Constraints/Examples.lean), namespace
@@ -266,6 +283,7 @@ Covers:
 - `req~clafer-core-typing~1`
 
 ## Lexical binding and compiler assumptions
+
 `impl~clafer-core-binding~1`
 
 [Typing.lean](../Clafer/Constraints/Typing.lean): `Local`, `Var`, `Expr.all`,
@@ -280,6 +298,7 @@ Covers:
 - `req~clafer-core-binding~1`
 
 ## Binder scope and resolved-input evidence
+
 `proof~clafer-core-binding~1`
 
 [Typing.lean](../Clafer/Constraints/Typing.lean): `Var.index_lt`, `Var.lookup`,
@@ -299,6 +318,7 @@ Covers:
 - `req~clafer-core-binding~1`
 
 ## Graph support and predicate seam
+
 `impl~clafer-core-support~1`
 
 [Support.lean](../Clafer/Constraints/Support.lean): `MapKind`, `MapRef`, `Support`,
@@ -312,6 +332,7 @@ Covers:
 - `req~clafer-core-support~1`
 
 ## Navigation, inheritance and full binding evidence
+
 `proof~clafer-core-support~1`
 
 [Support.lean](../Clafer/Constraints/Support.lean): `Support.incidence` and
@@ -330,6 +351,7 @@ Covers:
 - `req~clafer-core-support~1`
 
 ## Compile input and finite identity allocation
+
 `impl~clafer-compile-structure~1`
 
 [Compile/Structure.lean](../Clafer/Compile/Structure.lean) defines `Compile.Input`,
@@ -342,6 +364,7 @@ Covers:
 - `req~clafer-compile-structure~1`
 
 ## Compile structural preservation
+
 `proof~clafer-compile-structure~1`
 
 In [Structure](../Clafer/Compile/Structure.lean), `find_spec`, `sourceId_injective`,
@@ -365,6 +388,7 @@ Covers:
 - `req~clafer-compile-structure~1`
 
 ## Compile declarations and occurrence bindings
+
 `impl~clafer-compile-formulas~1`
 
 [Binding](../Clafer/Compile/Binding.lean) constructs `vertex`, `mapOwner`,
@@ -377,6 +401,7 @@ Covers:
 - `req~clafer-compile-formulas~1`
 
 ## Compile formula validity and completeness
+
 `proof~clafer-compile-formulas~1`
 
 [Binding](../Clafer/Compile/Binding.lean): `map_spec`, `binding_vertices`,
@@ -396,6 +421,7 @@ Covers:
 - `req~clafer-compile-formulas~1`
 
 ## Compile group metadata and direct-child inventory
+
 `impl~clafer-compile-group-data~1`
 
 [MCS/Basic.lean](../Clafer/MCS/Basic.lean) adds `Family.group` as metadata;
@@ -409,6 +435,7 @@ Covers:
 - `req~clafer-compile-group-data~1`
 
 ## Compile group data preservation proofs
+
 `proof~clafer-compile-group-data~1`
 
 In [Structure](../Clafer/Compile/Structure.lean), `group_preserved` retains the
@@ -425,6 +452,7 @@ Covers:
 - `req~clafer-compile-group-data~1`
 
 ## MCS gluing representation
+
 `impl~clafer-gluing-identity~1`
 
 [Gluing.lean](../Clafer/MCS/Gluing.lean), namespace `Clafer.MCS.Gluing`:
@@ -439,6 +467,7 @@ Covers:
 - `req~clafer-mcs-disciplines~1`
 
 ## MCS gluing identification proofs
+
 `proof~clafer-gluing-identity~1`
 
 [Gluing.lean](../Clafer/MCS/Gluing.lean): `classLabel_eq_iff`, `mapLabel_eq_iff`,
@@ -451,6 +480,7 @@ Covers:
 - `req~clafer-gluing-identity~1`
 
 ## Exact declaration image
+
 `impl~clafer-gluing-declarations~1`
 
 [Gluing.lean](../Clafer/MCS/Gluing.lean): `diagram`, `labelHom`. Declarations
@@ -463,6 +493,7 @@ Covers:
 - `req~dpgraph-morphisms~1`
 
 ## Declaration and binding preservation
+
 `proof~clafer-gluing-declarations~1`
 
 [Gluing.lean](../Clafer/MCS/Gluing.lean): `declared_iff`, the `preserves` proof
@@ -473,6 +504,7 @@ Covers:
 - `req~clafer-gluing-declarations~1`
 
 ## Glued CD metadata and assumptions
+
 `impl~clafer-gluing-formalcd~1`
 
 [Gluing.lean](../Clafer/MCS/Gluing.lean): `raw`, `Naming`, `Defaults`, `cd`.
@@ -489,6 +521,7 @@ Covers:
 - `req~formalcd-morphisms~1`
 
 ## Separate FormalCD well-formedness
+
 `proof~clafer-gluing-formalcd~1`
 
 [Gluing.lean](../Clafer/MCS/Gluing.lean): `className_label`, `mapName_label`,
@@ -504,6 +537,7 @@ Covers:
 - `req~clafer-gluing-formalcd~1`
 
 ## MCS gluing acceptance fixtures
+
 `impl~clafer-gluing-examples~1`
 
 [Examples.lean](../Clafer/MCS/Gluing/Examples.lean), namespace
@@ -517,6 +551,7 @@ Covers:
 - `req~clafer-gluing-examples~1`
 
 ## MCS gluing acceptance proofs
+
 `proof~clafer-gluing-examples~1`
 
 [Examples.lean](../Clafer/MCS/Gluing/Examples.lean): `compatible`, `valid`,
@@ -544,6 +579,7 @@ Covers:
 - `req~clafer-gluing-examples~1`
 
 ## Integer extraction interface
+
 `impl~clafer-integer-extraction~1`
 
 [Support.lean](../Clafer/Constraints/Support.lean): `Support.integer` and
@@ -553,12 +589,13 @@ annotated unary integer collection in the existing lexical context.
 [Integer.lean](../Clafer/Constraints/Integer.lean): `IntegerRealization.Extracts`,
 `WellDefined`, `extract`, `objectEquiv`, `IntegerBinding` and `navigationImage`
 supply the partial meaning and explicit object/value binding. The realization
-is reused from FormalCD; the special VC meaning is not used as an interpreter.
+is reused from `FormalCD`; the special VC meaning is not used as an interpreter.
 
 Covers:
 - `req~clafer-integer-extraction~1`
 
 ## Integer extraction correspondence and boundaries
+
 `proof~clafer-integer-extraction~1`
 
 [Integer.lean](../Clafer/Constraints/Integer.lean): `extracts_unique`,
@@ -576,6 +613,7 @@ Covers:
 - `req~clafer-integer-extraction~1`
 
 ## Appendix F selected version navigation
+
 `impl~clafer-version-navigation~1`
 
 [IntegerNavigation.lean](../Clafer/Constraints/IntegerNavigation.lean), namespace
@@ -589,6 +627,7 @@ Covers:
 - `req~clafer-version-navigation~1`
 
 ## Appendix F operand definedness and comparisons
+
 `proof~clafer-version-navigation~1`
 
 [IntegerNavigation.lean](../Clafer/Constraints/IntegerNavigation.lean):
@@ -607,6 +646,7 @@ Covers:
 - `req~clafer-version-navigation~1`
 
 ## Effective structural core
+
 `impl~clafer-effective-core~1`
 
 [EffectiveCore.lean](../Clafer/Semantics/EffectiveCore.lean): `EffectiveCore`,
@@ -618,6 +658,7 @@ Covers:
 - `req~clafer-effective-core~1`
 
 ## Effective-core correspondence proofs
+
 `proof~clafer-effective-core~1`
 
 [EffectiveCore.lean](../Clafer/Semantics/EffectiveCore.lean): `erase_wellFormed`,
@@ -631,6 +672,7 @@ Covers:
 - `req~clafer-effective-core~1`
 
 ## Whole-model structural meaning
+
 `impl~clafer-structural-satisfaction~1`
 
 [Structural.lean](../Clafer/Semantics/Structural.lean): `Configuration`,
@@ -647,6 +689,7 @@ Covers:
 - `req~clafer-structural-satisfaction~1`
 
 ## Structural interpretation and representation proofs
+
 `proof~clafer-structural-satisfaction~1`
 
 [Bridge.lean](../Clafer/Semantics/Bridge.lean): `key_local_iff`, `local_model_iff`,
@@ -679,6 +722,7 @@ Covers:
 - `req~predicate-interpretation~1`
 
 ## Finite structural checker
+
 `impl~clafer-finite-checker~1`
 
 [Finite.lean](../Clafer/Verification/Finite.lean): `Candidate`, `realize`,
@@ -693,6 +737,7 @@ Covers:
 - `req~clafer-finite-checker~1`
 
 ## Checker and protocol correctness
+
 `proof~clafer-finite-checker~1`
 
 [Finite.lean](../Clafer/Verification/Finite.lean): `inRange_card`, `checks_iff`,
@@ -710,6 +755,7 @@ Covers:
 - `req~clafer-finite-checker~1`
 
 ## Structural checker fixtures and mutation controls
+
 `impl~clafer-checker-witnesses~1`
 
 [Examples.lean](../Clafer/Verification/Examples.lean), namespace
@@ -723,6 +769,7 @@ Covers:
 - `req~clafer-checker-witnesses~1`
 
 ## Structural checker kernel witnesses
+
 `proof~clafer-checker-witnesses~1`
 
 [Examples.lean](../Clafer/Verification/Examples.lean): `bag_satisfies`,
@@ -749,6 +796,7 @@ Covers:
 - `req~clafer-checker-witnesses~1`
 
 ## Structural checker native regression execution
+
 `utest~clafer-structural-checker~1`
 
 [structural_checker.lean](../tests/structural_checker.lean) executes
@@ -763,6 +811,7 @@ Covers:
 - `req~clafer-checker-witnesses~1`
 
 ## Interpreted group generation
+
 `impl~clafer-compile-groups~1`
 
 [GroupSupport.lean](../Clafer/Compile/GroupSupport.lean): `Ancestor`, `Child`,
@@ -778,6 +827,7 @@ Covers:
 - `req~clafer-gluing-declarations~1`
 
 ## Group generation and gluing correspondence
+
 `proof~clafer-compile-groups~1`
 
 [GroupSupport.lean](../Clafer/Compile/GroupSupport.lean): `binding_context`,
@@ -800,6 +850,7 @@ Covers:
 - `req~predicate-multiplicity~1`
 
 ## Compiled and glued group witnesses
+
 `proof~clafer-compile-group-examples~1`
 
 [GroupExamples.lean](../Clafer/Compile/GroupExamples.lean): `emitted`,
@@ -821,6 +872,7 @@ Covers:
 - `req~clafer-compile-groups~1`
 
 ## Selected inherited realization
+
 `impl~clafer-inherited-realization~1`
 
 [Realization](../Clafer/Semantics/Realization.lean) defines `Core`, `Core.ofInput`,
@@ -853,6 +905,7 @@ Covers:
 - `req~clafer-inherited-realization~1`
 
 ## Generated realization declarations
+
 `impl~clafer-compile-realization~1`
 
 [Compile.Realization](../Clafer/Compile/Realization.lean) constructs `fanBinding`,
@@ -881,6 +934,7 @@ Covers:
 - `req~clafer-compile-realization~1`
 
 ## Inherited Appendix F acceptance witnesses
+
 `impl~clafer-inherited-witnesses~1`
 
 [Inherited](../Clafer/Examples/Inherited.lean) constructs the structural AST,
@@ -907,8 +961,8 @@ and `realized_xor_glued`.
 Covers:
 - `req~clafer-inherited-witnesses~1`
 
-
 ## Resolved constraint denotation
+
 `impl~clafer-constraint-denotation~1`
 
 [Denotation.lean](../Clafer/Constraints/Denotation.lean) supplies `Environment`,
@@ -925,6 +979,7 @@ Covers:
 - `req~clafer-constraint-semantic-laws~1`
 
 ## Constructor and environment meaning proofs
+
 `proof~clafer-constraint-denotation-laws~1`
 
 [Denotation.lean](../Clafer/Constraints/Denotation.lean) proves
@@ -959,6 +1014,7 @@ Covers:
 - `req~clafer-constraint-semantic-laws~1`
 
 ## Manual Appendix F expression implementation
+
 `impl~clafer-appendix-f-expressions~1`
 
 [AppendixFConstraints.lean](../Clafer/Examples/AppendixFConstraints.lean)
@@ -980,6 +1036,7 @@ Covers:
 - `req~clafer-appendix-f-expressions~1`
 
 ## Constraint semantic witnesses
+
 `proof~clafer-constraint-semantic-witnesses~1`
 
 [DenotationExamples.lean](../Clafer/Constraints/DenotationExamples.lean)
@@ -1017,6 +1074,7 @@ Covers:
 - `req~clafer-appendix-f-expressions~1`
 
 ## Derived source predicate meanings
+
 `impl~clafer-constraint-predicates~1`
 
 [Predicate.lean](../Clafer/Constraints/Predicate.lean) defines `Domains.close`,
@@ -1039,6 +1097,7 @@ Covers:
 - `req~clafer-constraint-predicates~1`
 
 ## Selected semantic Compile correspondence
+
 `impl~clafer-constraint-preservation~1`
 
 [ConstraintMeaning.lean](../Clafer/Compile/ConstraintMeaning.lean) defines
@@ -1071,6 +1130,7 @@ Covers:
 - `req~clafer-constraint-preservation~1`
 
 ## Constraint predicate acceptance boundaries
+
 `impl~clafer-constraint-preservation-witnesses~1`
 
 [ConstraintPredicates.lean](../Clafer/Examples/ConstraintPredicates.lean) constructs
@@ -1104,6 +1164,7 @@ Covers:
 - `req~clafer-constraint-preservation-witnesses~1`
 
 ## Representative model integration
+
 `impl~clafer-representative-integration~1`
 
 [Integration.lean](../Clafer/Examples/Integration.lean) defines `Small.glued`,
@@ -1173,6 +1234,7 @@ Covers:
 - `req~clafer-representative-coverage~1`
 
 ## Resolved compiler import and capture
+
 `impl~clafer-resolved-import~1`
 
 [Import.lean](../Clafer/Verification/Import.lean) supplies `Row`, `Input.normalize`,
@@ -1187,6 +1249,7 @@ Covers:
 - `req~clafer-resolved-import~1`
 
 ### Imported representation and semantic correspondence
+
 `proof~clafer-import-correspondence~1`
 
 [ImportProofs.lean](../Clafer/Verification/ImportProofs.lean) proves
@@ -1205,6 +1268,7 @@ Covers:
 - `req~clafer-resolved-import~1`
 
 ### Same-generation capture implementation
+
 `impl~clafer-compiler-capture~1`
 
 [Export.hs](../scripts/verification/Export.hs) performs the source/token audit,
@@ -1221,6 +1285,7 @@ Covers:
 - `req~clafer-compiler-capture~1`
 
 ### Import and capture acceptance assertions
+
 `utest~clafer-resolved-import~1`
 
 [Python tests](../tests/test_resolved_import.py) execute actual pinned captures,
@@ -1239,6 +1304,7 @@ Covers:
 - `req~clafer-compiler-capture~1`
 
 ## Complete Appendix F resolved model
+
 `impl~clafer-appendix-f-complete~1`
 
 [AppendixF](../Clafer/Examples/AppendixF.lean) defines `decl`, `attachments`,
@@ -1254,6 +1320,7 @@ Covers:
 - `req~clafer-appendix-f-complete~1`
 
 ## Complete Appendix F model proofs
+
 `proof~clafer-appendix-f-complete~1`
 
 [AppendixF](../Clafer/Examples/AppendixF.lean): `wf`, `inventory_input`,
@@ -1278,6 +1345,7 @@ Covers:
 - `req~clafer-appendix-f-complete~1`
 
 ## Complete Appendix F rejection candidates
+
 `impl~clafer-appendix-f-rejections~1`
 
 [AppendixFRejections](../Clafer/Examples/AppendixFRejections.lean) reuses the
@@ -1291,6 +1359,7 @@ Covers:
 - `req~clafer-appendix-f-rejections~1`
 
 ## External bounded comparison execution
+
 `impl~clafer-bounded-comparison~1`
 
 [comparison.py](../scripts/verification/comparison.py) reuses `import_bundle`
@@ -1307,6 +1376,7 @@ Covers:
 - `req~clafer-bounded-comparison~1`
 
 ## External candidate representation
+
 `impl~clafer-alloy-representation~1`
 
 [relation.py](../scripts/verification/relation.py) defines `inventory`, `pin`,
@@ -1320,6 +1390,7 @@ Covers:
 - `req~clafer-alloy-representation~1`
 
 ## Bounded enumeration and artifacts
+
 `impl~clafer-comparison-replay~1`
 
 [candidates.py](../scripts/verification/candidates.py) supplies complete labelled
@@ -1337,6 +1408,7 @@ Covers:
 - `req~clafer-comparison-replay~1`
 
 ## Bounded comparison assertions
+
 `utest~clafer-bounded-comparison~1`
 
 [test_bounded_comparison.py](../tests/test_bounded_comparison.py) executes actual
@@ -1346,18 +1418,21 @@ nesting, abstract cover/shared inheritance, rejected unrelated overlap with
 `agree_violates`, accepted distinct heads, nested overlap rejection, malformed/root inputs,
 cyclic and nonfunctional tables, unpinned witnesses, the fixed exhaustive domain,
 seeded candidates, all three shrunk mutations and pin/arithmetic/execution failures.
+
 `RelationTests` checks generator counts, seeds, interruption and result algebra.
 It also checks exact predicate-name collisions and missing/duplicate original
 commands. `LiveComparisonTests.test_13_predicate_substring_comparison_and_replay`
 compiles `predicate_name.cfr` with the pinned compiler and checks empty and
 singleton candidates plus replay against the actual backend, including witness
 fidelity, for the generated signature `c0_ib_candidate`.
+
 `SourceIdentityTests` exercises snapshot comparison/replay with isolated capture
 admission, actual checkout/worktree Git metadata, parent/environment isolation,
 corrupt metadata/execution errors, source/input byte tampering and runtime mismatch.
 `LiveComparisonTests.test_12_source_snapshot_comparison_and_replay` checks a
 complete real comparison and replay with identical hashed sources relocated to
 a tree without Git metadata, retained runtime identities and tampering rejection.
+
 Existing [test_resolved_import.py](../tests/test_resolved_import.py) retains E1/E7–E9/
 E12–E13 strict source/IR/receipt/constructor/option rejection assertions; these
 complement the relation-specific E1–E14 comparisons. Mutation assertions are
@@ -1370,6 +1445,7 @@ Covers:
 - `req~clafer-comparison-replay~1`
 
 ## Complete Appendix F negative sensitivity
+
 `proof~clafer-appendix-f-rejections~1`
 
 [AppendixFRejections](../Clafer/Examples/AppendixFRejections.lean):

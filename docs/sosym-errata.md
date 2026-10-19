@@ -145,7 +145,7 @@ or maps they denote, and displayed names. Repeated `parent`, `dref` or `isA`
 strings do not identify maps. The adopted gluing rule identifies exactly equal
 resolved referents, requiring matching endpoints and consistent names, predefined
 annotations and map modes. This is an explicit interpretation of the paper's
-labeling step. Transporting declarations proves a DP morphism; FormalCD validity
+labeling step. Transporting declarations proves a DP morphism; `FormalCD` validity
 also needs complete effective defaults in the source bank. An exact image of
 declarations does not silently add missing defaults. Ordinary non-bag maps require
 set-valued defaults; bag maps have no such default.

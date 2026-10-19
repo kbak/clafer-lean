@@ -6,6 +6,7 @@ statements and [source correspondence](SOURCES.md#formalcd-structure-and-selecte
 All names below are in `FormalCD`. Examples remain outside the public entrypoint.
 
 ## Raw and bundled structure
+
 `impl~formalcd-data~1`
 
 [Basic.lean](../FormalCD/Basic.lean): `Registry`, `PredefinedKind`, `MapMode`,
@@ -17,6 +18,7 @@ Covers:
 - `req~formalcd-structure~1`
 
 ## Structure witnesses and typed bindings
+
 `proof~formalcd-data-witnesses~1`
 
 [Examples.lean](../FormalCD/Examples.lean): `Examples.wellFormed`,
@@ -25,13 +27,14 @@ and `.isolated_vertex` exercise valid data, optional entries and intact bindings
 [SemanticsExamples.lean](../FormalCD/SemanticsExamples.lean):
 `Examples.wellFormed_does_not_certify_satisfaction` separates syntax and semantics.
 [formalcd_imports.lean](../tests/formalcd_imports.lean) checks the independent public
-API with independent carrier/semantic universes; the existing DPGraph public-import
+API with independent carrier/semantic universes; the existing `DPGraph` public-import
 test retains its separate root guard.
 
 Covers:
 - `req~formalcd-structure~1`
 
 ## Naming obligations
+
 `impl~formalcd-name-obligations~1`
 
 [Basic.lean](../FormalCD/Basic.lean): `Registry.Reserved` and
@@ -42,6 +45,7 @@ Covers:
 - `req~formalcd-naming~1`
 
 ## Naming acceptance and rejection
+
 `proof~formalcd-name-witnesses~1`
 
 [Examples.lean](../FormalCD/Examples.lean): `Examples.distinct_inclusions`,
@@ -53,6 +57,7 @@ Covers:
 - `req~formalcd-naming~1`
 
 ## Effective declaration obligations
+
 `impl~formalcd-effective-declarations~1`
 
 [Basic.lean](../FormalCD/Basic.lean): `Raw.toDPGraph` retains the authoritative
@@ -63,6 +68,7 @@ Covers:
 - `req~formalcd-declarations~1`
 
 ## Default membership and exceptions
+
 `proof~formalcd-default-witnesses~1`
 
 [Basic.lean](../FormalCD/Basic.lean): `arrowBinding_comp`,
@@ -77,6 +83,7 @@ Covers:
 - `req~formalcd-declarations~1`
 
 ## Specialized morphisms and forgetting
+
 `impl~formalcd-hom~1`
 
 [Morphism.lean](../FormalCD/Morphism.lean): `Hom`, `Hom.toDPHom`, `Hom.id` and
@@ -88,6 +95,7 @@ Covers:
 - `req~formalcd-morphisms~1`
 
 ## Morphism laws and semantic interoperability
+
 `proof~formalcd-hom-laws~1`
 
 [Morphism.lean](../FormalCD/Morphism.lean): `Hom.ext`, `.ext_of_map`, `.id_comp`,
@@ -104,6 +112,7 @@ Covers:
 - `req~formalcd-morphisms~1`
 
 ## Acceptance example data
+
 `impl~formalcd-example-data~1`
 
 [Examples.lean](../FormalCD/Examples.lean): `Examples.registry`, `.raw`, `.diagram`,
@@ -117,6 +126,7 @@ Covers:
 - `req~formalcd-examples~1`
 
 ## Checked acceptance boundaries
+
 `proof~formalcd-acceptance-witnesses~1`
 
 The naming/default/morphism witnesses listed above in
@@ -134,6 +144,7 @@ Covers:
 - `req~formalcd-examples~1`
 
 ## Supported signature data and compatible specialization
+
 `impl~formalcd-supported-signature~1`
 
 [Signature.lean](../FormalCD/Signature.lean): `Vocabulary`, `.builtins`, `.extend`,
@@ -143,7 +154,7 @@ arity maps without identifying universes. [Basic.lean](../FormalCD/Basic.lean):
 `Raw`, `CD`, `CD.generalize` retain the original specialization.
 [Morphism.lean](../FormalCD/Morphism.lean): `HomOver` and its identity/composition
 operations preserve all metadata. [Semantics.lean](../FormalCD/Semantics.lean):
-`HomOver.reduct` reuses DPGraph restriction at that signature.
+`HomOver.reduct` reuses `DPGraph` restriction at that signature.
 
 Covers:
 - `req~formalcd-signature-extension~1`
@@ -152,6 +163,7 @@ Covers:
 - `req~formalcd-morphisms~1`
 
 ## Signature and morphism compatibility proofs
+
 `proof~formalcd-supported-signature-laws~1`
 
 [Signature.lean](../FormalCD/Signature.lean): `Vocabulary.embed_builtins`,
@@ -169,6 +181,7 @@ Covers:
 - `req~formalcd-morphisms~1`
 
 ## Metamodel inventory and typed declarations
+
 `impl~formalcd-metamodel-construction~1`
 
 [Shape.lean](../FormalCD/Metamodel/Shape.lean): `Metamodel.Node`, `.Edge`, `.graph`,
@@ -182,6 +195,7 @@ Covers:
 - `req~formalcd-metamodel-shape~1`
 
 ## Metamodel construction facts
+
 `proof~formalcd-metamodel-construction-laws~1`
 
 [Basic.lean](../FormalCD/Metamodel/Basic.lean): `Metamodel.wellFormed`, `.declared`,
@@ -197,6 +211,7 @@ Covers:
 - `req~formalcd-metamodel-shape~1`
 
 ## Discipline meanings and full binding representation
+
 `impl~formalcd-metamodel-meaning~1`
 
 [Binding.lean](../FormalCD/Metamodel/Binding.lean): `Metamodel.Candidate`,
@@ -207,13 +222,14 @@ Covers:
 `ArityDiscipline` (all in `FormalCD.Metamodel`) check actual spans and explicit
 representation data. [Interpretation.lean](../FormalCD/Metamodel/Interpretation.lean):
 `Context` and `interpretation` connect the two extra symbols to these predicates.
-The literal key uses the existing DPGraph interpretation without changing it.
+The literal key uses the existing `DPGraph` interpretation without changing it.
 
 Covers:
 - `req~formalcd-metamodel-disciplines~1`
 - `req~formalcd-formula-identity~1`
 
 ## Discipline correspondence and identity laws
+
 `proof~formalcd-metamodel-meaning-laws~1`
 
 [Binding.lean](../FormalCD/Metamodel/Binding.lean): `Candidate.ofFormula_valid`,
@@ -229,6 +245,7 @@ Covers:
 - `req~formalcd-formula-identity~1`
 
 ## Metamodel acceptance data
+
 `impl~formalcd-metamodel-witness-data~1`
 
 [Examples.lean](../FormalCD/Metamodel/Examples.lean): `ordered`, `repeated`,
@@ -243,6 +260,7 @@ Covers:
 - `req~formalcd-metamodel-examples~1`
 
 ## Checked discipline and projection boundaries
+
 `proof~formalcd-metamodel-witnesses~1`
 
 [Examples.lean](../FormalCD/Metamodel/Examples.lean): `repeated_occurrences`,
@@ -269,6 +287,7 @@ Covers:
 - `req~formalcd-metamodel-examples~1`
 
 ## Bounded syntactic self-description data
+
 `impl~formalcd-bounded-self-description-data~1`
 
 [SelfDescription.lean](../FormalCD/SelfDescription.lean) reuses the existing
@@ -280,6 +299,7 @@ Covers:
 - `req~formalcd-bounded-self-description~1`
 
 ## Bounded syntactic self-description proof
+
 `proof~formalcd-bounded-self-description-laws~1`
 
 [SelfDescription.lean](../FormalCD/SelfDescription.lean):
@@ -292,6 +312,7 @@ Covers:
 - `req~formalcd-bounded-self-description~1`
 
 ## Figure 21b data and effective formulas
+
 `impl~formalcd-figure21-construction~1`
 
 [Telematics/Basic.lean](../FormalCD/Telematics/Basic.lean): `Node`, `Edge`, `graph`,
@@ -306,6 +327,7 @@ Covers:
 - `req~formalcd-figure21-example~1`
 
 ## Figure 21b syntax and inventory proofs
+
 `proof~formalcd-figure21-construction-laws~1`
 
 [Telematics/Basic.lean](../FormalCD/Telematics/Basic.lean): `wellFormed`, `declared`,
@@ -323,6 +345,7 @@ Covers:
 - `req~formalcd-figure21-example~1`
 
 ## Guarded VC interpretation data
+
 `impl~formalcd-vc-meaning~1`
 
 [Telematics/VC.lean](../FormalCD/Telematics/VC.lean): `IntegerRealization`, `.domain`,
@@ -339,6 +362,7 @@ Covers:
 - `req~formalcd-vc-semantics~1`
 
 ## Guarded VC correspondence proofs
+
 `proof~formalcd-vc-meaning-laws~1`
 
 [Telematics/VC.lean](../FormalCD/Telematics/VC.lean): `builtins_unchanged`,
@@ -353,6 +377,7 @@ Covers:
 - `req~formalcd-vc-semantics~1`
 
 ## Figure 21b model and boundary data
+
 `impl~formalcd-vc-witness-data~1`
 
 [Telematics/Examples.lean](../FormalCD/Telematics/Examples.lean): `Universe`, `integers`,
@@ -366,6 +391,7 @@ Covers:
 - `req~formalcd-vc-witnesses~1`
 
 ## Figure 21b satisfaction and counterexamples
+
 `proof~formalcd-vc-witness-laws~1`
 
 [Telematics/Examples.lean](../FormalCD/Telematics/Examples.lean): `inclusion_holds`,

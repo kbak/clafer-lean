@@ -4,7 +4,7 @@ Group compilation extends the [structural Compile contract](compile.md) with
 interpreted group declarations, as specified in [issue #65](https://github.com/kbak/clafer-lean/issues/65).
 `Compile.compileAugmented` retains the original well-formed MCS, adds generated
 group declarations and exposes their complete union. `Compile.gluedGroups`
-preserves that exact union and derives FormalCD naming/default validity.
+preserves that exact union and derives `FormalCD` naming/default validity.
 
 ## Source and selected meaning
 
@@ -40,6 +40,7 @@ children and children of every super. If abstract xor A has x/y and B : A adds z
 a B object with only z passes. An effective opt override on B can admit two
 children. This special treatment of groups refines the paper's context-constraint
 account; ordinary explicit constraints on abstracts retain that account unchanged.
+
 Appendix C authored/effective provenance, override rules and child defaults are
 preserved. The comparison audit treats [authored defaults (D1) and group
 semantics (D6)](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
@@ -100,6 +101,7 @@ No user-expression interpreter is inferred from fresh predicate symbols.
 relates inventories when strict ancestors have no children; effective-bound
 agreement is also necessary when comparing to its `Configuration.Groups` (and
 holds for `EffectiveCore.erase`). #50 does not depend on this extension.
+
 The separate [#66 realization extension](inherited-realization.md) supplies the
 selected inherited-field realization and commuting map restrictions. Selecting an
 inherited head map does not prove those obligations or copy any object. Tests of

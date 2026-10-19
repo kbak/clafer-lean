@@ -14,7 +14,9 @@ ranges. `WellFormed` reuses the MCS family discipline and adds unique IDs and va
 group ranges. `Supported` admits only user declarations and the synthetic root,
 abstract basic heads without containment bodies and with unrestricted groups,
 abstract supers with basic subtypes, user reference targets, and positive group
-lower bounds only where a child inventory exists. Abstract local bounds are
+lower bounds only where a child inventory exists.
+
+Abstract local bounds are
 unrestricted, or zero when no concrete descendant exists. Abstract inheritance
 chains are allowed. Primitive targets, reference inheritance, concrete supers,
 abstract references/bodies/groups and decision-pending source combinations remain
@@ -33,10 +35,13 @@ algorithm. It requires typed endpoints, a singleton fresh root and used-object
 coverage, inherited membership of the same object, abstract cover and disjoint
 direct-subtype images, exactly one parent per parented membership, exactly one
 target per reference head, set-reference pair uniqueness, local multiplicities
-and concrete group counts. `DeclarationDisjoint` requires that any two heads
+and concrete group counts.
+
+`DeclarationDisjoint` requires that any two heads
 sharing an object be comparable through the reflexive transitive closure of super
 edges. It applies across containment contexts and inheritance trees, regardless
 of names or reference targets. Parent ownership remains per declaration.
+
 `structural_reaches` derives root reachability from
 these obligations and ranked containment/inheritance. `unused_abstract_empty`
 derives empty abstract extents when no concrete descendant exists.
@@ -70,7 +75,7 @@ normalization bridge. `finite_model_representable` then encodes any finite model
 in this domain, displaying an object bijection and an accepted candidate.
 `structural_rename` preserves all obligations under object bijections; the span
 isomorphisms preserve independent link renaming. These constructions do not
-restrict the independently importable DPGraph library.
+restrict the independently importable `DPGraph` library.
 
 ## Executable interface
 
@@ -81,7 +86,9 @@ or multiple endpoints. `realize` interprets these tables mathematically.
 including empty fibers and unbounded upper limits. `check_correct` states
 `check m c = true ↔ StructuralSatisfies m (realize c)` with explicit well-formedness
 and supported-fragment hypotheses. The implementation terminates by finite
-quantification; large supplied universes can be expensive. `Ancestor` is defined
+quantification; large supplied universes can be expensive.
+
+`Ancestor` is defined
 independently by super-edge closure. `ancestor_iff_iterate`, `iterate_bounded` and
 `ancestor_iff_bounded` prove that a first visit takes fewer steps than there are
 declarations, even on cyclic raw cores. The finite ancestry decision uses that
@@ -103,6 +110,7 @@ links, unknown classes, dangling object labels and ill-typed endpoints. It then
 returns `satisfies` or `violates`. Missing/multiple **typed** parent/target links,
 root/cover/key/bound failures, incomparable declaration overlap and unused ambient
 objects are semantic violations. Overlap diagnostics name `declaration_disjoint`.
+
 No row is silently discarded: `decode_*`, `objectLabels`, `member_row_preserved`,
 `link_row_indices` and `tuple_identity` establish fidelity, and
 `success_tablesValid` proves successful verification entails table validity.

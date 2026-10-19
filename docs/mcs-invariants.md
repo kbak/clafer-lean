@@ -133,7 +133,7 @@ later gluing operation, even if their endpoints, referents or names agree.
 | Local Shape diagram predicates | `Roles.localDiagram` translates existing `Shape.declarations` | `Roles.local_declared`, `Examples.shapes_compose` |
 
 [Metamodel.lean](../Clafer/MCS/Metamodel.lean) enumerates all nine nodes and twenty
-arrows of Figure 23. Its `Metamodel.diagram` uses the existing FormalCD vocabulary,
+arrows of Figure 23. Its `Metamodel.diagram` uses the existing `FormalCD` vocabulary,
 including bag args, literal key, role cover/disjointness, functional/total maps,
 unchanged source-one ownership and the seven corrected source bounds.
 The explicit `nd`/`ad` symbols attach to the whole structural context; the typed
@@ -155,7 +155,6 @@ compilation theorem nor proves satisfaction of the declared constraints.
 The canonical requirements and named proof artifacts are in
 [spec](spec.md#mcs-metamodel-and-ownership) and [Clafer trace](clafer-trace.md#mcs-metamodel).
 
-
 ## Gluing boundary
 
 The approved Q4 rule in [#23](https://github.com/kbak/clafer-lean/issues/23)
@@ -169,7 +168,7 @@ matching nor endpoint matching supplies a referent equality.
 identification before constructing the translated declaration image and DP map.
 These obligations are additional to `Valid`; role-level ownership/cojoining,
 Q2/Q9 and the source total-args/literal-key disciplines remain unchanged.
-`Gluing.Naming` and `Gluing.Defaults` are separate prerequisites of the FormalCD
+`Gluing.Naming` and `Gluing.Defaults` are separate prerequisites of the `FormalCD`
 validity theorem. [Origins.lean](../Clafer/MCS/Gluing/Origins.lean) derives naming
 from valid MCS origins, while effective-default completeness must still be
 supplied. The existing nonempty `Examples.formulas` has ordinary multiplicity

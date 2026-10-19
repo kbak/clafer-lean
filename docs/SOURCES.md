@@ -44,12 +44,15 @@ B.5 Theorem 3 ground this slice:
 The finite arrow-list notation is shorthand, not a generic finiteness restriction.
 Formula arguments are graph maps. The structural examples introduce syntax-only
 names; `SemanticsExamples` separately supplies an illustrative interpretation.
+
 The abstract interface for B.5 takes each symbol's meaning to be a set of its
 arity diagrams in a fixed semantic graph. A formula holds when its binding
 composed with a candidate model belongs to that set. A target model restricts along `F : S → T` because `F` sends every
 source declaration to a target declaration; graph-map associativity identifies
 the two evaluations. This proves the abstract reduct direction of Theorem 3,
-without extra closure or invariance assumptions on predicate meanings. Concrete
+without extra closure or invariance assumptions on predicate meanings.
+
+Concrete
 span predicates use the selected contracts below in a bounded graph of subsets
 and spans; no all-universes SetMap is asserted. The formula-level
 satisfaction equivalence does not assert whole-model reflection.
@@ -130,6 +133,7 @@ unread 2003 definitions or missing 2000 passages, or settle Clafer's label congr
 | Diskin, Easterbrook & Dingel, *Engineering Associations* (2008), and Diskin's *Model Synchronization* tutorial (2011) | The [Q1 source comparison](#span-composition-q1-research-for-4) records their PDF hashes and locators. They support link identity, association views and span composition; neither selects Clafer's label congruence. Both full PDFs were acquired and their recorded hashes verified. |
 
 ## Generalized sketches and model-reduct coherence
+
 `impl~supporting-source-assessment~1`
 
 The [partial-source assessment](#universal-arrow-foundations-partial-source-assessment) and
@@ -162,7 +166,7 @@ sketch references do not all assume the 2008 dependency-enriched signature.
 
 | Representation | Obligations and present need |
 | --- | --- |
-| Ordinary graph arities | Delivered `Signature.arity` and `Formula.binding` retain incidence, isolated vertices and repeated arguments. `Hom.preserves` preserves declared formulas. This suffices for the selected SoSyM vocabulary and existing FormalCD construction; its explicit disciplines remain separate. |
+| Ordinary graph arities | Delivered `Signature.arity` and `Formula.binding` retain incidence, isolated vertices and repeated arguments. `Hom.preserves` preserves declared formulas. This suffices for the selected SoSyM vocabulary and existing `FormalCD` construction; its explicit disciplines remain separate. |
 | Marker-bearing arities, recovered 2000 p. 350 | A binding must preserve marks on the arity as well as its graph. A possible design keeps the ordinary signature and separately specifies prerequisite formulas on each arity, with translated prerequisites required in the carrier's declarations. Translation stability, closure and sound interpretation of those prerequisites would need proofs. No such extension is currently required or implemented. |
 | Predicate/dependency category, 2008 §4.1–3 | Also specify dependency composition, an arity functor, inference closure and interpretation consistency. Typed pullback instances add isomorphism closure and coherence. This is a possible future framework, not an equivalence already established for the other two presentations. |
 
@@ -218,7 +222,7 @@ was built against this project's Lean/Mathlib pins or added as a dependency.
 | [jacobneu/GeneralizedAlgebra at d2f4029](https://github.com/jacobneu/GeneralizedAlgebra/tree/d2f402944052f7d93d2f600ab1131c13d92d4351) | Generalized algebraic-theory signatures and generated algebra descriptions; Lean v4.13.0. A different specification language, without an inspected DP-sketch interpretation/reduct adapter. |
 | [b-mehta/topos at c9032b1](https://github.com/b-mehta/topos/tree/c9032b11789e36038bc841a1e2b486972421b983) | Topos/pullback foundations; `leanpkg.toml` pins Lean 3.24.0. This is not a directly compatible Lean 4 dependency or a delivered diagram-predicate package. |
 
-Retain the existing Mathlib dependency and ordinary DPGraph signature. Before
+Retain the existing Mathlib dependency and ordinary `DPGraph` signature. Before
 adopting an external library, check its license, exact API, maintained toolchain
 compatibility and a compiling adapter with meaningful satisfaction/closure laws.
 The scoped negative search cannot rule out other libraries or later versions.
@@ -343,9 +347,10 @@ interpret Table 3 commutation and inverse using link-preserving isomorphism;
 equality of reduced relations alone does not establish these predicates.
 
 ## Audit coverage and remaining decisions
+
 `impl~formalization-roadmap-sources~1`
 
-The table extends the exact DPGraph mapping above through the two upper layers.
+The table extends the exact `DPGraph` mapping above through the two upper layers.
 Future representations and obligations are proposals for their owning increments,
 not additional promises of implemented mathematics. Detailed delivered
 declarations remain in [DPGraph trace artifacts](dpgraph-trace.md) and
@@ -383,7 +388,7 @@ source gaps. Keep the original issue discussions as the decision history.
 | Q1 — B.2.1 composition | Accepted: retain pullback links and prove equality after reduction. The unqualified relational-span isomorphism is false. | #4 / #32 delivered `Span.red_comp`, the exact endpoint-injectivity criterion and two-path/parallel-link counterexamples; [source comparison](#span-composition-q1-research-for-4). No remaining #4 implementation task. |
 | Q2 — Appendix E analogous clauses | Accepted: incidence/naming equations apply only to present roles; existing Shape rules separately require or forbid each role. The analogous expansion includes Sing/root, every supported primitive domain, the accepted parentless exception and both directions of canonical naming equivalences. | The [complete Table 5–8 inventory](mcs-invariants.md#appendix-e-inventory) enumerates the guards. #20 attaches definitions and positive/negative witnesses in the inventory; the accepted Figure 23 multiplicity correction is Q9. |
 | Q3 — Appendix D notation | Resolved for the selected core: ordinary common-element intersection is already printed as ∩ in D.4.2. D.4.1 equates E and S on set expressions, reconciling the mixed subscripts. D.1–D.3 govern typing; the implementation boundary is enumerated below. | #21 supplies typed syntax and explicit inheritance paths. The [denotation extension](constraint-denotation.md) supplies independent core meanings, local finite cardinality and the #67 singleton bridge; no compiler-preservation theorem follows from a signature. |
-| Q4 — labels and identity | #20 representation accepted: preserve role identities separately from resolved class/map referents and displayed names, and state the identity level of cojoining equalities. Repeated parent/dref/isA strings do not identify arrows. Approved Q4: identify exactly equal class/map referents; equal map referents require equal endpoint class referents, and identified roles require equal names, predefined identities/kinds and modes. Reject conflicts. | #20 retains the data needed for intended identifications and repeated-name witnesses; #23 implements this congruence and proves endpoint/declaration preservation, then separate CD validity under explicit default assumptions. #22 retains generated identities. Existing FormalCD names remain metadata. |
+| Q4 — labels and identity | #20 representation accepted: preserve role identities separately from resolved class/map referents and displayed names, and state the identity level of cojoining equalities. Repeated parent/dref/isA strings do not identify arrows. Approved Q4: identify exactly equal class/map referents; equal map referents require equal endpoint class referents, and identified roles require equal names, predefined identities/kinds and modes. Reject conflicts. | #20 retains the data needed for intended identifications and repeated-name witnesses; #23 implements this congruence and proves endpoint/declaration preservation, then separate CD validity under explicit default assumptions. #22 retains generated identities. Existing `FormalCD` names remain metadata. |
 | Q5 — self-description | Bounded syntactic result delivered. Semantic self-instantiation, a universal every-CD-is-an-instance claim and a universe fixpoint remain outside scope. | #19 / #38 proves representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. Any stronger result needs a new scope and explicit realizability hypotheses. |
 | Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Visual inspection alone does not replace a construct-by-construct inventory. | [#41](https://github.com/kbak/clafer-lean/issues/41) records the bounded assessment and reviewed source disposition. The [syntax correspondence](#resolved-2014-clafer-and-individual-shapes), [MCS inventory](mcs-invariants.md) and [representative coverage](representative-models.md) pair Figures 16/22/23 and Appendix F with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
 | Q7 — VC order and guard | Accepted: display.version ≥ server.version, guarded by a nonempty server fiber. Contrary adjacent p.17 prose is the discrepancy. | #19 / #38 delivers the [guarded correspondence and whole models](#figure-21b-and-the-accepted-q7-correction): greater/equal pass, lower fails VC, absent server passes. No remaining implementation task for this correction. |
@@ -519,9 +524,8 @@ ambient type, with an explicit link universe, not an all-universes SetMap.
 No automatic set-valued default is imposed.
 
 The generic built-in vocabulary excludes VC, arbitrary path equations beyond
-the triangle, and FormalCD/Clafer-specific predicates. FormalCD supplies the
+the triangle, and `FormalCD`/`Clafer`-specific predicates. `FormalCD` supplies the
 separate corrected VC extension described below.
-
 
 | Source locator | Concrete declarations (namespace `DPGraph.Predicates`) |
 | --- | --- |
@@ -543,10 +547,10 @@ not additional claims attributed verbatim to the paper.
 ## FormalCD structure and selected morphisms
 
 Issue [#17](https://github.com/kbak/clafer-lean/issues/17) adopts the first
-FormalCD increment from the same hashed SoSyM preprint, §6.1.1–3 and Figure
+`FormalCD` increment from the same hashed SoSyM preprint, §6.1.1–3 and Figure
 21b–c (pp.17–18), over B.4 Definitions 6–10. The correspondence is:
 
-| Source / selected contract | FormalCD declarations |
+| Source / selected contract | `FormalCD` declarations |
 | --- | --- |
 | §6.1.1 classes, maps, inclusion identities/names | `Raw.className`, `Raw.mapName`, `MapMode`, `RawOver.WellFormed.inclusion_name` |
 | §6.1.2 typed predicates; B.4 Definitions 6–9 | Existing `DPGraph`, `Formula`, `Predicates.signature`; `arrowBinding`, `inclusionFormula`, `setValuedFormula` |
@@ -563,7 +567,7 @@ at most, but no predefined entry is compulsory. Registry kinds distinguish the
 singleton vocabulary from primitive domains without implementing their object sets.
 
 WellFormed requires default membership in the authoritative effective declaration
-set; it adds no generic DPGraph defaults or inference closure. Inclusion and bag
+set; it adds no generic `DPGraph` defaults or inference closure. Inclusion and bag
 are separate modes. Inclusion's semantic consequences come from its already delivered
 literal span meaning. User declarations are retained, including explicit bag
 setValued constraints. Structural validity alone implies neither satisfaction nor
@@ -575,7 +579,6 @@ Figure 21b supplies a bounded integer realization for its separate VC extension.
 
 The [FormalCD trace artifacts](formalcd-trace.md) link these independently
 formalized contracts and acceptance witnesses to their Lean declarations.
-
 
 ## Figure 21c metamodel
 
@@ -644,6 +647,7 @@ a bijection from each actual args fiber to all arity arrows, the argument values
 and the selected pred value. Missing/invalid descriptions are rejected. Candidate
 validity itself is equivalent to the existing typed Formula representation, by
 `Candidate.formulaEquiv`; it is not supplied as a validity assumption by Context.
+
 Every arity vertex remains in the candidate, including isolated ones. The graph
 alone cannot recover this descriptor; interpretation is explicitly parameterized
 by it. The bounded span links use `Type (max z w)` for `U : Type z`, with semantic
@@ -754,7 +758,7 @@ semantics; its separately pinned compatibility audit is linked below.
 | §5.5 (pp.14–16), Figure 18 | `Kind.CanExtend`, `inheritance_kind`, `inheritance_parent`: no basic-over-reference or bag-over-set; equal parents when super is parented; local inclusion roles |
 | Appendix C/Figure 27 (pp.30–31) | `Multiplicity`, `GroupCard`, `GroupMultiplicity`, `Defaults`: authored/effective intervals, unbounded upper limit, xor/or/mux/opt, explicit child overrides, inherited group provenance |
 | §6.2.2/Figure 22 (p.20), D.2 boundary (p.31) | `ConstraintBoundary`, `Binder`: resolved context, repeated scope/domain occurrences and separate binder identities; the [typed core](#appendix-d-rule-dispositions-q3) is supplied separately |
-| §5.2/Figure 16/Table 4 (pp.12–13), §6.2.3/Figure 23 (pp.20–21) | `Roles.Class`, `Roles.Arrow`, `Shape`, local `Shape.diagram`: typed optional roles, inverse/triangle/multiplicity/set/key declarations using FormalCD and DPGraph |
+| §5.2/Figure 16/Table 4 (pp.12–13), §6.2.3/Figure 23 (pp.20–21) | `Roles.Class`, `Roles.Arrow`, `Shape`, local `Shape.diagram`: typed optional roles, inverse/triangle/multiplicity/set/key declarations using `FormalCD` and `DPGraph` |
 | §5.5/Figure 18, Table 6's local inclusion endpoints (p.33) | `Shape.SharedClass`, `Shape.Inclusions`, `Shape.OptionalInclusions`: head inclusion and source/target inclusions where both endpoints exist; global cojoining belongs to the [MCS layer](mcs-invariants.md) |
 | §5.4 and §6.2.4 traversal (pp.14,21) | `Tree.fold`, `Tree.child_smaller`, `AST.every_entry_indexed`, `parent_wellFounded`: derived finite representation/termination basis; no compilation correctness claim |
 
@@ -763,6 +767,7 @@ checks explicit values and the effective values supplied by an elaborator.
 Clafer multiplicity sugar is already numeric at this boundary: `?` is 0..1,
 `+` is 1..*, and `*` is 0..*. Authored values record whether an interval was
 explicit, without preserving the original token spelling.
+
 Group keywords retain their provenance through inheritance so their child-default
 policy remains inspectable. Numeric group bounds alone do not induce keyword
 optional defaults. Effective bounds must be valid; root/domain metadata is
@@ -773,7 +778,9 @@ Figure 22. Reference cycles are permitted and do not enter containment recursion
 **Accepted top-level abstract correction.** Section 5.3.4, printed p.14, says
 that a parentless abstract's CS excludes the *head* class. Section 6.2.3, p.20,
 says the head is always present, and Figure 23 gives the head-class role total
-multiplicity. The maintainer's accepted #3 interpretation retains the head and
+multiplicity.
+
+The maintainer's accepted #3 interpretation retains the head and
 removes the source and parent-dependent maps. A top-level abstract reference
 therefore has head, target and dereference, with no head map, parent map or
 target map. The basic-source-present statement in Table 7 (p.33) is read with
@@ -805,6 +812,7 @@ paper drew those dashed attachments. [MCS/Basic.lean](../Clafer/MCS/Basic.lean)
 and [Laws.lean](../Clafer/MCS/Laws.lean) separate structural validity from
 formula generation and gluing. Cojoining equates role-graph vertices. Arrow slots,
 resolved referents and repeated names remain separate.
+
 The [sample](../Clafer/MCS/Examples.lean) validates a nonempty family including
 int/string/bool, basic/set/bag, parentless abstracts and guarded inheritance.
 No third-party implementation or publication text is copied into these modules.
@@ -845,7 +853,7 @@ settle general Q4 gluing.
 
 The accepted Compile-specific precondition `0 < support.mapCount` excludes
 zero-map constraints from this transformation, preserving generic constraint
-input and DPGraph arities and the existing MCS total-args promise. Constraint
+input and `DPGraph` arities and the existing MCS total-args promise. Constraint
 symbols use the delivered occurrence-indexed signature, with no expression
 interpretation. Generated local predicates are exactly the existing individual
 Shape inventory plus guarded inclusion predicates; group/abstract semantic
@@ -858,7 +866,9 @@ child heads. This follows the pinned compiler's `genGroupConst`, `analyzeGCard`,
 `findHierarchy` and inheritance regressions, while empty inventories deliberately
 retain literal count zero instead of the compiler's skip. The contract records
 all six immutable compiler links and the comparison with §4.2.2, §6.2.2, D.4 and
-Appendix C. The authored/effective default policy is unchanged. Vertex-only formulas use B.4
+Appendix C.
+
+The authored/effective default policy is unchanged. Vertex-only formulas use B.4
 Definition 8 without claiming Figure 23 total args for the complete union.
 #50 supplies the selected count/representation interface; #66 owns inherited
 realization and commuting restrictions. Typed relation/count and exact union
@@ -894,7 +904,6 @@ The exact image is never silently completed. Bag mode and source key/total-args
 semantics remain unchanged. No compiler integration, general constraint semantics,
 model-existence theorem or global pushout claim follows.
 
-
 ## Finite structural candidate semantics
 
 The accepted [#50 boundary](resolved-ir-comparison.md) uses the same primary
@@ -913,7 +922,7 @@ context only; its Alloy facts do not define the Lean relation.
 
 The shared ambient carrier represents unrelated overlap as well as subtype
 sharing. Clafer satisfaction adds the declaration-disjointness clarification below;
-generic DPGraph/FormalCD models remain unrestricted. No primitive value domain
+generic `DPGraph`/`FormalCD` models remain unrestricted. No primitive value domain
 or authored/default theorem is introduced. The [requirements](spec.md#whole-model-structural-satisfaction-and-interpretation)
 and [trace map](clafer-trace.md) distinguish definitions, implementation proofs and
 whole-model boundary tests.
@@ -970,7 +979,6 @@ unsupported. The linked contract records all 26 declarations, seven super edges,
 five explicit abstract families, three xor inventories and twelve conjuncts,
 with the pinned primary and supplementary source identities.
 
-
 ## Independent constraint meaning and Appendix F elaboration
 
 The primary source is the same SHA-256-identified SoSyM preprint, Appendix
@@ -1010,7 +1018,6 @@ are supplied by the [denotation contract](constraint-denotation.md); their compi
 bridge is supplied by the [selected preservation contract](constraint-preservation.md),
 with the [complete fixture](appendix-f.md) supplying simultaneous satisfaction.
 
-
 ## Selected constraint preservation
 
 The [preservation contract](constraint-preservation.md) connects SoSyM §6.2.2–5
@@ -1031,7 +1038,6 @@ an unrestricted primitive-head bound and actual root containment. The existing
 resolved contract already permits those explicit fields; ordinary version/server
 bounds and the guarded #50 checker are unchanged. No combined model is inferred
 by replacing only the primitive set in the old finite structural witness.
-
 
 ## Complete Appendix F model
 

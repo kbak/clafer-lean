@@ -1,19 +1,20 @@
 # Intent
 
 ## A maintainable foundation for formal semantics
+
 `intent~formalization-foundation~1`
 
 Develop a maintainable Lean 4 formalization grounded in the 2014 SoSyM paper,
 with reusable foundations supporting structural Clafer. The repository
 `kbak/clafer-lean` contains one Lake package, `clafer`, and sibling public roots
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
-`Clafer -> FormalCD -> DPGraph -> Mathlib`; DPGraph remains independently importable.
+`Clafer -> FormalCD -> DPGraph -> Mathlib`; `DPGraph` remains independently importable.
 
 | Layer | Delivered scope | Boundary |
 | --- | --- | --- |
-| DPGraph | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
-| FormalCD | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
-| Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the [complete Appendix F fixture](appendix-f.md) discharges those assumptions for one concrete selected model |
+| `DPGraph` | Link-preserving spans and indexed mappings (B.1–B.2), typed diagram predicates and their fixed-signature category (B.4), abstract model restriction (B.5), conditional model transport/pushout/amalgamation results, and selected Table 3/A.1 meanings over subsets and spans | Independent universes and shared object/link identities; no all-universes SetMap, inference closure or automatic set-valued defaults |
+| `FormalCD` | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
+| `Clafer` | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the [complete Appendix F fixture](appendix-f.md) discharges those assumptions for one concrete selected model |
 
 The [paper companion](sosym-errata.md) explains the accepted corrections and
 clarifications in reader-facing terms; the [source map](SOURCES.md) retains their
@@ -25,7 +26,7 @@ bag keys and total arguments remain distinct.
 Structural Compile derives MCS validity under its [resolved-input contract](compile.md).
 Role identities, resolved referents and display names remain separate. Gluing
 uses equal referents under incidence/metadata consistency, with complete effective
-defaults required for FormalCD validity. The [group contract](group-compilation.md)
+defaults required for `FormalCD` validity. The [group contract](group-compilation.md)
 adds predicates over own and inherited child heads, including empty inventories;
 the [inherited realization contract](inherited-realization.md) distinguishes
 ordinary fields from explicit abstract types and restricts their shared maps.
@@ -46,7 +47,7 @@ Reference occurrences retain identity at repeated targets; declarations
 incomparable through super edges have disjoint extents in satisfying models.
 Overlapping raw candidates remain supported violations. This
 [declaration-disjointness clarification](SOURCES.md#declaration-disjointness-clarification)
-leaves generic DPGraph/FormalCD subset/span models unrestricted.
+leaves generic `DPGraph`/`FormalCD` subset/span models unrestricted.
 
 The [pinned importer](resolved-import.md) preserves effective identities and bounds
 without reconstructing authored/default provenance. The [bounded comparison
@@ -73,6 +74,7 @@ owns the detailed scope; [requirements](spec.md) state the precise promises.
 Needs: req
 
 ## Consistent work by people and agents
+
 `intent~traceable-contributions~1`
 
 Use IntentBond to maintain the relationship between intended outcomes,

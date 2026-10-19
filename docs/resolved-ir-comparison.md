@@ -11,11 +11,14 @@ finite candidates, representation bridges and the verified checker belong in
 this repository under `Clafer/Semantics/` and `Clafer/Verification/`.
 This authorization does not admit X/D language forms, change the selected paper
 semantics, or authorize production parsing, generation, optimization, expressions
-or general solver integration. The [#51 importer and paired capture](resolved-import.md) are authorized in this
+or general solver integration.
+
+The [#51 importer and paired capture](resolved-import.md) are authorized in this
 repository under `Clafer/Verification/` and `scripts/verification/`, with fixtures
 under `tests/`. The accepted #52 implementation uses the solver/profile and guarded
 contract below; its [pin/decode relation and runner](bounded-comparison.md) supply
 bounded enumeration, comparison and replay under `scripts/verification/`.
+
 The [decision table](#decisions-accepted-locations-and-dependency-boundaries)
 defines D1–D8; the [compatibility matrix](#guarded-compatibility-matrix) distinguishes
 supported (S), excluded (X) and decision-dependent (D) forms. Compiler agreement
@@ -101,6 +104,7 @@ guarded above, and direct class-target set/bag references. It intentionally does
 not claim closure under every combination of these features. Cases marked D
 remain visible obligations, rather than examples silently omitted from statistics.
 Later expansion requires its own matrix row, decision and validation examples.
+
 Here “leaf abstract” means no containment children; it may have subtypes.
 Its effective group bound must be `0..*`; nontrivial abstract groups are D6.
 Reference declarations participating in inheritance are D4, including a
@@ -189,7 +193,9 @@ C4 `GEnv` contains `identCountMap`, `expCount`, `stable`, `sClafers` and
 `GenEnv` consumes `uidClaferMap`, effective `ClaferArgs` and the rendered scopes.
 The map is produced before later transformations and is documented as needing
 recreation after IR changes. Reconstructing it from JSON without comparison to
-the consumed map is unjustified. `ClaferEnv` also retains original fragments,
+the consumed map is unjustified.
+
+`ClaferEnv` also retains original fragments,
 AST, fragment positions, `astModuleTrace` and `otherTokens`. Tokens can inject
 Alloy independently of JSON. `CompilerResult` contains scopes, stringMap and
 source mappings not carried by the JSON output. `genModule` further creates
@@ -281,7 +287,9 @@ and is wrong. Head multiplicity bounds the fiber of `Q_d` at each parent;
 target multiplicity bounds the links of the composite span. Under the total
 functional dereference condition these counts agree. A set-reference key is
 the existing two-projection `Key`, not an additional global target uniqueness
-condition. Top-level abstracts have no `Q_d` or synthetic-root parent; D3
+condition.
+
+Top-level abstracts have no `Q_d` or synthetic-root parent; D3
 therefore prevents importing their compiler-wide set key as a local predicate.
 The existing `DPGraph.Predicates.key_total_singleValued_iff` supplies the generic
 tuple-injectivity criterion under explicit totality and single-valuedness.
@@ -313,7 +321,9 @@ not an admission filter. `structural_reaches` proves reachability from the other
 and the well-formedness/support hypotheses. Similarly, keep potential
 overlap between unrelated head subsets available to the checker. The adopted #87
 declaration-disjointness obligation rejects it as a semantic violation, without
-changing admission, representation or enumeration. Renaming uses a bijection on used objects fixing `ρ`,
+changing admission, representation or enumeration.
+
+Renaming uses a bijection on used objects fixing `ρ`,
 preserving each class membership and map endpoint, together with independent
 bijections on link occurrences. Alloy atom spelling, record order and local link
 IDs have no semantic force. Reference-head identity and shared inherited
@@ -370,6 +380,7 @@ the same upper bounds, with an explicit isomorphism policy. For every class d,
 require `|H_d| ≤ B_d`; a super bound constrains the union of its subtype objects,
 not a separate allocation of super objects. Bound vectors need not equal sums
 of subtype maxima: they can additionally restrict their simultaneous populations.
+
 Emit explicit bounds for every top-level Alloy signature and every relevant
 subsignature, with no exact-count modifier except when supplied intentionally
 and reflected in the candidate domain. Record those exactness flags. The harness
@@ -379,13 +390,16 @@ scope is accepted.
 Accepted #52 solver profile: Alloy **6.2.0**, official [distribution JAR][alloy-jar],
 SHA-256 `6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d`,
 manifest `6.2.0.202501090817`, Git `794226dd07b536fe35c5ca44b529417183cd629b`.
+
 Use its bundled SAT4J implementation (fixed by the JAR hash), Java 17 with the
 actual runtime/build recorded, static solving, one worker, no temporal/unbounded
 mode, no decomposition (`decompose_mode = 0`, `decompose_threads = 1`), symmetry
 breaking 0, skolem depth 0, partial-instance inference disabled, and overflow
 prevention enabled (`A4Options.noOverflow = true`). Keep `unrolls = -1`,
 `coreMinimization = 2`, `coreGranularity = 0`, `recordKodkod = false` as in the
-pinned [A4Options source][alloy-options]. Record all effective solver
+pinned [A4Options source][alloy-options].
+
+Record all effective solver
 options, including defaults, solver identity, timeout and memory limit. An
 unavailable option/profile is unsupported; do not silently substitute a solver.
 The #49 audit itself delivers no solver run; executable comparison evidence is
@@ -397,7 +411,9 @@ intermediate arithmetic expression in the **generated and pinning** formula,
 under all declared scopes. Include inherited unions and relation tuple counts,
 not just each source card. Require all evaluated integers to lie in
 `[-2^(b-1), 2^(b-1)-1]`; a conservative nonnegative-count test is
-`M ≤ 2^(b-1)-1`. Counts are natural numbers on the Lean side. `-1` is translated
+`M ≤ 2^(b-1)-1`.
+
+Counts are natural numbers on the Lean side. `-1` is translated
 to absence of an upper constraint, never to a count. If the required bitwidth
 is unsupported, cannot be established, or resource limits prevent solving,
 report that outcome. Overflow prevention does not prove arithmetic adequacy:
@@ -440,7 +456,6 @@ preserved separately. Search reports retain termination and all case denominator
 An unavailable `lean_commit` never waives manifest input hashes, source matching
 or runtime identity checks. Never read a parent repository's commit; corrupt Git
 metadata and Git execution failures remain inconclusive execution errors.
-
 
 Retain the source, original IR/Alloy, actual command/pin, raw solver output and
 decoded witness as artifacts too. Hash raw bytes with SHA-256; do not normalize
@@ -567,7 +582,7 @@ compiler behavior overrides a current Lean requirement.
 interpretation and representation bridges live under `Clafer/Semantics/`;
 finite candidate verification lives under `Clafer/Verification/`. Shared definitions
 remain in the owning Clafer layer. The repository retains one Lake package and
-`Clafer -> FormalCD -> DPGraph -> Mathlib`; DPGraph stays independently importable.
+`Clafer -> FormalCD -> DPGraph -> Mathlib`; `DPGraph` stays independently importable.
 The [intent](intent.md), [architecture](ARCHITECTURE.md) and
 [extension requirements](spec.md#effective-structural-core-and-supported-fragment)
 state this boundary. The existing full pinned validation policy is unchanged.

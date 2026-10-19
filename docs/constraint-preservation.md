@@ -87,7 +87,9 @@ The existing finite structural witness's primitive placeholder has a `1..1`
 head bound. It cannot simultaneously denote all mathematical integers: every
 integer object must have the unique root as parent, contradicting that finite
 head bound. The separate expression environment therefore is not a whole model
-of that unchanged fixture. SoSyM §5.3.5 p.14 identifies a primitive head with
+of that unchanged fixture.
+
+SoSyM §5.3.5 p.14 identifies a primitive head with
 its value domain. A complete integer-bearing fixture must give that primitive
 head an explicit unrestricted bound and the corresponding root containment,
 both already admitted by the resolved-input contract. This does not change

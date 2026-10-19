@@ -60,6 +60,7 @@ field according to pinned `Generator/Alloy.hs`, `genRelations` (lines 170–180 
 provenance are explicit external assumptions. S excludes inherited fields;
 inherited membership is supported without allocating super objects. Unknown
 signatures, fields and auxiliaries cannot be ignored.
+
 The bridge checks each resolved field declaration's endpoint beneath its
 multiplicity wrapper. Alloy's inferred relational type may widen an inherited
 endpoint to its abstract parent; that approximation does not replace the declared
@@ -98,6 +99,7 @@ and pinning formulas contain only integer literals, cardinalities and comparison
 relational union/join is not integer addition. `AlloyBridge.audit` additionally
 walks resolved command facts, signature facts and invoked pin bodies, rejecting
 numeric arithmetic, unknown calls, temporal operators and relation arity above two.
+
 If `N` is the sum of conservative per-signature capacities (the maximum of each
 requested and effective scope), every user unary/binary relation has at most
 `N`/`N²` tuples. Unions, shared inherited membership and full binary-field counts
@@ -136,12 +138,16 @@ with all requested cases completed and the expected denominator matched.
 The fixed small suite includes `overlap.cfr` with both user scopes 1 (35 labelled
 candidates), and `bag.cfr` with target/head scopes 1 (55 candidates). For the
 first domain, universe sizes 0, 1 and 2 contribute 1, 9 and 25 tables; allowing
-the optional typed dereference tuple in the second contributes 1, 13 and 41. Seeded sampling uses Python's MT19937 with recorded seed, uniform
+the optional typed dereference tuple in the second contributes 1, 13 and 41.
+
+Seeded sampling uses Python's MT19937 with recorded seed, uniform
 universe size, uniform per-class cardinality and subset at that cardinality,
 and independent fair relation bits. It is not uniform on the full domain and
 does not establish bounded completeness. Reports retain requested/admitted/
 completed counts, every outcome category, interruption/budget reasons and unrun
-cases. The checker itself remains a supplied-candidate verifier. A bounded line stream
+cases. The checker itself remains a supplied-candidate verifier.
+
+A bounded line stream
 through `ImportMain` amortizes interpreter startup; every request still calls the
 existing admission and checker. The adapter first builds that import closure with
 Lake, then records Lean runtime/binary/module identities, checks response sequence
@@ -168,11 +174,14 @@ when the source root has no `.git` entry. Git lookup uses only that root's metad
 it never discovers a parent repository. Corrupt metadata and Git execution failures
 produce an inconclusive execution diagnostic, not an unavailable-commit success.
 The optional commit field never replaces source hashes or replay runtime checks.
+
 The input manifest does not hash itself or outputs. Results reference that
 manifest and hash raw solver logs, witness, decoded tables and bijection. Null
 verdicts identify stages not run. `ImportMain.failedPredicates` names failed
 conjuncts of the existing checker for violating candidates; it introduces no
-second satisfaction definition. Replay rejects duplicate keys, unknown versions,
+second satisfaction definition.
+
+Replay rejects duplicate keys, unknown versions,
 missing input hashes, changed bytes and changed checker/adapter source.
 CLI candidates and replays retain the exact supplied JSON bytes before strict
 parsing, including whitespace and malformed/duplicate-key inputs. Generated or
