@@ -59,7 +59,8 @@ of the actual constraint-free `Compile.compile` output. `erasure_correspondence`
 and `equal_erasure_satisfaction` connect this selected compiled interpretation to
 the effective core. `Compile.Input` retains declaration, name and metadata
 obligations; arbitrary effective cores need not lift to an authored AST or valid
-named CD. General integration of Compile and resolved-referent gluing remains #24.
+named CD. [Representative integration](representative-models.md) separately
+connects concrete inputs to Compile and resolved-referent gluing.
 
 `SpanModel.normalize` also starts from an arbitrary interpretation of the local
 bank. Ordinary defaults, inverse, commutation and inclusion predicates derive

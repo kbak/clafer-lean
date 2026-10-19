@@ -78,7 +78,7 @@ insufficient for arbitrary spans.
 
 ### Incomparable Clafer declaration heads are disjoint
 
-**§5.3–5.5, §6.1–6.2 and Appendices E–F.** The adopted #87 rule requires
+**§5.3–5.5, §6.1–6.2 and Appendices E–F.** The adopted disjointness rule requires
 super-edge comparability for two declaration heads to share an object. It covers
 nested declarations and separate inheritance trees while preserving subtype
 identity and inherited field views. Reference-target sharing remains permitted.
@@ -168,26 +168,16 @@ primitive-value conversion.
 **§4.2.1–2, §6.2.2, Appendix C and D.4.** Groups on abstract declarations supply
 inheritable bounds. Each concrete context enforces its effective bound over the
 union of own and inherited child heads; no separate abstract original-child
-invariant is added. This selected D6 interpretation follows the pinned compiler
-inheritance regressions. Ordinary explicit abstract-context constraints remain
+invariant is added. This group-inheritance interpretation follows the pinned
+compiler's inheritance regressions. Ordinary explicit abstract-context constraints remain
 invariants. Empty inventories retain count zero, intentionally differing from
 the compiler's unconditional skip. A positive lower bound forces an empty context
 extent. [Source account, examples and representation boundary](group-compilation.md)
 explain the complete arities and separate component needed for vertex-only formulas.
 
-## Formalization boundary
-
-Structural compilation and gluing establish structural results under their
-[explicit contracts](compile.md), rather than full semantic preservation of
-Clafer expressions. The compiler-comparison audit's remaining
-[decision items](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
-are proposals or compatibility limits, not additional accepted paper corrections.
-The [source map](SOURCES.md) retains detailed citations and the
-[product overview](intent.md) records the delivered scope.
-
 ### Inherited ordinary fields and explicit abstract types
 
-**§5.3.4–5, §5.5, Appendix F.** The selected D2/D4 clarification distinguishes
+**§5.3.4–5, §5.5, Appendix F.** The inherited-field clarification distinguishes
 authored explicit abstract types from ordinary fields whose effective abstractness
 comes from containment. Fields such as comp.version have the same occurrences
 at the same realized parent across its super chain. Context views restrict the
@@ -195,5 +185,19 @@ existing containment/dereference links. They do not add declaration-level
 unequal-parent inheritance. Explicit abstract coverage/disjointness remains a
 separate obligation, including when a covering head is itself an inherited field.
 See the [scoped inventory and combination policy](inherited-realization.md).
-Realized options.size enforces its effective xor through the existing D6 union
-policy. This fills a specification gap; it is not attributed as a printed theorem.
+Realized `options.size` enforces its effective xor through the
+[group-inheritance policy above](#effective-group-inheritance-and-empty-inventories).
+This fills a specification gap; it is not attributed as a printed theorem.
+
+## Formalization boundary
+
+Structural compilation and gluing establish structural results under their
+[explicit contracts](compile.md). The separate [constraint-preservation bridge](constraint-preservation.md)
+connects resolved expression meanings to generated predicates under stated model
+assumptions; the [complete Appendix F fixture](appendix-f.md) discharges those
+assumptions for one concrete model. Neither establishes correctness for all
+Clafer source texts. The compiler-comparison audit's
+[decision table](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites)
+also records compatibility limits and deferred extensions; these are not additional
+accepted paper corrections. The [source map](SOURCES.md) retains detailed citations
+and the [product overview](intent.md) records the delivered scope.

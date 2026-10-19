@@ -1,14 +1,11 @@
 # Foundation, DP-graph, FormalCD and Clafer requirements
 
-These requirements cover the repository infrastructure and the delivered
-span operations, DP-graph category, abstract model reduct and concrete predicate
-semantics over a bounded graph of subsets and spans, plus FormalCD
-structure, name-preserving morphisms, the Figure 21c metamodel, bounded syntactic
-self-description and the complete Figure 21b example with corrected VC. Structural
-Clafer now includes resolved deep syntax, typed core constraints, individual
-Shapes, the MCS structural discipline, structural Compile and resolved-referent
-gluing and representative integration under the scoped requirements below. General
-constraint interpretation and full Appendix F satisfaction remain separate increments. The source-audit roadmap alone authorizes no semantic work.
+These requirements state the repository's infrastructure and mathematical
+obligations. The [canonical intent](intent.md) summarizes delivered scope and
+links the focused contracts, including constraint denotation, finite structural
+verification and the complete Appendix F model. The [documentation map](intent.md#documentation-map)
+also defines the project decision labels used below. A research or planning
+requirement alone does not authorize semantic implementation.
 
 ## Reproducible Lean validation
 `req~lean-validation~1`
@@ -121,6 +118,7 @@ The README explains Clafer and the formalization's purpose for new readers,
 states its research maturity and delivered-scope limits, and provides clone/build
 instructions, a command for checking an existing example, and clear routes to
 documentation, contribution guidance, issue tracking and security reporting.
+Link the first mention of Lean to its [official site](https://lean-lang.org/).
 Keep detailed mathematical inventories in the canonical documentation rather
 than requiring familiarity with paper section numbers at the entry point.
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
@@ -140,7 +138,9 @@ mathematical explanations, source citations, requirements and trace artifacts.
 Use its documentation map to identify the authoritative location for each kind
 of detail. Consolidate repeated explanations through links while retaining intent
 and artifact IDs, trace relationships, source citations and existing link
-destinations. Keep frozen change records unchanged under their retention policy.
+destinations. Explain internal decision labels by name and link to their defining
+table; readers must not need issue history to understand a correction or contract.
+Keep frozen change records unchanged under their retention policy.
 Follow the [documentation policy](../AGENTS.md#documentation): change comparisons
 belong in PR descriptions and acceptance/execution evidence in external factory
 artifacts. Retain controller-required historical snapshots and a concise current
@@ -1622,7 +1622,7 @@ Generate one interpreted group declaration for every concrete context using its
 resolved effective bound and the union of own and super-hierarchy child heads.
 Abstract groups supply inheritable bounds without a separate original-child
 invariant. Preserve Appendix C provenance/defaults/overrides and ordinary explicit
-constraints on abstract contexts. Follow the accepted [D6 contract](group-compilation.md)
+constraints on abstract contexts. Follow the accepted [group-inheritance contract](group-compilation.md)
 and its pinned source citations, including the explicit discrepancy with the
 compiler's empty-inventory skip.
 
@@ -1851,7 +1851,8 @@ Needs: impl, proof, utest
 `req~clafer-inherited-realization~1`
 
 Extend the Clafer whole-model interpretation for the accepted Appendix F
-D2/D4/D6 combinations in [the scoped source contract](inherited-realization.md).
+nested-abstractness, inheritance and group combinations in
+[the scoped source contract](inherited-realization.md).
 Preserve #50's guarded fragment; enforce #87's declaration disjointness in both
 the checker and this extended satisfaction relation. Read authored abstractness
 from retained AST metadata; do not reconstruct it from the erased effective flag.
@@ -2300,7 +2301,8 @@ p.34 in one resolved/defaulted input, including the final dual, extraDisplay
 and large selections. Reconcile the visually checked source inventory with
 actual owner/position attachments, repeated size identities, all seven super
 edges, five abstract families and three xor groups. Reuse the accepted source
-elaboration and Q1–Q9/D2/D4/D6 decisions without replacing or omitting a body.
+elaboration, accepted source corrections and inherited-field/group decisions
+without replacing or omitting a body.
 Prove the input contract, real positive-map support, generated structural MCS
 validity, gluing incidence/metadata/default obligations and final FormalCD validity.
 Keep the structural MCS distinct from the augmented zero-arrow bank.

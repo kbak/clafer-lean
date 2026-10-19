@@ -15,81 +15,60 @@ with reusable foundations supporting structural Clafer. The repository
 | FormalCD | Class diagrams with names, predefined identities, effective defaults and name-preserving morphisms; compatible signatures, Figure 21c naming/arity disciplines and bounded syntactic self-description; complete Figure 21b with twelve declarations and guarded integer VC models | Syntactic validity, fragment satisfaction and whole-model satisfaction are separate; no semantic self-instantiation or general primitive-domain realization |
 | Clafer | Finite resolved deep syntax, typed core constraints with lexical binders and inheritance widening, independent constraint denotation and partial integer extraction from navigation, graph support, individual Shapes, Figure 23/Appendix E MCS disciplines, structural Compile and resolved-referent gluing | Name resolution/default elaboration remain separate; the [selected preservation bridge](constraint-preservation.md) connects explicit core meanings to generated/glued predicates under stated model assumptions; the [complete Appendix F fixture](appendix-f.md) discharges those assumptions for one concrete selected model |
 
-Preserve the accepted [paper corrections and clarifications](sosym-errata.md):
-composition retains links and agrees with relations after reduction;
-disjointness uses a common target; VC keeps its corrected direction and guard;
-top-level abstracts retain their heads; and seven Figure 23 associations have
-corrected ownership bounds. Full formula bindings, the literal bag key and total
-args remain distinct. The [source map](SOURCES.md) records the exact decisions,
-source identities and applicability limits.
+The [paper companion](sosym-errata.md) explains the accepted corrections and
+clarifications in reader-facing terms; the [source map](SOURCES.md) retains their
+exact locators, source identities and limits. These include link-preserving
+composition, common-target disjointness, guarded version comparison, top-level
+abstract heads and corrected ownership bounds. Full formula bindings, literal
+bag keys and total arguments remain distinct.
 
+Structural Compile derives MCS validity under its [resolved-input contract](compile.md).
 Role identities, resolved referents and display names remain separate. Gluing
-uses equal referents under incidence/metadata consistency and preserves the exact
-translated declarations; FormalCD validity additionally requires complete effective
-defaults. Structural Compile derives MCS validity under its [resolved-input
-contract](compile.md). The [selected semantic extension](constraint-preservation.md) derives source predicate
-meanings and composes their exact binding/label transport with structural
-realization; it makes no universal source-text correctness claim. Augmented Compile generates effective group predicates over the union of own and
-inherited child heads at each concrete context, including empty inventories.
-The [group compilation contract](group-compilation.md) explains the separate
-declaration component, exact union gluing and conditional semantic correspondence.
-The [requirements](spec.md) state the precise promises, including
-ordinary-key correspondence under totality/single-valuedness and the bounded
-metamodel/primitive-conversion limits.
+uses equal referents under incidence/metadata consistency, with complete effective
+defaults required for FormalCD validity. The [group contract](group-compilation.md)
+adds predicates over own and inherited child heads, including empty inventories;
+the [inherited realization contract](inherited-realization.md) distinguishes
+ordinary fields from explicit abstract types and restricts their shared maps.
 
-The [three-phase roadmap](ARCHITECTURE.md#roadmap-and-validation-accounting)
-separates delivered, proposed and deferred results. The source/design close-outs
-for [#2](https://github.com/kbak/clafer-lean/issues/2) and
-[#13](https://github.com/kbak/clafer-lean/issues/13) are documentation deliverables,
-not completion of every layer. The bounded [supporting-source assessment](SOURCES.md#generalized-sketches-and-model-reduct-coherence)
-for [#41](https://github.com/kbak/clafer-lean/issues/41) leaves unread pages
-unaudited. The [source disposition](SOURCES.md#project-critical-source-disposition)
-makes further acquisition conditional on a named necessary claim lacking adequate
-primary evidence; accessible primary alternatives may establish that claim.
-Ordinary signatures and precomposition reduct laws remain the delivered
-contract; stronger representations and dependency-enriched extensions require
-separate authorization. Planning later work does not authorize implementation.
+The [constraint denotation](constraint-denotation.md) supplies independent core
+meanings and explicit primitive/definedness obligations. The
+[selected preservation bridge](constraint-preservation.md) connects these meanings
+to generated/glued predicates under stated model assumptions. The
+[complete Appendix F fixture](appendix-f.md) discharges those assumptions for one
+concrete model with all twelve bodies and final selections. The
+[representative models](representative-models.md) retain their narrower structural,
+group and version-attachment claims.
 
-The [resolved-IR comparison contract](resolved-ir-comparison.md) fixes the
-accepted effective-core boundary and guarded version-1 structural fragment.
-Whole-model structural semantics and finite candidate verification belong in
-`Clafer/Semantics/` and `Clafer/Verification/` under
-[#50](https://github.com/kbak/clafer-lean/issues/50). Preserve resolved identities
-and effective bounds without reconstructing authored/default provenance. A supplied
-finite candidate may violate constraints; the checker must distinguish that result
-from malformed or unsupported input and prove agreement with the independent
-structural meaning. Reference occurrences retain identity even at repeated targets.
-Satisfying Clafer
-configurations require disjoint extents for declarations incomparable through super
-edges, including nested declarations and separate inheritance trees. Shared objects
-along a super chain and inherited field views retain their identity; overlapping
-raw candidates remain supported violations. The [adopted clarification](SOURCES.md#declaration-disjointness-clarification)
-keeps generic DPGraph/FormalCD subset/span models unrestricted.
-The [pinned importer](resolved-import.md) lives under `Clafer/Verification/`, with
-same-generation compiler capture under `scripts/verification/` and fixtures under
-`tests/`. It preserves the effective boundary and rejects unsupported source
-features. The [bounded comparison harness](bounded-comparison.md) compares exact supplied
-candidates against generated static Alloy, with explicit manual scopes and replayable
-external evidence. Bounded test enumeration and seeded sampling preserve negative
-candidates and both discrepancy directions; they make no universal compiler claim.
+The [finite structural checker](structural-checker.md) decides satisfaction for a
+supplied candidate in the guarded [effective-core fragment](resolved-ir-comparison.md).
+It distinguishes constraint violations from malformed or unsupported input.
+Reference occurrences retain identity at repeated targets; declarations
+incomparable through super edges have disjoint extents in satisfying models.
+Overlapping raw candidates remain supported violations. This
+[declaration-disjointness clarification](SOURCES.md#declaration-disjointness-clarification)
+leaves generic DPGraph/FormalCD subset/span models unrestricted.
 
-The separate [inherited realization extension](inherited-realization.md) supplies
-Appendix F's ordinary field instances, explicit abstract families, restrictions of
-shared maps, and generated structural correspondence. Authored abstract types and
-fields made effectively abstract by containment retain different realization rules.
-The [representative models](representative-models.md) connect concrete compilation
-and gluing, generated xor boundary cases and the mandatory version attachment.
-The [full constraint-bearing fixture](appendix-f.md) combines all twelve bodies and final selections; the
-[independent expression meaning](constraint-denotation.md) is supplied by #68,
-and [#69’s selected bridge](constraint-preservation.md) connects it to generated
-predicate satisfaction with explicit primitive and model assumptions.
+The [pinned importer](resolved-import.md) preserves effective identities and bounds
+without reconstructing authored/default provenance. The [bounded comparison
+harness](bounded-comparison.md) tests exact supplied candidates against generated
+static Alloy, with manual scopes, enumeration/seeded sampling and replayable
+external evidence. It retains negative candidates and both discrepancy directions;
+it supplies no universal compiler theorem.
 
-Exclude production instance/object generation, general Alloy/SMT/SAT integration, production runtime
-configuration management, Claferize, post-2014 extensions, a production parser and
-visualization. Keep the foundation reproducible and reviewable and the README brief.
-Give new readers enough context to understand Clafer, the purpose and maturity of
-the formalization, and how to build it, explore a checked example and contribute.
-Use the README as that entry point, with this document owning the detailed scope.
+The [roadmap and proof-status account](ARCHITECTURE.md#roadmap-and-validation-accounting)
+records delivered results and deferred extensions. The bounded
+[supporting-source assessment](SOURCES.md#generalized-sketches-and-model-reduct-coherence)
+leaves unread pages unaudited. Further acquisition is conditional on a named
+necessary claim lacking adequate primary evidence, as stated in the
+[source disposition](SOURCES.md#project-critical-source-disposition). Stronger
+representations or dependency-enriched signatures require separate authorization.
+
+Exclude production instance generation, general Alloy/SMT/SAT integration,
+production runtime configuration management, Claferize, post-2014 extensions,
+a production parser and visualization. Keep the foundation reproducible and
+reviewable. The brief README introduces Clafer, the formalization's purpose and
+maturity, a build and checked example, and contribution routes. This document
+owns the detailed scope; [requirements](spec.md) state the precise promises.
 
 Needs: req
 
@@ -120,12 +99,24 @@ updating summaries. Keep conditions needed to understand a claim beside it.
 | [DPGraph](dpgraph-trace.md), [FormalCD](formalcd-trace.md) and [Clafer](clafer-trace.md) traces | Named implementation/proof artifacts and actual Lean declarations |
 | [Constraint preservation](constraint-preservation.md) | Derived predicate meanings, exact binding/label transport and selected whole-model correspondence |
 | [Constraint denotation](constraint-denotation.md) | Explicit environments, core equations and Appendix F elaboration |
+| [Complete Appendix F model](appendix-f.md) | All twelve constraint bodies, final selections and concrete whole-model satisfaction |
+| [Inherited realization](inherited-realization.md) | Authoritative declaration/constraint inventories, ordinary fields and explicit abstract families |
+| [Group compilation](group-compilation.md) | Effective bounds, inherited child unions and augmented declarations |
 | [Representative models](representative-models.md) | Checked integration, source/feature coverage and explicit Appendix F omissions |
 | [Integer extraction](integer-extraction.md) | Primitive realization, partial extraction and Appendix F navigation assumptions |
 | [MCS inventory](mcs-invariants.md) and [Compile contract](compile.md) | Detailed structural clauses and transformation assumptions |
 | [IR comparison contract](resolved-ir-comparison.md) | Accepted comparison domain, compiler audit and external trust obligations |
+| [Structural checker](structural-checker.md) | Finite candidates, independent satisfaction, protocol and correctness bridges |
+| [Resolved import](resolved-import.md) | Pinned compiler capture, effective-core import and replay prerequisites |
+| [Bounded comparison](bounded-comparison.md) | Exact candidate pins, Alloy search and discrepancy replay |
 | [Contributing](../CONTRIBUTING.md), [trace convention](traceability.md) and [maintenance](maintenance.md) | Setup/checks, evidence links and repository administration |
 | [Historical change records](changes/) | Retained accepted scopes and plans; not current architecture or status |
+
+Internal labels identify [source questions Q1–Q9](SOURCES.md#question-dispositions-and-validation-tasks),
+[architectural choices A1–A9](ARCHITECTURE.md#nine-architectural-decision-areas), and
+[compiler-comparison decisions D1–D8](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites).
+These are project references, not paper section numbers. Explain a decision by
+name and link to its definition when using its label outside the owning table.
 
 Keep frozen change records unchanged until controller retention permits removal.
 Do not merge normative requirements with proof indexes or treat historical

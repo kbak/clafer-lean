@@ -7,8 +7,9 @@ is SoSyM Appendix F p.34, with Appendix C, D and E and §5.3–5.5/§6.2.
 The archived PDF SHA-256 is
 `56b1c18e74807fb7646c0e89cb2fc306f4178affb41fee52fcebde09b031b2fb`.
 The source indentation, repeated names and constraint scopes are checked manually.
-The accepted Q1–Q9 and D2/D4/D6 decisions remain those of the
-[source map](SOURCES.md) and [inherited realization contract](inherited-realization.md).
+The fixture follows the accepted [paper corrections and clarifications](sosym-errata.md)
+and the [inherited realization contract](inherited-realization.md), including
+its distinct treatment of ordinary fields, explicit abstract types and group bounds.
 
 The authoritative acceptance requirements are [complete integration](spec.md#complete-resolved-appendix-f-integration)
 and [rejection witnesses](spec.md#complete-appendix-f-rejection-witnesses).
@@ -116,4 +117,5 @@ accepted source corrections and selection of explicit binder domains remain
 reviewed elaboration decisions. Closed c01–c12 use empty external binder lists.
 The older structural projection and expression environments retain their own
 narrower claims; neither is relabeled as this complete interpretation.
-The external Haskell/Alloy comparison remains a separate workstream.
+The [external Haskell/Alloy comparison](bounded-comparison.md) has a separate,
+finite structural contract.

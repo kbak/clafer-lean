@@ -16,8 +16,10 @@ repository under `Clafer/Verification/` and `scripts/verification/`, with fixtur
 under `tests/`. The accepted #52 implementation uses the solver/profile and guarded
 contract below; its [pin/decode relation and runner](bounded-comparison.md) supply
 bounded enumeration, comparison and replay under `scripts/verification/`.
-Compiler agreement remains a property
-to investigate, not the definition of structural satisfaction.
+The [decision table](#decisions-accepted-locations-and-dependency-boundaries)
+defines D1–D8; the [compatibility matrix](#guarded-compatibility-matrix) distinguishes
+supported (S), excluded (X) and decision-dependent (D) forms. Compiler agreement
+is tested against the independent structural meaning; it does not define that meaning.
 
 Covers:
 - `req~resolved-ir-comparison-contract~1`
@@ -536,12 +538,18 @@ Upstream related fixture paths are under [test/positive][positive],
 [test/negative][negative] and [test/regression][regressions] at the same compiler
 commit. Static inspection establishes emitted structure only, not solver truth.
 
+<a id="decisions-location-proposal-and-prerequisites"></a>
+
 ## Decisions, accepted locations and dependency boundaries
+
+D1–D8 are project decision IDs used in this audit and its dependent contracts;
+they are not the paper's Appendix D section numbers. In particular, D2 concerns
+nested abstractness, D4 inheritance/refinement, and D6 group/global obligations.
 
 The following dispositions distinguish the accepted structural interfaces and
 external comparison from deferred language extensions. Existing Q1/Q8 and the
 top-level abstract correction remain accepted as documented in [SOURCES](SOURCES.md).
-New disagreements must be recorded on those issues before implementation; no
+Record new disagreements in a scoped issue before implementation; no
 compiler behavior overrides a current Lean requirement.
 
 | Decision | Accepted disposition / alternatives | Owner and review gate |
@@ -550,7 +558,7 @@ compiler behavior overrides a current Lean requirement.
 | D2 — nested abstractness | Keep S limited to leaf abstract basics; reject differing declared/effective abstractness. The separate [#66 clarification](inherited-realization.md) retains authored flags and realizes ordinary effective-abstract fields through actual parent objects; it does not enlarge S. | #50 unchanged; #66 supplies the selected Appendix F extension. |
 | D3 — parentless key and cards | Retain current corrected Shapes; reject abstract references and nontrivial abstract global cards until reviewed. Do not add a root parent/key to force compiler agreement. | #49/#50 with #20/#23; separate source correction if ever proposed. |
 | D4 — inheritance/refinement | Require selected parent/kind rules and the guarded S subset. The separate [#66 extension](inherited-realization.md) restricts existing inherited field maps while preserving equal-parent declaration edges. Compiler parent-subtyping, redefinition and target narrowing remain excluded. | #50 unchanged; #66 preserves the existing input requirement. |
-| D5 — hidden generation state | Same-generation minimal receipt and exact options; unsupported without it. Alternative broader state export needs a versioned schema. | #49; Alloy adapter follow-ups #51/#52 after review. |
+| D5 — hidden generation state | Same-generation minimal receipt and exact options; unsupported without it. Alternative broader state export needs a versioned schema. | #49 contract; [paired importer](resolved-import.md) and [bounded adapter](bounded-comparison.md) implement #51/#52. |
 | D6 — group/global obligations | Accepted for #65: abstract groups are inheritable bounds; concrete contexts count the union of own and inherited child heads. Empty inventories count zero, intentionally differing from C3’s skip. The [group compilation contract](group-compilation.md) records the separate generated component and complete bindings. | #50 retains its guarded checker; #65 generates/interprets groups; #66 adds realized ordinary-field groups and inherited map restrictions without changing that policy. |
 | D7 — location and scope | Accepted: reusable semantics, candidates, bridges and checker stay in this repository. No `clafer-compare` repository is created for #50. The #51 importer/capture and #52 solver/harness locations are accepted as stated below. | #50 implements the in-project extension under unchanged full validation; #51–52 supply separately reviewed external adapters. |
 | D8 — structural dependency cut | Accepted guarded S interface: dependencies #3/#16/#17/#20/#21/#22/#23/#49 are complete. Raw unrelated overlap remains represented; #87 requires disjointness of inheritance-incomparable heads in satisfaction. Whole-model interpretation and finite correctness bridges are delivered under #50 and strengthened by #87. | #50 owns the complete global structural interpretation; expression evaluation and external comparison remain excluded. |

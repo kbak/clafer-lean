@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/kbak/clafer-lean/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kbak/clafer-lean/actions/workflows/ci.yml)
 
-**A Lean 4 formalization of Clafer's modeling semantics.**
+**A [Lean 4](https://lean-lang.org/) formalization of Clafer's modeling semantics.**
 [Clafer](https://www.clafer.org/) combines class modeling, feature modeling, and
 constraints in one language for describing families of systems and their valid
 configurations. This project turns the definitions in the 2014 Clafer paper into
@@ -35,9 +35,10 @@ importable. The [architecture](docs/ARCHITECTURE.md) explains these boundaries.
 telematics model to compilation and a concrete satisfying interpretation,
 including all twelve constraint bodies. Its proof establishes that particular
 model under the documented formalization choices. General source-text compiler
-correctness, a production parser, configuration generation, and Alloy/SMT/SAT
-integration are outside the delivered scope. See the [current scope](docs/intent.md)
-and [finite checker's supported fragment](docs/structural-checker.md).
+correctness, a production parser, configuration generation, and general solver
+integration are outside the delivered scope. A [bounded Alloy comparison harness](docs/bounded-comparison.md)
+tests the [finite checker's supported fragment](docs/structural-checker.md);
+it does not establish universal compiler correctness. See the [current scope](docs/intent.md).
 
 ## Get started
 

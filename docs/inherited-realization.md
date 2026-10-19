@@ -1,14 +1,12 @@
 # Appendix F inherited realization
 
-The selected extension on [#66](https://github.com/kbak/clafer-lean/issues/66)
-uses the scoped source inventory supplied by
-[#64](https://github.com/kbak/clafer-lean/issues/64). It preserves the guarded
-[#50 contract](resolved-ir-comparison.md), [Compile input](compile.md), and
-[#65 group policy](group-compilation.md). The [complete resolved fixture and final satisfaction result](appendix-f.md)
-combine this structural contract with all twelve bodies. The [resolved expression denotation](constraint-denotation.md)
-supplies #68; the [selected semantic bridge](constraint-preservation.md) supplies
-#69, and representative structural
-integration remains #24.
+This contract explains how Appendix F's ordinary fields and explicit abstract
+types are realized, including inherited views of the same objects and links.
+It preserves the guarded [structural checker contract](resolved-ir-comparison.md),
+[Compile input](compile.md), and [group policy](group-compilation.md).
+The [complete fixture](appendix-f.md) combines it with all twelve constraint
+bodies and the selected semantic bridge. The accepted clarification is recorded
+in [issue #66](https://github.com/kbak/clafer-lean/issues/66).
 
 ## Source and accepted clarification
 
@@ -21,12 +19,16 @@ The paper's abstract-default and explicit-subtype rules do not completely specif
 inherited-field realization. The following is the accepted selected clarification,
 not a theorem attributed to the paper.
 
-* D2: authored explicit abstract types and ordinary field templates made effectively
-  abstract by containment have different realization rules. Preserve both flags in
+The labels D2, D4 and D6 below identify the comparison audit's
+[nested-abstractness, inheritance/refinement and group decisions](resolved-ir-comparison.md#decisions-location-proposal-and-prerequisites).
+They are project decision IDs, not sections of the paper's Appendix D.
+
+* **Nested abstractness (D2):** authored explicit abstract types and ordinary
+  field templates made effectively abstract by containment have different realization rules. Preserve both flags in
   the AST. Field templates have instances at realized parent objects; they are not
   emptied by an absent written subtype. An explicit abstract leaf is empty.
-* D4: preserve equal-parent declaration inheritance. All seven written super edges
-  below target parentless abstracts. No unequal-parent AST edge, relocation,
+* **Inheritance and refinement (D4):** preserve equal-parent declaration
+  inheritance. All seven written super edges below target parentless abstracts. No unequal-parent AST edge, relocation,
   reference narrowing or general nested redefinition is introduced. A contextual
   field is the same field objects whose existing unique parent is in the context.
   Its containment/dereference links are restrictions of the original links.
@@ -36,8 +38,8 @@ not a theorem attributed to the paper.
   disjoint in their common target (Q8). Some covering heads are field templates.
   Contextual classifications and explicit subtype classifications intersect; they
   are not a single list of disjoint competitors.
-* D6: retain #65's union of own/inherited child HEAD objects and its effective
-  override/empty-inventory rules. Realized ordinary field contexts enforce their
+* **Group bounds (D6):** retain the group policy's union of own/inherited child
+  head objects and its effective override/empty-inventory rules. Realized ordinary field contexts enforce their
   effective group even if the effective abstract flag is true, notably options.size.
   Ordinary owner constraints apply to the same objects in all subtype/context views.
 * Preserve Q1 links, corrected top-level abstract heads, role/referent/name
@@ -109,7 +111,9 @@ Xor inventories are `d02 ← {d03,d04}`, `d20 ← {d21,d22}`,
 `d24 ← {d25,d26}`. Quoted display.options elaborates to d13 extending d01;
 the three names size (d02/d06/d24) remain distinct.
 
-## Constraint scope handoff
+<a id="constraint-scope-handoff"></a>
+
+## Constraint inventory
 
 These twelve explicit conjuncts are manually elaborated as `c01`–`c12` in
 [AppendixFConstraints](../Clafer/Examples/AppendixFConstraints.lean), with resolved
