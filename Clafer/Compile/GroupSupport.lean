@@ -1,5 +1,6 @@
 module
 
+public import Clafer.Compile.EffectiveCore
 public import Clafer.Compile.Basic
 public import Clafer.Semantics.Interpretation
 

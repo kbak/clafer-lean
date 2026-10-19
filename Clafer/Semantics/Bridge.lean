@@ -1,5 +1,6 @@
 module
 
+public import Clafer.Compile.EffectiveCore
 public import Clafer.Semantics.Relational
 
 /-!

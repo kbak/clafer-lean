@@ -82,6 +82,7 @@ restrict the independently importable `DPGraph` library.
 `Candidate n` uses `Fin size` objects, one root, Boolean membership tables, and
 Boolean containment/dereference relations. It allows empty classes and missing
 or multiple endpoints. `realize` interprets these tables mathematically.
+The shared [DPGraph finite-range bridge](../DPGraph/Predicates/Finite.lean)
 `inRange_card` equates finite counts with the existing embedding-based `InRange`,
 including empty fibers and unbounded upper limits. `check_correct` states
 `check m c = true ↔ StructuralSatisfies m (realize c)` with explicit well-formedness

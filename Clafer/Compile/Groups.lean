@@ -186,13 +186,7 @@ theorem glued_model_iff {Ω : Quiv} (I : Interpretation (groupVocabulary i).sign
     I.IsModel (gluedGroups i).toDPGraph m ↔
       (∀ q, I.Satisfies ((groupLabel i).comp m) (promote i (formula i q))) ∧
       (∀ p, I.Satisfies ((groupLabel i).comp m) (generatedGroup i p)) := by
-  constructor
-  · intro h
-    constructor
-    · intro q; exact (I.satisfies_translate _ _ _).mp (h _ ⟨.inl q, rfl⟩)
-    · intro p; exact (I.satisfies_translate _ _ _).mp (h _ ⟨.inr p, rfl⟩)
-  · rintro ⟨ho, hg⟩ φ ⟨q | p, rfl⟩
-    · exact (I.satisfies_translate _ _ _).mpr (ho q)
-    · exact (I.satisfies_translate _ _ _).mpr (hg p)
+  exact (I.isModel_range_translate (completeBank i).formula (groupLabel i) m).trans
+    ((I.isModel_range (completeBank i).formula _).trans Sum.forall)
 
 end Clafer.Compile

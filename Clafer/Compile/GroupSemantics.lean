@@ -1,7 +1,7 @@
 module
 
 public import Clafer.Compile.Groups
-public import Clafer.Verification.Finite
+public import DPGraph.Predicates.Finite
 
 /-! # Group generation correspondence and its finite specialization
 
@@ -63,9 +63,9 @@ case. Finiteness is required of the counted set, not silently assumed. -/
 theorem finite_bounds (p : Fin n)
     [∀ x : s.head p, Fintype {y : U // ChildObjects m.family s p x.val y}] :
     Holds m.family s p ↔ ∀ x : s.head p,
-      Verification.CountInRange (m.family.group p).effective.range
+      CountInRange (m.family.group p).effective.range
         (Fintype.card {y : U // ChildObjects m.family s p x.val y}) := by
-  exact forall_congr' (fun _ => Verification.inRange_card _ _)
+  exact forall_congr' (fun _ => inRange_card _ _)
 
 /-- On #50's direct-only inventory, the two child-object sets coincide. -/
 theorem direct_child_iff (p : Fin n)
@@ -87,7 +87,7 @@ theorem empty_children (p : Fin n) (empty : IsEmpty (Child m.family p)) (x y : U
 
 theorem empty_holds_iff (p : Fin n) (empty : IsEmpty (Child m.family p)) :
     Holds m.family s p ↔
-      ∀ _x : s.head p, Verification.CountInRange (m.family.group p).effective.range 0 := by
+      ∀ _x : s.head p, CountInRange (m.family.group p).effective.range 0 := by
   unfold Holds
   apply forall_congr'
   intro x
@@ -96,7 +96,7 @@ theorem empty_holds_iff (p : Fin n) (empty : IsEmpty (Child m.family p)) :
       invFun := Fin.elim0
       left_inv := fun y => (empty_children m s p empty _ _ y.property).elim
       right_inv := fun x => Fin.elim0 x }
-  exact (inRange_iff _ e).trans (Verification.inRange_card _ _)
+  exact (inRange_iff _ e).trans (inRange_card _ _)
 
 end Clafer.Compile.Groups
 

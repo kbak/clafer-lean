@@ -1349,3 +1349,25 @@ The exact copied upstream fixture retains [MIT attribution](../tests/fixtures/im
 The external observational generator copy retains its upstream license header.
 Kernel-checked importer representation is separate from upstream parser/type/
 optimization correctness and from the separate [bounded Alloy comparison](bounded-comparison.md).
+
+## Reusable semantic foundations
+
+The [span/navigation laws](dpgraph-trace.md#reusable-span-and-navigation-laws-proofs)
+are derived from Appendix 2 mappings (legacy B.1 Definitions 1–5), composition
+(Q1), Table 3 and Appendix 1. Moving these statements into DPGraph adds no
+functionality, finiteness or identity hypothesis to generic spans.
+The [exact-image law](dpgraph-trace.md#exact-declaration-image-semantics-proofs)
+is a specialization of Appendix 2 satisfaction under translation (legacy B.5),
+with explicit equality of declaration images; it is not unrestricted model reflection.
+
+[Referent graph construction](../DPGraph/Gluing.lean) and
+[metadata descent](../FormalCD/Gluing.lean) factor the existing §6.2.5 construction
+and §§6.1.1–3 validity proof. Equal-referent identification remains the accepted
+Q4 policy in Clafer; the generic construction takes referents as parameters and
+inserts no defaults. It asserts no new global pushout or object-diagram equivalence.
+
+[Integer realization](../FormalCD/Integer.lean) factors the explicit §6.1/Figure 21
+domain and the accepted Appendix 4 partial-singleton bridge. Its extraction error
+API remains a selected library contract, not a verbatim paper definition. The
+Figure 21 guarded VC meaning and Clafer expression meanings retain their separate
+source obligations. No source correction, supported fragment or comparison pin changes.

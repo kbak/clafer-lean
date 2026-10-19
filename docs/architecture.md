@@ -180,6 +180,24 @@ and the [trace map](dpgraph-trace.md#typed-vocabulary-implementation) cover the
 acceptance boundaries. VC belongs to the separate `FormalCD` extension; arbitrary
 path equations beyond triangles and all-universes SetMap remain outside this slice.
 
+## Shared semantic infrastructure
+
+[Relational span laws](../DPGraph/Predicates/Relational.lean),
+[ambient navigation](../DPGraph/Predicates/Navigation.lean) and the
+[finite-range bridge](../DPGraph/Predicates/Finite.lean) belong to DPGraph.
+They retain link identities and explicit functionality, inclusion and local
+finiteness hypotheses. Clafer specializes them for parent/reference roles.
+`Interpretation.isModel_iff_of_declarations_image` proves whole-model equivalence
+only for exact translated declaration sets; `isModel_range_translate` specializes
+it to banks, including collisions. The arbitrary-morphism reduct remains one-way.
+
+[DPGraph gluing](../DPGraph/Gluing.lean) constructs used-referent graphs and
+labels complete bindings using Quiv/Prefunctor. [FormalCD gluing](../FormalCD/Gluing.lean)
+descends compatible metadata and proves validity under naming and complete-default
+hypotheses. The Clafer adapter selects role endpoints, referents and origin metadata.
+No generic graph/CD acquires Clafer root, ownership, group or declaration-disjointness
+rules from these constructions.
+
 ## Formal class diagrams
 
 [FormalCD.Basic](../FormalCD/Basic.lean) adds a shared `Registry`, class/map
@@ -231,6 +249,11 @@ obligations. The [projection witnesses](sources.md#literal-key-total-args-and-th
 explain why positional/isolated bindings and zero-arrow arities prevent a universal
 realizability inference. Fragment satisfaction and whole-metamodel satisfaction
 remain distinct; see the [named discipline proofs](formalcd-trace.md#discipline-correspondence-and-identity-laws).
+
+[Integer.lean](../FormalCD/Integer.lean) owns the explicit integer encoding,
+image domain and partial singleton extraction. Figure 21 VC and Clafer constraint
+bindings share it. Its domain is mathematical Int; registry metadata still does
+not impose primitive domains on arbitrary models.
 
 ## Bounded self-description and Figure 21b
 
@@ -414,6 +437,12 @@ Whole-model semantics, representation and erasure bridges live under
 `Clafer/Semantics/`; finite candidates and the verified executable checker live
 under `Clafer/Verification/`. These remain in the single `clafer` package and
 add no reverse dependency or finite-carrier condition to `DPGraph` or `FormalCD`.
+[EffectiveCore](../Clafer/Semantics/EffectiveCore.lean) defines the data and guards
+without importing Compile. [Compile/EffectiveCore](../Clafer/Compile/EffectiveCore.lean)
+provides `erase` and its correspondence proofs. Core structural/constraint meanings
+import neither Compile nor Verification; group semantics use the shared DPGraph
+finite-range bridge without importing the checker. [Import tests](../tests/semantic_dependencies.lean)
+and [group dependency tests](../tests/group_dependencies.lean) enforce these boundaries.
 The reusable local bank is the existing structural Compile bank. Global root,
 abstract-cover/disjointness, declaration disjointness and group obligations must
 be stated and interpreted

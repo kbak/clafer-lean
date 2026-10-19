@@ -69,8 +69,8 @@ objects** reached by those head maps from that same parent identity. Distinct ba
 heads with one reference target count separately. Multiple links or inherited
 paths witnessing the same object count once. No sum of declaration cardinalities
 or target deduplication is used. `InRange` gives the embedding-based meaning even
-for infinite sets; finite specialization reuses `inRange_card` from the
-[structural checker](structural-checker.md), with explicit
+for infinite sets; finite specialization uses the shared `inRange_card` bridge in
+[DPGraph/Predicates/Finite.lean](../DPGraph/Predicates/Finite.lean), with explicit
 finiteness of the counted subtype.
 
 The extra component can contain vertex-only formulas. A childless context with

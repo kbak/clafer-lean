@@ -81,3 +81,10 @@ end Extended
 #check FormalCD.Metamodel.Realization.Self.self_reconstruction
 #check FormalCD.Metamodel.Realization.Self.thirty_formula_objects
 #check FormalCD.Metamodel.Realization.Self.forty_six_argument_links
+
+#check FormalCD.IntegerRealization.extract_eq_some_iff
+#check FormalCD.IntegerRealization.extract_none_iff
+#check FormalCD.IntegerRealization.objectEquiv
+#check FormalCD.Gluing.Compatible
+#check FormalCD.Gluing.Defaults
+#check FormalCD.Gluing.raw_wellFormed

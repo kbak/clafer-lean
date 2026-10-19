@@ -589,10 +589,11 @@ Covers:
 `Support.Resolved.integers` preserve primitive resolved IDs.
 [Typing.lean](../Clafer/Constraints/Typing.lean): `Expr.integerOf` accepts an
 annotated unary integer collection in the existing lexical context.
-[Integer.lean](../Clafer/Constraints/Integer.lean): `IntegerRealization.Extracts`,
-`WellDefined`, `extract`, `objectEquiv`, `IntegerBinding` and `navigationImage`
-supply the partial meaning and explicit object/value binding. The realization
-is reused from `FormalCD`; the special VC meaning is not used as an interpreter.
+[FormalCD integer realization](../FormalCD/Integer.lean) supplies `Extracts`,
+`WellDefined`, `extract` and `objectEquiv`; [DPGraph navigation](../DPGraph/Predicates/Navigation.lean)
+supplies `navigationImage`. [Integer.lean](../Clafer/Constraints/Integer.lean)
+re-exports compatibility names and defines `IntegerBinding`. No VC import is
+needed to interpret expressions.
 
 Covers:
 - `req~clafer-integer-extraction~1`
@@ -601,11 +602,12 @@ Covers:
 
 `proof~clafer-integer-extraction~1`
 
-[Integer.lean](../Clafer/Constraints/Integer.lean): `extracts_unique`,
+[FormalCD/Integer.lean](../FormalCD/Integer.lean): `extracts_unique`,
 `wellDefined_iff`, `extract_eq_some_iff`, `extract_none_iff`, `encode_decode`,
 `objectEquiv`, `extract_encoded`, `extract_empty`, `extract_multiple`,
-`extract_wrong_domain`, `IntegerBinding.widen_subset`, `singleton_defined`,
-`navigationImage_empty`, `navigationImage_subset`, `navigationImage_singleton`, `navigationImage_one`
+`extract_wrong_domain`. [Clafer binding](../Clafer/Constraints/Integer.lean):
+`IntegerBinding.widen_subset`, `singleton_defined`.
+[DPGraph navigation](../DPGraph/Predicates/Navigation.lean): `navigationImage_empty`, `navigationImage_subset`, `navigationImage_singleton`, `navigationImage_one`
 and `function_one` establish the domain, uniqueness and navigation hypotheses.
 [IntegerExamples.lean](../Clafer/Constraints/IntegerExamples.lean): `empty`,
 `empty_navigation`, `multiple`, `wrong_domain`, `negative_unbounded`, `wrong_sort_rejected` and
@@ -657,7 +659,7 @@ Covers:
 `impl~clafer-effective-core~1`
 
 [EffectiveCore.lean](../Clafer/Semantics/EffectiveCore.lean): `EffectiveCore`,
-`WellFormed`, `Supported`, `erase`. [Admission.lean](../Clafer/Verification/Admission.lean):
+`WellFormed`, `Supported`. [Compile erasure](../Clafer/Compile/EffectiveCore.lean): `erase`. [Admission.lean](../Clafer/Verification/Admission.lean):
 `CoreCertificate`, `coreChecks`, `supportChecks`. The
 [interface](structural-checker.md) explains effective fields and fragment guards.
 
@@ -668,7 +670,7 @@ Covers:
 
 `proof~clafer-effective-core~1`
 
-[EffectiveCore.lean](../Clafer/Semantics/EffectiveCore.lean): `erase_wellFormed`,
+[Compile/EffectiveCore.lean](../Clafer/Compile/EffectiveCore.lean): `erase_wellFormed`,
 `erase_shape`. [Bridge.lean](../Clafer/Semantics/Bridge.lean): `ConstraintFree`,
 `compiled_bank_iff`, `erasure_correspondence`, `equal_erasure_satisfaction`.
 [Admission.lean](../Clafer/Verification/Admission.lean): `admitted_wellFormed`,
@@ -708,9 +710,10 @@ relates shared-head comparability to pairwise disjointness of incomparable heads
 [Inheritance.lean](../Clafer/Semantics/Inheritance.lean): `ancestor_iff_iterate`,
 `iterate_bounded`, `ancestor_iff_bounded` justify the terminating ancestry decision
 without admission assumptions.
-[Relational.lean](../Clafer/Semantics/Relational.lean): `inRange_one_iff`,
-`one_iff_total_single`, `compositeFiber`, `composite_multiplicity`, `two_key_iff`,
-`parent_one_iff`, `deref_one_iff`. [Interpretation.lean](../Clafer/Semantics/Interpretation.lean):
+[DPGraph relational laws](../DPGraph/Predicates/Relational.lean): `inRange_one_iff`,
+`one_iff_total_single`, `compositeFiber`, `composite_multiplicity`, `two_key_iff`.
+[Clafer/Relational.lean](../Clafer/Semantics/Relational.lean) retains compatibility
+names and proves `parent_one_iff`, `deref_one_iff`. [Interpretation.lean](../Clafer/Semantics/Interpretation.lean):
 `headFiberEquiv`, `head_multiplicity_iff`, `ordinary_representation`.
 [Normalization.lean](../Clafer/Semantics/Normalization.lean): `SpanModel.headIso`,
 `derefIso`, `parentIso`, `targetIso`, `inheritedIso`, `normalize_satisfies` extract
@@ -733,7 +736,8 @@ Covers:
 `impl~clafer-finite-checker~1`
 
 [Finite.lean](../Clafer/Verification/Finite.lean): `Candidate`, `realize`,
-`CountInRange`, `multiplicityChecks`, `groupChecks`, `Checks`, `check`.
+`multiplicityChecks`, `groupChecks`, `Checks`, `check`; `CountInRange` is re-exported
+from [DPGraph](../DPGraph/Predicates/Finite.lean).
 [Protocol.lean](../Clafer/Verification/Protocol.lean): `RawCandidate`, `decode`,
 `InputError`, `Result`, `verify`. [Admission.lean](../Clafer/Verification/Admission.lean):
 `RunResult`, `run`. Ordinary tuples and reference-head occurrences retain distinct
@@ -747,7 +751,8 @@ Covers:
 
 `proof~clafer-finite-checker~1`
 
-[Finite.lean](../Clafer/Verification/Finite.lean): `inRange_card`, `checks_iff`,
+[DPGraph/Finite.lean](../DPGraph/Predicates/Finite.lean): `inRange_card`.
+[Verification/Finite.lean](../Clafer/Verification/Finite.lean): `checks_iff`,
 `check_correct`, `malformed_rejected`. [ProtocolProofs.lean](../Clafer/Verification/ProtocolProofs.lean):
 `decode_root`, `decode_members`, `decode_containment`, `decode_references`,
 `objectLabels`, `member_row_preserved`, `link_row_indices`, `tuple_identity`,
@@ -847,7 +852,7 @@ Covers:
 `empty_holds_iff`, `generated_group_iff`, `descendGroups_reduct`,
 `glued_group_iff`, `descended_group_iff`, `descended_model_iff`.
 Typedness proves endpoint representation; finite counts reuse
-`Verification.inRange_card` from the [structural checker](structural-checker.md).
+`DPGraph.Predicates.inRange_card` from the [finite-range bridge](../DPGraph/Predicates/Finite.lean).
 The [inherited realization proofs](inherited-realization.md) separately establish
 field realization and commuting map restrictions. Generic interpretations still require authored predicate meanings.
 
@@ -979,8 +984,9 @@ Covers:
 
 [Denotation.lean](../Clafer/Constraints/Denotation.lean) supplies `Environment`,
 `Environment.Admissible`, `Expr.denote`, `Expr.Defined`, `Expr.Holds`,
-`ambientRelation`, `relationalImage`, `relationalJoin`, `finiteCard` and
-`universal`. `Expr.extent`, `Expr.implies`, `Expr.iff` and `Expr.ge` in
+`finiteCard` and `universal`; it re-exports `ambientRelation`, `relationalImage`
+and `relationalJoin` from [DPGraph navigation](../DPGraph/Predicates/Navigation.lean).
+`Expr.extent`, `Expr.implies`, `Expr.iff` and `Expr.ge` in
 [Typing.lean](../Clafer/Constraints/Typing.lean) supply the resolved expansions.
 [DenotationInvariance.lean](../Clafer/Constraints/DenotationInvariance.lean)
 adds `LinkEquivalence` and `IntegerBinding.Coherent` for repeated resolved maps.
@@ -995,7 +1001,8 @@ Covers:
 `proof~clafer-constraint-denotation-laws~1`
 
 [Denotation.lean](../Clafer/Constraints/Denotation.lean) proves
-`Environment.push_admissible`, `image_span` and `join_span`.
+`Environment.push_admissible` and re-exports `image_span` and `join_span` from
+[DPGraph navigation](../DPGraph/Predicates/Navigation.lean).
 [CollectionMeaning.lean](../Clafer/Constraints/CollectionMeaning.lean) proves
 `Expr.collection_meaning`, `Expr.cardinality_objects_defined`,
 `Expr.cardinality_relation_defined`, `Expr.integerOf_singleton_defined` and
@@ -1007,7 +1014,7 @@ cardinality cases, `universal_empty`, `universal_defined`, `universal_undefined`
 `denotes_some`, `denotes_no`, `denotes_one`, `denotes_lone`, `denotes_implies`,
 `denotes_iff` and `denotes_ge` equations.
 [DenotationInvariance.lean](../Clafer/Constraints/DenotationInvariance.lean)
-proves `ambientRelation_iso`, `LinkEquivalence.reduction`,
+re-exports `ambientRelation_iso` from DPGraph and proves `LinkEquivalence.reduction`,
 `repeated_map_denotation`, `Expr.denote_congr`, `Expr.environment_congr` and
 `widening_path_irrelevant`.
 [DenotationSupport.lean](../Clafer/Constraints/DenotationSupport.lean) defines
@@ -1512,3 +1519,19 @@ failures is asserted.
 
 Covers:
 - `req~clafer-appendix-f-rejections~1`
+
+## Semantic dependency boundaries
+
+`itest~clafer-semantic-dependencies~1`
+
+[semantic_dependencies.lean](../tests/semantic_dependencies.lean) imports the
+structural and expression meanings and rejects transitive Compile, Verification
+and Telematics modules. [group_dependencies.lean](../tests/group_dependencies.lean)
+checks that group mathematics and the erasure adapter remain available without
+importing the finite checker. The shared check discovers and compiles both tests
+with warnings as errors.
+
+Covers:
+- `req~clafer-effective-core~1`
+- `req~clafer-compile-groups~1`
+- `req~clafer-integer-extraction~1`

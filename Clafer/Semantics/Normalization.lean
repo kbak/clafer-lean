@@ -154,21 +154,7 @@ noncomputable def targetIso (d : Fin n) (hp : (m.family.shape d).hasParent = tru
   rw [← he, ← hd] at e
   exact e.symm.trans ((headIso m g root model d).comp (derefIso m g root model d))
 
-/-- Every represented identity inclusion preserves its ambient object. -/
-noncomputable def inclusionIso {A B : Set U} (q : Span A B) (h : Inclusion q) :
-    Span.Iso q (Span.ofRelation (fun (a : A) (b : B) => a.val = b.val)) := by
-  have sv : SetValued q := fun a b he => h.1.1 (congrArg Prod.fst he)
-  have he : q.red = (fun (a : A) (b : B) => a.val = b.val) := by
-    funext a b
-    apply propext
-    constructor
-    · rintro ⟨l, rfl, rfl⟩; exact (h.2 l).symm
-    · intro hab
-      obtain ⟨l, hl⟩ := h.1.2 a
-      refine ⟨l, hl, Subtype.ext ?_⟩
-      exact (h.2 l).trans ((congrArg Subtype.val hl).trans hab)
-  rw [← he]
-  exact q.relationIso sv
+export DPGraph.Predicates (inclusionIso)
 
 /-- The actual interpreted inheritance role is normalized simultaneously with
 the ordinary, inverse and composite maps. -/

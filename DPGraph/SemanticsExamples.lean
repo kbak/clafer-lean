@@ -91,6 +91,45 @@ theorem model_not_reflected :
       ¬ equalArrows.IsModel sourceGraph (Prefunctor.id arity) :=
   ⟨by intro _ h; exact False.elim h, identity_not_source_model⟩
 
+/-- The noninjective collapse has exactly the translated source declaration. -/
+theorem collapsed_declaration_image :
+    targetGraph.declarations = (fun φ => φ.translate collapse) '' sourceGraph.declarations := by
+  ext φ
+  constructor
+  · intro h
+    change φ = targetFormula at h
+    subst φ
+    exact ⟨sourceFormula, source_declared, rfl⟩
+  · rintro ⟨ψ, hψ, rfl⟩
+    change ψ = sourceFormula at hψ
+    subst ψ
+    exact collapse_preserves
+
+theorem collapse_model_iff (m : arity ⥤q arity) :
+    equalArrows.IsModel targetGraph m ↔ equalArrows.IsModel sourceGraph (collapse.comp m) :=
+  equalArrows.isModel_iff_of_declarations_image
+    (S := sourceGraph) (T := targetGraph) collapse collapsed_declaration_image m
+
+def collidingBank : Bool → Formula signature arity
+  | false => sourceFormula
+  | true => targetFormula
+
+/-- Two distinct source bindings may become one target declaration. -/
+theorem colliding_translations :
+    (collidingBank false).translate collapse = (collidingBank true).translate collapse := by
+  have hc : collapse.comp collapse = collapse := by
+    apply Prefunctor.ext (by intro x; rfl)
+    intro x y a
+    cases x <;> cases y <;> rfl
+  change sourceFormula.translate collapse = targetFormula.translate collapse
+  rw [translated_declaration]
+  exact congrArg (Formula.mk (σ := signature) (G := arity) .mark) hc.symm
+
+theorem colliding_bank_model_iff (m : arity ⥤q arity) :
+    equalArrows.IsModel ⟨arity, Set.range (fun i => (collidingBank i).translate collapse)⟩ m ↔
+      equalArrows.IsModel ⟨arity, Set.range collidingBank⟩ (collapse.comp m) :=
+  equalArrows.isModel_range_translate collidingBank collapse m
+
 /-- Explicitly larger semantic vertices; only a universe lift of this example. -/
 structure LargeVertex : Type 1 where
   down : Vertex

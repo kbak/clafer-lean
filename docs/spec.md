@@ -1714,7 +1714,7 @@ check. Preserve the complete graph support, binder context and existing widening
 A semantic binding respects equal resolved IDs and actual inclusion edges, and
 identifies the annotated object's domain with an explicit integer realization.
 
-Reuse `FormalCD.Telematics.IntegerRealization`: its injective encoding and
+Reuse `FormalCD.IntegerRealization`, independently of the Figure 21 extension: its injective encoding and
 left-inverse decoder give a correspondence between its domain and all mathematical
 `Int` values. The partial extraction result is `some n` exactly when the navigation
 set is the singleton containing the encoded `n`. Prove unique results and the
@@ -1735,7 +1735,7 @@ See [the conversion contract](integer-extraction.md).
 Covers:
 - `intent~formalization-foundation~1`
 
-Needs: impl, proof
+Needs: impl, proof, itest
 
 <a id="appendix-f-version-operand-well-definedness"></a>
 
@@ -1897,9 +1897,10 @@ The complete diagram must contain the exact union of both components, and gluing
 must preserve its exact translated image, naming, incidence, metadata and complete
 effective defaults. Prove that complete satisfaction accounts for both components
 and that each generated group is equivalent to the selected child-count bounds
-under explicit typed-relation and finite-count assumptions. Reuse the [structural counting
-and representation APIs](structural-checker.md) without extending its guarded checker or reversing its
-dependency. Keep the [inherited field realization and map restriction](inherited-realization.md)
+under explicit typed-relation and finite-count assumptions. Reuse the shared
+DPGraph finite-range bridge and [structural representation APIs](structural-checker.md);
+group mathematics must not import the finite checker or extend its guarded fragment.
+Keep the [inherited field realization and map restriction](inherited-realization.md)
 obligations explicit;
 selection alone cannot establish those laws.
 
@@ -1912,7 +1913,7 @@ in empty and inhabited contexts, including zero-arrow support.
 Covers:
 - `intent~formalization-foundation~1`
 
-Needs: impl, proof
+Needs: impl, proof, itest
 
 ## MCS gluing identity and incidence
 
@@ -2020,12 +2021,14 @@ Prove effective erasure correspondence for valid supported constraint-free ASTs
 and the selected compiled structural interpretation, with complete declaration
 and metadata hypotheses explicit. Equal erasure must give equal structural
 satisfaction. The construction must not require importing a convenient authored
-AST or assuming a caller-supplied equivalence theorem.
+AST or assuming a caller-supplied equivalence theorem. Keep core data and independent
+structural meanings importable without Compile or Verification; the erasure adapter
+belongs to Compile.
 
 Covers:
 - `intent~formalization-foundation~1`
 
-Needs: impl, proof
+Needs: impl, proof, itest
 
 ## Whole-model structural satisfaction and interpretation
 
@@ -2641,6 +2644,104 @@ connect failures to actual attachments/generated predicates. Coupled failures
 are permitted; independent isolation requires its own proof. Preserve sensitive
 operator witnesses for c01/c05/c07/c08/c09, including implication vacuity even
 where the positive final selection makes a branch vacuous.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Reusable span and navigation laws
+
+`req~reusable-span-laws~1`
+
+Expose the span-only representation and navigation laws in DPGraph, independently
+of FormalCD and Clafer. Derive exact-one link multiplicity from totality and
+single-valuedness, identity-inclusion normalization, functional composite-fiber
+multiplicity preservation and two-component functional keys. Retain arbitrary
+object/link universes in the general span lemmas. Ambient navigation and join
+must explicitly reduce original spans, preserving the underlying link carriers;
+set images do not count parallel links twice. Singleton-image conclusions require
+the stated link hypotheses. Finite count comparison must agree with embedding-based
+InRange under a local Fintype assumption, including empty fibers and unbounded
+upper limits, without imposing finite carriers on generic models.
+
+These are derived laws of SoSyM Appendix 2 mappings/composition, Table 3 and
+Appendix 1, reused by Appendix 4 constraint meanings.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Exact declaration-image semantics
+
+`req~dpgraph-declaration-image~1`
+
+Provide model-satisfaction equivalence when the target declarations are exactly
+the translated image of the source declarations under a graph map. Support
+indexed banks with repeated formulas and collisions after translation; retain full
+graph bindings, including isolated vertices. The theorem must require the exact
+image hypothesis, not merely declaration preservation. Reuse the general law in
+Clafer group and inherited-realization gluing proofs. Keep independent semantic
+universes and preserve the counterexample to reflection with extra target
+obligations. This is a derived Appendix 2 satisfaction law (legacy B.5).
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Reusable referent graph construction
+
+`req~dpgraph-referent-image~1`
+
+Construct the graph of used vertex and arrow referents through Quiv/Prefunctor,
+from endpoint-indexed occurrences with explicit referent assignments. Equal arrow
+referents must have equal endpoint referents. Identification uses referent equality,
+not names or common endpoints; permit noninjective vertex labeling and preserve
+distinct parallel-arrow referents. Transport an indexed formula bank to its exact
+declaration image and supply a declaration-preserving labeling morphism. Impose
+no naming, finite-carrier or default policy and claim no global pushout existence.
+Clafer MCS gluing must reuse this construction while retaining its own role and
+resolved-identity obligations. Source: Appendix 2 Definitions 6–10 and §6.2.5.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Reusable FormalCD metadata descent
+
+`req~formalcd-referent-descent~1`
+
+Descend names, predefined annotations and map modes along a referent graph only
+when they are constant on its identification fibers. Derive RawOver.WellFormed
+from explicit naming, referent-level predefined uniqueness and source-bank
+completeness of ordinary and inclusion defaults. Preserve the exact declaration
+image: insert no defaults and derive no model-existence claim. Support the existing
+small compatible vocabularies and registry without importing Clafer. Clafer must
+supply its metadata/origin adapter and reuse the generic validity proof.
+Source: SoSyM §§6.1.1–3 and 6.2.5.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
+
+## Reusable explicit integer realization
+
+`req~formalcd-integer-realization~1`
+
+Provide explicit integer interpretation data in FormalCD independently of the
+Figure 21 example and Clafer syntax: an injective Int encoding into an ambient
+object type, a decoder inverse on that encoding, and its image domain. Partial
+extraction succeeds exactly for an encoded singleton; empty, multiple-object and
+off-domain sets are undefined. Prove uniqueness, success/failure equivalences and
+correspondence between the complete domain and mathematical Int. Reuse these
+definitions in the guarded VC extension and Clafer IntegerBinding; preserve
+compatibility names. Neither registry annotations nor extraction impose a finite
+integer domain, and a general primitive-domain framework remains outside scope.
+Source: SoSyM §6.1/Figure 21 and the selected Appendix 4 primitive bridge.
 
 Covers:
 - `intent~formalization-foundation~1`

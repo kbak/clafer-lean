@@ -67,40 +67,7 @@ theorem push_admissible {s U Γ} {ρ : Environment s U Γ}
 
 end Environment
 
-/-- Existential reduction is explicit; the original span and its links remain
-available in the model. Parallel links never become extra relation tuples. -/
-def ambientRelation {U : Type u} {A B : Set U}
-    (q : DPGraph.Span.{u,u,max u w} A B) : Set (U × U) :=
-  {p | ∃ l, (q.source l).val = p.1 ∧ (q.target l).val = p.2}
-
-def relationalImage {U : Type u} (A : Set U) (R : Set (U × U)) : Set U :=
-  {y | ∃ x, x ∈ A ∧ (x,y) ∈ R}
-
-def relationalJoin {U : Type u} (R S : Set (U × U)) : Set (U × U) :=
-  {p | ∃ y, (p.1,y) ∈ R ∧ (y,p.2) ∈ S}
-
-theorem image_span {U : Type u} {A B : Set U}
-    (q : DPGraph.Span.{u,u,max u w} A B) (S : Set U) :
-    relationalImage S (ambientRelation q) = navigationImage q S := by
-  ext y
-  constructor
-  · rintro ⟨x,hx,l,hs,ht⟩
-    exact ⟨l, hs.symm ▸ hx, ht⟩
-  · rintro ⟨l,hs,ht⟩
-    exact ⟨(q.source l).val, hs, l, rfl, ht⟩
-
-/-- Q1: reduce only after constructing the composable pair of original links. -/
-theorem join_span {U : Type u} {A B C : Set U}
-    (q : DPGraph.Span.{u,u,max u w} A B)
-    (r : DPGraph.Span.{u,u,max u w} B C) :
-    relationalJoin (ambientRelation q) (ambientRelation r) = ambientRelation (q.comp r) := by
-  ext p
-  constructor
-  · rintro ⟨y,⟨l,hs,ht⟩,⟨k,ks,kt⟩⟩
-    exact ⟨⟨(l,k), Subtype.ext (ht.trans ks.symm)⟩,hs,kt⟩
-  · rintro ⟨l,hs,ht⟩
-    exact ⟨(q.target l.val.1).val, ⟨l.val.1,hs,rfl⟩,
-      ⟨l.val.2,(congrArg Subtype.val l.property).symm,ht⟩⟩
+export DPGraph.Predicates (ambientRelation relationalImage relationalJoin image_span join_span)
 
 def collectionOp {A : Type u} : SetOp → Set A → Set A → Set A
   | .union, a, b => a ∪ b

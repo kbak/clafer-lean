@@ -93,7 +93,7 @@ noncomputable def Accepted (b : Bool) : Prop :=
     ((generatedGroup (input g valid) ⟨0, rfl⟩).translate (groupLabel (input g valid)))
 
 theorem accepted_iff (b : Bool) : Accepted g valid b ↔
-    (b = true → Verification.CountInRange g.range 0) := by
+    (b = true → DPGraph.Predicates.CountInRange g.range 0) := by
   unfold Accepted
   erw [descended_group_iff _ _ _ (typed g valid b),
     Groups.empty_holds_iff (EffectiveCore.erase (input g valid)) (config b) (0 : Fin 1) (inventory_empty g valid)]

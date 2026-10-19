@@ -249,7 +249,7 @@ theorem display_values (e d : Int) :
       (model 11 e d) (.closed (atom 4)) = some {integers.encode d} := by
   simp only [dereference9,head9,Expr.denote,lift₂,Option.bind_some,Option.map_some,image_reduced]
   simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
-    Environment.closed,FormalCD.Telematics.IntegerRealization.domain,integers,Set.ext_iff]
+    Environment.closed,FormalCD.IntegerRealization.domain,integers,Set.ext_iff]
 
 theorem server_version_values (e d : Int) :
     (dereference9 (head9 (.widenObjects inclusion10 (dereference12 (head12
@@ -258,7 +258,7 @@ theorem server_version_values (e d : Int) :
   simp only [dereference9,head9,dereference12,head12,Expr.denote,lift₂,
     Option.bind_some,Option.map_some,image_reduced]
   simp [objects,maps,position,links,Telematics.Structural.config,Telematics.Structural.heads,Telematics.Structural.ownership,
-    Telematics.Structural.targets,Environment.closed,FormalCD.Telematics.IntegerRealization.domain,
+    Telematics.Structural.targets,Environment.closed,FormalCD.IntegerRealization.domain,
     integers,Set.ext_iff]
 
 theorem actual_c02_value (e d : Int) :

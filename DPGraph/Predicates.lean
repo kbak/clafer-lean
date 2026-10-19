@@ -1,5 +1,8 @@
 module
 
+public import DPGraph.Predicates.Finite
+public import DPGraph.Predicates.Navigation
+public import DPGraph.Predicates.Relational
 public import DPGraph.Predicates.Interpretation
 public import DPGraph.Predicates.FunctionalKey
 

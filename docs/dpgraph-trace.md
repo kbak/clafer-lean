@@ -854,3 +854,88 @@ Covers:
 - `req~dpgraph-pushout-data~1`
 - `req~dpgraph-pushout-universal~1`
 - `req~dpgraph-model-amalgamation~1`
+
+## Reusable span and navigation laws: implementation
+
+`impl~reusable-span-laws~1`
+
+[Relational.lean](../DPGraph/Predicates/Relational.lean) owns `compositeFiber`,
+`pairSpans` and `inclusionIso`; [Navigation.lean](../DPGraph/Predicates/Navigation.lean)
+owns `navigationImage`, `ambientRelation`, `relationalImage` and `relationalJoin`.
+[Finite.lean](../DPGraph/Predicates/Finite.lean) owns `CountInRange` and its decision
+instance. Clafer retains compatibility names and specializes the exact-one laws
+to its named interval.
+
+Covers:
+- `req~reusable-span-laws~1`
+
+## Reusable span and navigation laws: proofs
+
+`proof~reusable-span-laws~1`
+
+`inRange_one_iff`, `one_iff_total_single`, `relation_one_iff`,
+`setValued_one_iff`, `identity_inclusion_iff`, `inclusionIso`,
+`composite_multiplicity`, `two_key_iff` and `pair_key_iff` are proved in
+[Relational.lean](../DPGraph/Predicates/Relational.lean).
+[Navigation.lean](../DPGraph/Predicates/Navigation.lean) proves `image_span`,
+`join_span`, `ambientRelation_iso`, `navigationImage_singleton`, `navigationImage_one`
+and the empty/function cases. [Finite.lean](../DPGraph/Predicates/Finite.lean)
+proves `inRange_card`. [Public import witnesses](../tests/public_imports.lean)
+instantiate the laws at independent universe levels; existing span and Clafer
+occurrence-count examples continue to exercise their applications.
+
+Covers:
+- `req~reusable-span-laws~1`
+
+## Exact declaration-image semantics: implementation
+
+`impl~dpgraph-declaration-image~1`
+
+[Semantics.lean](../DPGraph/Semantics.lean) characterizes `IsModel` for exact
+images and indexed declaration banks. [Groups.lean](../Clafer/Compile/Groups.lean)
+and [Realization.lean](../Clafer/Compile/Realization.lean) specialize the shared
+law in `glued_model_iff`.
+
+Covers:
+- `req~dpgraph-declaration-image~1`
+
+## Exact declaration-image semantics: proofs
+
+`proof~dpgraph-declaration-image~1`
+
+[Semantics.lean](../DPGraph/Semantics.lean): `isModel_iff_of_declarations_image`,
+`isModel_range`, `isModel_range_translate`. The exact-image hypothesis is explicit.
+[SemanticsExamples.lean](../DPGraph/SemanticsExamples.lean) retains
+`model_not_reflected` for extra declarations and exercises noninjective exact images.
+The MCS [gluing boundary witnesses](../Clafer/MCS/Gluing/Boundaries.lean)
+retain formula-collision and isolated-vertex cases.
+
+Covers:
+- `req~dpgraph-declaration-image~1`
+
+## Reusable referent graph construction: implementation
+
+`impl~dpgraph-referent-image~1`
+
+[Gluing.lean](../DPGraph/Gluing.lean): `origin`, `Used`, `identify`,
+`representative`, `Incidence`, `graph`, `label`, `diagram`, `labelHom`.
+`origin` constructs an ordinary Quiv from an occurrence inventory; it does not
+introduce a competing graph record. [MCS gluing](../Clafer/MCS/Gluing.lean)
+specializes these declarations through `endpoints` and `incidence`.
+
+Covers:
+- `req~dpgraph-referent-image~1`
+
+## Reusable referent graph construction: proofs
+
+`proof~dpgraph-referent-image~1`
+
+[Gluing.lean](../DPGraph/Gluing.lean): `identify_eq_iff`, `representative_spec`,
+`source_identify`, `target_identify`, `label_obj_surjective` and
+`labelHom.preserves`. [Public-import witnesses](../tests/public_imports.lean)
+check allowed vertex identification, distinct parallel referents and rejection
+of conflicting incidence. Existing [MCS witnesses](../Clafer/MCS/Gluing/Examples.lean)
+and [boundaries](../Clafer/MCS/Gluing/Boundaries.lean) use the same construction.
+
+Covers:
+- `req~dpgraph-referent-image~1`

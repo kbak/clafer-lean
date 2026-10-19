@@ -53,6 +53,42 @@ theorem satisfies_translate (φ : Formula σ G) (F : G ⥤q H) (m : H ⥤q Ω) :
 def IsModel (S : DPGraph.{s, va, ua, v₁, u₁} σ) (m : S.carrier ⥤q Ω) : Prop :=
   ∀ φ ∈ S.declarations, I.Satisfies m φ
 
+/-- An exact declaration image reflects model satisfaction as well as preserving
+it. This derived B.5 law requires equality of the declaration sets; an arbitrary
+declaration-preserving morphism can have extra target obligations. -/
+theorem isModel_iff_of_declarations_image (F : S.carrier ⥤q T.carrier)
+    (h : T.declarations = (fun φ => φ.translate F) '' S.declarations)
+    (m : T.carrier ⥤q Ω) : I.IsModel T m ↔ I.IsModel S (F.comp m) := by
+  constructor
+  · intro hm φ hφ
+    apply (I.satisfies_translate φ F m).mp
+    exact hm _ (h ▸ ⟨φ, hφ, rfl⟩)
+  · intro hm φ hφ
+    rw [h] at hφ
+    obtain ⟨ψ, hψ, rfl⟩ := hφ
+    exact (I.satisfies_translate ψ F m).mpr (hm ψ hψ)
+
+/-- An indexed bank may repeat formulas; no injectivity or argument-key
+hypothesis is needed to characterize its model condition. -/
+theorem isModel_range {ι : Sort*} (φ : ι → Formula σ G) (m : G ⥤q Ω) :
+    I.IsModel ⟨G, Set.range φ⟩ m ↔ ∀ i, I.Satisfies m (φ i) := by
+  constructor
+  · intro hm i; exact hm _ ⟨i, rfl⟩
+  · rintro hm _ ⟨i, rfl⟩; exact hm i
+
+/-- Exact-image specialization for formula banks, including isolated vertices,
+repeated arguments and collisions between translated formulas. -/
+theorem isModel_range_translate {ι : Sort*} (φ : ι → Formula σ G)
+    (F : G ⥤q H) (m : H ⥤q Ω) :
+    I.IsModel ⟨H, Set.range (fun i => (φ i).translate F)⟩ m ↔
+      I.IsModel ⟨G, Set.range φ⟩ (F.comp m) := by
+  refine I.isModel_iff_of_declarations_image
+    (S := ⟨G, Set.range φ⟩) (T := ⟨H, Set.range (fun i => (φ i).translate F)⟩) F ?_ m
+  ext ψ
+  constructor
+  · rintro ⟨i, rfl⟩; exact ⟨φ i, ⟨i, rfl⟩, rfl⟩
+  · rintro ⟨_, ⟨i, rfl⟩, rfl⟩; exact ⟨i, rfl⟩
+
 /-- B.5 Theorem 3 in its generic form: a target model restricts to a source
 model along a declaration-preserving DP morphism. The only hypotheses are the
 fixed interpretation, the DP morphism and the target's model proof. -/

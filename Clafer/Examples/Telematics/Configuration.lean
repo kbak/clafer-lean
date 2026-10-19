@@ -60,7 +60,7 @@ def config : Configuration (Fin 28) U where
 
 theorem integer_extent : config.head 12 = integers.domain := by
   ext x
-  cases x <;> simp [config, heads, FormalCD.Telematics.IntegerRealization.domain, integers]
+  cases x <;> simp [config, heads, FormalCD.IntegerRealization.domain, integers]
 
 theorem primitive_root_containment (v : Int) : config.contains 12 config.root (integers.encode v) :=
   ⟨rfl,rfl⟩
@@ -189,7 +189,7 @@ theorem multiplicities : config.Multiplicities core.toEffectiveCore := by
       fin_cases d <;> simp [Telematics.Structural.parents] at hp
     | inl x =>
       apply (inRange_iff _ (finiteFiber d hd x)).mpr
-      rw [Verification.inRange_card]
+      rw [DPGraph.Predicates.inRange_card]
       fin_cases d <;> try { exact (hd rfl).elim }
       all_goals simp [Telematics.Structural.parents] at hp
       all_goals subst p
@@ -214,7 +214,7 @@ theorem options_size_children (c : Fin 28) : Telematics.Structural.parents c = s
 
 theorem range_one_of_unique (P : U → Prop) (h : ∃! x, P x) : InRange one {x // P x} := by
   obtain ⟨x,hx,hu⟩ := h
-  apply (inRange_one_iff _).mpr
+  apply (Semantics.inRange_one_iff _).mpr
   refine ⟨⟨⟨x,hx⟩⟩, ⟨?_⟩⟩
   intro a b
   apply Subtype.ext

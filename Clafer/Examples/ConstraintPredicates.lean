@@ -135,7 +135,7 @@ theorem version_value_at_every_display (e d : Int) (x : U) (hx : x ∈ objects 1
           Option.map_some, image_reduced]
         simp [objects, maps, position, links, Telematics.Structural.config, Telematics.Structural.heads,
           Telematics.Structural.ownership, Environment.closed,
-          FormalCD.Telematics.IntegerRealization.domain, integers, Set.ext_iff]
+          FormalCD.IntegerRealization.domain, integers, Set.ext_iff]
       simp only [version, denote_integerOf, hv, Option.bind_some]
       exact congrArg (Option.map ULift.up) (integers.extract_encoded d)
     · have hv : (dereference9 (head9 (.widenObjects inclusion10
@@ -145,7 +145,7 @@ theorem version_value_at_every_display (e d : Int) (x : U) (hx : x ∈ objects 1
           lift₂, Option.bind_some, Option.map_some, image_reduced]
         simp [objects, maps, position, links, Telematics.Structural.config, Telematics.Structural.heads,
           Telematics.Structural.ownership, Telematics.Structural.targets, Environment.closed,
-          FormalCD.Telematics.IntegerRealization.domain, integers, Set.ext_iff]
+          FormalCD.IntegerRealization.domain, integers, Set.ext_iff]
       simp only [version, denote_integerOf, hv, Option.bind_some]
       exact congrArg (Option.map ULift.up) (integers.extract_encoded e)
 

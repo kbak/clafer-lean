@@ -1,7 +1,7 @@
 module
 
 public import Clafer.Semantics.Structural
-public import Mathlib.Data.Fintype.EquivFin
+public import DPGraph.Predicates.Finite
 
 /-!
 # Finite candidates and structural decision procedure
@@ -31,21 +31,7 @@ def realize {n : Nat} (c : Candidate n) : Configuration (Fin n) (Fin c.size) whe
   contains d p x := c.contains d p x = true
   deref d x t := c.deref d x t = true
 
-def CountInRange (r : Range) (k : Nat) : Prop :=
-  r.lower ≤ k ∧ match r.upper with
-    | .finite hi => k ≤ hi
-    | .unbounded => True
-
-instance (r : Range) (k : Nat) : Decidable (CountInRange r k) := by
-  unfold CountInRange
-  cases r.upper <;> infer_instance
-
-/-- Exact finite specialization of the existing cardinal semantics, in both
-directions, including empty fibers and an unbounded upper limit. -/
-theorem inRange_card (r : Range) (A : Type) [Fintype A] :
-    InRange r A ↔ CountInRange r (Fintype.card A) := by
-  unfold InRange CountInRange
-  cases r.upper <;> simp [Function.Embedding.nonempty_iff_card_le]
+export DPGraph.Predicates (CountInRange inRange_card)
 
 variable {n : Nat}
 

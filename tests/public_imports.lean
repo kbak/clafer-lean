@@ -137,3 +137,42 @@ example (m : I.Model (DPGraph.Pushout.obj F J c)) :
       I.reduct (DPGraph.Pushout.inr F J c) m :=
   DPGraph.Pushout.modelEquiv_snd F J c I hc m
 end
+
+/-! Reusable semantic lemmas preserve independent object/link universes. -/
+section ReusableSemantics
+open DPGraph DPGraph.Predicates
+universe w₂
+example {A : Type u} {B : Type v} {C : Type z}
+    (q : Span.{u,v,w} A B) (r : Span.{v,z,w₂} B C)
+    (ht : Total r) (hs : SingleValued r) (bounds : Range) :
+    TargetMultiplicity bounds (q.comp r) ↔ TargetMultiplicity bounds q :=
+  composite_multiplicity q r ht hs bounds
+
+example (A : Type u) [Fintype A] (bounds : Range) :
+    InRange bounds A ↔ CountInRange bounds (Fintype.card A) := inRange_card bounds A
+
+example {A : Type u} {B : Type v} (q : Span.{u,v,w} A B) :
+    TargetMultiplicity ⟨1, .finite 1⟩ q ↔ Total q ∧ SingleValued q :=
+  one_iff_total_single q
+
+/-- Equal endpoints alone do not merge distinct arrow referents. -/
+example : Gluing.identify (id : Bool → Bool) false ≠ Gluing.identify id true := by
+  intro h
+  have := (Gluing.identify_eq_iff id false true).mp h
+  contradiction
+
+/-- Collapsing an arrow referent cannot repair conflicting endpoint referents. -/
+example : ¬ Gluing.Incidence (fun b : Bool => (b,b)) id (fun _ => ()) := by
+  intro h
+  have := h.source false true rfl
+  contradiction
+
+/-- Object identification itself is allowed, including on isolated vertices. -/
+example : Gluing.identify (fun _ : Bool => ()) false = Gluing.identify (fun _ => ()) true := rfl
+
+#check Interpretation.isModel_iff_of_declarations_image
+#check Interpretation.isModel_range_translate
+#check Gluing.labelHom
+#check inclusionIso
+#check join_span
+end ReusableSemantics

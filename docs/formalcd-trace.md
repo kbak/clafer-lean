@@ -348,8 +348,8 @@ Covers:
 
 `impl~formalcd-vc-meaning~1`
 
-[Telematics/VC.lean](../FormalCD/Telematics/VC.lean): `IntegerRealization`, `.domain`,
-`InheritedVersion`, `VCMeaning`, `vcInterpretation`, `interpretation`,
+[Integer.lean](../FormalCD/Integer.lean): `IntegerRealization`, `.domain`.
+[Telematics/VC.lean](../FormalCD/Telematics/VC.lean) re-exports them and defines `InheritedVersion`, `VCMeaning`, `vcInterpretation`, `interpretation`,
 `asComponent`, `versionValue`, `GuardedComparison`. All names are in
 `FormalCD.Telematics`. VC checks the realized integer domain and compares decoded
 version targets along actual inclusion/version links for each server link.
@@ -512,3 +512,54 @@ axiom audit and kernel replay discover both those witnesses and these modules.
 
 Covers:
 - `req~formalcd-realization-boundaries~1`
+
+## Reusable metadata descent: implementation
+
+`impl~formalcd-referent-descent~1`
+
+[Gluing.lean](../FormalCD/Gluing.lean): `Metadata`, `Compatible`, `Naming`,
+`Defaults`, `raw`, `cd`. [Clafer gluing](../Clafer/MCS/Gluing.lean) supplies
+`metadata` and `compatible`; origin-derived naming remains in Clafer.
+
+Covers:
+- `req~formalcd-referent-descent~1`
+
+## Reusable metadata descent: proofs
+
+`proof~formalcd-referent-descent~1`
+
+[Gluing.lean](../FormalCD/Gluing.lean): `className_label`, `mapName_label`,
+`predefined_label`, `kind_label`, `mode_label`, `raw_wellFormed`.
+Existing [MCS boundaries](../Clafer/MCS/Gluing/Boundaries.lean) exercise metadata
+conflicts and incomplete defaults through this shared proof.
+[FormalCD imports](../tests/formalcd_imports.lean) expose the API without Clafer.
+
+Covers:
+- `req~formalcd-referent-descent~1`
+
+## Explicit integer realization: implementation
+
+`impl~formalcd-integer-realization~1`
+
+[Integer.lean](../FormalCD/Integer.lean): `IntegerRealization`, `domain`,
+`Extracts`, `WellDefined`, `extract`, `objectEquiv`. The Telematics and Clafer
+names re-export the same definitions; [IntegerBinding](../Clafer/Constraints/Integer.lean)
+adds only source-support identity and inclusion obligations.
+
+Covers:
+- `req~formalcd-integer-realization~1`
+
+## Explicit integer realization: proofs
+
+`proof~formalcd-integer-realization~1`
+
+[Integer.lean](../FormalCD/Integer.lean): `encode_decode`, `extracts_unique`,
+`wellDefined_iff`, `extract_eq_some_iff`, `extract_none_iff`, `extract_encoded`,
+`extract_empty`, `extract_multiple`, `extract_wrong_domain`, `objectEquiv`.
+[Semantic import witnesses](../tests/semantic_dependencies.lean) check that core
+meanings and integer extraction import neither Compile, Verification nor Telematics.
+The existing [integer examples](../Clafer/Constraints/IntegerExamples.lean) retain
+the empty/multiple/off-domain and unbounded negative-integer cases.
+
+Covers:
+- `req~formalcd-integer-realization~1`
