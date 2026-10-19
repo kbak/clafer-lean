@@ -73,20 +73,28 @@ project declarations, including unimported helpers.
 
 ## DP-graph representation decision
 
-Keep Mathlib `Quiver`, `Prefunctor` and bundled `Quiv` for SoSyM B.4
+Keep Mathlib `Quiver`, `Prefunctor` and bundled `Quiv` for SoSyM Appendix 2
 Definitions 6–10. The [graph representation assessment issue](https://github.com/kbak/clafer-lean/issues/13)
 records the acceptance evidence and dependency-cost comparison. The delivered
 [core requirements](spec.md#graphs-signatures-and-typed-declarations) and
 [trace artifacts](dpgraph-trace.md#core-representation) state the checked contract.
 
-| Choice | Reason and alternative |
-| --- | --- |
-| Endpoint-indexed arrows | A `Quiver` permits loops and parallel arrows. An explicit vertex/edge/source/target record is mathematically equivalent: take the total edge type `Σ x y, (x ⟶ y)` in one direction and the fiber `{e // source e = x ∧ target e = y}` in the other. Reusing `Prefunctor` avoids a second incidence-preserving map API. The correspondence is explanatory here; no new Lean equivalence theorem is claimed. |
-| Graph-valued arities and full bindings | `Signature.arity` and `Formula.binding` retain every arity vertex and arrow. An untyped arrow list loses endpoint checking and isolated vertices; requiring injective bindings loses repeated arguments. |
-| Sets of declarations | `Set (Formula σ G)` matches Definition 9 without global finiteness or decidable equality. Finite lists, `Finset` and executable maps belong at later algorithmic boundaries. |
-| Fixed-signature morphisms | `Hom` combines a graph map with declaration preservation. Neither injectivity, reflection of extra target declarations nor predicate-dependency closure is required. The dependency-enriched sketches in the secondary source are a separate possible extension. |
-| Separate interpretations | `Interpretation` selects meanings in an explicit semantic graph. Satisfaction and the contravariant reduct are derived from composition; the syntax does not prescribe a solver, primitive domains or a graph of all types. |
-| Mathlib graph category | `Quiv` reuses the category of graphs and its existing colimit interfaces. A local bundle with only Quiver/Prefunctor imports could reduce the syntax-only import closure, but would require adapters for the delivered carrier cocones and conditional pushout/model-amalgamation API. |
+The [decision table](#nine-architectural-decision-areas) records the alternatives
+for [graph representation (A1)](#design-a1), [full bindings and declaration sets
+(A2)](#design-a2), [morphisms (A3)](#design-a3), and [interpretations (A5)](#design-a5).
+The details below explain the representation's equivalence, size and equality
+boundaries.
+
+An explicit vertex/edge/source/target record is mathematically equivalent to
+endpoint-indexed arrows: take the total edge type `Σ x y, (x ⟶ y)` in one
+direction and the fiber `{e // source e = x ∧ target e = y}` in the other.
+This is an explanatory correspondence, not a new Lean equivalence theorem.
+`Set (Formula σ G)` matches Definition 9 without global finiteness or decidable
+equality; finite lists, `Finset` and executable maps belong at algorithmic
+boundaries. `Quiv` also supplies the category and colimit interfaces. A local
+Quiver/Prefunctor bundle could reduce the syntax-only import closure, but would
+need adapters for the delivered carrier cocones and conditional pushout/model
+amalgamation results; see the [dependency-cost decision](#dependency-cost-decision).
 
 The independent universes in `Signature.{s,va,ua}` bound symbols, arity arrows
 and arity vertices. `DPGraph.{s,va,ua,v,u}` adds carrier arrow and vertex bounds;
@@ -307,7 +315,7 @@ Covers:
 | Layer | Construction order (links to planning issues) | Delivered result and limit |
 | --- | --- | --- |
 | Reusable DP-graphs | [Graph representation](https://github.com/kbak/clafer-lean/issues/13) → [typed declarations and maps](https://github.com/kbak/clafer-lean/issues/14) → [category and model restriction](https://github.com/kbak/clafer-lean/issues/15), with [split restriction laws](https://github.com/kbak/clafer-lean/issues/28) and [conditional pushouts](https://github.com/kbak/clafer-lean/issues/30). Separately, [link-preserving spans](https://github.com/kbak/clafer-lean/issues/4) support [concrete predicate meanings](https://github.com/kbak/clafer-lean/issues/16). | The [DPGraph proof inventory](dpgraph-trace.md) covers these results. The library remains independently importable; pushout and amalgamation results require a supplied carrier pushout. |
-| Formal class diagrams | Concrete predicates → [CD structure and morphisms](https://github.com/kbak/clafer-lean/issues/17) → [metamodel vocabulary and disciplines](https://github.com/kbak/clafer-lean/issues/18) → [bounded self-description and telematics](https://github.com/kbak/clafer-lean/issues/19). | The [FormalCD proof inventory](formalcd-trace.md) covers metadata, compatible vocabulary, Figure 21c and guarded Figure 21b models. Bounded syntactic self-description does not establish semantic self-instantiation. |
+| Formal class diagrams | Concrete predicates → [CD structure and morphisms](https://github.com/kbak/clafer-lean/issues/17) → [metamodel vocabulary and disciplines](https://github.com/kbak/clafer-lean/issues/18) → [bounded self-description and telematics](https://github.com/kbak/clafer-lean/issues/19). | The [FormalCD proof inventory](formalcd-trace.md) covers metadata, compatible vocabulary, Figure 21c and guarded Figure 21b models. The separate [restricted realization](metamodel-realization.md) proves a bounded semantic self-instance under its canonical context; syntactic self-description alone does not imply it. |
 | Structural Clafer | [Resolved syntax and Shapes](https://github.com/kbak/clafer-lean/issues/3) support [MCS disciplines](https://github.com/kbak/clafer-lean/issues/20) and [typed constraints](https://github.com/kbak/clafer-lean/issues/21), then [Compile](https://github.com/kbak/clafer-lean/issues/22), [resolved-referent gluing](https://github.com/kbak/clafer-lean/issues/23) and [representative integration](https://github.com/kbak/clafer-lean/issues/24). | [Compile](compile.md) and gluing retain their input and default-completeness assumptions. [Representative models](representative-models.md) check structure, xor groups and version attachment. [Core denotation](constraint-denotation.md) and [selected preservation](constraint-preservation.md) connect typed bodies to predicate satisfaction; the [complete Appendix 6 model](telematics.md) supplies simultaneous satisfaction for one concrete model. Textual elaboration and unrestricted compiler correctness remain outside these results. |
 
 ### Nine architectural decision areas

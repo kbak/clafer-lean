@@ -8,6 +8,25 @@ B.5 Theorem 3, and the selected Table 3/A.1 meanings with the [common-target dis
 All declaration names below are relative to `DPGraph`, except the
 carrier/declaration structure itself, `DPGraph`.
 
+Browse implementation and proof artifacts by topic:
+
+- [Graphs, declarations and morphisms](#core-representation),
+  [category laws](#fixed-signature-category-implementation) and
+  [declaration/axiom audit](#declaration-and-axiom-audit).
+- [Interpretation](#interpretation-implementation),
+  [model restriction](#model-restriction-implementation) and
+  [split-map transport](#model-reduct-injectivity-implementation).
+- [Spans and indexed mappings](#span-representation),
+  [composition](#span-composition-implementation) and
+  [relational reduction](#relation-composition-implementation).
+- [Concrete semantic graph](#bounded-semantic-graph-implementation),
+  [predicate vocabulary](#typed-vocabulary-implementation) and
+  [acceptance witnesses](#acceptance-examples-implementation).
+- [Conditional pushouts and amalgamation](#carrier-cocone-data-implementation).
+- [Shared navigation laws](#reusable-span-and-navigation-laws-implementation),
+  [exact declaration images](#exact-declaration-image-semantics-implementation) and
+  [referent graphs](#reusable-referent-graph-construction-implementation).
+
 ## Core representation
 
 `impl~dpgraph-core~1`

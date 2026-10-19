@@ -169,8 +169,10 @@ matching nor endpoint matching supplies a referent equality.
 
 [Gluing.lean](../Clafer/MCS/Gluing.lean) proves graph incidence and exact
 identification before constructing the translated declaration image and DP map.
-These obligations are additional to `Valid`; role-level ownership/cojoining,
-The [guarded Appendix 5 clauses (Q2)](mcs-invariants.md#appendix-e-inventory), [source ownership bounds (Q9)](mcs-invariants.md#figure-23-source-multiplicity-correction) and source total-args/literal-key disciplines remain unchanged.
+These obligations are additional to `Valid`. Role-level ownership/cojoining,
+the [guarded Appendix 5 clauses (Q2)](#appendix-e-inventory),
+[source ownership bounds (Q9)](#figure-23-source-multiplicity-correction) and source
+total-args/literal-key disciplines remain unchanged.
 `Gluing.Naming` and `Gluing.Defaults` are separate prerequisites of the `FormalCD`
 validity theorem. [Origins.lean](../Clafer/MCS/Gluing/Origins.lean) derives naming
 from valid MCS origins, while effective-default completeness must still be

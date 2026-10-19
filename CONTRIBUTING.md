@@ -42,43 +42,67 @@ python -m pip install -r requirements/intentbond.txt -r requirements/documentati
 ib install-oft
 ```
 
+Before editing, retain the baseline commit (`git merge-base HEAD origin/main` on
+a feature branch; the starting `HEAD` on main). Keep the affected intent,
+requirements, source/proof references, and checks consistent. Run:
+
+```sh
+python3 scripts/validation.py check --base BASE_COMMIT --candidate worktree --out /tmp/clafer-check
+```
+
+Choose a fresh external output directory for each run. The wrapper invokes
+`ib check`, using `scope.json` from that baseline and running `scripts/check.sh`
+on a captured source snapshot. It retains `/tmp/clafer-check-selection.json`
+beside the evidence directory, with both source manifests, baseline identity and
+selection reason. Add `--full` to require all validation gates. Direct
+`ib check` or `bash scripts/check.sh` without a selection plan also runs full validation.
+
+Exit 0 passes automation; exit 4 passes automation with
+semantic review pending. Other exits fail. Keep the reported evidence directory
+outside the repository and summarize it in the PR. After committing, match the
+commit against that evidence with `ib verify --base BASE_COMMIT --candidate HEAD
+--evidence /path/to/evidence.json`. Use `--allow-pending-review` only when review
+will be enforced before acceptance.
+
 For quick feedback while editing, run `bash scripts/check.sh --preflight`.
 This checks module discovery and its Python regressions without requiring Lean;
 it does not replace the full check. The full command runs this preflight before
 toolchain/dependency setup and prints elapsed seconds for each validation step.
 CI streams the retained test log during validation and includes stage timings in
 the job summary, so compilation and kernel replay progress are visible while running.
-The shared check defaults Lake artifact caching to disabled. CI and factory
-profiles may enable native caching for project modules and pinned dependencies;
-keep that cache outside captured source and preserve the complete validation
-gates. Lake checks source, compiler-option and transitive-import traces before
-reusing a module, rebuilding changed modules and their dependents. CI saves Lake
-artifacts and Mathlib downloads after
-successful checks, keyed by OS, architecture, toolchain and dependency manifest.
-The commit suffix allows the cache to grow when later changes introduce imports.
-`LAKE_CACHE_DIR` and `MATHLIB_CACHE_DIR` locate these caches outside the checkout
-so IntentBond's fresh snapshots inherit them. `LAKE_ARTIFACT_CACHE=true` enables
-incremental compilation; use `false` for fresh compilation in an isolated snapshot.
-The shared check sets `LAKE_RESTORE_ARTIFACTS=true` so all outputs are restored to
-the paths used by the audit, tests and kernel checker. A warm cache still runs
-the complete module build, fresh kernel replay, axiom audit and regression tests.
 
-The [validation wrapper](scripts/validation.py) and CI automatically select
-documentation checks when only regular, nonexecutable `README.md` or Markdown
-under `docs/` changed. They compare complete source contents and modes against the
-frozen baseline, including additions, deletions and nonignored untracked files.
-The shared check verifies the selection again inside IntentBond's captured snapshot.
-Other source changes, missing or stale comparisons, and an empty diff select the
-full check. This includes changes to scripts, tests, dependencies, workflows,
-agent instructions and `scope.json`.
+The installed IntentBond skill is at `intentbond/skills/intentbond/SKILL.md`
+inside the Python package. It can be located with:
 
-The documentation path checks module inventory, Python regressions for inventory
-and selection, topic filenames, and local document links and heading anchors. It does not run Lean
-examples, including Appendix 6, or provision Haskell and Alloy. Frozen change
-records remain under their retention policy; document-link checks cover living
-docs. IntentBond coverage, source matching and independent read-only review still
-apply, including review of mathematical claims. Evidence records the selected path
-without claiming a new Lean build.
+```sh
+python -c 'from importlib.resources import files; print(files("intentbond") / "skills/intentbond/SKILL.md")'
+```
+
+### Validation paths
+
+The wrapper and CI select documentation checks only for regular, nonexecutable
+`README.md` or Markdown under `docs/`. Changes to `CONTRIBUTING.md`, scripts,
+tests, dependencies, workflows, agent instructions or `scope.json` require full
+validation, as do empty diffs and uncertain comparisons. The
+[selection contract](docs/traceability.md#documentation-validation-selection)
+explains source capture, snapshot verification and retained evidence.
+
+Documentation checks cover module inventory, its Python regressions, validation
+selection, topic filenames, and local document links and heading anchors. They
+do not run Lean examples or provision Haskell and Alloy. IntentBond coverage,
+source matching and independent review still apply, including review of
+mathematical claims. Frozen change records remain under their retention policy;
+link checks cover living documentation.
+
+CI selects documentation or full validation before expensive toolchain setup,
+and runs IntentBond on pull requests and main. Follow the
+[scope-selection rules](docs/traceability.md#scope-selection) for baseline policy,
+first adoption and the exact public-root expansion. Local checks against the
+historical baseline require the independently approved scope via `--scope`.
+Candidate policy changes cannot authorize themselves; other scope changes
+require separate review.
+
+### Full validation and caching
 
 The shared check discovers every project module, rejects reverse dependencies
 (including through root/helper modules), builds and runs `leanchecker` on each,
@@ -105,42 +129,20 @@ Mathlib fetches their transitive dependencies; the generated inventory is
 unavailable cache falls back to source compilation. Ordinary `lake build` also builds
 from source. Cache availability never waives the build or kernel check.
 
-The installed IntentBond skill is at `intentbond/skills/intentbond/SKILL.md`
-inside the Python package. It can be located with:
-
-```sh
-python -c 'from importlib.resources import files; print(files("intentbond") / "skills/intentbond/SKILL.md")'
-```
-
-Before editing, retain the baseline commit (`git merge-base HEAD origin/main` on
-a feature branch; the starting `HEAD` on main). Keep the affected intent,
-requirements, source/proof references, and checks consistent. Run:
-
-```sh
-python3 scripts/validation.py check --base BASE_COMMIT --candidate worktree --out /tmp/clafer-check
-```
-
-Choose a fresh external output directory for each run. The wrapper invokes
-`ib check`, using `scope.json` from that baseline and running `scripts/check.sh`
-on a captured source snapshot. It retains `/tmp/clafer-check-selection.json`
-beside the evidence directory, with both source manifests, baseline identity and
-selection reason. Add `--full` to require all validation gates. Direct
-`ib check` or `bash scripts/check.sh` without a selection plan also runs full validation.
-
-Exit 0 passes automation; exit 4 passes automation with
-semantic review pending. Other exits fail. Keep the reported evidence directory
-outside the repository and summarize it in the PR. After committing, match the
-commit against that evidence with `ib verify --base BASE_COMMIT --candidate HEAD
---evidence /path/to/evidence.json`. Use `--allow-pending-review` only when review
-will be enforced before acceptance.
-
-CI selects documentation or full validation before expensive toolchain setup,
-and runs IntentBond on pull requests and main. Follow the
-[scope-selection rules](docs/traceability.md#scope-selection) for baseline policy,
-first adoption and the exact public-root expansion. Local checks against the
-historical baseline require the independently approved scope via `--scope`.
-Candidate policy changes cannot authorize themselves; other scope changes
-require separate review.
+The shared check defaults Lake artifact caching to disabled. CI and factory
+profiles may enable native caching for project modules and pinned dependencies;
+keep that cache outside captured source and preserve the complete validation
+gates. Lake checks source, compiler-option and transitive-import traces before
+reusing a module, rebuilding changed modules and their dependents. CI saves Lake
+artifacts and Mathlib downloads after
+successful checks, keyed by OS, architecture, toolchain and dependency manifest.
+The commit suffix allows the cache to grow when later changes introduce imports.
+`LAKE_CACHE_DIR` and `MATHLIB_CACHE_DIR` locate these caches outside the checkout
+so IntentBond's fresh snapshots inherit them. `LAKE_ARTIFACT_CACHE=true` enables
+incremental compilation; use `false` for fresh compilation in an isolated snapshot.
+The shared check sets `LAKE_RESTORE_ARTIFACTS=true` so all outputs are restored to
+the paths used by the audit, tests and kernel checker. A warm cache still runs
+the complete module build, fresh kernel replay, axiom audit and regression tests.
 
 ## Tickets and pull requests
 

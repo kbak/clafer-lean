@@ -180,7 +180,7 @@ The accepted profile fixes every C7 field. Effective options include source
 in source to prevent hidden overrides. Semantic source features are checked before
 desugaring; formatting/comments may remain, except escapes and directives.
 
-| Option fields | Proposed value / treatment |
+| Option fields | Accepted value / treatment |
 | --- | --- |
 | `mode` | Exactly `[JSON, Alloy]`; receipt confirms `Generator.Alloy.genModule`, never `AlloyLtl`. |
 | `flatten_inheritance`, `skip_resolver` | Both false. No flattening or resolver-skipping correctness claim. |

@@ -122,10 +122,12 @@ with zero arguments, although zero-arrow arities are valid under Definition 8.
 a formal class diagram establishes syntactic self-description. Establishing that
 a diagram is a semantic instance additionally requires an interpretation and
 satisfaction of every effective declaration, including naming, arity, key and
-totality conditions. Clafer Lean proves bounded syntactic self-description and
-selected instance fragments; these do not establish semantic self-instantiation
-or that every formal CD is an instance of Figure 21c. The omitted dashed
-attachments for `nd` and `ad` are supplied explicitly in the formalization.
+totality conditions. Clafer Lean proves bounded syntactic self-description and,
+separately, a [semantic self-instance](metamodel-realization.md#assessment-for-the-particular-metamodel)
+under a canonical bounded context after proving arrow support and bag separation.
+This does not establish that every formal CD is an instance of Figure 21c or
+supply a universe fixed point. The omitted dashed attachments for `nd` and `ad`
+are supplied explicitly in the formalization.
 [Bindings and scope](sources.md#figure-21c-metamodel).
 
 <a id="appendix-e-equations-apply-to-roles-that-exist"></a>
@@ -173,7 +175,7 @@ primitive-value conversion.
 
 ### Effective group inheritance and empty inventories
 
-**§4.2.1–2, §6.2.2, Appendix 3 and D.4.** Groups on abstract declarations supply
+**§4.2.1–2, §6.2.2, Appendix 3 and Appendix 4 “Semantics”.** Groups on abstract declarations supply
 inheritable bounds. Each concrete context enforces its effective bound over the
 union of own and inherited child heads; no separate abstract original-child
 invariant is added. This group-inheritance interpretation follows the pinned
