@@ -3,6 +3,7 @@
 <!-- [impl->req~public-foundation~1] -->
 
 [![CI](https://github.com/kbak/clafer-lean/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kbak/clafer-lean/actions/workflows/ci.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kbak/clafer-lean)
 
 **A [Lean 4](https://lean-lang.org/) formalization of Clafer's modeling semantics.**
 [Clafer](https://www.clafer.org/) combines class modeling, feature modeling, and
