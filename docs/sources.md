@@ -1057,6 +1057,12 @@ or authored/default theorem is introduced. The [requirements](spec.md#whole-mode
 and [trace map](clafer-trace.md) distinguish definitions, implementation proofs and
 whole-model boundary tests.
 
+The [small Lean walkthrough](getting-started.md) specializes this existing
+contract to a manually resolved phone with an optional camera. Its
+[checked declarations](../Clafer/Examples/Walkthrough.lean) exercise containment
+and local cardinality with zero, one and two cameras. The displayed Clafer text
+is explanatory input, not evidence of a verified parser or elaborator.
+
 ## Declaration disjointness clarification
 
 The [declaration-disjointness issue](https://github.com/kbak/clafer-lean/issues/87) adopts the static Alloy

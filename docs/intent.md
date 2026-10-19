@@ -73,6 +73,11 @@ a production parser and visualization. Keep the foundation reproducible and
 reviewable. The brief README introduces Clafer, the formalization's purpose and
 maturity, a build and checked example, and contribution routes. This document
 owns the detailed scope; [requirements](spec.md) state the precise promises.
+The [Lean walkthrough](getting-started.md) connects one small model to checked
+statements and shows pinned downstream use; language examples remain at
+[clafer.org](https://www.clafer.org/p/examples.html). Software citations identify
+the source revision separately from the paper. Research snapshots follow
+[independent review](maintenance.md#research-snapshots) and retain the research/API limits.
 
 Needs: req
 
@@ -84,6 +89,8 @@ Use IntentBond to maintain the relationship between intended outcomes,
 requirements, implementation, and verification evidence as the project evolves.
 Use GitHub issues and a Project for planning and tracking, including IntentMade
 work, so work and outstanding semantic decisions remain visible.
+Public contributors and agents can use issues and forks without private Project
+access; maintainers reconcile Project membership and status.
 Follow the [contribution instructions](../CONTRIBUTING.md) and
 [documentation policy](../AGENTS.md#documentation).
 
@@ -101,6 +108,7 @@ numbers and ticket chains must not substitute for an explanation.
 | Read or maintain | Purpose |
 | --- | --- |
 | This intent | Product goals, delivered scope and exclusions |
+| [Getting started](getting-started.md) | One Lean model walkthrough and a pinned downstream Lake example; language learning links to clafer.org |
 | [Requirements](spec.md) | Normative promises, acceptance obligations and stable OFT IDs |
 | [Architecture](architecture.md) | Representation choices, module boundaries, roadmap and theorem status |
 | [Source map](sources.md) | Paper correspondence, immutable source citations, decisions and audit limits |

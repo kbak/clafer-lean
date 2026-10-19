@@ -111,7 +111,7 @@ processes and rebuilding each named Mathlib module with cached prerequisites.
 
 Retained and fresh full validation runs assess a fresh project build with pinned
 dependencies already provisioned against the baseline scope's 900-second test
-limit; CI separately has a 20-minute job limit. This evidence supports the
+limit; CI separately has a 60-minute job limit. This evidence supports the
 existing design in that environment. It does not measure rebuilding the whole
 dependency closure from source or a machine with cold filesystem caches, nor
 guarantee the same timing on another runner. The unchanged check retains its
@@ -324,6 +324,8 @@ link to the actual declarations; the statements below bound what may be inferred
 | The role-label map is a DP morphism, and the glued structure is a well-formed formal CD. | Proved separately in `Gluing.labelHom` and `raw_wellFormed`: approved referent incidence/metadata consistency, with naming and effective-default completeness additionally required for CD validity. |
 | Representative resolved models preserve structural relationships through compilation and gluing; generated xor distinguishes zero/one/two children. | Proved in `Examples.Integration`; `Examples.VersionCompilation` derives selected operand definedness from emitted local formulas plus integer-domain realization. [Coverage](representative-models.md) distinguishes structural attachment, definedness, predicate truth and whole-model satisfaction. |
 | Selected resolved constraint truth corresponds to generated/glued predicate satisfaction. | `Compile.ConstraintMeaning.constraint_iff`, `compiled_model_iff`, `glued_constraint_iff` and `whole_model` use body-derived meanings, explicit external domains, primitive realization and selected canonical model candidates; see the [contract](constraint-preservation.md). |
+| The finite structural checker accepts exactly the satisfying supplied candidates in its admitted fragment. | [`Verification.check_correct`](../Clafer/Verification/Finite.lean) assumes a well-formed supported effective core. [`run_correct`](../Clafer/Verification/ProtocolProofs.lean) connects the public protocol under checked core/fragment certificates, valid raw tables and typed decoding. This is neither configuration generation nor a fresh kernel proof of each native verdict; see the [checker contract](structural-checker.md). |
+| The complete manually resolved Appendix 6 telematics model has a concrete satisfying compiled/glued interpretation. | [`Examples.Telematics.compiled_glued_model`](../Clafer/Examples/Telematics/Compiled.lean) discharges the selected whole-model hypotheses for all twelve bodies and final selections. Its integer extent is infinite; it does not use the finite checker or verify source-text elaboration. See the [complete model](telematics.md). |
 | Compilation/gluing preserves all constraint meanings, or every CD semantically instantiates its metamodel. | Deferred; no accepted general statement or proof. Source resolution and explicit realizability/semantic hypotheses would be needed first. |
 
 The [source disposition](sources.md#project-critical-source-disposition) retains

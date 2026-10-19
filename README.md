@@ -47,26 +47,33 @@ Install Git and [Lean via elan](https://lean-lang.org/install/), then:
 ```sh
 git clone https://github.com/kbak/clafer-lean.git
 cd clafer-lean
+lake exe cache get
 lake build
 ```
 
 Elan selects the pinned [Lean toolchain](lean-toolchain); Lake fetches the pinned
-Mathlib dependency. The first build can take time to download and compile dependencies.
+Mathlib dependency. The cache command downloads precompiled Mathlib files; allow
+disk space and time for that first download. If the cache is unavailable,
+`lake build` can compile the pinned sources instead, which takes longer.
 For editor support, open the checkout with the Lean 4 extension for VS Code.
 
-Start with the [span examples](DPGraph/Span/Examples.lean), which show why two links
-between the same endpoints carry more information than an ordinary relation.
-After building, check that file with:
+Follow the [small Lean walkthrough](docs/getting-started.md): a phone with an
+optional camera, two satisfying configurations and one rejected configuration.
+After building, check its proofs with:
 
 ```sh
-lake env lean DPGraph/Span/Examples.lean
+lake env lean Clafer/Examples/Walkthrough.lean
 ```
 
-Then explore [class diagrams](FormalCD/Examples.lean),
+For language syntax and more models, use [clafer.org's examples](https://www.clafer.org/p/examples.html).
+Then explore [spans](DPGraph/Span/Examples.lean), [class diagrams](FormalCD/Examples.lean),
 [compilation and gluing](docs/representative-models.md), or the
 [complete telematics model](docs/telematics.md). The
 [documentation map](docs/intent.md#documentation-map) leads to detailed contracts,
-source citations, and proof indexes.
+source citations, and proof indexes. The walkthrough also shows
+[use from another Lake project](docs/getting-started.md#use-as-a-lake-dependency).
+Full validation has additional [prerequisites](CONTRIBUTING.md#setup-and-checks);
+building these Lean examples does not require Java, Haskell or Alloy.
 
 ## Contribute
 
@@ -88,6 +95,10 @@ public issues; maintainers also use a
 For sensitive reports, follow the [security policy](SECURITY.md).
 
 ## References and license
+
+To cite the formalization, use [CITATION.cff](CITATION.cff) and include the Git
+commit used. Research snapshots do not promise API stability; see the
+[snapshot and review policy](docs/maintenance.md#research-snapshots).
 
 The primary semantic reference is:
 

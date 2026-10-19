@@ -79,6 +79,8 @@ def parser():
     create.add_argument("--title", required=True)
     create.add_argument("--body-file", type=Path, required=True)
     create.add_argument("--label", action="append", default=[])
+    create.add_argument("--no-project", action="store_true",
+                        help="Create only the public issue; leave Project tracking to a maintainer")
     tracking = commands.add_parser(
         "track", help="Add/reconcile Project membership and status"
     )
@@ -100,6 +102,8 @@ def parser():
     close.add_argument(
         "--reason", choices=["completed", "not planned"], default="completed"
     )
+    close.add_argument("--no-project", action="store_true",
+                       help="Close only the public issue; leave Project tracking to a maintainer")
     return root
 
 
@@ -134,12 +138,15 @@ def main(argv=None):
             args.body_file,
             *labels,
         )
-        # Preserve the issue identity even if subsequent Project operations fail.
-        print(
-            f"Created {url}; retry tracking with: tickets.py track {url.rsplit('/', 1)[-1]}",
-            flush=True,
-        )
-        track(int(url.rsplit("/", 1)[-1]), "todo")
+        if args.no_project:
+            print(f"Created {url}; Project tracking is left to a maintainer", flush=True)
+        else:
+            # Preserve the issue identity even if subsequent Project operations fail.
+            print(
+                f"Created {url}; retry tracking with: tickets.py track {url.rsplit('/', 1)[-1]}",
+                flush=True,
+            )
+            track(int(url.rsplit("/", 1)[-1]), "todo")
     elif args.command == "track":
         track(args.number, args.status)
     elif args.command == "edit":
@@ -169,7 +176,8 @@ def main(argv=None):
         )
     elif args.command == "close":
         print(gh("issue", "close", args.number, *repository, "--reason", args.reason))
-        track(args.number, "done")
+        if not args.no_project:
+            track(args.number, "done")
 
 
 if __name__ == "__main__":

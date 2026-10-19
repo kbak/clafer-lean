@@ -21,7 +21,16 @@ scope and authoritative documents; [architecture](docs/architecture.md) explains
 module boundaries. Use those references when updating summaries, retaining
 artifact IDs, trace links, source citations and existing link destinations.
 
-Install Python 3.11+, Git, Java 17+, and the [GitHub CLI](https://cli.github.com/).
+For a first look, use the [README build](README.md#get-started) and
+[Lean walkthrough](docs/getting-started.md). Building Lean examples requires
+Git and Lean; it does not provision the Haskell exporter or Alloy.
+
+For contribution checks, install Python 3.11+, Git, Java 17+ and Bash 4+.
+The [GitHub CLI](https://cli.github.com/) is needed only for the ticket helper and
+command-line GitHub operations. Full validation is exercised in CI on Linux
+x86_64 (Ubuntu 24.04); automatic Haskell exporter setup supports that platform.
+On other platforms, supply the pinned exporter and build manifest as described
+below, or use a Linux x86_64 environment.
 For full validation, also install Lean with [elan](https://lean-lang.org/install/)
 and prepare the [pinned importer prerequisites](#pinned-import-validation-prerequisites).
 Documentation-only checks do not need Lean, the Haskell compiler or Alloy. Then:
@@ -135,21 +144,39 @@ require separate review.
 
 ## Tickets and pull requests
 
-Authenticate `gh` with an account that can access this repository and Project
-(classic tokens need `repo` and `project`; equivalent fine-grained permissions
-also work). Example:
+Public contributors can use the GitHub website throughout; private Project
+access is not required:
+
+1. Find or open a public issue with the intended outcome and validation criteria.
+2. Fork the repository and create a topic branch. Retain the starting commit
+   before editing; add `upstream` pointing to `https://github.com/kbak/clafer-lean.git`
+   if you need to compare with the project's main branch.
+3. Make the change, keeping affected requirements and trace links consistent, and
+   run the validation wrapper above against that retained baseline.
+4. Open a PR from the fork to `kbak/clafer-lean:main`, linking the issue and
+   reporting the actual validation result and evidence. A maintainer handles
+   Project membership and status.
+
+Agents use the same public route. Authenticate `gh` for public issue operations
+and use the helper's explicit `--no-project` mode when Project access is absent:
 
 ```sh
 python3 scripts/tickets.py list
-python3 scripts/tickets.py create --title 'Define the selected core syntax' --body-file /tmp/issue.md --label semantics
-python3 scripts/tickets.py track 1 --status in-progress
+python3 scripts/tickets.py create --title 'Explain a worked model' --body-file /tmp/issue.md --no-project
 python3 scripts/tickets.py comment 1 --body-file /tmp/progress.md
 ```
 
-The helper adds issues to the Project and updates its Status field. It can also
-edit issue bodies/labels and close completed issues. Use `track` to repair Project
-membership after a partial creation failure. GitHub-hosted issue/PR status and
-the Project should agree; link implementation PRs with `Closes #N`.
+Replace the example issue number with the actual one. `close --no-project` is
+also available when the caller has permission to close the issue and its
+acceptance criteria are met. Public-operation errors still fail the command.
+
+Maintainers with Project access use the default helper mode, which adds issues
+to the Project and updates its Status field. For that mode, authenticate `gh`
+with repository and Project permissions. Use `track N --status in-progress`
+when starting, and `track` to reconcile a public-only issue or repair membership
+after a partial creation failure. A Project failure in default mode is still
+reported as a failure. GitHub-hosted issue/PR status and the Project should agree;
+link implementation PRs with `Closes #N`.
 
 Use a topic branch, keep changes focused, and explain what changed and how it was
 checked. Include paper references and affected requirement IDs for semantic work.

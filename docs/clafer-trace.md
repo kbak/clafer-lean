@@ -1466,6 +1466,32 @@ Covers:
 - `req~clafer-alloy-representation~1`
 - `req~clafer-comparison-replay~1`
 
+## Small model walkthrough
+
+`impl~lean-walkthrough~1`
+
+[Walkthrough.lean](../Clafer/Examples/Walkthrough.lean): `model` encodes the
+synthetic root, phone and optional camera; `configuration` supplies finite
+objects and containment for a given camera count. The
+[getting-started guide](getting-started.md) explains the manually resolved
+boundary, declaration/object IDs and the connection to semantic statements.
+
+Covers:
+- `req~lean-walkthrough~1`
+
+## Walkthrough satisfaction and rejection
+
+`proof~lean-walkthrough~1`
+
+[Walkthrough.lean](../Clafer/Examples/Walkthrough.lean): `model_valid` and
+`model_supported` discharge the input conditions. `accepts_no_camera`,
+`accepts_one_camera` and `rejects_two_cameras` use kernel reduction.
+`no_camera_satisfies`, `one_camera_satisfies` and `two_cameras_violate` apply
+`Verification.check_correct` to the independent structural semantics.
+
+Covers:
+- `req~lean-walkthrough~1`
+
 <a id="complete-appendix-f-negative-sensitivity"></a>
 
 ## Complete Appendix 6 negative sensitivity

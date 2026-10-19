@@ -127,6 +127,7 @@ class PublicLibrariesTest(unittest.TestCase):
             "Clafer.Compile.ConstraintMeaning",
             "Clafer.Examples.Telematics.Structural", "Clafer.Examples.Telematics.StructuralRejections",
             "Clafer.Examples.Integration", "Clafer.Examples.VersionCompilation",
+            "Clafer.Examples.Walkthrough",
             "Clafer.Verification.Finite", "Clafer.Verification.Protocol",
             "Clafer.Verification.ProtocolProofs", "Clafer.Verification.Admission",
             "Clafer.Verification.Representation", "Clafer.Verification.Examples",

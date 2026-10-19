@@ -39,3 +39,32 @@ IntentBond updates must update both `requirements/intentbond.txt` and the pinned
 skill link in `AGENTS.md`. Lean updates must update `lean-toolchain` and pass the
 shared checks. Review checking-policy changes explicitly; IntentMade's trusted
 scope pin must also be deliberately advanced when adopting a new policy.
+
+## Research snapshots
+
+[CITATION.cff](../CITATION.cff) identifies the software; cite the exact commit used
+and the SoSyM paper separately. A package version in `lakefile.toml` alone does
+not designate a reviewed release. Research snapshot tags identify reproducible
+source without promising API stability or supported releases.
+
+Before tagging a snapshot, select a commit on main with passing CI and retained
+IntentBond evidence matched to that commit. Have an independent reviewer record
+the source revision, inspected declarations, findings and disposition in the PR.
+Use this focused checklist:
+
+- Compare the five [accepted paper corrections](sosym-errata.md) with their source
+  passages and actual counterexamples/proofs; distinguish corrections from choices.
+- Inspect the [telematics source-to-core inventory](telematics.md), final selections
+  and all twelve bodies. Confirm manual elaboration and the infinite integer
+  extent are explicit, and that the final theorem discharges its hypotheses.
+- Inspect the assumptions of [constraint preservation](constraint-preservation.md)
+  and [finite verification](structural-checker.md); check that public summaries
+  do not turn selected or conditional results into unrestricted correctness claims.
+
+Automation and an author's self-review do not supply this independent disposition.
+Resolve material findings before publishing. Then create an annotated
+`research-YYYY-MM-DD` tag on that reviewed commit, with the commit identity,
+review link and evidence reference in the annotation or accompanying release notes.
+Retain evidence beyond CI artifact expiry in an external archive. Any software DOI
+must identify that software archive, not reuse the paper DOI. Keep review records,
+execution reports and snapshot announcements out of living mathematical docs.

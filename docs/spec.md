@@ -116,7 +116,12 @@ Needs: impl
 
 `req~github-tracking~1`
 
-Agents plan work as GitHub issues in the configured Project. The ticket helper
+Agents plan work as public GitHub issues, tracked by maintainers in the configured
+private Project. Contributors and agents without Project access use public issues
+and forks. The helper's explicit `--no-project` option creates or closes only the
+public issue, leaving Project reconciliation to a maintainer; it must make no
+Project calls and must still fail on a public-operation error. The default mode
+retains Project tracking and failure reporting. The ticket helper
 creates issues from body files, adds them to the Project, sets their status, and
 supports later edits, comments, and closure. GitHub operation failures must be
 reported as failures; if issue creation succeeds before Project tracking fails,
@@ -143,6 +148,15 @@ documentation, contribution guidance, issue tracking and security reporting.
 Link the first mention of Lean to its [official site](https://lean-lang.org/).
 Keep detailed mathematical inventories in the canonical documentation rather
 than requiring familiarity with paper section numbers at the entry point.
+
+Keep onboarding concise and link to clafer.org for language examples. Document
+cache-assisted pinned setup, distinguish a Lean build from full validation and
+state the latter's platform/prerequisite limits. Provide a minimal downstream
+Lake example with an immutable published commit and matching toolchain, and
+software citation metadata distinct from the source paper. Do not invent a
+software DOI, release date or stable-API promise. A research snapshot is tagged
+only after validation and independent semantic review of the selected commit;
+keep its review disposition and evidence outside living documentation.
 
 It distinguishes repository `kbak/clafer-lean` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
@@ -190,6 +204,25 @@ Covers:
 - `intent~formalization-foundation~1`
 
 Needs: impl
+
+## Small Lean model walkthrough
+
+`req~lean-walkthrough~1`
+
+Provide one manually resolved phone/optional-camera model within the existing
+effective-core fragment. Explain its declaration IDs, object identities,
+containment and 0..1 camera bound. Kernel-checked witnesses accept zero and one
+camera and reject two. Discharge input validity and supported-fragment conditions,
+and derive semantic satisfaction/non-satisfaction through the existing checker
+correctness theorem. The walkthrough must distinguish manual source elaboration,
+native evaluation and kernel-checked proofs; it adds neither parser correctness
+nor configuration generation. Use SoSyM §5.3–5.5 and §6.2.2–5 through the existing
+effective-core contract, with links to the detailed checker and telematics results.
+
+Covers:
+- `intent~formalization-foundation~1`
+
+Needs: impl, proof
 
 ## SoSyM reader companion
 
