@@ -1,0 +1,5 @@
+abstract Base
+abstract Middle : Base
+abstract Unused
+left : Middle 0..1
+right : Base 0..1

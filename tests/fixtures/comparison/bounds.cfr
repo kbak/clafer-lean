@@ -1,0 +1,6 @@
+box 0..1
+  zero 0
+  optional 0..1
+  exact 2
+  bounded 2..3
+  unbounded 0..*

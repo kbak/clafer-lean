@@ -1273,6 +1273,84 @@ candidates and may violate several obligations simultaneously.
 Covers:
 - `req~clafer-appendix-f-rejections~1`
 
+## External bounded comparison execution
+`impl~clafer-bounded-comparison~1`
+
+[comparison.py](../scripts/verification/comparison.py) reuses `import_bundle`
+and `ImportMain.execute` for checker admission/verdicts. Its `command`,
+`command_bounds`, `compare` and `category` preserve generated facts, explicit
+manual bounds and both-direction outcomes. [alloy_runtime.py](../scripts/verification/alloy_runtime.py)
+checks distribution/build identities and limits; [AlloyBridge.java](../scripts/verification/AlloyBridge.java)
+checks resolved scopes, staticness, symbols, auxiliary inventory, arithmetic AST
+and fixed solver options before executing bundled SAT4J. `ImportMain.failedPredicates`
+in [ImportMain.lean](../Clafer/Verification/ImportMain.lean) names failed existing
+checker conjuncts; it does not change `check` or claim per-instance proof certificates.
+
+Covers:
+- `req~clafer-bounded-comparison~1`
+
+## External candidate representation
+`impl~clafer-alloy-representation~1`
+
+[relation.py](../scripts/verification/relation.py) defines `inventory`, `pin`,
+`decode`, `isomorphism`, `occurrences` and `range_argument`, implementing the
+[reviewed relation obligations](bounded-comparison.md). SAT extents and fields
+are extracted by `AlloyBridge.execute` and checked against the original candidate.
+The object/link-bijection argument and external trust boundary are documented;
+this is an external implementation artifact, not an executable Lean proof.
+
+Covers:
+- `req~clafer-alloy-representation~1`
+
+## Bounded enumeration and artifacts
+`impl~clafer-comparison-replay~1`
+
+[candidates.py](../scripts/verification/candidates.py) supplies complete labelled
+table enumeration for its stated domain, seeded generation, strict deletion
+shrinking and search accounting. [search.py](../scripts/verification/search.py)
+exposes both search modes. `comparison.compare`/`replay` retain raw-byte hashes,
+source identities, verdicts and replay inputs. `source_commit` records an optional
+checkout commit without parent discovery; `source_snapshot` and replay retain
+mandatory source byte matching even without Git metadata. Git failures remain
+execution diagnostics. [mutations.py](../scripts/verification/mutations.py)
+implements the three explicit injected sensitivity defects. The normal Python
+test discovery runs these comparisons; CI provisions and retains external evidence.
+
+Covers:
+- `req~clafer-comparison-replay~1`
+
+## Bounded comparison assertions
+`utest~clafer-bounded-comparison~1`
+
+[test_bounded_comparison.py](../tests/test_bounded_comparison.py) executes actual
+paired compiler captures, Lean checks, pinned solver calls, witness fidelity and
+replay. Its numbered live tests cover repeated-target sets/bags, local/group bounds,
+nesting, abstract cover/shared inheritance, unrelated overlap, malformed/root inputs,
+cyclic and nonfunctional tables, unpinned witnesses, the fixed exhaustive domain,
+seeded candidates, all three shrunk mutations and pin/arithmetic/execution failures.
+`RelationTests` checks generator counts, seeds, interruption and result algebra.
+It also checks exact predicate-name collisions and missing/duplicate original
+commands. `LiveComparisonTests.test_13_predicate_substring_comparison_and_replay`
+compiles `predicate_name.cfr` with the pinned compiler and checks empty and
+singleton candidates plus replay against the actual backend, including witness
+fidelity, for the generated signature `c0_ib_candidate`.
+`SourceIdentityTests` exercises snapshot comparison/replay with isolated capture
+admission, actual checkout/worktree Git metadata, parent/environment isolation,
+corrupt metadata/execution errors, source/input byte tampering and runtime mismatch.
+`LiveComparisonTests.test_12_source_snapshot_comparison_and_replay` checks a
+complete real comparison and replay with identical hashed sources relocated to
+a tree without Git metadata, retained runtime identities and tampering rejection.
+Existing [test_resolved_import.py](../tests/test_resolved_import.py) retains E1/E7–E9/
+E12–E13 strict source/IR/receipt/constructor/option rejection assertions; these
+complement the relation-specific E1–E14 comparisons. Mutation assertions are
+explicitly about injected faults. Full validation and independent review remain
+separate evidence; this trace item does not certify their completion.
+
+Covers:
+- `req~clafer-bounded-comparison~1`
+- `req~clafer-alloy-representation~1`
+- `req~clafer-comparison-replay~1`
+
 ## Complete Appendix F negative sensitivity
 `proof~clafer-appendix-f-rejections~1`
 
