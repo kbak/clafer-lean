@@ -156,7 +156,7 @@ theorem two_options_rejected : ¬ Compile.Groups.Holds core.family twoOptions 14
   intro h
   have hh := h ⟨14,by dsimp [twoOptions]; decide⟩
   change InRange one {y : Fin 25 // Compile.Groups.ChildObjects core.family twoOptions 14 14 y} at hh
-  have hs := (inRange_one_iff _).mp hh |>.2
+  have hs := (Semantics.inRange_one_iff _).mp hh |>.2
   let l : {y : Fin 25 // Compile.Groups.ChildObjects core.family twoOptions 14 14 y} :=
     ⟨16,14,.refl,16,rfl,by dsimp [twoOptions]; decide⟩
   let r : {y : Fin 25 // Compile.Groups.ChildObjects core.family twoOptions 14 14 y} :=

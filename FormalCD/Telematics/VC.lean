@@ -1,6 +1,8 @@
 module
 
 public import FormalCD.Telematics.Basic
+public import FormalCD.Integer
+public import DPGraph.Predicates.Relational
 
 /-!
 # Corrected, guarded VC interpretation
@@ -23,13 +25,11 @@ universe u w
 namespace FormalCD.Telematics
 open CategoryTheory DPGraph.Predicates
 
-structure IntegerRealization (U : Type u) where
-  encode : Int ↪ U
-  decode : U → Int
-  decode_encode : ∀ n, decode (encode n) = n
+export FormalCD (IntegerRealization)
 
-def IntegerRealization.domain {U : Type u} (R : IntegerRealization U) : Set U :=
-  Set.range R.encode
+namespace IntegerRealization
+export FormalCD.IntegerRealization (domain)
+end IntegerRealization
 
 /-- Follow an inclusion link then a version link, retaining both link witnesses. -/
 def InheritedVersion {U : Type u} (R : IntegerRealization U) {A C B : Set U}
@@ -66,15 +66,8 @@ theorem satisfies_vc {U : Type u} (R : IntegerRealization U)
 
 /-- The 1..1 notation gives total and single-valued maps in the existing link semantics. -/
 theorem one_one_total_single {A B : Type u} (q : DPGraph.Span.{u,u,max u w} A B)
-    (h : TargetMultiplicity ⟨1, .finite 1⟩ q) : Total q ∧ SingleValued q := by
-  constructor
-  · intro a
-    obtain ⟨⟨lo⟩, _⟩ := h a
-    exact ⟨(lo 0).val, (lo 0).property⟩
-  · apply (singleValued_fibers q).mpr
-    intro a
-    obtain ⟨_, ⟨hi⟩⟩ := h a
-    exact ⟨fun l k => hi.injective (Subsingleton.elim _ _)⟩
+    (h : TargetMultiplicity ⟨1, .finite 1⟩ q) : Total q ∧ SingleValued q :=
+  (DPGraph.Predicates.one_iff_total_single q).mp h
 
 /-- The 0..1 notation gives single-valuedness without totality. -/
 theorem zero_one_single {A B : Type u} (q : DPGraph.Span.{u,u,max u w} A B)

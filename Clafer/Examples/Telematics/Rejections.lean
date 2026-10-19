@@ -261,7 +261,7 @@ noncomputable def channelGroup : Groups.Id (family input) := ⟨5,rfl⟩
 theorem xor_counts (k : Fin 3) : Groups.Holds (family input) (xorConfig k) 5 ↔ k = 1 := by
   change (∀ x : (xorConfig k).head 5,
     InRange one {y : Fin 3 // Groups.ChildObjects core.family (xorConfig k) 5 x.val y}) ↔ _
-  simp only [Verification.inRange_card]
+  simp only [DPGraph.Predicates.inRange_card]
   fin_cases k <;> decide
 
 theorem xor_generated_rejected (k : Fin 3) (hk : k ≠ 1)

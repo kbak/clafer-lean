@@ -14,7 +14,7 @@ with named [implementation and proof links](clafer-trace.md#integer-extraction-i
 
 ## Domain and extraction
 
-`FormalCD.Telematics.IntegerRealization U` supplies an injective `Int → U` encoding
+[`FormalCD.IntegerRealization U`](../FormalCD/Integer.lean) supplies an injective `Int → U` encoding
 and a decoder satisfying `decode (encode n) = n`. Its domain is the encoding's
 range. `IntegerRealization.objectEquiv` proves correspondence with all mathematical
 integers. The decoder may have arbitrary values outside that domain; extraction

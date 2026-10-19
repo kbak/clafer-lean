@@ -1,5 +1,7 @@
 module
 
+public import FormalCD.Gluing
+public import FormalCD.Integer
 public import FormalCD.Basic
 public import FormalCD.Morphism
 public import FormalCD.Semantics

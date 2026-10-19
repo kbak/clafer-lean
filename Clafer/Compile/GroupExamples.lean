@@ -192,7 +192,7 @@ noncomputable def countedEquiv {k} (which : Fin k → Fin 3) :
 
 theorem holds_count {k} (which : Fin k → Fin 3) :
     Groups.Holds (core g valid).family (config which) 1 ↔
-      Verification.CountInRange (g.getD .xor).range k := by
+      DPGraph.Predicates.CountInRange (g.getD .xor).range k := by
   have hx : ∀ x : (config which).head 1, x.val = .inl 1 := by
     rintro ⟨x, hx⟩
     cases x with
@@ -201,7 +201,7 @@ theorem holds_count {k} (which : Fin k → Fin 3) :
       generalize hw : which j = w
       fin_cases w <;> simp [config, Set.mem_ofPred_eq, hw] at hx
   have hcount := (inRange_iff (g.getD .xor).range (countedEquiv g valid which)).trans
-    (Verification.inRange_card _ (Fin k))
+    (DPGraph.Predicates.inRange_card _ (Fin k))
   simp only [Fintype.card_fin] at hcount
   constructor
   · intro h; exact hcount.mp (h ⟨.inl 1, by simp [config, Set.mem_ofPred_eq]⟩)
@@ -226,17 +226,17 @@ theorem glued_emitted :
 theorem compiled_count {k} (which : Fin k → Fin 3) :
     (groupInterpretation (input g valid) (Objects k) (authored g valid _)).Satisfies
       ((config which).interpret (core g valid)) (generatedGroup (input g valid) (parentId g valid)) ↔
-      Verification.CountInRange (g.getD .xor).range k :=
+      DPGraph.Predicates.CountInRange (g.getD .xor).range k :=
   (generated_group_iff _ _ _ (typed g valid which) _).trans (holds_count g valid which)
 
 theorem glued_count {k} (which : Fin k → Fin 3) :
     (groupInterpretation (input g valid) (Objects k) (authored g valid _)).Satisfies
       (descendGroups (input g valid) (config which))
       ((generatedGroup (input g valid) (parentId g valid)).translate (groupLabel (input g valid))) ↔
-      Verification.CountInRange (g.getD .xor).range k :=
+      DPGraph.Predicates.CountInRange (g.getD .xor).range k :=
   (descended_group_iff _ _ _ (typed g valid which) _).trans (holds_count g valid which)
 
-def Verdict (g : Option GroupCard) (k : Nat) : Prop := Verification.CountInRange (g.getD .xor).range k
+def Verdict (g : Option GroupCard) (k : Nat) : Prop := DPGraph.Predicates.CountInRange (g.getD .xor).range k
 
 instance verdictDecidable (g : Option GroupCard) (k : Nat) : Decidable (Verdict g k) := by
   unfold Verdict
@@ -329,7 +329,7 @@ theorem xor_individually_optional (k : Fin 3) (c : Fin 7)
   fin_cases k
   all_goals rcases hc with rfl | rfl | rfl
   all_goals
-    rw [Verification.inRange_card]
+    rw [DPGraph.Predicates.inRange_card]
     decide
 
 theorem xor_optional_head_maps (k : Fin 3) (c : Fin 7)

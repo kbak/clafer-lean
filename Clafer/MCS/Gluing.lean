@@ -1,7 +1,7 @@
 module
 
 public import Clafer.MCS.Laws
-public import FormalCD.Morphism
+public import FormalCD.Gluing
 
 /-!
 # Gluing resolved MCS roles
@@ -25,6 +25,13 @@ structure Incidence : Prop where
   target : ∀ m n, l.mapReferent m = l.mapReferent n →
     l.classReferent (r.target m) = l.classReferent (r.target n)
 
+/-- The generic construction receives Clafer's resolved role endpoints. -/
+def endpoints : f.MapId → V × V := fun m => (r.source m, r.target m)
+
+theorem incidence (h : Incidence r l) :
+    DPGraph.Gluing.Incidence (endpoints r) l.classReferent l.mapReferent :=
+  ⟨h.source, h.target⟩
+
 abbrev Class := {x // x ∈ Set.range l.classReferent}
 abbrev Map := {x // x ∈ Set.range l.mapReferent}
 
@@ -39,8 +46,10 @@ def mapLabel (m : f.MapId) : Map l := ⟨l.mapReferent m, ⟨m, rfl⟩⟩
     mapLabel l m = mapLabel l n ↔ l.mapReferent m = l.mapReferent n :=
   Subtype.ext_iff
 
-noncomputable def classRepresentative (v : Class l) : V := v.property.choose
-noncomputable def mapRepresentative (m : Map l) : f.MapId := m.property.choose
+noncomputable def classRepresentative (v : Class l) : V :=
+  DPGraph.Gluing.representative l.classReferent v
+noncomputable def mapRepresentative (m : Map l) : f.MapId :=
+  DPGraph.Gluing.representative l.mapReferent m
 
 theorem classRepresentative_spec (v : Class l) :
     l.classReferent (classRepresentative l v) = v.val := v.property.choose_spec
@@ -48,9 +57,9 @@ theorem mapRepresentative_spec (m : Map l) :
     l.mapReferent (mapRepresentative l m) = m.val := m.property.choose_spec
 
 noncomputable def source (m : Map l) : Class l :=
-  classLabel l (r.source (mapRepresentative l m))
+  DPGraph.Gluing.source (endpoints r) l.classReferent l.mapReferent m
 noncomputable def target (m : Map l) : Class l :=
-  classLabel l (r.target (mapRepresentative l m))
+  DPGraph.Gluing.target (endpoints r) l.classReferent l.mapReferent m
 
 variable {r l}
 
@@ -64,14 +73,12 @@ theorem target_label (h : Incidence r l) (m : f.MapId) :
 variable (r l)
 
 abbrev Arrow (a b : Class l) := {m : Map l // source r l m = a ∧ target r l m = b}
-noncomputable def graph : Quiv := @Quiv.of (Class l) ⟨Arrow r l⟩
+noncomputable def graph : Quiv :=
+  DPGraph.Gluing.graph (endpoints r) l.classReferent l.mapReferent
 
 /-- Endpoint equations are checked before any formula is transported. -/
-noncomputable def label (h : Incidence r l) : r.graph ⥤q graph r l where
-  obj := classLabel l
-  map e := ⟨mapLabel l e.val,
-    (source_label h e.val).trans (congrArg (classLabel l) e.property.1),
-    (target_label h e.val).trans (congrArg (classLabel l) e.property.2)⟩
+noncomputable def label (h : Incidence r l) : r.graph ⥤q graph r l :=
+  DPGraph.Gluing.label (endpoints r) l.classReferent l.mapReferent (incidence r l h)
 
 def roleArrow (m : f.MapId) : r.Arrow (r.source m) (r.target m) := ⟨m, rfl, rfl⟩
 
@@ -103,16 +110,15 @@ variable {σ : DPGraph.Signature.{0,0,0}}
 
 /-- Full bindings, including isolated vertices and repeated arrows, postcompose unchanged. -/
 noncomputable def diagram (h : Incidence r l) (d : Formulas r σ) : DPGraph σ :=
-  ⟨graph r l, Set.range (fun i => (d.formula i).translate (label r l h))⟩
+  DPGraph.Gluing.diagram (endpoints r) l.classReferent l.mapReferent (incidence r l h) d.formula
 
 theorem declared_iff (h : Incidence r l) (d : Formulas r σ) (φ) :
     φ ∈ (diagram r l h d).declarations ↔
       ∃ i, (d.formula i).translate (label r l h) = φ := Iff.rfl
 
 noncomputable def labelHom (h : Incidence r l) (d : Formulas r σ) :
-    DPGraph.Hom d.diagram (diagram r l h d) where
-  toPrefunctor := label r l h
-  preserves := by rintro φ ⟨i, rfl⟩; exact ⟨i, rfl⟩
+    DPGraph.Hom d.diagram (diagram r l h d) :=
+  DPGraph.Gluing.labelHom (endpoints r) l.classReferent l.mapReferent (incidence r l h) d.formula
 
 theorem translated_vertex (h : Incidence r l) (φ : DPGraph.Formula σ r.graph)
     (v : σ.arity φ.symbol) :
@@ -132,15 +138,24 @@ structure Compatible : Prop extends Incidence r l where
   predefined : ∀ v w, l.classReferent v = l.classReferent w → p v = p w
   mode : ∀ m n, l.mapReferent m = l.mapReferent n → m.mode = n.mode
 
+def metadata : FormalCD.Gluing.Metadata V f.MapId R :=
+  ⟨l.className, l.mapName, p, Family.MapId.mode⟩
+
+theorem compatible (h : Compatible r l p) :
+    FormalCD.Gluing.Compatible (endpoints r) l.classReferent l.mapReferent (metadata l p) where
+  source := h.source
+  target := h.target
+  class_name := h.class_name
+  map_name := h.map_name
+  predefined := h.predefined
+  mode := h.mode
+
 variable {W : FormalCD.Vocabulary.{0,0,0}}
 
 noncomputable def raw (h : Compatible r l p) (d : Formulas r W.signature) :
-    FormalCD.RawOver W R where
-  toDPGraph := diagram r l h.toIncidence d
-  className v := l.className (classRepresentative l v)
-  mapName e := l.mapName (mapRepresentative l e.val)
-  predefined v := p (classRepresentative l v)
-  mode e := (mapRepresentative l e.val).mode
+    FormalCD.RawOver W R :=
+  FormalCD.Gluing.raw (endpoints r) l.classReferent l.mapReferent (metadata l p)
+    (compatible r l p h) d.formula
 
 variable {r l p}
 
@@ -188,44 +203,10 @@ structure Defaults (d : Formulas r W.signature) : Prop where
 variable {r l p}
 
 theorem raw_wellFormed (h : Compatible r l p) (d : Formulas r W.signature)
-    (hn : Naming l p) (hd : Defaults r d) : (raw r l p h d).WellFormed where
-  predefined_name v i hi := hn.predefined_name _ i hi
-  user_name v hv := hn.user_name _ hv
-  unique_predefined v w i hv hw := by
-    apply Subtype.ext
-    have he := hn.unique_predefined _ _ i hv hw
-    exact (classRepresentative_spec l v).symm.trans (he.trans (classRepresentative_spec l w))
-  inclusion_name e he := hn.inclusion_name _ he
-  inclusion_decl := by
-    intro a b e he
-    rcases e with ⟨m, rfl, rfl⟩
-    have hp := (labelHom r l h.toIncidence d).preserves (hd.inclusion (mapRepresentative l m) he)
-    have hf := (W.embed_translate
-      (FormalCD.inclusionFormula (G := r.graph) (roleArrow r (mapRepresentative l m)))
-      (label r l h.toIncidence)).symm.trans
-      (congrArg W.embed (FormalCD.inclusionFormula_translate
-        (G := r.graph) (roleArrow r (mapRepresentative l m)) (label r l h.toIncidence)))
-    have hp' := hf ▸ hp
-    have hm : (label r l h.toIncidence).map (roleArrow r (mapRepresentative l m)) =
-        (⟨m, rfl, rfl⟩ : Arrow r l (source r l m) (target r l m)) :=
-      Subtype.ext (Subtype.ext (mapRepresentative_spec l m))
-    exact (congrArg (fun e => W.embed (FormalCD.inclusionFormula e) ∈
-      (diagram r l h.toIncidence d).declarations) hm).mp hp'
-  ordinary_decl := by
-    intro a b e he
-    rcases e with ⟨m, rfl, rfl⟩
-    have hp := (labelHom r l h.toIncidence d).preserves (hd.ordinary (mapRepresentative l m) he)
-    have hf := (W.embed_translate
-      (FormalCD.setValuedFormula (G := r.graph) (roleArrow r (mapRepresentative l m)))
-      (label r l h.toIncidence)).symm.trans
-      (congrArg W.embed (FormalCD.setValuedFormula_translate
-        (G := r.graph) (roleArrow r (mapRepresentative l m)) (label r l h.toIncidence)))
-    have hp' := hf ▸ hp
-    have hm : (label r l h.toIncidence).map (roleArrow r (mapRepresentative l m)) =
-        (⟨m, rfl, rfl⟩ : Arrow r l (source r l m) (target r l m)) :=
-      Subtype.ext (Subtype.ext (mapRepresentative_spec l m))
-    exact (congrArg (fun e => W.embed (FormalCD.setValuedFormula e) ∈
-      (diagram r l h.toIncidence d).declarations) hm).mp hp'
+    (hn : Naming l p) (hd : Defaults r d) : (raw r l p h d).WellFormed :=
+  FormalCD.Gluing.raw_wellFormed (compatible r l p h) d.formula
+    ⟨hn.predefined_name, hn.user_name, hn.unique_predefined, hn.inclusion_name⟩
+    ⟨hd.inclusion, hd.ordinary⟩
 
 noncomputable def cd (h : Compatible r l p) (d : Formulas r W.signature)
     (hn : Naming l p) (hd : Defaults r d) : FormalCD.CDOver W R :=

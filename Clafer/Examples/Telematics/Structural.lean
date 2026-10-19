@@ -385,7 +385,7 @@ theorem multiplicities : config.Multiplicities core.toEffectiveCore := by
   intro d p hp x hx
   rw [parents_eq] at hp
   rw [bounds_eq]
-  rw [Verification.inRange_card]
+  rw [DPGraph.Predicates.inRange_card]
   fin_cases d <;> simp [parents] at hp
   all_goals subst p
   all_goals simp [config, heads] at hx
@@ -513,7 +513,7 @@ instance childDecidable (d : Fin 28) (x y : Fin 25) :
 theorem groups : Semantics.Realization.Groups core config := by
   intro d hd x
   rcases x with ⟨x,hx⟩
-  rw [family_groups, Verification.inRange_card]
+  rw [family_groups, DPGraph.Predicates.inRange_card]
   rw [explicit_eq] at hd
   fin_cases d <;> simp [explicit] at hd
   all_goals simp [config, heads] at hx

@@ -12,19 +12,7 @@ constraint meaning; complete supports may include unused occurrences.
 universe u w
 namespace Clafer.Constraints
 
-/-- Relabeling links keeps the same reduced relation while preserving the
-original bijection for clients which count links. -/
-theorem ambientRelation_iso {U : Type u} {A B : Set U}
-    {q r : DPGraph.Span.{u,u,max u w} A B} (h : DPGraph.Span.Iso q r) :
-    ambientRelation q = ambientRelation r := by
-  ext p
-  constructor
-  · rintro ⟨l,hs,ht⟩
-    exact ⟨h.equiv l, (congrArg Subtype.val (h.source_eq l)).trans hs,
-      (congrArg Subtype.val (h.target_eq l)).trans ht⟩
-  · rintro ⟨l,hs,ht⟩
-    exact ⟨h.equiv.symm l, (congrArg Subtype.val (h.symm.source_eq l)).trans hs,
-      (congrArg Subtype.val (h.symm.target_eq l)).trans ht⟩
+export DPGraph.Predicates (ambientRelation_iso)
 
 /-- Equality of resolved map identity preserves the original link occurrences,
 including their ambient endpoints, even across repeated support vertices. -/

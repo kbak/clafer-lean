@@ -182,16 +182,9 @@ theorem glued_model_iff (I : Interpretation (vocabulary i).signature (semanticGr
     (s : Configuration a.Occurrence U) :
     I.IsModel (glued i).toDPGraph (descend i s) ↔
       I.IsModel (bank i).diagram (s.interpret (EffectiveCore.erase i)) := by
-  constructor
-  · rintro h φ ⟨q,rfl⟩
-    have hh := (I.satisfies_translate _ _ _).mp (h _ ⟨q,rfl⟩)
-    change I.Satisfies ((groupLabel i).comp (descend i s)) ((bank i).formula q) at hh
-    rwa [descend_reduct] at hh
-  · rintro h φ ⟨q,rfl⟩
-    apply (I.satisfies_translate _ _ _).mpr
-    change I.Satisfies ((groupLabel i).comp (descend i s)) ((bank i).formula q)
-    rw [descend_reduct]
-    exact h _ ⟨q,rfl⟩
+  have h := I.isModel_range_translate (bank i).formula (groupLabel i) (descend i s)
+  erw [descend_reduct] at h
+  exact h
 
 end Clafer.Compile.Realization
 

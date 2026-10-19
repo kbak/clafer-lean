@@ -1,6 +1,7 @@
 module
 
 public import Clafer.Semantics.Structural
+public import Clafer.MCS.Laws
 
 /-!
 # Shared-object/span realization of structural roles

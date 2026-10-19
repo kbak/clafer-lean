@@ -1,6 +1,7 @@
 module
 
 public import Clafer.Semantics.Realization
+public import Clafer.Verification.Finite
 
 /-! # Compatibility with #50's supported structural checker
 

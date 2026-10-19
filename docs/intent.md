@@ -10,6 +10,10 @@ with reusable foundations supporting structural Clafer. The repository
 `kbak/clafer-lean` contains one Lake package, `clafer`, and sibling public roots
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
 `Clafer -> FormalCD -> DPGraph -> Mathlib`; `DPGraph` remains independently importable.
+Reusable span/navigation laws and
+referent graphs live in DPGraph; compatible metadata descent and explicit integer
+realization live in FormalCD. Clafer supplies language-specific policies and
+preservation bridges, retaining independent source meanings.
 
 | Layer | Delivered scope | Boundary |
 | --- | --- | --- |

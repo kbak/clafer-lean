@@ -74,7 +74,7 @@ class PublicLibrariesTest(unittest.TestCase):
             "DPGraph", "DPGraph.Signature", "DPGraph.Formula", "DPGraph.Basic",
             "DPGraph.Morphism", "DPGraph.Examples", "FormalCD", "Clafer",
             "DPGraph.Category", "DPGraph.Semantics", "DPGraph.SemanticsExamples",
-            "DPGraph.ModelTransport", "DPGraph.Pushout.Basic",
+            "DPGraph.ModelTransport", "DPGraph.Gluing", "DPGraph.Pushout.Basic",
             "DPGraph.Pushout.Universal", "DPGraph.Pushout.Models", "DPGraph.Span", "DPGraph.Span.Basic",
             "DPGraph.Span.IndexedFamily", "DPGraph.Span.Composition",
             "DPGraph.Span.Relation", "DPGraph.Span.Examples",
@@ -82,7 +82,10 @@ class PublicLibrariesTest(unittest.TestCase):
             "DPGraph.Predicates.SemanticGraph", "DPGraph.Predicates.Meaning",
             "DPGraph.Predicates.Interpretation", "DPGraph.Predicates.Examples",
             "DPGraph.Predicates.FunctionalKey", "DPGraph.Predicates.Examples.FunctionalKey",
+            "DPGraph.Predicates.Relational", "DPGraph.Predicates.Navigation",
+            "DPGraph.Predicates.Finite",
             "FormalCD.Basic", "FormalCD.Morphism", "FormalCD.Semantics",
+            "FormalCD.Gluing", "FormalCD.Integer",
             "FormalCD.Examples", "FormalCD.SemanticsExamples", "FormalCD.Signature",
             "FormalCD.Metamodel.Shape", "FormalCD.Metamodel.Basic",
             "FormalCD.Metamodel.Binding", "FormalCD.Metamodel.Discipline",
@@ -116,7 +119,7 @@ class PublicLibrariesTest(unittest.TestCase):
             "Clafer.Examples.ConstraintBinding", "Clafer.Examples.VersionPreservation",
             "Clafer.Compile.Structure", "Clafer.Compile.Local",
             "Clafer.Compile.Binding", "Clafer.Compile.Basic", "Clafer.Compile.Examples",
-            "Clafer.Compile.GroupSupport", "Clafer.Compile.Groups",
+            "Clafer.Compile.EffectiveCore", "Clafer.Compile.GroupSupport", "Clafer.Compile.Groups",
             "Clafer.Compile.GroupSemantics", "Clafer.Compile.GroupExamples",
             "Clafer.Compile.GroupOverlapExamples", "Clafer.Compile.EmptyGroupExamples",
             "Clafer.Semantics.EffectiveCore", "Clafer.Semantics.Structural",
@@ -139,6 +142,8 @@ class PublicLibrariesTest(unittest.TestCase):
         })
         self.assertIn(Path("tests/public_imports.lean"), tests)
         self.assertIn(Path("tests/formalcd_imports.lean"), tests)
+        self.assertIn(Path("tests/semantic_dependencies.lean"), tests)
+        self.assertIn(Path("tests/group_dependencies.lean"), tests)
         self.assertIn(Path("tests/structural_checker.lean"), tests)
         self.assertIn(Path("tests/resolved_import.lean"), tests)
 
