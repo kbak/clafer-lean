@@ -2245,8 +2245,8 @@ inherited objects and each reference-head occurrence. Justify the virtual root,
 top-level containment, used objects and every classified auxiliary; unknown
 auxiliaries are unsupported. Decode under only reviewed object/link bijections
 and validate witnesses against the original candidate, not endpoint-reduced data.
-Keep the stable unrelated-overlap candidate and require `agree_violates` under
-#87, without changing its exact pin or representation. Distinguish intrinsic
+Keep the stable unrelated-overlap candidate and require `agree_violates` under #87,
+without changing its exact pin or representation. Distinguish intrinsic
 generated-model restrictions from adapter/domain/bitwidth
 failures before reporting a discrepancy. State the external trust assumptions;
 serialization roundtrips and trace links alone do not establish this relation.

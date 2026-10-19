@@ -117,6 +117,7 @@ class PublicLibrariesTest(unittest.TestCase):
             "Clafer.Compile.GroupSemantics", "Clafer.Compile.GroupExamples",
             "Clafer.Compile.GroupOverlapExamples", "Clafer.Compile.EmptyGroupExamples",
             "Clafer.Semantics.EffectiveCore", "Clafer.Semantics.Structural",
+            "Clafer.Semantics.Inheritance",
             "Clafer.Semantics.Interpretation", "Clafer.Semantics.Relational",
             "Clafer.Semantics.Bridge", "Clafer.Semantics.Abstracts",
             "Clafer.Semantics.Reachability", "Clafer.Semantics.Renaming",
