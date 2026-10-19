@@ -408,6 +408,16 @@ This documentation requirement adds no Lean proof obligation. Acceptance require
 the bounded assessment and a reviewed disposition of remaining necessary claims;
 a missing paper alone does not block an independently justified increment.
 
+For the [metamodel realization investigation](https://github.com/kbak/clafer-lean/issues/100),
+distinguish the original Alloy translational semantics, the selected SoSyM
+mathematics, versioned compiler behavior and generalized-sketch theory. State
+which encoding, context, identity and satisfaction obligations each source
+supports; record historical-version gaps and disagreements. Keep restricted
+realization, particular self-instantiation and unrestricted compiler correctness
+separate. Proposed theorem hypotheses and metamodel changes remain explicit
+proposals until reviewed; this assessment does not alter the existing key,
+argument-totality, universe or model-reduct contracts.
+
 Covers:
 - `intent~formalization-foundation~1`
 - `intent~traceable-contributions~1`

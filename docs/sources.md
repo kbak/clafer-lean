@@ -298,6 +298,50 @@ preserves that meaning and states the additional hypotheses explicitly.
 Precomposition reduct laws remain as
 proved; any future inferred declarations need their own soundness argument.
 
+### Metamodel realization and translational semantics
+
+The [realization investigation](https://github.com/kbak/clafer-lean/issues/100)
+separates faithful encoding of CD syntax, semantic self-instantiation of the
+particular metamodel, and source-language preservation through Compile/gluing.
+Its restricted encoding contract remains proposed; the
+[literal-key and total-args counterexamples](#literal-key-total-args-and-the-19-obligation)
+remain obligations for any stronger claim.
+
+Clafer's original formal semantics was defined through translation to Alloy;
+the early [CS886 report](https://gsd.uwaterloo.ca/sites/default/files/cs886report.pdf),
+§4, PDF p.8, states this explicitly. That historical translation is semantic
+evidence for the language. Recover its relevant rules and version before
+identifying them with a later compiler. The current
+[compiler comparison](resolved-ir-comparison.md#source-identities-and-audit-boundary)
+pins `15adb2216909421bcb5022174d2d84ef2b42307c`; it does not identify the original
+translation. Compare generated constraints and their relational meaning
+separately from bounded Analyzer search. A disagreement can expose a Lean
+omission, a paper ambiguity, language evolution or a compiler defect; choosing a
+correction requires evidence and review. SoSyM remains this repository's selected
+semantic reference, with its accepted corrections.
+
+At that compiler pin, `Intermediate/Intclafer.hs` retains ordered operands in
+`IFunExp`, typed expression containers and global/local bindings.
+[`Intermediate/ResolverName.hs`](https://github.com/gsdlab/clafer/blob/15adb2216909421bcb5022174d2d84ef2b42307c/src/Language/Clafer/Intermediate/ResolverName.hs)
+supplies constraint context and lexical resolution; `Generator/Alloy.hs`
+generates expressions using the resolved path and environment. These static
+observations guide checks of repeated/swapped operands, binder domains,
+inherited navigation and constraints without navigation. They neither identify
+an expression operand list with a DP-graph argument bag nor establish runtime
+compiler correctness. The existing finite comparison fragment excludes user
+expressions; extending it needs its own contract.
+
+For the theoretical comparison, the inspected 2007 Wolter–Diskin report's
+§5 Definition 14 and Remark 8 distinguish persistent model extension from
+restriction and explain why noninjective identifications need semantic
+agreement. The [2008 comparison above](#generalized-sketches-and-model-reduct-coherence)
+supplies dependency consistency and typed-instance coherence obligations;
+Example 4.8's total single-valued key remains a restricted comparison with our
+bag-sensitive key. These statements guide the proposed hypotheses, without
+proving an adapter between the model representations or changing Figure 21c.
+The early report's cited passage and the Diskin browser renderings are inspected
+locators, not complete source audits or newly acquired hashed PDFs.
+
 ### Project-critical source disposition
 
 Research follows the claims needed by an increment, using accessible primary

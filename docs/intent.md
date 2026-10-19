@@ -67,6 +67,11 @@ necessary claim lacking adequate primary evidence, as stated in the
 [source disposition](sources.md#project-critical-source-disposition). Stronger
 representations or dependency-enriched signatures require separate authorization.
 
+The [metamodel realization investigation](https://github.com/kbak/clafer-lean/issues/100)
+examines a restricted encoding theorem using the
+[original Alloy translational semantics, pinned compiler evidence and Diskin's theory](sources.md#metamodel-realization-and-translational-semantics).
+Its proposed contract adds no delivered realization or self-instantiation result.
+
 Exclude production instance generation, general Alloy/SMT/SAT integration,
 production runtime configuration management, Claferize, post-2014 extensions,
 a production parser and visualization. Keep the foundation reproducible and
