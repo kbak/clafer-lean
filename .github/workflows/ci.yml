@@ -48,7 +48,7 @@ jobs:
           if git cat-file -e "$baseline:scope.json" 2>/dev/null; then
             git show "$baseline:scope.json" > "$RUNNER_TEMP/baseline-scope.json"
             git show "$candidate:scope.json" > "$RUNNER_TEMP/candidate-scope.json"
-            # Exact, reviewed additive migration only; retain the real baseline.
+            # Exact, reviewed scope migrations only; retain the real baseline.
             python scripts/ci_scope.py --baseline "$RUNNER_TEMP/baseline-scope.json" \
               --candidate "$RUNNER_TEMP/candidate-scope.json" \
               --output "$RUNNER_TEMP/trusted-scope.json" --record "$RUNNER_TEMP/scope-selection.json"
