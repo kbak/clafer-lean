@@ -43,18 +43,23 @@ pushes) and uses its scope. If that base has no scope, the initial-adoption chec
 uses the candidate as baseline and explicitly leaves adoption to PR review.
 
 With an existing scope, [ci_scope.py](../scripts/ci_scope.py) accepts identical
-baseline/candidate bytes, or the exact recognized public-root expansion. For
+baseline/candidate bytes, the exact recognized public-root expansion, or the
+exact project-name migration from `clafer-lean` to `clafer-semantics`. For
 that expansion it derives `inputs: ["."]` and `review_paths: ["."]` from the
 recognized historical baseline, requires the pinned resulting bytes, and retains
 the actual Git baseline. These layout-independent paths capture both historical
 and sibling-root sources. Specification/test paths, coverage floors,
 revision/skipped-test policy, command and timeout remain baseline obligations.
+The project-name migration starts only from the pinned expanded scope and
+changes only `name`, requiring the exact resulting bytes. It leaves all source
+selection, coverage and execution obligations unchanged.
 For scope changes, unknown baselines, partial migrations, reversions and unrelated
 policy edits are rejected by the selector and exercised in
 [regression tests](../tests/test_ci_scope.py).
 Candidate policy changes cannot authorize themselves; other changes need separate
 review. Local checks against the historical baseline use the independently
-approved expanded scope via `--scope`.
+approved expanded scope via `--scope`; the project-name migration likewise uses
+its reviewed scope when validating the new metadata.
 
 CI retains baseline, candidate and selected scope byte identities, canonical
 policy identities and the transformation alongside check evidence. Byte hashes
