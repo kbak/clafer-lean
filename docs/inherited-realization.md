@@ -8,7 +8,7 @@ It preserves the guarded [structural checker contract](resolved-ir-comparison.md
 [Compile input](compile.md), and [group policy](group-compilation.md).
 The [complete fixture](telematics.md) combines it with all twelve constraint
 bodies and the selected semantic bridge. The accepted clarification is recorded
-in the [inherited-realization issue](https://github.com/kbak/clafer-lean/issues/66).
+in the [inherited-realization issue](https://github.com/kbak/clafer-semantics/issues/66).
 
 ## Source and accepted clarification
 

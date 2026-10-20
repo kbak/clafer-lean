@@ -2,7 +2,7 @@
 
 <!-- [impl->req~public-foundation~1] -->
 
-Start with an [existing issue](https://github.com/kbak/clafer-lean/issues) or
+Start with an [existing issue](https://github.com/kbak/clafer-semantics/issues) or
 propose a small, scoped one. Maintainers also track issues in a
 [private GitHub Project](https://github.com/users/kbak/projects/2); contributors
 can use the public issues and pull requests without Project access. Semantic work should
@@ -13,7 +13,7 @@ acceptance criteria before implementation. See [AGENTS.md](AGENTS.md).
 
 <!-- [impl->req~intentbond-workflow~1] -->
 
-Repository `kbak/clafer-lean` contains the single Lake package `clafer`.
+Repository `kbak/clafer-semantics` contains the single Lake package `clafer`.
 Place modules beneath their owning public root and preserve
 `Clafer -> FormalCD -> DPGraph -> Mathlib`; `import DPGraph` remains independent.
 The [product overview and documentation map](docs/intent.md) identify delivered
@@ -151,11 +151,11 @@ access is not required:
 
 1. Find or open a public issue with the intended outcome and validation criteria.
 2. Fork the repository and create a topic branch. Retain the starting commit
-   before editing; add `upstream` pointing to `https://github.com/kbak/clafer-lean.git`
+   before editing; add `upstream` pointing to `https://github.com/kbak/clafer-semantics.git`
    if you need to compare with the project's main branch.
 3. Make the change, keeping affected requirements and trace links consistent, and
    run the validation wrapper above against that retained baseline.
-4. Open a PR from the fork to `kbak/clafer-lean:main`, linking the issue and
+4. Open a PR from the fork to `kbak/clafer-semantics:main`, linking the issue and
    reporting the actual validation result and evidence. A maintainer handles
    Project membership and status.
 

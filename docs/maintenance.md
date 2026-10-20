@@ -6,7 +6,7 @@ The repository is public and MIT licensed. Its
 [Project](https://github.com/users/kbak/projects/2) remains private; changing
 Project visibility is a separate maintainer decision. Public issues and pull
 requests are the contributor-facing planning interface. Launch acceptance is
-tracked in the [public-launch settings issue](https://github.com/kbak/clafer-lean/issues/5).
+tracked in the [public-launch settings issue](https://github.com/kbak/clafer-semantics/issues/5).
 
 Maintain these repository controls:
 

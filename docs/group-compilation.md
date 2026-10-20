@@ -1,7 +1,7 @@
 # Compiling effective group cardinalities
 
 Group compilation extends the [structural Compile contract](compile.md) with
-interpreted group declarations, as specified in the [group-compilation issue](https://github.com/kbak/clafer-lean/issues/65).
+interpreted group declarations, as specified in the [group-compilation issue](https://github.com/kbak/clafer-semantics/issues/65).
 `Compile.compileAugmented` retains the original well-formed MCS, adds generated
 group declarations and exposes their complete union. `Compile.gluedGroups`
 preserves that exact union and derives `FormalCD` naming/default validity.

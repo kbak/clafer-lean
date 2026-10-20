@@ -4,7 +4,7 @@ The source is SoSyM §6.2.3/Figure 23 (PDF pp.22–23) and Tables 5–8 (see App
 (PDF pp.22–23), in the [published article](sources.md#primary-source). The inventory below
 records the guarded expansion of Appendix 5 clauses and the separation of role
 identities from referents and names, accepted in the
-[MCS disciplines issue](https://github.com/kbak/clafer-lean/issues/20). The
+[MCS disciplines issue](https://github.com/kbak/clafer-semantics/issues/20). The
 [existing Shape contract](spec.md#individual-clafer-shapes) controls exact presence.
 The [MCS modules](../Clafer/MCS/Basic.lean) implement this structural inventory.
 The [source correction](#figure-23-source-multiplicity-correction) applies to
@@ -160,7 +160,7 @@ The canonical requirements and named proof artifacts are in
 
 ## Gluing boundary
 
-The identity rule accepted in the [resolved-referent gluing issue](https://github.com/kbak/clafer-lean/issues/23)
+The identity rule accepted in the [resolved-referent gluing issue](https://github.com/kbak/clafer-semantics/issues/23)
 identifies equal resolved class/map referents only. `Gluing.Incidence` requires
 equal map referents to have equal endpoint class referents. `Gluing.Compatible`
 also requires equal class/map names, predefined annotations and map modes on

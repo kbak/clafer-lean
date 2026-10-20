@@ -194,7 +194,7 @@ software DOI, release date or stable-API promise. A research snapshot is tagged
 only after validation and independent semantic review of the selected commit;
 keep its review disposition and evidence outside living documentation.
 
-It distinguishes repository `kbak/clafer-lean` from its single Lake package
+It distinguishes repository `kbak/clafer-semantics` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.1 Definitions 1–5,
 Theorems 1–2 and B.2.1–2 span operations (with the adopted [Q1](sources.md#span-composition-q1-research-for-4) reduction law),
@@ -305,7 +305,7 @@ and recovered-page subsets from abstracts, snippets and unavailable sources.
 Record disagreements before selecting meanings; the compiler is supplementary
 context and any use as evidence requires an immutable revision and a license check.
 
-Acceptance of the [formalization roadmap issue](https://github.com/kbak/clafer-lean/issues/2)
+Acceptance of the [formalization roadmap issue](https://github.com/kbak/clafer-semantics/issues/2)
 requires all of the following:
 
 - Three phase milestones and a dependency-ordered backlog in the existing Project,
@@ -326,7 +326,7 @@ requirement adds no Lean theorem or mathematical implementation obligation;
 later semantic increments require their own authorized scope. The existing
 validation, IntentBond and GitHub-tracking requirements continue to apply.
 Project-critical source research and the conditional sketch-extension assessment
-have a separate [supporting-source assessment issue](https://github.com/kbak/clafer-lean/issues/41).
+have a separate [supporting-source assessment issue](https://github.com/kbak/clafer-semantics/issues/41).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -339,8 +339,8 @@ Needs: impl
 `req~resolved-ir-comparison-contract~1`
 
 Maintain the documentation and source analysis specified in the
-[compiler compatibility audit issue](https://github.com/kbak/clafer-lean/issues/49), under
-the [bounded semantic comparison project issue](https://github.com/kbak/clafer-lean/issues/48), in
+[compiler compatibility audit issue](https://github.com/kbak/clafer-semantics/issues/49), under
+the [bounded semantic comparison project issue](https://github.com/kbak/clafer-semantics/issues/48), in
 [the comparison contract](resolved-ir-comparison.md). Use SoSyM as the primary
 semantic reference and pin the supplementary compiler to
 `15adb2216909421bcb5022174d2d84ef2b42307c`. Distinguish current Lean declarations,
@@ -376,7 +376,7 @@ Acceptance requires:
   with requirements/architecture amendments reviewed before implementation.
   Preserve policy and dependency layers during this planning increment.
 - Whole-model interpretation and finite-checker bridge obligations explicitly
-  allocated to the [structural-semantics issue](https://github.com/kbak/clafer-lean/issues/50). Record a
+  allocated to the [structural-semantics issue](https://github.com/kbak/clafer-semantics/issues/50). Record a
   reviewed structural dependency disposition before any constraint-free shortcut;
   [Core typing](#resolved-core-constraint-typing), [structural Compile](compile.md)
   and [gluing](architecture.md#mcs-gluing) alone do not suffice. Preserve existing
@@ -404,7 +404,7 @@ Needs: impl
 `req~supporting-source-research~1`
 
 Maintain the bounded assessment authorized by the
-[supporting-source assessment issue](https://github.com/kbak/clafer-lean/issues/41), with SoSyM B.4 Definitions
+[supporting-source assessment issue](https://github.com/kbak/clafer-semantics/issues/41), with SoSyM B.4 Definitions
 7–10 and B.5 Theorem 3 as the semantic reference. Compare the inspected Diskin
 & Wolter §4.1–3 signature dependencies, declaration closure, typed-instance
 satisfaction and pullback coherence with the actual `Signature`, `Interpretation`
@@ -444,7 +444,7 @@ This documentation requirement adds no Lean proof obligation. Acceptance require
 the bounded assessment and a reviewed disposition of remaining necessary claims;
 a missing paper alone does not block an independently justified increment.
 
-For the [metamodel realization investigation](https://github.com/kbak/clafer-lean/issues/100),
+For the [metamodel realization investigation](https://github.com/kbak/clafer-semantics/issues/100),
 distinguish the original Alloy translational semantics, the selected SoSyM
 mathematics, versioned compiler behavior and generalized-sketch theory. State
 which encoding, context, identity and satisfaction obligations each source
@@ -894,7 +894,7 @@ Figure 21c. Supporting comparison: Diskin, Kadish, Piessens & Johnson (2000),
 and §3.5 p. 356 (marriage key). These are derived library results under explicit
 hypotheses; the 2000 set-valued notation is not identified with all SoSyM spans.
 See the [partial-source assessment](sources.md#universal-arrow-foundations-partial-source-assessment)
-and the [ordinary-key correspondence issue](https://github.com/kbak/clafer-lean/issues/44).
+and the [ordinary-key correspondence issue](https://github.com/kbak/clafer-semantics/issues/44).
 
 Covers:
 - `intent~formalization-foundation~1`
@@ -1957,7 +1957,7 @@ Needs: impl, proof, itest
 
 Construct the graph of used class/map referents from the delivered MCS roles
 and labels (SoSyM §6.2.5), with the identity rule approved in the
-[resolved-referent gluing issue](https://github.com/kbak/clafer-lean/issues/23). Identify class roles if and
+[resolved-referent gluing issue](https://github.com/kbak/clafer-semantics/issues/23). Identify class roles if and
 only if their classReferent values agree, and map roles if and only if their
 mapReferent values agree. Equal map referents must have equal source and target
 class referents. Require class/map names, optional predefined registry identities

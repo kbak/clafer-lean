@@ -7,7 +7,7 @@
 Develop a maintainable Lean 4 formalization grounded in the published SoSyM paper
 (online 2014; journal issue 2016),
 with reusable foundations supporting structural Clafer. The repository
-`kbak/clafer-lean` contains one Lake package, `clafer`, and sibling public roots
+`kbak/clafer-semantics` contains one Lake package, `clafer`, and sibling public roots
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
 `Clafer -> FormalCD -> DPGraph -> Mathlib`; `DPGraph` remains independently importable.
 Reusable span/navigation laws and
@@ -142,7 +142,7 @@ numbers and ticket chains must not substitute for an explanation.
 | [Resolved import](resolved-import.md) | Pinned compiler capture, effective-core import and replay prerequisites |
 | [Bounded comparison](bounded-comparison.md) | Exact candidate pins, Alloy search and discrepancy replay |
 | [Contributing](../CONTRIBUTING.md), [trace convention](traceability.md) and [maintenance](maintenance.md) | Setup/checks, evidence links and repository administration |
-| [Historical change records](https://github.com/kbak/clafer-lean/tree/ee4c82835a67626b6eeb925033732e42b1c618c9/docs/changes) | Retained accepted scopes and plans at a revision preserving their relative link targets; not current architecture or status |
+| [Historical change records](https://github.com/kbak/clafer-semantics/tree/ee4c82835a67626b6eeb925033732e42b1c618c9/docs/changes) | Retained accepted scopes and plans at a revision preserving their relative link targets; not current architecture or status |
 
 Internal labels identify [source questions Q1–Q9](sources.md#question-dispositions-and-validation-tasks),
 [architectural choices A1–A9](architecture.md#nine-architectural-decision-areas), and

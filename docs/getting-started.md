@@ -83,7 +83,7 @@ defaultTargets = ["Demo"]
 
 [[require]]
 name = "clafer"
-git = "https://github.com/kbak/clafer-lean.git"
+git = "https://github.com/kbak/clafer-semantics.git"
 rev = "9074c09e93e5e2062c8b039fb987bd8707b76727"
 
 [[lean_lib]]
