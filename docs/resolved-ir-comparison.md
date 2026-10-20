@@ -17,10 +17,10 @@ The [bounded comparison harness](bounded-comparison.md) supplies candidate pinni
 decoding, enumeration and replay under `scripts/verification/` using the solver
 profile specified below.
 
-The [compatibility-audit issue](https://github.com/kbak/clafer-lean/issues/49) and
-[contract review PR](https://github.com/kbak/clafer-lean/pull/55) record acceptance
-within the [bounded comparison project issue](https://github.com/kbak/clafer-lean/issues/48).
-The [finite structural semantics issue](https://github.com/kbak/clafer-lean/issues/50)
+The [compatibility-audit issue](https://github.com/kbak/clafer-semantics/issues/49) and
+[contract review PR](https://github.com/kbak/clafer-semantics/pull/55) record acceptance
+within the [bounded comparison project issue](https://github.com/kbak/clafer-semantics/issues/48).
+The [finite structural semantics issue](https://github.com/kbak/clafer-semantics/issues/50)
 records the checker and representation obligations derived from this contract.
 
 The [decision table](#decisions-accepted-locations-and-dependency-boundaries)

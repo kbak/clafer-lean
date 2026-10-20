@@ -2,7 +2,7 @@
 
 `impl~metamodel-realization-assessment~1`
 
-The [realization investigation](https://github.com/kbak/clafer-lean/issues/100)
+The [realization investigation](https://github.com/kbak/clafer-semantics/issues/100)
 implements a canonical encoding of CD **syntax**, an exact restricted
 whole-metamodel satisfaction theorem, reconstruction, and the particular
 metamodel's semantic self-instance. This does not prove that the represented

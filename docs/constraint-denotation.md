@@ -2,7 +2,7 @@
 
 The constraint denotation interprets the typed core
 of SoSyM Appendix 4/Figure 28 and the manual Appendix 6 expansions, as specified
-in the [constraint-meaning issue](https://github.com/kbak/clafer-lean/issues/68). The
+in the [constraint-meaning issue](https://github.com/kbak/clafer-semantics/issues/68). The
 [product intent](intent.md), [source map](sources.md#appendix-d-rule-dispositions-q3),
 [integer bridge](integer-extraction.md), and [inherited inventory](inherited-realization.md)
 remain authoritative for their respective boundaries. The [selected Compile/gluing bridge](constraint-preservation.md) derives predicate

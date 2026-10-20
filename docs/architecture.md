@@ -74,7 +74,7 @@ project declarations, including unimported helpers.
 ## DP-graph representation decision
 
 Keep Mathlib `Quiver`, `Prefunctor` and bundled `Quiv` for SoSyM Appendix 2
-Definitions 6–10. The [graph representation assessment issue](https://github.com/kbak/clafer-lean/issues/13)
+Definitions 6–10. The [graph representation assessment issue](https://github.com/kbak/clafer-semantics/issues/13)
 records the acceptance evidence and dependency-cost comparison. The delivered
 [core requirements](spec.md#graphs-signatures-and-typed-declarations) and
 [trace artifacts](dpgraph-trace.md#core-representation) state the checked contract.
@@ -114,7 +114,7 @@ preservation and larger semantic universes.
 Retain the current `Mathlib.CategoryTheory.Category.Quiv` import and both
 dependency pins. That module includes category, adjunction and path-category
 machinery beyond the smaller `Mathlib.Combinatorics.Quiver.Prefunctor` import.
-The [representation assessment](https://github.com/kbak/clafer-lean/issues/13) measures the exact imported environments, cached import
+The [representation assessment](https://github.com/kbak/clafer-semantics/issues/13) measures the exact imported environments, cached import
 processes and rebuilding each named Mathlib module with cached prerequisites.
 
 Retained and fresh full validation runs assess a fresh project build with pinned
@@ -131,12 +131,12 @@ end-to-end comparison including adapters, build/kernel checks and public API
 compatibility. Reassess if supported-runner validation approaches its budget or
 a separately scoped syntax-only consumer needs smaller imports. Measurements,
 commands, source identities and review results are retained with the
-[representation review PR](https://github.com/kbak/clafer-lean/pull/39).
+[representation review PR](https://github.com/kbak/clafer-semantics/pull/39).
 
 The original representation criteria are met by the delivered core and its
-witnesses. The [formalization roadmap issue](https://github.com/kbak/clafer-lean/issues/2)
+witnesses. The [formalization roadmap issue](https://github.com/kbak/clafer-semantics/issues/2)
 retains the dependency and acceptance history. The
-[self-description and telematics PR](https://github.com/kbak/clafer-lean/pull/38)
+[self-description and telematics PR](https://github.com/kbak/clafer-semantics/pull/38)
 establishes the bounded results described below; neither semantic
 self-instantiation nor global pushout existence follows.
 
@@ -300,13 +300,13 @@ closure does not strengthen a theorem: the [proof-status table](#theorem-stateme
 states what is proved and what remains outside scope.
 
 The [GitHub Project](https://github.com/users/kbak/projects/2),
-[three phase milestones](https://github.com/kbak/clafer-lean/milestones?state=all)
-and [formalization roadmap issue](https://github.com/kbak/clafer-lean/issues/2)
+[three phase milestones](https://github.com/kbak/clafer-semantics/milestones?state=all)
+and [formalization roadmap issue](https://github.com/kbak/clafer-semantics/issues/2)
 retain planning and acceptance history. The
-[source-audit and roadmap PR](https://github.com/kbak/clafer-lean/pull/40)
-and [supporting-source assessment PR](https://github.com/kbak/clafer-lean/pull/43)
+[source-audit and roadmap PR](https://github.com/kbak/clafer-semantics/pull/40)
+and [supporting-source assessment PR](https://github.com/kbak/clafer-semantics/pull/43)
 record their documentation acceptance. The
-[supporting-source research issue](https://github.com/kbak/clafer-lean/issues/41)
+[supporting-source research issue](https://github.com/kbak/clafer-semantics/issues/41)
 retains the bounded assessment and conditions for further research.
 
 Covers:
@@ -314,9 +314,9 @@ Covers:
 
 | Layer | Construction order (links to planning issues) | Delivered result and limit |
 | --- | --- | --- |
-| Reusable DP-graphs | [Graph representation](https://github.com/kbak/clafer-lean/issues/13) → [typed declarations and maps](https://github.com/kbak/clafer-lean/issues/14) → [category and model restriction](https://github.com/kbak/clafer-lean/issues/15), with [split restriction laws](https://github.com/kbak/clafer-lean/issues/28) and [conditional pushouts](https://github.com/kbak/clafer-lean/issues/30). Separately, [link-preserving spans](https://github.com/kbak/clafer-lean/issues/4) support [concrete predicate meanings](https://github.com/kbak/clafer-lean/issues/16). | The [DPGraph proof inventory](dpgraph-trace.md) covers these results. The library remains independently importable; pushout and amalgamation results require a supplied carrier pushout. |
-| Formal class diagrams | Concrete predicates → [CD structure and morphisms](https://github.com/kbak/clafer-lean/issues/17) → [metamodel vocabulary and disciplines](https://github.com/kbak/clafer-lean/issues/18) → [bounded self-description and telematics](https://github.com/kbak/clafer-lean/issues/19). | The [FormalCD proof inventory](formalcd-trace.md) covers metadata, compatible vocabulary, Figure 21c and guarded Figure 21b models. The separate [restricted realization](metamodel-realization.md) proves a bounded semantic self-instance under its canonical context; syntactic self-description alone does not imply it. |
-| Structural Clafer | [Resolved syntax and Shapes](https://github.com/kbak/clafer-lean/issues/3) support [MCS disciplines](https://github.com/kbak/clafer-lean/issues/20) and [typed constraints](https://github.com/kbak/clafer-lean/issues/21), then [Compile](https://github.com/kbak/clafer-lean/issues/22), [resolved-referent gluing](https://github.com/kbak/clafer-lean/issues/23) and [representative integration](https://github.com/kbak/clafer-lean/issues/24). | [Compile](compile.md) and gluing retain their input and default-completeness assumptions. [Representative models](representative-models.md) check structure, xor groups and version attachment. [Core denotation](constraint-denotation.md) and [selected preservation](constraint-preservation.md) connect typed bodies to predicate satisfaction; the [complete Appendix 6 model](telematics.md) supplies simultaneous satisfaction for one concrete model. Textual elaboration and unrestricted compiler correctness remain outside these results. |
+| Reusable DP-graphs | [Graph representation](https://github.com/kbak/clafer-semantics/issues/13) → [typed declarations and maps](https://github.com/kbak/clafer-semantics/issues/14) → [category and model restriction](https://github.com/kbak/clafer-semantics/issues/15), with [split restriction laws](https://github.com/kbak/clafer-semantics/issues/28) and [conditional pushouts](https://github.com/kbak/clafer-semantics/issues/30). Separately, [link-preserving spans](https://github.com/kbak/clafer-semantics/issues/4) support [concrete predicate meanings](https://github.com/kbak/clafer-semantics/issues/16). | The [DPGraph proof inventory](dpgraph-trace.md) covers these results. The library remains independently importable; pushout and amalgamation results require a supplied carrier pushout. |
+| Formal class diagrams | Concrete predicates → [CD structure and morphisms](https://github.com/kbak/clafer-semantics/issues/17) → [metamodel vocabulary and disciplines](https://github.com/kbak/clafer-semantics/issues/18) → [bounded self-description and telematics](https://github.com/kbak/clafer-semantics/issues/19). | The [FormalCD proof inventory](formalcd-trace.md) covers metadata, compatible vocabulary, Figure 21c and guarded Figure 21b models. The separate [restricted realization](metamodel-realization.md) proves a bounded semantic self-instance under its canonical context; syntactic self-description alone does not imply it. |
+| Structural Clafer | [Resolved syntax and Shapes](https://github.com/kbak/clafer-semantics/issues/3) support [MCS disciplines](https://github.com/kbak/clafer-semantics/issues/20) and [typed constraints](https://github.com/kbak/clafer-semantics/issues/21), then [Compile](https://github.com/kbak/clafer-semantics/issues/22), [resolved-referent gluing](https://github.com/kbak/clafer-semantics/issues/23) and [representative integration](https://github.com/kbak/clafer-semantics/issues/24). | [Compile](compile.md) and gluing retain their input and default-completeness assumptions. [Representative models](representative-models.md) check structure, xor groups and version attachment. [Core denotation](constraint-denotation.md) and [selected preservation](constraint-preservation.md) connect typed bodies to predicate satisfaction; the [complete Appendix 6 model](telematics.md) supplies simultaneous satisfaction for one concrete model. Textual elaboration and unrestricted compiler correctness remain outside these results. |
 
 ### Nine architectural decision areas
 

@@ -37,13 +37,13 @@ Browse the source map by topic:
   [shared foundations](#reusable-semantic-foundations).
 
 The decision history is retained in the
-[formalization roadmap issue](https://github.com/kbak/clafer-lean/issues/2) and
-[source-audit review PR](https://github.com/kbak/clafer-lean/pull/40), the
-[supporting-source issue](https://github.com/kbak/clafer-lean/issues/41) and
-[assessment PR](https://github.com/kbak/clafer-lean/pull/43), and the
-[graph representation issue](https://github.com/kbak/clafer-lean/issues/13) and
-[design review PR](https://github.com/kbak/clafer-lean/pull/39).
-The [self-description and telematics PR](https://github.com/kbak/clafer-lean/pull/38)
+[formalization roadmap issue](https://github.com/kbak/clafer-semantics/issues/2) and
+[source-audit review PR](https://github.com/kbak/clafer-semantics/pull/40), the
+[supporting-source issue](https://github.com/kbak/clafer-semantics/issues/41) and
+[assessment PR](https://github.com/kbak/clafer-semantics/pull/43), and the
+[graph representation issue](https://github.com/kbak/clafer-semantics/issues/13) and
+[design review PR](https://github.com/kbak/clafer-semantics/pull/39).
+The [self-description and telematics PR](https://github.com/kbak/clafer-semantics/pull/38)
 records the bounded metamodel and Figure 21b implementation. Further source
 acquisition remains conditional on a necessary claim lacking adequate evidence.
 
@@ -245,7 +245,7 @@ and 359; pp. 349, 351, 358 and 360 remain unavailable.
 
 The inspected passages inform the comparisons of keys, names and marked arities
 below. Detailed provenance and file identities are retained with the research
-evidence tracked by the [supporting-source assessment issue](https://github.com/kbak/clafer-lean/issues/41).
+evidence tracked by the [supporting-source assessment issue](https://github.com/kbak/clafer-semantics/issues/41).
 
 | Inspected locator | Finding and applicability boundary |
 | --- | --- |
@@ -328,7 +328,7 @@ proved; any future inferred declarations need their own soundness argument.
 
 ### Metamodel realization and translational semantics
 
-The [realization investigation](https://github.com/kbak/clafer-lean/issues/100)
+The [realization investigation](https://github.com/kbak/clafer-semantics/issues/100)
 separates faithful encoding of CD syntax, semantic self-instantiation of the
 particular metamodel, and source-language preservation through Compile/gluing.
 The [restricted theorem](metamodel-realization.md) constructs the exact syntax
@@ -495,7 +495,7 @@ The scoped negative search cannot rule out other libraries or later versions.
 
 ## Span composition and relational reduction
 
-The [span-library issue](https://github.com/kbak/clafer-lean/issues/4) covers SoSyM B.1 Definitions
+The [span-library issue](https://github.com/kbak/clafer-semantics/issues/4) covers SoSyM B.1 Definitions
 1–5, Theorems 1–2 and B.2.1–2. Its accepted implementation scope adopts the
 correction below. The [span library](../DPGraph/Span.lean) implements that law and
 its exact stronger-isomorphism criterion. This is a selected correction, not a
@@ -602,7 +602,7 @@ link their requirement and proof obligations.
 | Counterexamples | [Examples.lean](../DPGraph/Span/Examples.lean): `Span.Examples.twoPaths`, `.oneReducedPair`, `.second_singleValued_not_sufficient`, `.parallel_uniqueIntermediate`, `.parallel_composite_not_iso` |
 
 Universe bounds remain compatible with the category and model-restriction
-contract recorded in the [semantics issue](https://github.com/kbak/clafer-lean/issues/15):
+contract recorded in the [semantics issue](https://github.com/kbak/clafer-semantics/issues/15):
 the family-to-span head lies in the maximum of source and index universes, and
 the relation head in the maximum of the endpoint universes. A roundtrip need not
 return a head in the original syntactic universe. Explicit joins and the mixed-universe
@@ -610,7 +610,7 @@ examples track these bounds without imposing one global universe or a resizing a
 
 The span library requires no bicategory, quotient of all spans, global finiteness
 or executable object generation. The predicate contracts below, accepted in the
-[concrete-predicates issue](https://github.com/kbak/clafer-lean/issues/16),
+[concrete-predicates issue](https://github.com/kbak/clafer-semantics/issues/16),
 interpret Table 3 commutation and inverse using link-preserving isomorphism;
 equality of reduced relations alone does not establish these predicates.
 
@@ -632,15 +632,15 @@ Covers:
 
 | Construct and exact SoSyM locator | Representation and obligations | Implemented result and decision history |
 | --- | --- | --- |
-| Predicate catalogue: B.3 Table 3, §6.1.1–2, A.1 Table 2 | Separate typed arities and span meanings; invariance, multiplicity and empty/repeated-family boundaries; [common-target disjointness correction (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction) | Selected vocabulary is proved; the [predicate implementation PR](https://github.com/kbak/clafer-lean/pull/34) records delivery. Unsupported predicates remain deferred. |
-| Formal CD: §6.1.1–3, Figure 21a–b | Raw/bundled CD, registry, naming and effective defaults; name-preserving morphisms are an explicit library specialization | Structure and morphisms are implemented in the [formal-CD PR](https://github.com/kbak/clafer-lean/pull/35); whole Figure 21b models and guarded version comparison are implemented in the [telematics PR](https://github.com/kbak/clafer-lean/pull/38). |
-| Metamodel: §6.1.3, Figure 21c | Compatible vocabulary, nd/ad disciplines, full graph bindings; separate syntactic self-description from semantic instantiation | The [metamodel PR](https://github.com/kbak/clafer-lean/pull/36) implements these disciplines. [Bounded self-description](architecture.md#bounded-self-description-and-figure-21b) retains the literal-key and argument-totality limits below. |
-| Syntax and individual Shapes: §5.2 Figure 16, §6.2.2 Figure 22, Appendix 3 | Resolved deep AST and individual Shapes; IDs, containment, inheritance, references, abstractness, root/domains and finite traversal | [resolved syntax and Shapes issue](https://github.com/kbak/clafer-lean/issues/3), [implementation and proofs](clafer-trace.md) |
-| MCS: §6.2.3 Figure 23, Tables 5–8 (see Appendix 5) | Accepted guarded incidence/naming and analogous expansion, preserving exact Shape presence rules and distinct identity levels; see the [inventory](mcs-invariants.md). The accepted [Q9](mcs-invariants.md#figure-23-source-multiplicity-correction) correction applies source `0..1` to the four ordinary-map and three inclusion-role associations, retaining exact Shape presence. | The [MCS disciplines issue](https://github.com/kbak/clafer-lean/issues/20) records accepted guards and ownership bounds; role/referent/name separation is retained. |
-| Constraints: Appendix D.1–D.4 | Resolved typed core, lexical binders, both joins, explicit inheritance widening and finite graph support; meaning remains distinct from syntax | The [core-typing issue](https://github.com/kbak/clafer-lean/issues/21) records delivery; Appendix 4 notation decisions appear below. |
-| Compile: §6.2.4 | [Structural Compile](compile.md): finite resolved-AST-to-MCS construction; derived termination, freshness, incidence, cojoining and kind/name preservation under explicit input well-formedness | The [Compile issue](https://github.com/kbak/clafer-lean/issues/22) records delivery. Its construction depends on resolved syntax, MCS disciplines and typed constraint support. |
-| Gluing: §6.2.5 and B.4 Definition 10 | Used-referent graph with approved [Q4](sources.md#mcs-gluing-and-the-approved-q4-rule) incidence/metadata consistency, exact declaration image and DP labeling; separate CD validity under naming/default completeness | [resolved-referent gluing issue](https://github.com/kbak/clafer-lean/issues/23), [construction and proofs](#mcs-gluing-and-the-approved-q4-rule); no global pushout existence |
-| Integration: Appendix 6 and selected earlier figures | [Representative examples](representative-models.md) exercise Compile/gluing with explicit coverage limits; the [complete Appendix 6 model](telematics.md) separately satisfies all twelve bodies | [representative integration issue](https://github.com/kbak/clafer-lean/issues/24) and [complete Appendix 6 model issue](https://github.com/kbak/clafer-lean/issues/64), delivered under their distinct contracts |
+| Predicate catalogue: B.3 Table 3, §6.1.1–2, A.1 Table 2 | Separate typed arities and span meanings; invariance, multiplicity and empty/repeated-family boundaries; [common-target disjointness correction (Q8)](sources.md#predicate-contracts-and-the-accepted-q8-correction) | Selected vocabulary is proved; the [predicate implementation PR](https://github.com/kbak/clafer-semantics/pull/34) records delivery. Unsupported predicates remain deferred. |
+| Formal CD: §6.1.1–3, Figure 21a–b | Raw/bundled CD, registry, naming and effective defaults; name-preserving morphisms are an explicit library specialization | Structure and morphisms are implemented in the [formal-CD PR](https://github.com/kbak/clafer-semantics/pull/35); whole Figure 21b models and guarded version comparison are implemented in the [telematics PR](https://github.com/kbak/clafer-semantics/pull/38). |
+| Metamodel: §6.1.3, Figure 21c | Compatible vocabulary, nd/ad disciplines, full graph bindings; separate syntactic self-description from semantic instantiation | The [metamodel PR](https://github.com/kbak/clafer-semantics/pull/36) implements these disciplines. [Bounded self-description](architecture.md#bounded-self-description-and-figure-21b) retains the literal-key and argument-totality limits below. |
+| Syntax and individual Shapes: §5.2 Figure 16, §6.2.2 Figure 22, Appendix 3 | Resolved deep AST and individual Shapes; IDs, containment, inheritance, references, abstractness, root/domains and finite traversal | [resolved syntax and Shapes issue](https://github.com/kbak/clafer-semantics/issues/3), [implementation and proofs](clafer-trace.md) |
+| MCS: §6.2.3 Figure 23, Tables 5–8 (see Appendix 5) | Accepted guarded incidence/naming and analogous expansion, preserving exact Shape presence rules and distinct identity levels; see the [inventory](mcs-invariants.md). The accepted [Q9](mcs-invariants.md#figure-23-source-multiplicity-correction) correction applies source `0..1` to the four ordinary-map and three inclusion-role associations, retaining exact Shape presence. | The [MCS disciplines issue](https://github.com/kbak/clafer-semantics/issues/20) records accepted guards and ownership bounds; role/referent/name separation is retained. |
+| Constraints: Appendix D.1–D.4 | Resolved typed core, lexical binders, both joins, explicit inheritance widening and finite graph support; meaning remains distinct from syntax | The [core-typing issue](https://github.com/kbak/clafer-semantics/issues/21) records delivery; Appendix 4 notation decisions appear below. |
+| Compile: §6.2.4 | [Structural Compile](compile.md): finite resolved-AST-to-MCS construction; derived termination, freshness, incidence, cojoining and kind/name preservation under explicit input well-formedness | The [Compile issue](https://github.com/kbak/clafer-semantics/issues/22) records delivery. Its construction depends on resolved syntax, MCS disciplines and typed constraint support. |
+| Gluing: §6.2.5 and B.4 Definition 10 | Used-referent graph with approved [Q4](sources.md#mcs-gluing-and-the-approved-q4-rule) incidence/metadata consistency, exact declaration image and DP labeling; separate CD validity under naming/default completeness | [resolved-referent gluing issue](https://github.com/kbak/clafer-semantics/issues/23), [construction and proofs](#mcs-gluing-and-the-approved-q4-rule); no global pushout existence |
+| Integration: Appendix 6 and selected earlier figures | [Representative examples](representative-models.md) exercise Compile/gluing with explicit coverage limits; the [complete Appendix 6 model](telematics.md) separately satisfies all twelve bodies | [representative integration issue](https://github.com/kbak/clafer-semantics/issues/24) and [complete Appendix 6 model issue](https://github.com/kbak/clafer-semantics/issues/64), delivered under their distinct contracts |
 
 ### Question dispositions and validation tasks
 
@@ -653,12 +653,12 @@ source gaps. Keep the original issue discussions as the decision history.
 
 | Question | Disposition and alternatives | Validation and owner |
 | --- | --- | --- |
-| Q1 — B.2.1 composition | Accepted: retain pullback links and prove equality after reduction. The unqualified relational-span isomorphism is false. | The [span implementation PR](https://github.com/kbak/clafer-lean/pull/32) supplies `Span.red_comp`, the exact endpoint-injectivity criterion and two-path/parallel-link counterexamples; [source comparison](#span-composition-q1-research-for-4). |
+| Q1 — B.2.1 composition | Accepted: retain pullback links and prove equality after reduction. The unqualified relational-span isomorphism is false. | The [span implementation PR](https://github.com/kbak/clafer-semantics/pull/32) supplies `Span.red_comp`, the exact endpoint-injectivity criterion and two-path/parallel-link counterexamples; [source comparison](#span-composition-q1-research-for-4). |
 | Q2 — Appendix 5 analogous clauses | Accepted: incidence/naming equations apply only to present roles; existing Shape rules separately require or forbid each role. The analogous expansion includes Sing/root, every supported primitive domain, the accepted parentless exception and both directions of canonical naming equivalences. | The [complete Table 5–8 inventory](mcs-invariants.md#appendix-e-inventory) enumerates the guards. The inventory links definitions and positive/negative witnesses; the accepted Figure 23 multiplicity correction is [Q9](mcs-invariants.md#figure-23-source-multiplicity-correction). |
 | Q3 — Appendix 4 notation | Resolved for the selected core: ordinary common-element intersection is already printed as ∩ in D.4.2. D.4.1 equates E and S on set expressions, reconciling the mixed subscripts. D.1–D.3 govern typing; the implementation boundary is enumerated below. | [Core constraint typing](spec.md#resolved-core-constraint-typing) supplies typed syntax and explicit inheritance paths. The [denotation extension](constraint-denotation.md) supplies independent core meanings, local finite cardinality and the [singleton-extraction bridge](integer-extraction.md); no compiler-preservation theorem follows from a signature. |
 | Q4 — labels and identity | Accepted MCS representation: preserve role identities separately from resolved class/map referents and displayed names, and state the identity level of cojoining equalities. Repeated parent/dref/isA strings do not identify arrows. Approved [Q4](sources.md#mcs-gluing-and-the-approved-q4-rule): identify exactly equal class/map referents; equal map referents require equal endpoint class referents, and identified roles require equal names, predefined identities/kinds and modes. Reject conflicts. | The [MCS representation](mcs-invariants.md) retains the data needed for intended identifications and repeated-name witnesses; [resolved-referent gluing](architecture.md#mcs-gluing) implements this congruence and proves endpoint/declaration preservation, then separate CD validity under explicit default assumptions. [Structural Compile](compile.md) retains generated identities. Existing `FormalCD` names remain metadata. |
 | Q5 — self-description | Bounded syntactic representation and a separate restricted semantic self-instance are delivered. Universal every-CD realizability and a universe fixpoint remain outside scope. | The [bounded self-description proof](formalcd-trace.md#bounded-syntactic-self-description-proof) establishes representation/well-formedness in explicit `CDOver` parameters. Preserve the ordered/isolated/repeated binding witnesses and literal key/total-args limits below. The [realization contract](metamodel-realization.md) supplies explicit source support/separation and proves the particular self-instance without changing those limits. |
-| Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Visual inspection alone does not replace a construct-by-construct inventory. | The [supporting-source assessment issue](https://github.com/kbak/clafer-lean/issues/41) records the bounded assessment and reviewed source disposition. The [syntax correspondence](#resolved-2014-clafer-and-individual-shapes), [MCS inventory](mcs-invariants.md) and [representative coverage](representative-models.md) pair Figures 16/22/23 and Appendix 6 with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
+| Q6 — acquisition and visual completeness | Partial audit: 2003 full text missing; twelve recovered 2000 pages inspected with four page gaps. The criticality assessment above records alternate evidence and conditional acquisition. Visual inspection alone does not replace a construct-by-construct inventory. | The [supporting-source assessment issue](https://github.com/kbak/clafer-semantics/issues/41) records the bounded assessment and reviewed source disposition. The [syntax correspondence](#resolved-2014-clafer-and-individual-shapes), [MCS inventory](mcs-invariants.md) and [representative coverage](representative-models.md) pair Figures 16/22/23 and Appendix 6 with text, labels, incidence and examples. Reopen acquisition for a named necessary claim lacking adequate primary evidence; never mark unread definitions audited. |
 | Q7 — VC order and guard | Accepted: display.version ≥ server.version, guarded by a nonempty server fiber. Contrary adjacent PDF p.18 prose is the discrepancy. | The [guarded correspondence and whole-model proofs](#figure-21b-and-the-accepted-q7-correction) establish these cases: greater/equal pass, lower fails VC, absent server passes. No remaining implementation task for this correction. |
 | Q8 — disjointness shape | Accepted: §6.1.2/Figure 21 common-target maps with nonoverlapping images; Table 3's common-source shape is erroneous. | The [predicate proofs](dpgraph-trace.md#corrected-disjointness-proofs) establish typed arity, interpretation and overlap/repeated-nonempty-binding failures. [Contract below](#predicate-contracts-and-the-accepted-q8-correction); no second predicate or source-object inequality. |
 | Q9 — Figure 23 source multiplicities | Accepted source correction: source `0..1` on the four ordinary-map and three inclusion-role associations means unique ownership within each image. The printed lower bounds force every MapRole into both parent_map and dref_map images, contradicting their distinct Table 8 names. | Shape/inheritance guards still require or forbid roles exactly. Head-class and formula source `1` are unchanged. The [correction and proof map](mcs-invariants.md#figure-23-source-multiplicity-correction) link the typed representation and nonempty witnesses. |
@@ -674,7 +674,7 @@ design rationale and proof-status boundaries separately from ticket completion.
 
 The published article identified above places D.1/Figure 28 on PDF p.32,
 D.2 on PDF pp.32–33,
-and D.3–D.4 on PDF pp.33–34. The [core constraint typing issue](https://github.com/kbak/clafer-lean/issues/21)
+and D.3–D.4 on PDF pp.33–34. The [core constraint typing issue](https://github.com/kbak/clafer-semantics/issues/21)
 disposition follows D.1–D.3 for typing and the maintainer's Alloy-inspired
 relational set reading. Alloy is supplementary guidance, not a replacement
 specification. No compiler implementation or third-party code is incorporated.
@@ -731,7 +731,7 @@ exactly the implemented claims.
 ## Integer extraction and Appendix 6 version operands
 
 The [integer-extraction contract](integer-extraction.md), accepted in the
-[primitive-navigation issue](https://github.com/kbak/clafer-lean/issues/67), extends the D.3–D.4
+[primitive-navigation issue](https://github.com/kbak/clafer-semantics/issues/67), extends the D.3–D.4
 boundary with an explicit partial unary collection-to-integer operation. This is
 a selected implementation contract for the primitive bridge, not a claim that
 the paper spells out a runtime error API. Success requires an exact singleton of
@@ -762,7 +762,7 @@ and retains these singleton obligations.
 
 ## Predicate contracts and the accepted Q8 correction
 
-The [predicate-vocabulary issue](https://github.com/kbak/clafer-lean/issues/16) selects Table 3
+The [predicate-vocabulary issue](https://github.com/kbak/clafer-semantics/issues/16) selects Table 3
 (PDF p.13), §6.1.1–2 and Figure 21 (PDF pp.18–20), Appendix A.1 (PDF p.28),
 and B.1–3 (PDF pp.28–30) of the hashed published article above. The maintainer accepted
 §6.1.2/Figure 21's common-target disjointness meaning: distinct family members
@@ -820,7 +820,7 @@ not additional claims attributed verbatim to the paper.
 
 ## FormalCD structure and selected morphisms
 
-The [formal-CD structure issue](https://github.com/kbak/clafer-lean/issues/17) adopts
+The [formal-CD structure issue](https://github.com/kbak/clafer-semantics/issues/17) adopts
 the structural contract from the same hashed published SoSyM article, §6.1.1–3 and Figure
 21b–c (PDF p.19; explanation PDF pp.20–21), over B.4 Definitions 6–10. The correspondence is:
 
@@ -857,7 +857,7 @@ formalized contracts and acceptance witnesses to their Lean declarations.
 ## Figure 21c metamodel
 
 The metamodel implementation, specified in the
-[Figure 21c issue](https://github.com/kbak/clafer-lean/issues/18), independently formalizes
+[Figure 21c issue](https://github.com/kbak/clafer-semantics/issues/18), independently formalizes
 §6.1.1–3, Figure 21c on PDF p.19, the explanation on PDF p.21 and B.4 Definition 8
 on PDF p.31 of the 37-page publisher e-offprint with SHA-256
 `653fc7868637680c44b6176d8ff643ec20149534fe1681ea4fc4ce636db76f2d`.
@@ -973,7 +973,7 @@ remain separate instance conditions, with the projection failures above intact.
 
 ## Figure 21b and the accepted Q7 correction
 
-The [telematics issue](https://github.com/kbak/clafer-lean/issues/19) selects the corrected
+The [telematics issue](https://github.com/kbak/clafer-semantics/issues/19) selects the corrected
 inequality **display.version ≥ server.version**. Figure 8 line 9 (PDF p.10), its
 accompanying §4.2.3 discussion and Appendix 6 (PDF p.34) support this direction.
 Section 4.3 (PDF pp.10–11) supplies the configuration context.
@@ -1023,7 +1023,7 @@ syntactic self-description theorem and the Figure 21c fragment witnesses.
 ## Resolved 2014 Clafer and individual Shapes
 
 The syntax and Shapes implementation, specified in the
-[resolved-syntax issue](https://github.com/kbak/clafer-lean/issues/3), covers selected
+[resolved-syntax issue](https://github.com/kbak/clafer-semantics/issues/3), covers selected
 constructs from the same 37-page publisher e-offprint (SHA-256
 `653fc7868637680c44b6176d8ff643ec20149534fe1681ea4fc4ce636db76f2d`).
 Figures 16, 22 and 23 were visually cross-checked against their accompanying
@@ -1102,8 +1102,8 @@ No third-party implementation or publication text is copied into these modules.
 ## Pinned compiler compatibility audit
 
 The [resolved-IR comparison contract](resolved-ir-comparison.md) records the
-documentation/source audit specified in the [compiler compatibility audit issue](https://github.com/kbak/clafer-lean/issues/49),
-under the [bounded semantic comparison project issue](https://github.com/kbak/clafer-lean/issues/48), against compiler commit
+documentation/source audit specified in the [compiler compatibility audit issue](https://github.com/kbak/clafer-semantics/issues/49),
+under the [bounded semantic comparison project issue](https://github.com/kbak/clafer-semantics/issues/48), against compiler commit
 [`15adb2216909421bcb5022174d2d84ef2b42307c`](https://github.com/gsdlab/clafer/tree/15adb2216909421bcb5022174d2d84ef2b42307c)
 (package 0.5.3), with its MIT license inspected. Its matrix maps exact compiler
 passes/fields to SoSyM §§5.3–5.5, 6.1–6.2/Figures 16/22/23, Appendices 1–3/5
@@ -1130,7 +1130,7 @@ and [Q9](mcs-invariants.md#figure-23-source-multiplicity-correction) presence/ow
 Repeated references to one uniquely declared `DeclId` share its resolved class;
 separate declaration heads retain fresh identities even when names coincide.
 This sharing contract was accepted in the
-[Compile issue](https://github.com/kbak/clafer-lean/issues/22) and is consistent with §6.2.5's one class in multiple roles. The inspected
+[Compile issue](https://github.com/kbak/clafer-semantics/issues/22) and is consistent with §6.2.5's one class in multiple roles. The inspected
 2000 p.354 passage supports the name/semantic-marker distinction but does not
 settle general [Q4](sources.md#mcs-gluing-and-the-approved-q4-rule) gluing.
 
@@ -1163,7 +1163,7 @@ gluing proofs establish the bounded correspondence, not whole-language semantics
 Primary source: SoSyM §6.2.5 (PDF p.23) describes labeling from class/map roles to
 the classes/maps they denote and preservation of predicate declarations.
 Appendix B.4 Definition 10 (PDF p.31) supplies the declaration-preserving DP-morphism
-condition. The [resolved-referent gluing issue](https://github.com/kbak/clafer-lean/issues/23)
+condition. The [resolved-referent gluing issue](https://github.com/kbak/clafer-semantics/issues/23)
 selects the equality rule: equal classReferent/mapReferent values, with endpoint
 and metadata consistency required of the input. This is an explicit adopted
 interpretation of the paper's labels, not a theorem deriving identity from names.
@@ -1219,7 +1219,7 @@ is explanatory input, not evidence of a verified parser or elaborator.
 
 ## Declaration disjointness clarification
 
-The [declaration-disjointness issue](https://github.com/kbak/clafer-lean/issues/87) adopts the static Alloy
+The [declaration-disjointness issue](https://github.com/kbak/clafer-semantics/issues/87) adopts the static Alloy
 translation's declaration-identity rule: distinct resolved declaration extents
 are disjoint unless one declaration reaches the other through super edges.
 This includes nested declarations and different inheritance trees. Containment

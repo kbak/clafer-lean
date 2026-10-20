@@ -8,8 +8,8 @@ importable and new Lean modules under their owning root.
 Read the canonical [intent and documentation map](docs/intent.md),
 [architecture](docs/architecture.md), affected [requirements](docs/spec.md), and
 [source map](docs/sources.md) before extending a layer. They own current scope,
-contracts, paper correspondences and accepted corrections. [Roadmap #2](https://github.com/kbak/clafer-lean/issues/2)
-and [design #13](https://github.com/kbak/clafer-lean/issues/13) retain decision history.
+contracts, paper correspondences and accepted corrections. [Roadmap #2](https://github.com/kbak/clafer-semantics/issues/2)
+and [design #13](https://github.com/kbak/clafer-semantics/issues/13) retain decision history.
 
 Preserve the semantic boundaries: full graph bindings, literal bag keys and
 argument totality are separate; bounded syntactic self-description does not imply

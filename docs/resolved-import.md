@@ -3,7 +3,7 @@
 The importer checks resolved compiler JSON inside
 `Clafer/Verification/`, with external capture/protocol code under
 `scripts/verification/`, as specified in the
-[resolved-import issue](https://github.com/kbak/clafer-lean/issues/51). It targets the accepted S fragment in the
+[resolved-import issue](https://github.com/kbak/clafer-semantics/issues/51). It targets the accepted S fragment in the
 [comparison contract](resolved-ir-comparison.md), using the
 [effective core and finite checker](structural-checker.md). The [bounded comparison
 harness](bounded-comparison.md) supplies candidate pinning, scoped solver execution,
