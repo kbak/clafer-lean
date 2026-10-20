@@ -194,7 +194,7 @@ software DOI, release date or stable-API promise. A research snapshot is tagged
 only after validation and independent semantic review of the selected commit;
 keep its review disposition and evidence outside living documentation.
 
-It distinguishes repository `kbak/clafer-lean` from its single Lake package
+It distinguishes repository `kbak/clafer-semantics` from its single Lake package
 `clafer`, with sibling public `DPGraph`, `FormalCD` and `Clafer` roots and the
 dependency direction above. It distinguishes the delivered B.1 Definitions 1–5,
 Theorems 1–2 and B.2.1–2 span operations (with the adopted [Q1](sources.md#span-composition-q1-research-for-4) reduction law),

@@ -1,6 +1,6 @@
-# Working on Clafer Lean
+# Working on Clafer Semantics
 
-The repository is `kbak/clafer-lean`; its single Lake package is `clafer`.
+The repository is `kbak/clafer-semantics`; its single Lake package is `clafer`.
 The sibling public roots are `DPGraph`, `FormalCD` and `Clafer`, with permitted
 dependencies `Clafer -> FormalCD -> DPGraph -> Mathlib`. Keep DPGraph independently
 importable and new Lean modules under their owning root.

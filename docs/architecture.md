@@ -6,7 +6,7 @@ representations were chosen, and what their proofs establish. Read the
 for correspondence with the paper, and the trace maps for individual
 implementation and proof declarations.
 
-The repository `kbak/clafer-lean` contains one Lake package, `clafer`, with sibling
+The repository `kbak/clafer-semantics` contains one Lake package, `clafer`, with sibling
 public roots. Imports flow `Clafer -> FormalCD -> DPGraph -> Mathlib`.
 
 | Layer | Responsibility | Public entrypoint |

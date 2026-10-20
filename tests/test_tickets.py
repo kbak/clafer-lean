@@ -19,7 +19,7 @@ class TicketTests(unittest.TestCase):
     def test_public_issue_creation_never_accesses_private_project(self):
         with (
             tempfile.NamedTemporaryFile() as body,
-            patch.object(tickets, "gh", return_value="https://github.com/kbak/clafer-lean/issues/7") as gh,
+            patch.object(tickets, "gh", return_value="https://github.com/kbak/clafer-semantics/issues/7") as gh,
             patch.object(tickets, "track") as tracking,
             contextlib.redirect_stdout(io.StringIO()) as output,
         ):
@@ -28,7 +28,7 @@ class TicketTests(unittest.TestCase):
         tracking.assert_not_called()
         self.assertEqual(gh.call_count, 1)
         self.assertEqual(gh.call_args.args[:2], ("issue", "create"))
-        self.assertIn("https://github.com/kbak/clafer-lean/issues/7", output.getvalue())
+        self.assertIn("https://github.com/kbak/clafer-semantics/issues/7", output.getvalue())
 
     def test_public_issue_close_never_accesses_private_project(self):
         with (
@@ -57,7 +57,7 @@ class TicketTests(unittest.TestCase):
                 tickets,
                 "gh",
                 side_effect=[
-                    {"url": "https://github.com/kbak/clafer-lean/issues/7"},
+                    {"url": "https://github.com/kbak/clafer-semantics/issues/7"},
                     {"id": "ITEM"},
                     {
                         "fields": [
@@ -88,7 +88,7 @@ class TicketTests(unittest.TestCase):
             patch.object(
                 tickets,
                 "gh",
-                return_value="https://github.com/kbak/clafer-lean/issues/7",
+                return_value="https://github.com/kbak/clafer-semantics/issues/7",
             ) as gh,
             patch.object(tickets, "track", side_effect=failure),
             contextlib.redirect_stdout(output),

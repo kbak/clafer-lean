@@ -7,7 +7,7 @@
 Develop a maintainable Lean 4 formalization grounded in the published SoSyM paper
 (online 2014; journal issue 2016),
 with reusable foundations supporting structural Clafer. The repository
-`kbak/clafer-lean` contains one Lake package, `clafer`, and sibling public roots
+`kbak/clafer-semantics` contains one Lake package, `clafer`, and sibling public roots
 `DPGraph`, `FormalCD` and `Clafer`. Dependencies flow
 `Clafer -> FormalCD -> DPGraph -> Mathlib`; `DPGraph` remains independently importable.
 Reusable span/navigation laws and

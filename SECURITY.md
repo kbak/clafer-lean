@@ -5,7 +5,7 @@
 This is an early research project without supported releases. Security fixes
 apply to the current `main` branch.
 
-Please [report a vulnerability privately through GitHub](https://github.com/kbak/clafer-lean/security/advisories/new).
+Please [report a vulnerability privately through GitHub](https://github.com/kbak/clafer-semantics/security/advisories/new).
 Private vulnerability reporting is enabled. Include the affected revision,
 potential impact, reproduction steps, and a suggested fix if available. Never
 include credentials. A GitHub account is required to submit a report.

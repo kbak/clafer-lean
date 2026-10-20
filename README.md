@@ -1,9 +1,9 @@
-# Clafer Lean
+# Clafer Semantics
 
 <!-- [impl->req~public-foundation~1] -->
 
-[![CI](https://github.com/kbak/clafer-lean/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kbak/clafer-lean/actions/workflows/ci.yml)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kbak/clafer-lean)
+[![CI](https://github.com/kbak/clafer-semantics/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kbak/clafer-semantics/actions/workflows/ci.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kbak/clafer-semantics)
 
 **A [Lean 4](https://lean-lang.org/) formalization of Clafer's modeling semantics.**
 [Clafer](https://www.clafer.org/) combines class modeling, feature modeling, and
@@ -45,8 +45,8 @@ it does not establish universal compiler correctness. See the [current scope](do
 Install Git and [Lean via elan](https://lean-lang.org/install/), then:
 
 ```sh
-git clone https://github.com/kbak/clafer-lean.git
-cd clafer-lean
+git clone https://github.com/kbak/clafer-semantics.git
+cd clafer-semantics
 lake exe cache get
 lake build
 ```
@@ -78,7 +78,7 @@ building these Lean examples does not require Java, Haskell or Alloy.
 ## Contribute
 
 Questions, bug reports, documentation improvements, and small proof contributions
-are welcome. Start with the [issues](https://github.com/kbak/clafer-lean/issues)
+are welcome. Start with the [issues](https://github.com/kbak/clafer-semantics/issues)
 and [contribution guide](CONTRIBUTING.md). Discuss semantic changes in an issue
 before implementation, identifying the relevant paper sections and acceptance criteria.
 

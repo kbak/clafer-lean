@@ -7,7 +7,7 @@ A reading companion to *Clafer: unifying class and feature modeling*, using the
 first cover sheet of the 37-page personal e-offprint; the article starts on PDF
 page 3. The [edition crosswalk](sources.md#published-locators-and-legacy-aliases)
 maps the preprint’s appendices and pages to the publication. All corrections below
-remain necessary in the published text. They are adopted by Clafer Lean, not
+remain necessary in the published text. They are adopted by Clafer Semantics, not
 publisher-issued errata. Clarifications distinguish source explanations from
 explicit choices made in the formalization.
 
@@ -122,7 +122,7 @@ with zero arguments, although zero-arrow arities are valid under Definition 8.
 a formal class diagram establishes syntactic self-description. Establishing that
 a diagram is a semantic instance additionally requires an interpretation and
 satisfaction of every effective declaration, including naming, arity, key and
-totality conditions. Clafer Lean proves bounded syntactic self-description and,
+totality conditions. Clafer Semantics proves bounded syntactic self-description and,
 separately, a [semantic self-instance](metamodel-realization.md#assessment-for-the-particular-metamodel)
 under a canonical bounded context after proving arrow support and bag separation.
 This does not establish that every formal CD is an instance of Figure 21c or
